@@ -54,6 +54,9 @@ import NabhiContactTamil from './pages/NabhiTamil/NabhiContactTamil'
 // Payment pages
 import ExcFaliurePageHindi from './pages/razorpayPayments/ExcFaliurePageHindi'
 
+//Pages
+import Home from './pages/NabhiHome/Home'
+
 // ── App ─────────────────────────────────────────────────────────────────────────
 export const backendurl = import.meta.env.VITE_BACKEND_URL;
 
@@ -61,6 +64,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+
+
+        {/* ── Pages ─────────────────────────────────────────────────── */}
+        <Route path="/" element={<Home/>}/>
+
         {/* ── Hindi Pages ─────────────────────────────────────────────────── */}
         <Route path="/products/nabhi-joint-hn" element={<NabhiJointPage />} />
         <Route path="/products/nabhi-eye-hn" element={<NabhiEyePage />} />
