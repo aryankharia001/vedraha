@@ -55,7 +55,7 @@ import NabhiContactTamil from './pages/NabhiTamil/NabhiContactTamil'
 import ExcFaliurePageHindi from './pages/razorpayPayments/ExcFaliurePageHindi'
 
 // ── App ─────────────────────────────────────────────────────────────────────────
-export const backendurl = import.meta.env.VITE_BACKEND_URL || ''
+export const backendurl = import.meta.env.VITE_BACKEND_URL;
 
 function App() {
   return (

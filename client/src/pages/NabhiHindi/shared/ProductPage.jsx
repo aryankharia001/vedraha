@@ -309,6 +309,8 @@ export default function ProductPage({ config, relatedProducts = [] }) {
 
   const handleBuyNowDirect = (e) => {
     // trackFacebookEvent("InitiateCheckout");
+
+    console.log("B : ",backendurl)
     const v = variants.find((vv) => vv.id === selectedVariant);
     const checkoutItems = [{ cartId: `${product.id}-${v.id}-buynow`, productId: product.id, productName: product.name, productTagline: product.tagline, productImage: product.image, variantId: String(v.externalVariantId), variantLabel: v.label, variantPrice: v.price, variantPriceNum: v.priceNum, quantity }];
     openShiprocketGateway(e?.nativeEvent ?? e ?? new MouseEvent("click", { bubbles: true }), checkoutItems);
