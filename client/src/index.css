@@ -1,1 +1,134 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap');
+
+/* ═══════════════════════════════════════════════════════════════
+   Nabhi Design System — Enhanced with Depth & Modern Typography
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --primary-color: #184b24;
+  /* ── Brand Greens ── */
+  --color-primary:          #184b24;
+  --color-primary-dark:     #11391a;
+  --color-primary-light:    #edf4e8;
+  --color-primary-mid:      #214E34;
+  --color-primary-tint:     #2a7048;
+
+  /* ── Promo / Dark Green ── */
+  --color-promo-green:      #1F5A37;
+
+  /* ── Gold / Accent ── */
+  --color-gold:             #C08A3E;
+  --color-gold-dark:        #a37832;
+  --color-gold-border:      #d5b260;
+  --color-gold-bg:          #fdf6ec;
+
+  /* ── Neutrals ── */
+  --color-white:            #ffffff;
+  --color-off-white:        #f7f7f5;
+  --color-cream:            #F5F1EC;
+  --color-surface:          #f7f7f5;
+  --color-surface-alt:      #f0f0ed;
+  --color-surface-1:        #ffffff;
+  --color-surface-2:        #f7f7f5;
+
+  /* ── Text ── */
+  --color-heading:          #111827;
+  --color-body:             #202124;
+  --color-muted:            #6B7280;
+  --color-subtle:           #9CA3AF;
+  --color-placeholder:      #d1d5db;
+
+  /* ── Semantic ── */
+  --color-sale-badge:       #184b24;
+  --color-sale-text:        #ffffff;
+  --color-price-active:     #C08A3E;
+  --color-price-original:   #9CA3AF;
+  --color-star:             #F59E0B;
+  --color-wishlist:         #ef4444;
+  --color-filter-active-bg: #184b24;
+  --color-filter-active-txt:#ffffff;
+  --color-filter-idle-bg:   #ffffff;
+  --color-filter-idle-txt:  #374151;
+  --color-filter-border:    #e5e7eb;
+
+  /* ── Countdown ── */
+  --color-countdown-bg:     #111827;
+  --color-countdown-txt:    #ffffff;
+  --color-countdown-label:  #9CA3AF;
+
+  /* ── Typography System ── */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* ── Enhanced Shadows (Depth System) ── */
+  --shadow-xs:              0 1px 2px rgba(0,0,0,0.04);
+  --shadow-sm:              0 2px 8px rgba(0,0,0,0.06);
+  --shadow-card:            0 4px 20px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-card-hover:      0 16px 40px rgba(0,0,0,0.14), 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-pill:            0 2px 8px rgba(0,0,0,0.06);
+  --shadow-promo:           0 24px 48px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.06);
+  --shadow-badge:           0 4px 12px rgba(0,0,0,0.18);
+  --shadow-inner-glow:      inset 0 2px 4px rgba(255,255,255,0.1);
+  --shadow-floating:        0 20px 40px rgba(0,0,0,0.15), 0 8px 16px rgba(0,0,0,0.08);
+  --shadow-btn:              0 4px 14px rgba(24,75,36,0.30);
+  --shadow-filter:          0 4px 12px rgba(24,75,36,0.20);
+  --shadow-cream-deep:      #e8e3db;
+
+  /* ── Border Radius ── */
+  --radius-xs:    0.375rem;
+  --radius-sm:    0.5rem;
+  --radius-md:    0.75rem;
+  --radius-lg:    1rem;
+  --radius-xl:    1.25rem;
+  --radius-2xl:   1.5rem;
+  --radius-pill:  9999px;
+
+  /* ── Transitions ── */
+  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-smooth: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 150ms ease;
+}
+
+/* ── Global Typography Base ── */
+body {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Display Font Class ── */
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* ── Selection Styling ── */
+::selection {
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+}
+
+/* ── Scrollbar Styling ── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-off-white);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-subtle);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted);
+}
+
+/* ── Focus Ring Enhancement ── */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}

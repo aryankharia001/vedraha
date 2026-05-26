@@ -11,51 +11,44 @@ const sectionContent = {
 
 const categories = [
   {
-    id: 'skin-care',
-    title: 'Skin Care',
-    // count: '52 Products',
+    id: 'nabhi-sleep',
+    title: 'Sleep',
     image: 'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=sleep1.webp&version_id=null',
     href: '#',
   },
   {
-    id: 'makeup',
-    title: 'Makeup',
-    // count: '38 Products',
+    id: 'nabhi-menstrual',
+    title: 'Menstrual',
     image: 'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=menstrual1.webp&version_id=null',
     href: '#',
   },
   {
-    id: 'hair-care',
-    title: 'Hair Care',
-    // count: '45 Products',
+    id: 'nabhi-shilajit',
+    title: 'Shilajit',
     image: 'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=shilajitcare3.webp&version_id=null',
     href: '#',
   },
   {
-    id: 'fragrances',
-    title: 'Fragrances',
-    // count: '29 Products',
+    id: 'nabhi-hair',
+    title: 'Hair',
     image: 'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=haircare1.webp&version_id=null',
     href: '#',
   },
   {
-    id: 'nail-care',
-    title: 'Nail Care',
-    // count: '21 Products',
+    id: 'nabhi-eye',
+    title: 'Eye',
     image: 'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=eyecare2.webp&version_id=null',
     href: '#',
   },
   {
-    id: 'body-care',
-    title: 'Body Care',
-    // count: '33 Products',
+    id: 'nabhi-joint',
+    title: 'Joint',
     image: 'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=Gemini_Generated_Image_3y48f93y48f93y48.png.webp&version_id=null',
     href: '#',
   },
   {
-    id: 'accessories',
-    title: 'Accessories',
-    // count: '17 Products',
+    id: 'nabhi-amrit',
+    title: 'Amrit',
     image: 'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=3e_V1.jpg&version_id=null',
     href: '#',
   },
@@ -74,14 +67,14 @@ const promoCards = [
     image: 'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=500&q=80',
     imageAlt: 'Woman with healthy hair',
     imagePosition: 'object-top',
-    theme: 'light', // light | dark
+    theme: 'light',
     bg: '#F5F1EC',
     badgeBg: '#C08A3E',
     badgeText: '#ffffff',
     headingColor: '#111827',
     highlightColor: '#C08A3E',
     bodyColor: '#6B7280',
-    ctaBg: '#214E34',
+    ctaBg: 'var(--primary-color)',
     ctaHoverBg: '#183d29',
     ctaText: '#ffffff',
   },
@@ -98,7 +91,7 @@ const promoCards = [
     imageAlt: 'Woman with face mask',
     imagePosition: 'object-center',
     theme: 'dark',
-    bg: '#1F5A37',
+    bg: 'var(--primary-color)',
     badgeBg: '#2a7048',
     badgeText: '#ffffff',
     headingColor: '#ffffff',
@@ -106,7 +99,7 @@ const promoCards = [
     bodyColor: 'rgba(187,247,208,0.75)',
     ctaBg: '#ffffff',
     ctaHoverBg: '#f3f4f6',
-    ctaText: '#1F5A37',
+    ctaText: 'var(--primary-color)',
   },
 ]
 
@@ -123,17 +116,19 @@ const ArrowIcon = () => (
 const CategoryCard = ({ title, image, href }) => (
   <a
     href={href}
-    className="flex flex-col items-center space-y-2 py-4 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C08A3E] rounded-2xl"
+    className="group flex flex-col items-center py-6 px-3 rounded-2xl transition-all duration-300 hover:bg-white/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C08A3E]"
     aria-label={`${title}`}
   >
-    <img
-      src={image}
-      alt={title}
-      draggable="false"
-      className="w-45 h-45 rounded-full object-cover shadow-[0_8px_25px_rgba(0,0,0,0.08)] group-hover:scale-105 transition duration-300 select-none"
-    />
-    <p className="text-lg font-medium text-[#111827] mt-2">{title}</p>
-    {/* <p className="text-sm text-[#9CA3AF]">{count}</p> */}
+    <div className="relative mb-3">
+      <img
+        src={image}
+        alt={title}
+        draggable="false"
+        className="w-24 h-24 rounded-full object-cover shadow-lg shadow-slate-200/50 transition-all duration-300 group-hover:shadow-xl group-hover:shadow-slate-300/60 group-hover:scale-105 select-none"
+      />
+      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+    </div>
+    <p className="text-base font-semibold text-[#111827] tracking-tight">{title}</p>
   </a>
 )
 
@@ -147,47 +142,68 @@ const PromoCard = ({
   ctaBg, ctaHoverBg, ctaText,
 }) => (
   <div
-    className="relative rounded-3xl overflow-hidden h-[320px] shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition duration-300 flex items-center"
-    style={{ background: bg }}
+    className="group relative overflow-hidden rounded-3xl h-[340px] transition-all duration-500 hover:-translate-y-2 flex items-center"
+    style={{
+      background: bg,
+      boxShadow: '0 8px 32px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04)',
+    }}
   >
+    {/* Gradient overlay */}
+    <div
+      className="absolute inset-0 opacity-30 transition-opacity duration-500 group-hover:opacity-40"
+      style={{
+        background: 'radial-gradient(circle at 30% 50%, rgba(255,255,255,0.3) 0%, transparent 60%)',
+        pointerEvents: 'none'
+      }}
+    />
+
     {/* Text content */}
     <div className="relative z-10 p-8 md:p-10 max-w-[55%]">
       <span
-        className="inline-block text-xs font-semibold px-4 py-1.5 rounded-full mb-4"
+        className="inline-block text-xs font-bold px-4 py-1.5 rounded-full mb-4 shadow-md"
         style={{ background: badgeBg, color: badgeText }}
       >
         {badge}
       </span>
 
-      <h3 className="text-2xl font-bold leading-snug mb-3" style={{ color: headingColor }}>
+      <h3 className="text-2xl font-bold leading-snug mb-3 tracking-tight" style={{ color: headingColor }}>
         {headingPrefix}
         <span style={{ color: highlightColor }}>{headingHighlight}</span>
         {headingSuffix}
       </h3>
 
-      <p className="text-sm mb-6" style={{ color: bodyColor }}>
+      <p className="text-sm mb-6 leading-relaxed" style={{ color: bodyColor }}>
         {description}
       </p>
 
       <a
         href={ctaHref}
-        className="inline-flex items-center gap-2 text-sm font-semibold px-5 py-2.5 rounded-full transition focus:outline-none focus-visible:ring-2"
+        className="inline-flex items-center gap-2 text-sm font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:shadow-lg focus:outline-none focus-visible:ring-2"
         style={{ background: ctaBg, color: ctaText }}
-        onMouseEnter={e => (e.currentTarget.style.background = ctaHoverBg)}
-        onMouseLeave={e => (e.currentTarget.style.background = ctaBg)}
+        onMouseEnter={e => {
+          e.currentTarget.style.background = ctaHoverBg;
+          e.currentTarget.style.transform = 'translateY(-2px)';
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.background = ctaBg;
+          e.currentTarget.style.transform = 'translateY(0)';
+        }}
       >
-        {ctaLabel} <ArrowIcon />
+        {ctaLabel}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-4 w-4 transition-transform group-hover:translate-x-1">
+          <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
       </a>
     </div>
 
-    {/* Image — fades in from right */}
+    {/* Image with fade effect */}
     <img
       src={image}
       alt={imageAlt}
-      className={`absolute right-0 bottom-0 h-full w-[55%] object-cover ${imagePosition}`}
+      className={`absolute right-0 bottom-0 h-full w-[55%] object-cover ${imagePosition} transition-transform duration-500 group-hover:scale-105`}
       style={{
-        maskImage: 'linear-gradient(to right, transparent 0%, black 30%)',
-        WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 30%)',
+        maskImage: 'linear-gradient(to right, transparent 0%, black 35%)',
+        WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 35%)',
       }}
     />
   </div>
@@ -200,17 +216,15 @@ const CategorySection = ({
   categoryItems = categories,
   promoItems = promoCards,
 }) => {
-  // Embla — drag enabled by default on all devices
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
     align: 'start',
-    dragFree: true,          // smooth momentum drag
-    watchDrag: true,         // enable mouse drag on desktop
+    dragFree: true,
+    watchDrag: true,
   })
 
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [scrollSnaps, setScrollSnaps] = useState([])
-  // Track dragging to suppress click-through on drag end
   const isDragging = useRef(false)
 
   const onSelect = useCallback(() => {
@@ -230,31 +244,33 @@ const CategorySection = ({
   const scrollTo = useCallback((index) => emblaApi && emblaApi.scrollTo(index), [emblaApi])
 
   return (
-    <section className="bg-white py-20">
+    <section className="bg-gradient-to-b from-white to-[#f7f7f5] py-20">
       <div className="max-w-[1240px] mx-auto px-4 md:px-8 lg:px-12">
-
         {/* ── Header ── */}
         <div className="text-center mb-12">
-          <p className="text-sm font-medium text-gray-500 mb-2">{content.subtitle}</p>
-          <h2 className="text-4xl font-bold">
+          <p className="text-xs font-bold uppercase tracking-widest text-[#2a7048] mb-3 font-['DM_Sans']">
+            {content.subtitle}
+          </p>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
             <span className="text-[#111827]">{content.headingPrefix}</span>
-            <span className="text-[#C08A3E]">{content.headingHighlight}</span>
+            <span className="bg-gradient-to-r from-[#C08A3E] to-[#d4a55a] bg-clip-text text-transparent">
+              {content.headingHighlight}
+            </span>
           </h2>
+          <div className="mt-4 mx-auto w-20 h-1 bg-gradient-to-r from-[#184b24] to-[#C08A3E] rounded-full" />
         </div>
 
         {/* ── Category Carousel ── */}
         <div className="mb-16">
-          {/* cursor-grab shows the drag affordance on desktop */}
           <div
-            className="overflow-hidden cursor-grab active:cursor-grabbing"
+            className="overflow-hidden cursor-grab active:cursor-grabbing py-4 bg-white/50 rounded-3xl shadow-lg shadow-slate-100/50 border border-slate-100/30"
             ref={emblaRef}
           >
-            <div className="flex select-none">
+            <div className="flex select-none px-4">
               {categoryItems.map((cat) => (
                 <div
                   key={cat.id}
-                  className="flex-none w-1/2 md:w-1/3 lg:w-1/5 px-3"
-                  // Prevent link navigation when user was dragging
+                  className="flex-none w-1/2 md:w-1/3 lg:w-1/5 px-2"
                   onClick={(e) => { if (isDragging.current) e.preventDefault() }}
                 >
                   <CategoryCard {...cat} />
@@ -264,15 +280,15 @@ const CategorySection = ({
           </div>
 
           {/* Dots */}
-          <div className="flex justify-center gap-2 mt-6" role="tablist" aria-label="Carousel navigation">
+          <div className="flex justify-center gap-2 mt-8" role="tablist" aria-label="Carousel navigation">
             {scrollSnaps.map((_, idx) => (
               <button
                 key={idx}
                 role="tab"
                 aria-selected={selectedIndex === idx}
                 onClick={() => scrollTo(idx)}
-                className={`h-2.5 rounded-full transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C08A3E] ${
-                  selectedIndex === idx ? 'w-8 bg-[#C08A3E]' : 'w-2.5 bg-gray-200'
+                className={`h-2.5 rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C08A3E] focus-visible:ring-offset-2 ${
+                  selectedIndex === idx ? 'w-10 bg-gradient-to-r from-[#C08A3E] to-[#d4a55a]' : 'w-2.5 bg-slate-200 hover:bg-slate-300'
                 }`}
                 aria-label={`Go to slide ${idx + 1}`}
               />
@@ -281,7 +297,7 @@ const CategorySection = ({
         </div>
 
         {/* ── Promo Cards ── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {promoItems.map((card) => (
             <PromoCard key={card.id} {...card} />
           ))}
