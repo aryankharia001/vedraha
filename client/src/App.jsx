@@ -67,14 +67,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-
-
         {/* ── Home Pages ─────────────────────────────────────────────────── */}
         <Route path="/" element={<Home/>}/>
         <Route path="/hn" element={<HomeHi/>}/>
-        <Route path="/ta" element={<HomeHi/>}/>
-        <Route path="/tm" element={<HomeTm/>}/>
-        <Route path="/te" element={<HomeTe/>}/>
+        <Route path="/tml" element={<HomeTm/>}/>
+        <Route path="/tlg" element={<HomeTe/>}/>
 
         {/* ── Hindi Pages ─────────────────────────────────────────────────── */}
         <Route path="/products/nabhi-joint-hn" element={<NabhiJointPage />} />
@@ -99,26 +96,26 @@ function App() {
         <Route path="/products/nabhi-contact-en" element={<NabhiContactEng />} />
 
         {/* ── Telugu Pages ─────────────────────────────────────────────────── */}
-        <Route path="/products/nabhi-joint-tl" element={<NabhiJointPageTelugu />} />
-        <Route path="/products/nabhi-eye-tl" element={<NabhiEyePageTelugu />} />
-        <Route path="/products/nabhi-hair-tl" element={<NabhiHairPageTelugu />} />
-        <Route path="/products/nabhi-sleep-tl" element={<NabhiSleepPageTelugu />} />
-        <Route path="/products/nabhi-shilajit-tl" element={<NabhiShilajitPageTelugu />} />
-        <Route path="/products/nabhi-menstrual-tl" element={<NabhiMenstrualPageTelugu />} />
-        <Route path="/products/nabhi-amrit-tl" element={<NabhiAmritPageTelugu />} />
-        <Route path="/products/nabhi-about-tl" element={<NabhiAboutTelugu />} />
-        <Route path="/products/nabhi-contact-tl" element={<NabhiContactTelugu />} />
+        <Route path="/products/nabhi-joint-telugu" element={<NabhiJointPageTelugu />} />
+        <Route path="/products/nabhi-eye-telugu" element={<NabhiEyePageTelugu />} />
+        <Route path="/products/nabhi-hair-telugu" element={<NabhiHairPageTelugu />} />
+        <Route path="/products/nabhi-sleep-telugu" element={<NabhiSleepPageTelugu />} />
+        <Route path="/products/nabhi-shilajit-telugu" element={<NabhiShilajitPageTelugu />} />
+        <Route path="/products/nabhi-menstrual-telugu" element={<NabhiMenstrualPageTelugu />} />
+        <Route path="/products/nabhi-amrit-telugu" element={<NabhiAmritPageTelugu />} />
+        <Route path="/products/nabhi-about-telugu" element={<NabhiAboutTelugu />} />
+        <Route path="/products/nabhi-contact-telugu" element={<NabhiContactTelugu />} />
 
         {/* ── Tamil Pages ──────────────────────────────────────────────────── */}
-        <Route path="/products/nabhi-joint-ta" element={<NabhiJointPageTamil />} />
-        <Route path="/products/nabhi-eye-ta" element={<NabhiEyePageTamil />} />
-        <Route path="/products/nabhi-hair-ta" element={<NabhiHairPageTamil />} />
-        <Route path="/products/nabhi-sleep-ta" element={<NabhiSleepPageTamil />} />
-        <Route path="/products/nabhi-shilajit-ta" element={<NabhiShilajitPageTamil />} />
-        <Route path="/products/nabhi-menstrual-ta" element={<NabhiMenstrualPageTamil />} />
-        <Route path="/products/nabhi-amrit-ta" element={<NabhiAmritPageTamil />} />
-        <Route path="/products/nabhi-about-ta" element={<NabhiAboutTamil />} />
-        <Route path="/products/nabhi-contact-ta" element={<NabhiContactTamil />} />
+        <Route path="/products/nabhi-joint-tamil" element={<NabhiJointPageTamil />} />
+        <Route path="/products/nabhi-eye-tamil" element={<NabhiEyePageTamil />} />
+        <Route path="/products/nabhi-hair-tamil" element={<NabhiHairPageTamil />} />
+        <Route path="/products/nabhi-sleep-tamil" element={<NabhiSleepPageTamil />} />
+        <Route path="/products/nabhi-shilajit-tamil" element={<NabhiShilajitPageTamil />} />
+        <Route path="/products/nabhi-menstrual-tamil" element={<NabhiMenstrualPageTamil />} />
+        <Route path="/products/nabhi-amrit-tamil" element={<NabhiAmritPageTamil />} />
+        <Route path="/products/nabhi-about-tamil" element={<NabhiAboutTamil />} />
+        <Route path="/products/nabhi-contact-tamil" element={<NabhiContactTamil />} />
 
         {/* ── Payment Pages ────────────────────────────────────────────────── */}
         <Route path="/exc-payment-success-hn" element={<ExcFaliurePageHindi />} />
