@@ -1,88 +1,149 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 
-// Sample data mock reflecting the UI design layout
 const testimonialsData = [
   {
     id: 1,
-    name: "Bessie Cooper",
-    role: "Happy Customer",
-    title: "The Best Thing I’ve Used for My Skin!",
+    name: "Priya Sharma",
+    role: "Khush Grahak",
+    title: "Maine Apni Skin Ke Liye Sabse Acha Cheez Use Ki!",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=200&h=200",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut."
+    avatar: "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?auto=format&fit=crop&q=80&w=200&h=200",
+    text: "Yeh product use karne ke baad meri skin ekdum chamakne lagi. Pehle bahut problems thi — dryness, dullness — sab kuch theek ho gaya. Main bilkul satisfied hoon aur apni saari saheli ko recommend kar rahi hoon!"
   },
   {
     id: 2,
-    name: "Annette Black",
-    role: "Verified Buyer",
-    title: "Incredible Results in 2 Weeks!",
+    name: "Ananya Iyer",
+    role: "Verified Kharidaar",
+    title: "Sirf 2 Hafte Mein Zabardast Farq!",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200&h=200",
-    text: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    avatar: "https://images.unsplash.com/photo-1601412436009-d964bd02edbc?auto=format&fit=crop&q=80&w=200&h=200",
+    text: "Sach mein agar koi natural aur effective solution chahiye toh yeh products try karein. Meri skin ab kaafi soft aur nourished lagti hai. Price bhi bahut reasonable hai quality ke hisaab se. Bahut khushi hui!"
   },
   {
     id: 3,
-    name: "Jane Cooper",
-    role: "Skincare Enthusiast",
-    title: "My Skin Has Never Looked Brighter",
+    name: "Deepika Nair",
+    role: "Skincare Premi",
+    title: "Meri Skin Itni Bright Kabhi Nahi Thi!",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=200&h=200",
-    text: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
+    avatar: "https://images.unsplash.com/photo-1614644147798-f8c0fc9da7f6?auto=format&fit=crop&q=80&w=200&h=200",
+    text: "Ayurvedic ingredients ka combination really kaam karta hai. Mujhe darr tha ki koi reaction hoga — lekin ekdum safe aur soothing raha. Roz raat lagati hoon aur subah skin bilkul fresh dikhti hai. Thank you!"
   },
   {
     id: 4,
-    name: "Esther Howard",
-    role: "Loyal Customer",
-    title: "Gentle yet super effective formula",
+    name: "Kavitha Menon",
+    role: "Niyamit Grahak",
+    title: "Gentle Formula Jo Actually Kaam Karta Hai",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200&h=200",
-    text: "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+    avatar: "https://images.unsplash.com/photo-1610088441520-4352457e7095?auto=format&fit=crop&q=80&w=200&h=200",
+    text: "Meri sensitive skin ke liye yeh bilkul perfect hai. Koi irritation nahi, koi chemicals ka feel nahi — bas pure goodness. Nabhi therapy concept ne mujhe pehle ajeeb laga, par results dekh ke main convert ho gayi hoon!"
   },
   {
     id: 5,
-    name: "Cameron Williamson",
-    role: "Daily User",
-    title: "Absolutely flawless routine addition",
+    name: "Sunita Rao",
+    role: "Roz Use Kaarne Wali",
+    title: "Meri Daily Routine Ka Ek Zaroori Hissa!",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=200&h=200",
-    text: "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit."
+    avatar: "https://images.unsplash.com/photo-1589156229687-496a31ad1d1f?auto=format&fit=crop&q=80&w=200&h=200",
+    text: "Packaging se leke product quality tak — sab kuch top-notch hai. Delivery bhi bahut fast thi. Ek baar use kiya toh repeat order karna hi tha. Mere pati bhi pooch rahe hain ki meri skin itni achhi kyun lag rahi hai!"
   }
 ];
 
 export default function TestimonialCarousel() {
-  const [activeIndex, setActiveIndex] = useState(2); // Start with center image active
+  const [activeIndex, setActiveIndex] = useState(2);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [displayIndex, setDisplayIndex] = useState(2);
+  const intervalRef = useRef(null);
 
-  const handlePrev = () => {
-    setActiveIndex((prev) => (prev === 0 ? testimonialsData.length - 1 : prev - 1));
-  };
+  const goTo = useCallback((index) => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setTimeout(() => {
+      setDisplayIndex(index);
+      setActiveIndex(index);
+      setIsAnimating(false);
+    }, 300);
+  }, [isAnimating]);
 
-  const handleNext = () => {
-    setActiveIndex((prev) => (prev === testimonialsData.length - 1 ? 0 : prev + 1));
-  };
+  const handlePrev = useCallback(() => {
+    const next = activeIndex === 0 ? testimonialsData.length - 1 : activeIndex - 1;
+    goTo(next);
+  }, [activeIndex, goTo]);
+
+  const handleNext = useCallback(() => {
+    const next = activeIndex === testimonialsData.length - 1 ? 0 : activeIndex + 1;
+    goTo(next);
+  }, [activeIndex, goTo]);
+
+  // Auto-slide every 4 seconds
+  const resetInterval = useCallback(() => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      setActiveIndex(prev => {
+        const next = prev === testimonialsData.length - 1 ? 0 : prev + 1;
+        setIsAnimating(true);
+        setTimeout(() => {
+          setDisplayIndex(next);
+          setIsAnimating(false);
+        }, 300);
+        return next;
+      });
+    }, 4000);
+  }, []);
+
+  useEffect(() => {
+    resetInterval();
+    return () => clearInterval(intervalRef.current);
+  }, [resetInterval]);
 
   const handleAvatarClick = (index) => {
-    setActiveIndex(index);
+    resetInterval();
+    goTo(index);
   };
 
-  const currentTestimonial = testimonialsData[activeIndex];
+  const handleNavClick = (fn) => {
+    resetInterval();
+    fn();
+  };
+
+  const currentTestimonial = testimonialsData[displayIndex];
 
   return (
-    <section 
+    <section
       className="relative w-full max-w-[1240px] mx-auto px-4 sm:px-6 py-12 md:py-20 flex flex-col items-center select-none overflow-hidden"
       style={{ backgroundColor: 'var(--color-white, #ffffff)' }}
     >
-      {/* Decorative Top Subtitle & Headings */}
+      {/* Header */}
       <div className="flex flex-col items-center mb-2 md:mb-4 text-center">
-        <span className="text-xs font-semibold uppercase tracking-widest text-[var(--color-muted,#6B7280)] mb-2">
+        <span className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: 'var(--color-primary-tint, #2a7048)' }}>
           Testimonials
         </span>
-        <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold tracking-tight text-[var(--color-heading,#111827)] leading-tight">
-          Testimonials from <br className="hidden sm:inline" />
-          <span style={{ color: 'var(--color-gold, #C08A3E)' }}> Our Loyal Customers</span>
+        <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+          <span style={{ color: 'var(--color-heading, #111827)' }}>What Our </span>
+          <span className="bg-gradient-to-r from-[#C08A3E] to-[#d4a55a] bg-clip-text text-transparent">
+            Customers Say
+          </span>
         </h2>
+        <div className="mt-4 mx-auto w-20 h-1 bg-gradient-to-r from-[#184b24] to-[#C08A3E] rounded-full" />
       </div>
 
-      {/* --- Avatar Row with Focused Blur Effects --- */}
+      {/* Progress bar */}
+      <div className="w-full max-w-xs mt-6 h-0.5 bg-slate-100 rounded-full overflow-hidden">
+        <div
+          key={activeIndex}
+          className="h-full bg-gradient-to-r from-[#184b24] to-[#C08A3E] rounded-full"
+          style={{
+            animation: 'progress 4s linear forwards',
+          }}
+        />
+      </div>
+      <style>{`
+        @keyframes progress {
+          from { width: 0% }
+          to { width: 100% }
+        }
+      `}</style>
+
+      {/* Avatar Row */}
       <div className="flex items-center justify-center gap-2 sm:gap-4 md:gap-6 my-8 md:my-12 h-24 md:h-28 w-full max-w-lg md:max-w-xl mx-auto px-2">
         {testimonialsData.map((item, idx) => {
           const isActive = idx === activeIndex;
@@ -97,17 +158,15 @@ export default function TestimonialCarousel() {
               }}
             >
               <div className="relative rounded-full p-0.5 md:p-1 transition-all duration-500">
-                {/* Active Outer Dashed Ring Indicator */}
                 {isActive && (
-                  <span className="absolute inset-0 rounded-full border-2 border-dashed border-[var(--color-subtle,#9CA3AF)] animate-[spin_30s_linear_infinite]" />
+                  <span className="absolute inset-0 rounded-full border-2 border-dashed border-[#C08A3E] animate-[spin_30s_linear_infinite]" />
                 )}
-                
                 <img
                   src={item.avatar}
                   alt={item.name}
                   className={`w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full object-cover transition-all duration-500 shadow-sm ${
-                    isActive 
-                      ? 'blur-0 opacity-100 ring-4 ring-white ring-offset-0 shadow-md' 
+                    isActive
+                      ? 'blur-0 opacity-100 ring-4 ring-white ring-offset-0 shadow-md'
                       : 'blur-[1.5px] sm:blur-[3px] opacity-40 hover:opacity-70 hover:blur-none'
                   }`}
                 />
@@ -117,86 +176,70 @@ export default function TestimonialCarousel() {
         })}
       </div>
 
-      {/* --- Main Content Showcase Card Container --- */}
-      <div className="relative w-full text-center max-w-sm sm:max-w-xl md:max-w-3xl px-4 sm:px-6 md:px-16 min-h-[220px] md:min-h-[200px] flex flex-col justify-between transition-all duration-500 ease-in-out">
-        
+      {/* Content Card */}
+      <div
+        className="relative w-full text-center max-w-sm sm:max-w-xl md:max-w-3xl px-4 sm:px-6 md:px-16 min-h-[220px] md:min-h-[200px] flex flex-col justify-between"
+        style={{
+          opacity: isAnimating ? 0 : 1,
+          transform: isAnimating ? 'translateY(8px)' : 'translateY(0)',
+          transition: 'opacity 0.3s ease, transform 0.3s ease',
+        }}
+      >
         <div>
-          {/* Dynamic Review Header */}
-          <h3 className="text-lg md:text-2xl font-bold text-[var(--color-heading,#111827)] mb-3 md:mb-4 transition-all duration-300 tracking-tight">
+          <h3 className="text-lg md:text-2xl font-bold text-[#111827] mb-3 md:mb-4 tracking-tight">
             {currentTestimonial.title}
           </h3>
-
-          {/* Dynamic Description Paragraph */}
-          <p className="text-[var(--color-body,#202124)] text-xs sm:text-sm md:text-base leading-relaxed mb-4 md:mb-6 max-w-2xl mx-auto transition-all duration-300 font-normal">
+          <p className="text-[#202124] text-xs sm:text-sm md:text-base leading-relaxed mb-4 md:mb-6 max-w-2xl mx-auto font-normal">
             "{currentTestimonial.text}"
           </p>
         </div>
 
         <div>
-          {/* 5 Star Ratings Block */}
+          {/* Stars */}
           <div className="flex justify-center items-center gap-1 mb-3">
             {[...Array(currentTestimonial.rating)].map((_, i) => (
-              <svg 
-                key={i} 
-                className="w-4 h-4 md:w-5 md:h-5" 
-                fill="var(--color-star, #F59E0B)" 
-                viewBox="0 0 20 20"
-              >
+              <svg key={i} className="w-4 h-4 md:w-5 md:h-5" fill="#F59E0B" viewBox="0 0 20 20">
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
               </svg>
             ))}
-            <span className="text-xs md:text-sm font-bold ml-1.5 text-[var(--color-heading,#111827)]">
+            <span className="text-xs md:text-sm font-bold ml-1.5 text-[#111827]">
               {currentTestimonial.rating.toFixed(1)}
             </span>
           </div>
 
-          {/* Client Identity Block */}
-          <div className="transition-all duration-300">
-            <h4 className="font-bold text-sm md:text-base text-[var(--color-heading,#111827)]">
-              {currentTestimonial.name}
-            </h4>
-            <p className="text-[10px] md:text-xs uppercase tracking-wider font-semibold text-[var(--color-muted,#6B7280)] mt-0.5">
+          {/* Identity */}
+          <div>
+            <h4 className="font-bold text-sm md:text-base text-[#111827]">{currentTestimonial.name}</h4>
+            <p className="text-[10px] md:text-xs uppercase tracking-wider font-semibold text-[#6B7280] mt-0.5">
               {currentTestimonial.role}
             </p>
           </div>
         </div>
       </div>
 
-      {/* --- Responsive Action Controls Layout Row --- */}
-      {/* Absolute positioning on desktops (lg:), structural row placement underneath on mobile views */}
+      {/* Nav Buttons */}
       <div className="flex items-center justify-center gap-4 mt-8 lg:mt-0 w-full lg:w-auto">
-        
-        {/* Left Navigation Arrow */}
         <button
-          onClick={handlePrev}
+          onClick={() => handleNavClick(handlePrev)}
           className="relative lg:absolute lg:left-4 xl:left-12 lg:top-1/2 lg:-translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all duration-200 shadow-md hover:scale-105 hover:brightness-105 active:scale-95 z-20"
-          style={{ 
-            backgroundColor: 'var(--color-gold, #C08A3E)',
-            color: 'var(--color-white, #ffffff)'
-          }}
+          style={{ backgroundColor: '#C08A3E', color: '#ffffff' }}
           aria-label="Previous Testimonial"
         >
           <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
         </button>
-        
 
-        {/* Right Navigation Arrow */}
         <button
-          onClick={handleNext}
+          onClick={() => handleNavClick(handleNext)}
           className="relative lg:absolute lg:right-4 xl:right-12 lg:top-1/2 lg:-translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all duration-200 shadow-md hover:scale-105 hover:brightness-105 active:scale-95 z-20"
-          style={{ 
-            backgroundColor: 'var(--color-primary, #184b24)',
-            color: 'var(--color-white, #ffffff)'
-          }}
+          style={{ backgroundColor: 'var(--color-primary, #184b24)', color: '#ffffff' }}
           aria-label="Next Testimonial"
         >
           <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
           </svg>
         </button>
-        
       </div>
     </section>
   );

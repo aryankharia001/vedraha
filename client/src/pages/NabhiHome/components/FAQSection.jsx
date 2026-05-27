@@ -78,19 +78,23 @@ export default function FAQSection() {
   return (
     <section 
       className="w-full"
-      style={{ backgroundColor: 'var(--color-off-white, #f7f7f5)' }}
+      style={{ backgroundColor: 'var(--color-off-white, #f7f7f5)', boxShadow: 'inset 0 12px 12px -10px rgba(24,75,36,0.3)'}}
     >
       
-      <div className='max-w-[1240px] mx-auto px-6 py-16 md:py-24 font-sans select-none'>
-        {/* --- Section Title Header --- */}
-      <div className="flex flex-col items-center text-center mb-12 relative">
-        <span className="text-xs font-semibold tracking-widest text-[var(--color-muted,#6B7280)] uppercase mb-2">
-          FAQs
-        </span>
-        <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--color-heading,#111827)]">
-          Question? <span style={{ color: 'var(--color-gold, #C08A3E)' }}>Look here.</span>
-        </h2>
-      </div>
+      <div className='max-w-[1240px] mx-auto px-6 py-16 select-none'>
+      {/* --- Section Title Header --- */}
+<div className="flex flex-col items-center text-center mb-12 relative">
+  <span className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: 'var(--color-primary-tint)' }}>
+    FAQs
+  </span>
+  <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+    <span style={{ color: 'var(--color-heading)' }}>Frequently </span>
+    <span className="bg-gradient-to-r from-[#C08A3E] to-[#d4a55a] bg-clip-text text-transparent">
+      Asked Questions
+    </span>
+  </h2>
+  <div className="mt-4 mx-auto w-20 h-1 bg-gradient-to-r from-[#184b24] to-[#C08A3E] rounded-full" />
+</div>
 
       {/* --- Core Content Grid: Accordion & CTA Sidebar Box --- */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8 items-start mb-16 md:mb-20">

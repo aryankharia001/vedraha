@@ -116,7 +116,7 @@ const ArrowIcon = () => (
 const CategoryCard = ({ title, image, href }) => (
   <a
     href={href}
-    className="group flex flex-col items-center py-6 px-3 rounded-2xl transition-all duration-300 hover:bg-white/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C08A3E]"
+    className="group flex flex-col items-center py-0 md:py-6 px-3 rounded-2xl transition-all duration-300 hover:bg-white/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C08A3E]"
     aria-label={`${title}`}
   >
     <div className="relative mb-3">
@@ -124,7 +124,7 @@ const CategoryCard = ({ title, image, href }) => (
         src={image}
         alt={title}
         draggable="false"
-        className="w-44 h-44 rounded-full object-cover shadow-lg shadow-slate-200/50 transition-all duration-300 group-hover:shadow-xl group-hover:shadow-slate-300/60 group-hover:scale-105 select-none"
+        className="w-30 h-30 md:w-44 md:h-44 rounded-full object-cover shadow-lg shadow-slate-200/50 transition-all duration-300 group-hover:shadow-xl group-hover:shadow-slate-300/60 group-hover:scale-105 select-none"
       />
       <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
     </div>
@@ -244,7 +244,7 @@ const CategorySection = ({
   const scrollTo = useCallback((index) => emblaApi && emblaApi.scrollTo(index), [emblaApi])
 
   return (
-    <section className="bg-gradient-to-b from-white to-[#f7f7f5] py-20">
+    <section className="bg-gradient-to-b from-white to-[#f7f7f5] py-10">
       <div className="max-w-[1240px] mx-auto px-4 md:px-8 lg:px-12">
         {/* ── Header ── */}
         <div className="text-center mb-12">
