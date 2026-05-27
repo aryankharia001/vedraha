@@ -124,7 +124,7 @@ const CategoryCard = ({ title, image, href }) => (
         src={image}
         alt={title}
         draggable="false"
-        className="w-24 h-24 rounded-full object-cover shadow-lg shadow-slate-200/50 transition-all duration-300 group-hover:shadow-xl group-hover:shadow-slate-300/60 group-hover:scale-105 select-none"
+        className="w-44 h-44 rounded-full object-cover shadow-lg shadow-slate-200/50 transition-all duration-300 group-hover:shadow-xl group-hover:shadow-slate-300/60 group-hover:scale-105 select-none"
       />
       <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
     </div>
@@ -266,7 +266,7 @@ const CategorySection = ({
             className="overflow-hidden cursor-grab active:cursor-grabbing py-4 bg-white/50 rounded-3xl shadow-lg shadow-slate-100/50 border border-slate-100/30"
             ref={emblaRef}
           >
-            <div className="flex select-none px-4">
+            <div className="flex select-none px-2">
               {categoryItems.map((cat) => (
                 <div
                   key={cat.id}
