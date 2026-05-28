@@ -13,8 +13,8 @@ import { UpiStack } from "./ui";
 function BuyNowBtn({ onClick, upiIcons }) {
   return (
     <button onClick={onClick} className="p-0 border-0 rounded-2xl cursor-pointer bg-transparent outline-none" style={{ WebkitTapHighlightColor: "transparent" }}>
-      <div className="bg-gradient-to-br from-gray-900 to-black rounded-2xl">
-        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl px-4 py-3.5 flex items-center justify-center gap-2">
+      <div className="bg-[#B89454] to-black rounded-2xl">
+        <div className="bg-[#B89454] rounded-xl px-4 py-3.5 flex items-center justify-center gap-2">
           <UpiStack icons={upiIcons} />
           <span className="text-base font-extrabold text-white">Buy Now</span>
         </div>
