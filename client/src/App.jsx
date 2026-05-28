@@ -86,7 +86,7 @@ function AppContent() {
     if (path === "/ta" || path === "/ta/") {
       return <NabhiHeaderTamil />;
     }
-    if (path === "/") {
+    else {
       return <NabhiHeader />;
     }
     
