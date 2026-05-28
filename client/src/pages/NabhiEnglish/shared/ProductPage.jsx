@@ -94,9 +94,8 @@ function StickyCTA({ show, selectedPrice, stickyTotal, currentVariant, quantity,
         </div>
       </div>
       <button onClick={onBuyNow} className="p-0 border-0 rounded-xl cursor-pointer bg-transparent outline-none flex-shrink-0" style={{ WebkitTapHighlightColor: "transparent" }}>
-        <div className="bg-gradient-to-br from-gray-900 to-black rounded-xl">
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-[10px] h-12 px-8 flex items-center justify-center gap-2">
-            {/* <UpiStack icons={upiIcons} size="sm" /> */}
+        <div className="bg-[#B89454] rounded-xl">
+          <div className="bg-[#B89454] rounded-[10px] h-12 px-8 flex items-center justify-center gap-2">
             <span className="text-sm font-extrabold text-white whitespace-nowrap">Buy Now</span>
           </div>
         </div>
@@ -541,7 +540,7 @@ export default function ProductPage({ config, relatedProducts = [] }) {
               >
                 <div
                   className="w-full rounded-xl flex items-center justify-center gap-2"
-                  style={{ background: "#B89454", height: "48px" }}
+                  style={{ background: "rgb(184, 148, 84)", height: "48px" }}
                 >
                   <UpiStack icons={upiIcons} size="sm" />
                   <span className="text-sm font-bold text-white tracking-wide">
