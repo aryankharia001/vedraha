@@ -399,147 +399,183 @@ export default function ProductPage({ config, relatedProducts = [] }) {
           <ProductGallery images={images} themeColor={themeColor} />
 
           <div className="animate-fadeIn">
-            <p className="text-xs text-gray-400 tracking-[0.14em] uppercase m-0 mb-2 font-semibold mt-6">{product.subtitle}</p>
-            <h1 className="text-2xl md:text-3xl font-bold m-0 mb-2.5 leading-tight tracking-tight" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            {/* Category subtitle */}
+            <p className="text-xs text-gray-500 tracking-[0.14em] uppercase m-0 mb-2 font-medium" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+              {product.subtitle}
+            </p>
+
+            {/* Product Name */}
+            <h1 className="text-2xl md:text-3xl font-semibold m-0 mb-2.5 leading-tight tracking-tight text-gray-800" style={{ fontFamily: "'DM Sans', sans-serif" }}>
               {product.h1}
             </h1>
-            <div className="flex items-center gap-2 my-2 mb-3.5">
-              <StarRating rating={5} size={15} />
-              <span className="text-sm text-gray-500 font-medium">{product.reviewSummary}</span>
+
+            {/* Stock Badge */}
+            <div className="inline-flex items-center gap-1.5 mb-3">
+              <span className="inline-block w-2 h-2 rounded-full bg-green-500"></span>
+              <span className="text-xs font-semibold text-green-600" style={{ fontFamily: "'DM Sans', sans-serif" }}>In Stock</span>
             </div>
 
-            <PriceWithTimer currentVariant={currentVariant} selectedPrice={selectedPrice} />
+            {/* Rating */}
+            <div className="flex items-center gap-2 my-2 mb-4">
+              <div className="flex gap-0.5">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <svg key={star} width="16" height="16" viewBox="0 0 24 24" fill="#c8a84b">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                  </svg>
+                ))}
+              </div>
+              <span className="text-sm text-gray-500 font-medium" style={{ fontFamily: "'DM Sans', sans-serif" }}>{product.reviewSummary}</span>
+            </div>
+
+            {/* Price Section */}
+            <PriceWithTimer currentVariant={currentVariant} selectedPrice={selectedPrice} themeColor={themeColor} />
             <hr className="border-0 border-t border-gray-200 my-4" />
 
-            <div className="text-xs font-bold uppercase tracking-widest mb-3.5 text-gray-400">Select Pack</div>
-            {variants.map((v) => (
-              <div
-                key={v.id}
-                onClick={() => setSelectedVariant(v.id)}
-                className="rounded-2xl px-4 py-3 cursor-pointer mb-2.5 relative flex justify-between items-center transition-all duration-200"
-                style={{ border: selectedVariant === v.id ? `2px solid ${themeColor}` : "1.5px solid #ebe9e2", background: selectedVariant === v.id ? themeColor : "#fff" }}
-              >
-                {v.badge && (
-                  <span className="absolute -top-2.5 -right-1.5 bg-[#c8a84b] text-white text-[10px] px-2 py-0.5 rounded font-bold tracking-wider">{v.badge}</span>
-                )}
-                <div className="flex items-center gap-3">
-                  <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ border: `2px solid ${selectedVariant === v.id ? "#fff" : "#ccc"}` }}>
-                    {selectedVariant === v.id && <div className="w-2.5 h-2.5 rounded-full bg-white" />}
-                  </div>
-                  <span className="text-base font-semibold" style={{ color: selectedVariant === v.id ? "#fff" : "#1a1a1a" }}>{v.label}</span>
+            {/* Size/Volume Selection - Capsule style */}
+            {/* <div className="text-xs font-bold uppercase tracking-widest mb-3.5 text-gray-500" style={{ fontFamily: "'DM Sans', sans-serif" }}>Size/Volume</div>
+            <div className="flex flex-wrap gap-2.5 mb-5">
+              {["30 ml", "60 ml", "80 ml", "100 ml"].map((size, idx) => (
+                <button
+                  key={size}
+                  onClick={() => setSelectedVariant(variants[idx]?.id)}
+                  className="px-4 py-2 rounded-full border cursor-pointer text-sm font-semibold transition-all duration-200"
+                  style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    background: selectedVariant === variants[idx]?.id ? themeColor : "#fff",
+                    color: selectedVariant === variants[idx]?.id ? "#fff" : "#666",
+                    borderColor: selectedVariant === variants[idx]?.id ? themeColor : "#e0e0e0",
+                  }}
+                >
+                  {size}
+                </button>
+              ))}
+            </div> */}
+
+            {/* Quantity Selector - Grey bordered rounded box */}
+            <div className="flex items-center gap-4 mb-5">
+              <div className="text-xs font-bold uppercase tracking-widest mb-0 text-gray-500" style={{ fontFamily: "'DM Sans', sans-serif" }}>Quantity</div>
+              <div className="flex items-center border border-gray-300 rounded-xl overflow-hidden bg-white w-fit">
+                <button
+                  onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                  className="w-10 h-10 border-0 bg-transparent cursor-pointer text-xl font-medium flex items-center justify-center text-gray-400 hover:text-gray-700 transition-colors"
+                >
+                  −
+                </button>
+
+                <div
+                  className="w-12 text-center text-base font-bold text-gray-900 border-l border-r border-gray-200 h-10 flex items-center justify-center"
+                  style={{ fontFamily: "'DM Sans', sans-serif" }}
+                >
+                  {quantity}
                 </div>
-                <div className="flex flex-col items-end gap-0.5">
-                  <span className="text-base font-bold" style={{ color: selectedVariant === v.id ? "#fff" : "#1a1a1a", fontFamily: "'DM Sans', sans-serif" }}>{v.price}</span>
-                  {v.mrp && (
-                    <span className="text-xs line-through" style={{ color: selectedVariant === v.id ? "rgba(255,255,255,0.65)" : "#aaa", fontFamily: "'DM Sans', sans-serif" }}>
-                      ₹{v.mrp.toLocaleString("en-IN")}
+
+                <button
+                  onClick={() => setQuantity((q) => Math.min(10, q + 1))}
+                  className="w-10 h-10 border-0 bg-transparent cursor-pointer text-xl font-medium flex items-center justify-center text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            {/* Action Buttons - Add to Cart, Buy Now, Wishlist */}
+            <div className="flex flex-col md:flex-row gap-2.5 mt-5">
+
+              {/* Add To Cart Button */}
+              <button
+                onClick={handleAddToCart}
+                className="flex-1 p-0 border-0 rounded-xl cursor-pointer bg-transparent outline-none flex items-center justify-center gap-2"
+                style={{ WebkitTapHighlightColor: "transparent", fontFamily: "'DM Sans', sans-serif" }}
+              >
+                <div
+                  className="w-full rounded-xl flex items-center justify-center gap-2"
+                  style={{ background: themeColor, height: "48px" }}
+                >
+                  <ShoppingBag size={18} color="#ffffff" />
+                  <span className="text-sm font-bold text-white tracking-wide">
+                    Add To Cart
+                  </span>
+                  {cartTotalQty > 0 && (
+                    <span className="bg-white/25 rounded-full px-2 py-0.5 text-xs font-bold text-white">
+                      {cartTotalQty}
                     </span>
                   )}
                 </div>
-              </div>
-            ))}
+              </button>
 
-            <div className="mt-5">
-  <div className="text-xs font-bold uppercase tracking-widest mb-3 text-gray-400">
-    Quantity
-  </div>
-
-  <div className="flex items-center gap-3">
-    
-    {/* Quantity Selector */}
-    <div className="flex items-center border border-gray-200 rounded-2xl overflow-hidden bg-white w-fit">
-      <button
-        onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-        className="w-12 h-12 border-0 bg-transparent cursor-pointer text-2xl font-medium flex items-center justify-center"
-        style={{ color: quantity === 1 ? "#ccc" : themeColor }}
-      >
-        −
-      </button>
-
-      <div
-        className="w-14 text-center text-lg font-bold text-gray-900 border-l border-r border-gray-200 h-12 flex items-center justify-center"
-        style={{ fontFamily: "'DM Sans', sans-serif" }}
-      >
-        {quantity}
-      </div>
-
-      <button
-        onClick={() => setQuantity((q) => Math.min(10, q + 1))}
-        className="w-12 h-12 border-0 bg-transparent cursor-pointer text-2xl font-medium flex items-center justify-center"
-        style={{ color: themeColor }}
-      >
-        +
-      </button>
-    </div>
-
-    {/* Add To Cart Button */}
-    <button
-      onClick={handleAddToCart}
-      className="flex-1 max-w-[180px] p-0 border-0 rounded-2xl cursor-pointer bg-transparent outline-none"
-      style={{ WebkitTapHighlightColor: "transparent" }}
-    >
-      <div
-        className="rounded-2xl h-12 flex items-center justify-center"
-        style={{
-          background: `linear-gradient(135deg, ${themeColor}, ${themeColor})`,
-        }}
-      >
-        <div className="flex items-center justify-center gap-1 px-2">
-          <ShoppingBag size={16} color="rgba(255,255,255,0.9)" />
-
-          <span className="text-base font-extrabold text-white tracking-wide">
-            Add to Cart
-          </span>
-
-          {cartTotalQty > 0 && (
-            <span className="bg-white/25 rounded-full px-2 py-0.5 text-xs font-bold text-white">
-              {cartTotalQty}
-            </span>
-          )}
-        </div>
-      </div>
-    </button>
-
-  </div>
-</div>
-
-            <div className="flex flex-col md:flex-row gap-2.5 mt-5">
-              {/* Cash On Delivery */}
-  <button
-    onClick={handleBuyNowDirect}
-    className="flex-1 p-0 border-0 cursor-pointer bg-transparent outline-none"
-    style={{ WebkitTapHighlightColor: "transparent" }}
-  >
-    <div
-      className=""
-      style={{
-        background: `linear-gradient(135deg, ${themeColor}, ${themeColor})`,
-      }}
-    >
-      <div
-        className="px-4 py-3.5 flex items-center justify-center gap-2"
-        style={{
-          background: `linear-gradient(135deg, ${themeColor}, ${themeColor})`,
-        }}
-      >
-        <span className="text-base font-extrabold text-white tracking-wide">
-          Cash On Delivery
-        </span>
-      </div>
-    </div>
-  </button>
-              <button onClick={handleBuyNowDirect} className="flex-1 p-0 border-0 cursor-pointer bg-transparent outline-none" style={{ WebkitTapHighlightColor: "transparent" }}>
-                <div className="bg-gradient-to-br from-gray-900 to-black rounded-2xl">
-                  <div className="bg-gradient-to-br from-gray-800 to-gray-900 px-4 py-3.5 flex items-center justify-center gap-2">
-                    <UpiStack icons={upiIcons} />
-                    <span className="text-base font-extrabold text-white tracking-wide">Buy Now</span>
-                  </div>
+              {/* Buy Now Button - Gold/Ochre */}
+              <button
+                onClick={handleBuyNowDirect}
+                className="flex-1 p-0 border-0 rounded-xl cursor-pointer bg-transparent outline-none flex items-center justify-center"
+                style={{ WebkitTapHighlightColor: "transparent", fontFamily: "'DM Sans', sans-serif" }}
+              >
+                <div
+                  className="w-full rounded-xl flex items-center justify-center gap-2"
+                  style={{ background: "#B89454", height: "48px" }}
+                >
+                  <UpiStack icons={upiIcons} size="sm" />
+                  <span className="text-sm font-bold text-white tracking-wide">
+                    Buy Now
+                  </span>
                 </div>
               </button>
+
+              {/* Wishlist Button - Circular */}
+              <button
+                className="w-12 h-12 p-0 border border-gray-300 rounded-xl cursor-pointer bg-white outline-none flex items-center justify-center flex-shrink-0"
+                style={{ WebkitTapHighlightColor: "transparent" }}
+                aria-label="Add to Wishlist"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                </svg>
+              </button>
+
+            </div>
+
+            {/* SKU and Tags */}
+            <div className="flex gap-4 mt-4 flex-wrap">
+              <div className="text-xs text-gray-400" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                <span className="font-semibold">SKU:</span> {product.id.toUpperCase().replace(/-/g, '').slice(0, 12)}
+              </div>
+              <div className="text-xs text-gray-400" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                <span className="font-semibold">Tags:</span> {product.tagline}
+              </div>
+            </div>
+
+            {/* Social Sharing */}
+            <div className="flex items-center gap-2 mt-4">
+              <span className="text-xs font-semibold text-gray-500" style={{ fontFamily: "'DM Sans', sans-serif" }}>Share:</span>
+              <div className="flex gap-2">
+                {/* Facebook */}
+                <button className="w-8 h-8 rounded-full border border-gray-200 bg-white flex items-center justify-center cursor-pointer">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill={themeColor}>
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                  </svg>
+                </button>
+                {/* X/Twitter */}
+                <button className="w-8 h-8 rounded-full border border-gray-200 bg-white flex items-center justify-center cursor-pointer">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill={themeColor}>
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                </button>
+                {/* Pinterest */}
+                <button className="w-8 h-8 rounded-full border border-gray-200 bg-white flex items-center justify-center cursor-pointer">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill={themeColor}>
+                    <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z" />
+                  </svg>
+                </button>
+                {/* Instagram */}
+                <button className="w-8 h-8 rounded-full border border-gray-200 bg-white flex items-center justify-center cursor-pointer">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill={themeColor}>
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                  </svg>
+                </button>
+              </div>
             </div>
 
             {product.paymentImage && (
-              <img src={product.paymentImage} alt="Payment Methods" className="w-full max-w-[500px] h-auto object-contain block mt-2.5" loading="lazy" />
+              <img src={product.paymentImage} alt="Payment Methods" className="w-full max-w-[500px] h-auto object-contain block mt-5" loading="lazy" />
             )}
 
             <div className="mt-4 flex gap-2 flex-wrap">
