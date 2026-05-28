@@ -3,27 +3,23 @@ import { Search, User, ShoppingBag, X, Menu, CheckCircle, Eye, EyeOff, Package, 
 import { useNavigate } from "react-router-dom";
 import { backendurl } from "../App";
 
-// ── NabhiHeader ───────────────────────────────────────────────────────────────
 export default function NabhiHeaderTelugu({ onCartOpen, cartCount = 0 }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [mode, setMode] = useState("login");
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  // shared fields
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
-
-  // signup-only
   const [name, setName] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const [showConfirmPass, setShowConfirmPass] = useState(false);
   const [notify, setNotify] = useState(false);
 
-  // UI state
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
   const [submitted, setSubmitted] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(() => {
     try { return JSON.parse(localStorage.getItem("akravi_user")) || null; }
@@ -33,13 +29,11 @@ export default function NabhiHeaderTelugu({ onCartOpen, cartCount = 0 }) {
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
 
-  // body scroll lock
   useEffect(() => {
     document.body.style.overflow = modalOpen || menuOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [modalOpen, menuOpen]);
 
-  // reset on open
   useEffect(() => {
     if (modalOpen) {
       setEmail(""); setPassword(""); setName(""); setConfirmPass("");
@@ -48,7 +42,6 @@ export default function NabhiHeaderTelugu({ onCartOpen, cartCount = 0 }) {
     }
   }, [modalOpen, mode]);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handler = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -60,10 +53,8 @@ export default function NabhiHeaderTelugu({ onCartOpen, cartCount = 0 }) {
   }, []);
 
   const openModal = (m = "login") => { setMode(m); setModalOpen(true); };
-
   const validateEmail = (v) => /^\S+@\S+\.\S+$/.test(v);
 
-  // ── LOGIN ──────────────────────────────────────────────────────────────────
   const handleLogin = async () => {
     if (!email.trim()) return setError("ఇమెయిల్ అవసరం");
     if (!validateEmail(email)) return setError("చెల్లుబాటు అయ్యే ఇమెయిల్ చిరునామాను నమోదు చేయండి");
@@ -83,12 +74,9 @@ export default function NabhiHeaderTelugu({ onCartOpen, cartCount = 0 }) {
       setSubmitted(true);
     } catch {
       setError("నెట్‌వర్క్ లోపం. దయచేసి మళ్ళీ ప్రయత్నించండి.");
-    } finally {
-      setSubmitting(false);
-    }
+    } finally { setSubmitting(false); }
   };
 
-  // ── SIGNUP ─────────────────────────────────────────────────────────────────
   const handleSignup = async () => {
     if (!email.trim()) return setError("ఇమెయిల్ అవసరం");
     if (!validateEmail(email)) return setError("చెల్లుబాటు అయ్యే ఇమెయిల్ చిరునామాను నమోదు చేయండి");
@@ -110,9 +98,7 @@ export default function NabhiHeaderTelugu({ onCartOpen, cartCount = 0 }) {
       setSubmitted(true);
     } catch {
       setError("నెట్‌వర్క్ లోపం. దయచేసి మళ్ళీ ప్రయత్నించండి.");
-    } finally {
-      setSubmitting(false);
-    }
+    } finally { setSubmitting(false); }
   };
 
   const handleLogout = () => {
@@ -123,20 +109,14 @@ export default function NabhiHeaderTelugu({ onCartOpen, cartCount = 0 }) {
     navigate("/exclusive-products-tlg");
   };
 
-  const handleMyOrders = () => {
-    setDropdownOpen(false);
-    navigate("/my-orders-tlg");
-  };
-
+  const handleMyOrders = () => { setDropdownOpen(false); navigate("/my-orders-tlg"); };
   const handleCartClick = () => onCartOpen?.();
 
   const navLinks = [
-    { label: "జాబితా", path: "/exclusive-products-tlg" },
-    { label: "సంప్రదించండి", path: "/products/nabhi-telugu-contact" },
-    { label: "మా గురించి", path: "/products/nabhi-telugu-aboutus" },
+    { label: "జాబితా",         path: "/exclusive-products-tlg" },
+    { label: "సంప్రదించండి",   path: "/products/nabhi-telugu-contact" },
+    { label: "మా గురించి",     path: "/products/nabhi-telugu-aboutus" },
   ];
-
-  const scrollTo = (id) => { document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); setMenuOpen(false); };
 
   const displayName = loggedInUser?.name || loggedInUser?.email?.split("@")[0] || "ఖాతా";
 
@@ -146,79 +126,237 @@ export default function NabhiHeaderTelugu({ onCartOpen, cartCount = 0 }) {
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
         * { box-sizing: border-box; }
 
+        /* ══════════════════════════════════════════
+           FLOATING PILL NAVBAR
+        ══════════════════════════════════════════ */
         .nh-wrap {
-          position: sticky; top: 0; z-index: 500;
-          background: #f7f5f0; border-bottom: 1px solid #e6e2d8;
+          position: fixed;
+          inset: 0;
+          z-index: 500;
+          background: transparent;
+          padding: 12px 20px;
           font-family: 'DM Sans', sans-serif;
+          pointer-events: none;
         }
+
         .nh-inner {
-          max-width: 1240px; margin: 0 auto;
-          padding: 0 32px; height: 68px;
-          display: flex; align-items: center; justify-content: space-between; gap: 24px;
+          pointer-events: all;
+          max-width: 1200px;
+          margin: 0 auto;
+          height: 62px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 16px;
+          padding: 0 10px 0 10px;
+
+          background: rgba(232, 242, 235, 0.72);
+          backdrop-filter: blur(18px) saturate(160%);
+          -webkit-backdrop-filter: blur(18px) saturate(160%);
+
+          border-radius: 9999px;
+          border: 1px solid rgba(24, 75, 36, 0.18);
+
+          box-shadow:
+            0 4px 24px rgba(24, 75, 36, 0.10),
+            0 1px 4px rgba(0,0,0,0.06),
+            inset 0 1px 0 rgba(255,255,255,0.55);
         }
-        .nh-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
-        .nh-logo-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: #1a1a1a; line-height: 1.2; }
-        .nh-nav { display: flex; align-items: center; gap: 2px; }
-        .nh-nav a { font-size: 13px; font-weight: 700; color: #1a1a1a; text-decoration: none; letter-spacing: 0.08em; padding: 8px 14px; border-radius: 6px; transition: background 0.15s; }
-        .nh-nav a:hover { background: rgba(0,0,0,0.05); }
+
+        /* ── Logo ── */
+        .nh-logo {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          text-decoration: none;
+          flex-shrink: 0;
+          padding: 0 4px;
+        }
+        .nh-logo-name {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 20px;
+          font-weight: 700;
+          color: #1a1a1a;
+          line-height: 1.2;
+        }
+
+        /* ── Nav links ── */
+        .nh-nav {
+          display: flex;
+          align-items: center;
+          gap: 2px;
+          flex: 1;
+          justify-content: center;
+        }
+        .nh-nav a {
+          font-size: 12px;
+          font-weight: 700;
+          color: #1a3d1e;
+          text-decoration: none;
+          letter-spacing: 0.08em;
+          padding: 7px 13px;
+          border-radius: 9999px;
+          transition: background 0.18s, color 0.18s;
+          white-space: nowrap;
+        }
+        .nh-nav a:hover {
+          background: rgba(24, 75, 36, 0.10);
+          color: #184b24;
+        }
         @media (max-width: 860px) { .nh-nav { display: none; } }
-        .nh-icons { display: flex; align-items: center; gap: 4px; }
-        .nh-ibtn { width: 38px; height: 38px; border-radius: 50%; background: none; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #1a1a1a; position: relative; transition: background 0.15s; }
-        .nh-ibtn:hover { background: rgba(0,0,0,0.06); }
-        .nh-badge { position: absolute; top: 1px; right: 1px; width: 18px; height: 18px; border-radius: 50%; background: #1a1a1a; color: #fff; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; border: 2px solid #f7f5f0; }
+
+        /* ── Icon strip ── */
+        .nh-icons {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          flex-shrink: 0;
+        }
+
+        .nh-ibtn {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          background: none;
+          border: none;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #1a3d1e;
+          position: relative;
+          transition: background 0.15s;
+        }
+        .nh-ibtn:hover { background: rgba(24,75,36,0.10); }
+
+        /* Cart badge */
+        .nh-badge {
+          position: absolute;
+          top: 1px; right: 1px;
+          width: 17px; height: 17px;
+          border-radius: 50%;
+          background: #184b24;
+          color: #fff;
+          font-size: 9px;
+          font-weight: 700;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 2px solid rgba(232,242,235,0.9);
+        }
+
+        /* Hamburger — mobile only */
         .nh-hamburger { display: none !important; }
         @media (max-width: 860px) { .nh-hamburger { display: flex !important; } }
 
-        /* ── User Account Button ── */
+        /* ── User pill button ── */
         .nh-user-btn {
-          display: flex; align-items: center; gap: 6px;
-          padding: 6px 12px; height: 38px;
-          border-radius: 20px; background: none; border: 1.5px solid transparent;
-          cursor: pointer; color: #1a1a1a; transition: all 0.15s;
-          font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          padding: 5px 12px 5px 8px;
+          height: 36px;
+          border-radius: 9999px;
+          background: rgba(24,75,36,0.08);
+          border: 1px solid rgba(24,75,36,0.18);
+          cursor: pointer;
+          color: #1a3d1e;
+          transition: all 0.15s;
+          font-family: 'DM Sans', sans-serif;
+          font-size: 12px;
+          font-weight: 600;
         }
         .nh-user-btn:hover, .nh-user-btn.open {
-          background: rgba(0,0,0,0.05);
-          border-color: #e0ddd5;
+          background: rgba(24,75,36,0.15);
+          border-color: rgba(24,75,36,0.30);
         }
-        .nh-user-name { max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .nh-user-name {
+          max-width: 72px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
         @media (max-width: 480px) { .nh-user-name { display: none; } }
+
+        /* ── CTA pill ── */
+        .nh-cta-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 0 18px;
+          height: 40px;
+          border-radius: 9999px;
+          background: #184b24;
+          color: #ffffff;
+          font-family: 'DM Sans', sans-serif;
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 0.04em;
+          white-space: nowrap;
+          border: none;
+          cursor: pointer;
+          box-shadow: 0 4px 14px rgba(24,75,36,0.32);
+          transition: background 0.18s, box-shadow 0.18s, transform 0.15s;
+          text-decoration: none;
+          flex-shrink: 0;
+        }
+        .nh-cta-btn:hover {
+          background: #0f3119;
+          box-shadow: 0 6px 20px rgba(24,75,36,0.40);
+          transform: translateY(-1px);
+        }
+        @media (max-width: 480px) { .nh-cta-btn { display: none; } }
 
         /* ── Dropdown ── */
         .nh-dropdown {
-          position: absolute; top: calc(100% + 8px); right: 0;
-          background: #fff; border: 1px solid #e6e2d8; border-radius: 14px;
-          box-shadow: 0 12px 40px rgba(0,0,0,0.14); min-width: 200px;
-          z-index: 600; overflow: hidden;
+          position: absolute;
+          top: calc(100% + 10px);
+          right: 0;
+          background: rgba(245,250,246,0.90);
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          border: 1px solid rgba(24,75,36,0.14);
+          border-radius: 16px;
+          box-shadow: 0 16px 48px rgba(0,0,0,0.14), 0 4px 12px rgba(24,75,36,0.08);
+          min-width: 200px;
+          z-index: 600;
+          overflow: hidden;
           animation: nhDropIn 0.18s cubic-bezier(0.16,1,0.3,1);
         }
-        @keyframes nhDropIn { from { opacity: 0; transform: translateY(-8px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
-        .nh-drop-header {
-          padding: 14px 16px 10px;
-          border-bottom: 1px solid #f0ede6;
+        @keyframes nhDropIn {
+          from { opacity: 0; transform: translateY(-8px) scale(0.97); }
+          to   { opacity: 1; transform: translateY(0) scale(1); }
         }
-        .nh-drop-email { font-size: 12px; color: #888; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .nh-drop-name { font-size: 14px; font-weight: 700; color: #1a1a1a; margin-bottom: 2px; }
+        .nh-drop-header { padding: 14px 16px 10px; border-bottom: 1px solid rgba(24,75,36,0.10); }
+        .nh-drop-email  { font-size: 12px; color: #6b7280; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .nh-drop-name   { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 2px; }
         .nh-drop-item {
           display: flex; align-items: center; gap: 10px;
-          padding: 12px 16px; font-size: 13.5px; font-weight: 500; color: #1a1a1a;
-          cursor: pointer; transition: background 0.12s; background: none; border: none;
-          width: 100%; text-align: left; font-family: 'DM Sans', sans-serif;
+          padding: 11px 16px;
+          font-size: 13px; font-weight: 500; color: #1a3d1e;
+          cursor: pointer; transition: background 0.12s;
+          background: none; border: none; width: 100%; text-align: left;
+          font-family: 'DM Sans', sans-serif;
         }
-        .nh-drop-item:hover { background: #f7f5f0; }
+        .nh-drop-item:hover { background: rgba(24,75,36,0.07); }
         .nh-drop-item.danger { color: #c0392b; }
-        .nh-drop-item.danger:hover { background: #fdf2f2; }
-        .nh-drop-divider { border: none; border-top: 1px solid #f0ede6; margin: 0; }
+        .nh-drop-item.danger:hover { background: rgba(192,57,43,0.06); }
+        .nh-drop-divider { border: none; border-top: 1px solid rgba(24,75,36,0.09); margin: 0; }
 
-        /* Overlay */
-        .nh-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.52); z-index: 600; animation: nhFadeIn 0.2s ease; }
-        @keyframes nhFadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes nhScaleIn { from { opacity: 0; transform: translate(-50%, -50%) scale(0.95); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+        /* ── Overlay / Modal ── */
+        .nh-overlay {
+          position: fixed; inset: 0;
+          background: rgba(0,0,0,0.50);
+          z-index: 600;
+          animation: nhFadeIn 0.2s ease;
+          backdrop-filter: blur(2px);
+        }
+        @keyframes nhFadeIn  { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes nhScaleIn { from { opacity: 0; transform: translate(-50%,-50%) scale(0.95); } to { opacity: 1; transform: translate(-50%,-50%) scale(1); } }
 
-        /* Modal */
         .nh-modal {
           position: fixed; top: 50%; left: 50%;
-          transform: translate(-50%, -50%);
+          transform: translate(-50%,-50%);
           width: 760px; max-width: 96vw;
           background: #fff; border-radius: 20px;
           z-index: 700; display: flex;
@@ -226,106 +364,137 @@ export default function NabhiHeaderTelugu({ onCartOpen, cartCount = 0 }) {
           overflow: hidden;
           box-shadow: 0 24px 80px rgba(0,0,0,0.22);
         }
-
-        /* Left panel */
         .nh-modal-left {
           flex: 1; padding: 40px 32px;
-          background: #f7f5f0;
+          background: #f0f7f2;
           display: flex; flex-direction: column; justify-content: center;
         }
         .nh-modal-left-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 700; color: #1a1a1a; line-height: 1.3; margin-bottom: 10px; }
-        .nh-modal-left-sub { font-size: 13px; color: #777; line-height: 1.7; margin-bottom: 28px; }
-        .nh-benefit-cards { display: flex; flex-direction: column; gap: 12px; }
-        .nh-benefit-card { padding: 14px 16px; background: #fff; border-radius: 12px; border: 1px solid #e8e4da; display: flex; align-items: flex-start; gap: 12px; }
-        .nh-bc-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+        .nh-modal-left-sub   { font-size: 13px; color: #6b7280; line-height: 1.7; margin-bottom: 28px; }
+        .nh-benefit-cards    { display: flex; flex-direction: column; gap: 12px; }
+        .nh-benefit-card     { padding: 14px 16px; background: #fff; border-radius: 12px; border: 1px solid #d1e7d8; display: flex; align-items: flex-start; gap: 12px; }
+        .nh-bc-icon  { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
         .nh-bc-title { font-size: 13px; font-weight: 700; color: #1a1a1a; margin-bottom: 2px; }
-        .nh-bc-desc { font-size: 11px; color: #888; line-height: 1.4; }
-
-        /* Right panel */
+        .nh-bc-desc  { font-size: 11px; color: #6b7280; line-height: 1.4; }
         .nh-modal-right {
           width: 320px; padding: 36px 28px;
-          border-left: 1px solid #f0ede6;
+          border-left: 1px solid #e8f0ea;
           display: flex; flex-direction: column; justify-content: center;
           position: relative;
         }
-        .nh-modal-close { position: absolute; top: 14px; right: 14px; width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid #d6d2c8; background: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #555; transition: background 0.15s; }
-        .nh-modal-close:hover { background: #f5f3ef; }
-
-        /* Mode tabs */
-        .nh-tabs { display: flex; gap: 0; margin-bottom: 24px; border-bottom: 1.5px solid #eee; }
-        .nh-tab { flex: 1; padding: 8px 0; font-size: 13px; font-weight: 700; color: #aaa; letter-spacing: 0.06em; background: none; border: none; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1.5px; transition: color 0.15s, border-color 0.15s; font-family: 'DM Sans', sans-serif; }
-        .nh-tab.active { color: #1a1a1a; border-bottom-color: #1a1a1a; }
-
-        /* Form fields */
-        .nh-field { margin-bottom: 14px; }
-        .nh-label { display: block; font-size: 11px; font-weight: 600; color: #666; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+        .nh-modal-close {
+          position: absolute; top: 14px; right: 14px;
+          width: 32px; height: 32px; border-radius: 50%;
+          border: 1.5px solid #d1e7d8; background: #fff;
+          cursor: pointer; display: flex; align-items: center; justify-content: center;
+          color: #555; transition: background 0.15s;
+        }
+        .nh-modal-close:hover { background: #f0f7f2; }
+        .nh-tabs { display: flex; gap: 0; margin-bottom: 24px; border-bottom: 1.5px solid #e5e7eb; }
+        .nh-tab  {
+          flex: 1; padding: 8px 0;
+          font-size: 13px; font-weight: 700; color: #9ca3af;
+          letter-spacing: 0.06em; background: none; border: none; cursor: pointer;
+          border-bottom: 2px solid transparent; margin-bottom: -1.5px;
+          transition: color 0.15s, border-color 0.15s;
+          font-family: 'DM Sans', sans-serif;
+        }
+        .nh-tab.active { color: #184b24; border-bottom-color: #184b24; }
+        .nh-field  { margin-bottom: 14px; }
+        .nh-label  { display: block; font-size: 11px; font-weight: 600; color: #6b7280; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
         .nh-input-wrap { position: relative; }
         .nh-input {
-          width: 100%; padding: 10px 14px; font-size: 13.5px; font-family: 'DM Sans', sans-serif;
-          border: 1.5px solid #e0ddd5; border-radius: 10px; background: #faf9f7; color: #1a1a1a;
+          width: 100%; padding: 10px 14px; font-size: 13.5px;
+          font-family: 'DM Sans', sans-serif;
+          border: 1.5px solid #d1e7d8; border-radius: 10px;
+          background: #f8fbf9; color: #1a1a1a;
           outline: none; transition: border-color 0.15s, box-shadow 0.15s;
         }
-        .nh-input:focus { border-color: #1a1a1a; box-shadow: 0 0 0 3px rgba(26,26,26,0.06); background: #fff; }
+        .nh-input:focus { border-color: #184b24; box-shadow: 0 0 0 3px rgba(24,75,36,0.10); background: #fff; }
         .nh-input.error { border-color: #c0392b; }
-        .nh-input-pass { padding-right: 40px; }
-        .nh-pass-toggle { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #999; padding: 0; display: flex; }
+        .nh-input-pass  { padding-right: 40px; }
+        .nh-pass-toggle { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #9ca3af; padding: 0; display: flex; }
         .nh-pass-toggle:hover { color: #555; }
-
         .nh-error { font-size: 12px; color: #c0392b; margin-bottom: 12px; display: flex; align-items: center; gap: 5px; }
-
-        .nh-notify-row { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: #666; cursor: pointer; margin-bottom: 16px; }
-        .nh-notify-row input { accent-color: #1a1a1a; width: 14px; height: 14px; flex-shrink: 0; }
-
+        .nh-notify-row { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: #6b7280; cursor: pointer; margin-bottom: 16px; }
+        .nh-notify-row input { accent-color: #184b24; width: 14px; height: 14px; flex-shrink: 0; }
         .nh-submit-btn {
-          width: 100%; padding: 12px; background: #1a1a1a; color: #fff;
+          width: 100%; padding: 12px; background: #184b24; color: #fff;
           border: none; border-radius: 30px; font-size: 14px; font-weight: 700;
           cursor: pointer; font-family: 'DM Sans', sans-serif;
-          transition: background 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+          transition: background 0.2s;
+          display: flex; align-items: center; justify-content: center; gap: 8px;
           margin-bottom: 16px;
+          box-shadow: 0 4px 14px rgba(24,75,36,0.25);
         }
-        .nh-submit-btn:hover:not(:disabled) { background: #333; }
+        .nh-submit-btn:hover:not(:disabled) { background: #0f3119; }
         .nh-submit-btn:disabled { opacity: 0.65; cursor: not-allowed; }
-
-        .nh-switch-mode { font-size: 12.5px; color: #888; text-align: center; }
-        .nh-switch-mode button { background: none; border: none; color: #1a1a1a; font-weight: 700; cursor: pointer; font-size: 12.5px; font-family: 'DM Sans', sans-serif; text-decoration: underline; }
-
-        .nh-terms { font-size: 11px; color: #999; text-align: center; line-height: 1.6; margin-top: 10px; }
+        .nh-switch-mode { font-size: 12.5px; color: #6b7280; text-align: center; }
+        .nh-switch-mode button { background: none; border: none; color: #184b24; font-weight: 700; cursor: pointer; font-size: 12.5px; font-family: 'DM Sans', sans-serif; text-decoration: underline; }
+        .nh-terms { font-size: 11px; color: #9ca3af; text-align: center; line-height: 1.6; margin-top: 10px; }
         .nh-terms a { color: #555; text-decoration: underline; }
-
-        /* Success */
-        .nh-success-wrap { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 8px 0; }
-        .nh-success-icon { width: 56px; height: 56px; background: #f0f7ee; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+        .nh-success-wrap  { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 8px 0; }
+        .nh-success-icon  { width: 56px; height: 56px; background: #e8f5e9; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
         .nh-success-title { font-size: 17px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; font-family: 'Cormorant Garamond', serif; }
-        .nh-success-sub { font-size: 13px; color: #666; line-height: 1.7; margin-bottom: 18px; }
-        .nh-success-close-btn { padding: 11px 28px; background: #1a1a1a; color: #fff; border: none; border-radius: 30px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background 0.2s; }
-        .nh-success-close-btn:hover { background: #333; }
-
+        .nh-success-sub   { font-size: 13px; color: #6b7280; line-height: 1.7; margin-bottom: 18px; }
+        .nh-success-close-btn { padding: 11px 28px; background: #184b24; color: #fff; border: none; border-radius: 30px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background 0.2s; }
+        .nh-success-close-btn:hover { background: #0f3119; }
         @keyframes nhSpin { to { transform: rotate(360deg); } }
         .nh-spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: nhSpin 0.6s linear infinite; flex-shrink: 0; }
-
         @media (max-width: 600px) {
           .nh-modal { flex-direction: column; }
           .nh-modal-left { display: none; }
           .nh-modal-right { width: 100%; border-left: none; padding: 32px 24px; }
         }
 
-        /* Mobile menu */
-        .nh-mob-drawer { position: fixed; top: 0; left: 0; width: 280px; max-width: 85vw; height: 100%; background: #fff; z-index: 700; display: flex; flex-direction: column; animation: nhSlideIn 0.28s cubic-bezier(0.16,1,0.3,1); box-shadow: 8px 0 40px rgba(0,0,0,0.12); }
+        /* ── Mobile drawer ── */
+        .nh-mob-drawer {
+          position: fixed; top: 0; left: 0;
+          width: 280px; max-width: 85vw; height: 100%;
+          background: rgba(240,247,242,0.95);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          z-index: 700;
+          display: flex; flex-direction: column;
+          animation: nhSlideIn 0.28s cubic-bezier(0.16,1,0.3,1);
+          box-shadow: 8px 0 40px rgba(0,0,0,0.12);
+          border-right: 1px solid rgba(24,75,36,0.12);
+        }
         @keyframes nhSlideIn { from { transform: translateX(-100%); } to { transform: translateX(0); } }
-        .nh-mob-head { padding: 18px 20px; border-bottom: 1px solid #eeebe4; display: flex; align-items: center; justify-content: space-between; }
-        .nh-mob-link { display: flex; align-items: center; justify-content: space-between; padding: 15px 20px; font-size: 13px; font-weight: 700; color: #1a1a1a; letter-spacing: 0.08em; border-bottom: 1px solid #f5f3ef; cursor: pointer; transition: background 0.15s; }
-        .nh-mob-link:hover { background: #f5f3ef; }
+        .nh-mob-head {
+          padding: 18px 20px;
+          border-bottom: 1px solid rgba(24,75,36,0.10);
+          display: flex; align-items: center; justify-content: space-between;
+        }
+        .nh-mob-link {
+          display: flex; align-items: center; justify-content: space-between;
+          padding: 15px 20px;
+          font-size: 13px; font-weight: 700; color: #1a3d1e;
+          letter-spacing: 0.08em;
+          border-bottom: 1px solid rgba(24,75,36,0.07);
+          cursor: pointer; transition: background 0.15s;
+        }
+        .nh-mob-link:hover { background: rgba(24,75,36,0.06); }
       `}</style>
 
-      {/* ── HEADER ── */}
+      {/* ══════════════════════════════════════════
+          FLOATING PILL HEADER
+      ══════════════════════════════════════════ */}
       <div className="nh-wrap">
         <div className="nh-inner">
-          <a href="#home" className="nh-logo" onClick={(e) => { e.preventDefault(); scrollTo("home"); }}>
+
+          {/* Logo */}
+          <a href="/" className="nh-logo">
             <div className="nh-logo-name">
-              <img src="https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=nabhiLogo.webp&version_id=null" alt="Nabhi Amrit" style={{ width: "80px", height: "auto" }} />
+              <img
+                src="https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=nabhiLogo.webp&version_id=null"
+                alt="Nabhi Amrit"
+                style={{ width: "65px", height: "auto" }}
+              />
             </div>
           </a>
 
+          {/* Nav */}
           <nav className="nh-nav">
             {navLinks.map((l) => (
               <a key={l.label} href="#" onClick={(e) => { e.preventDefault(); navigate(l.path); }}>
@@ -334,114 +503,76 @@ export default function NabhiHeaderTelugu({ onCartOpen, cartCount = 0 }) {
             ))}
           </nav>
 
+          {/* Icons + CTA */}
           <div className="nh-icons">
-  {/* ── User icon / dropdown ── */}
-  <div ref={dropdownRef} style={{ position: "relative" }}>
-    <button
-      className={`${
-        loggedInUser ? "nh-user-btn" : "nh-ibtn"
-      }${dropdownOpen ? " open" : ""}`}
-      onClick={() => setDropdownOpen((p) => !p)}
-      title={loggedInUser ? loggedInUser.email : "లాగిన్ / సైన్ అప్"}
-      aria-label="ఖాతా"
-    >
-      <User size={loggedInUser ? 17 : 19} strokeWidth={1.8} />
 
-      {loggedInUser && (
-        <span className="nh-user-name">{displayName}</span>
-      )}
+            {/* User / dropdown */}
+            <div ref={dropdownRef} style={{ position: "relative" }}>
+              <button
+                className={`${loggedInUser ? "nh-user-btn" : "nh-ibtn"}${dropdownOpen ? " open" : ""}`}
+                onClick={() => {
+                  if (loggedInUser) { setDropdownOpen(p => !p); }
+                  else { openModal("login"); }
+                }}
+                title={loggedInUser ? loggedInUser.email : "లాగిన్ / సైన్ అప్"}
+                aria-label="ఖాతా"
+              >
+                <User size={loggedInUser ? 16 : 18} strokeWidth={1.8} />
+                {loggedInUser && <span className="nh-user-name">{displayName}</span>}
+                {loggedInUser && (
+                  <ChevronDown
+                    size={12}
+                    strokeWidth={2.5}
+                    style={{ transform: dropdownOpen ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.18s" }}
+                  />
+                )}
+              </button>
 
-      {loggedInUser && (
-        <ChevronDown
-          size={13}
-          strokeWidth={2.5}
-          style={{
-            transform: dropdownOpen
-              ? "rotate(180deg)"
-              : "rotate(0)",
-            transition: "transform 0.18s",
-          }}
-        />
-      )}
-    </button>
-
-    {dropdownOpen && (
-      <div className="nh-dropdown">
-
-        {/* Logged in user info */}
-        {loggedInUser && (
-          <div className="nh-drop-header">
-            <div className="nh-drop-name">
-              {loggedInUser.name || displayName}
+              {dropdownOpen && (
+                <div className="nh-dropdown">
+                  {loggedInUser && (
+                    <div className="nh-drop-header">
+                      <div className="nh-drop-name">{loggedInUser.name || displayName}</div>
+                      <div className="nh-drop-email">{loggedInUser.email}</div>
+                    </div>
+                  )}
+                  <button className="nh-drop-item" onClick={() => { setDropdownOpen(false); handleMyOrders(); }}>
+                    <Package size={15} color="#2a7048" /> నా ఆర్డర్లు
+                  </button>
+                  <hr className="nh-drop-divider" />
+                  {!loggedInUser ? (
+                    <button className="nh-drop-item" onClick={() => { openModal("login"); setDropdownOpen(false); }}>
+                      <User size={15} /> లాగిన్ / సైన్ అప్
+                    </button>
+                  ) : (
+                    <button className="nh-drop-item danger" onClick={() => { handleLogout(); setDropdownOpen(false); }}>
+                      <LogOut size={15} /> లాగౌట్
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
 
-            <div className="nh-drop-email">
-              {loggedInUser.email}
-            </div>
+            {/* Cart */}
+            <button className="nh-ibtn" aria-label="కార్ట్" onClick={handleCartClick}>
+              <ShoppingBag size={18} strokeWidth={1.8} />
+              {cartCount > 0 && <span className="nh-badge">{cartCount}</span>}
+            </button>
+
+            {/* Hamburger — mobile */}
+            <button className="nh-ibtn nh-hamburger" onClick={() => setMenuOpen(true)}>
+              <Menu size={19} />
+            </button>
+
+            {/* CTA pill */}
+            <a
+              href="#"
+              className="nh-cta-btn"
+              onClick={(e) => { e.preventDefault(); navigate("/exclusive-products-tlg"); }}
+            >
+              ఇప్పుడు కొనండి
+            </a>
           </div>
-        )}
-
-        {/* My Orders */}
-        <button
-          className="nh-drop-item"
-          onClick={() => {
-            setDropdownOpen(false);
-            handleMyOrders();
-          }}
-        >
-          <Package size={15} color="#555" />
-          నా ఆర్డర్లు
-        </button>
-
-        <hr className="nh-drop-divider" />
-
-        {/* Login if logged out */}
-        {!loggedInUser ? (
-          <button
-            className="nh-drop-item"
-            onClick={() => {
-              openModal("login");
-              setDropdownOpen(false);
-            }}
-          >
-            <User size={15} />
-            లాగిన్ / సైన్ అప్
-          </button>
-        ) : (
-          /* Logout if logged in */
-          <button
-            className="nh-drop-item danger"
-            onClick={() => {
-              handleLogout();
-              setDropdownOpen(false);
-            }}
-          >
-            <LogOut size={15} />
-            లాగౌట్
-          </button>
-        )}
-      </div>
-    )}
-  </div>
-
-  <button
-    className="nh-ibtn"
-    aria-label="కార్ట్"
-    onClick={handleCartClick}
-  >
-    <ShoppingBag size={19} strokeWidth={1.8} />
-    {cartCount > 0 && (
-      <span className="nh-badge">{cartCount}</span>
-    )}
-  </button>
-
-  <button
-    className="nh-ibtn nh-hamburger"
-    onClick={() => setMenuOpen(true)}
-  >
-    <Menu size={20} />
-  </button>
-</div>
         </div>
       </div>
 
@@ -453,7 +584,6 @@ export default function NabhiHeaderTelugu({ onCartOpen, cartCount = 0 }) {
       {/* ── AUTH MODAL ── */}
       {modalOpen && (
         <div className="nh-modal">
-          {/* Left panel */}
           <div className="nh-modal-left">
             <div className="nh-modal-left-title">
               {mode === "login" ? "అక్రవికి స్వాగతం." : "నేడే అక్రవిలో చేరండి."}
@@ -465,9 +595,9 @@ export default function NabhiHeaderTelugu({ onCartOpen, cartCount = 0 }) {
             </div>
             <div className="nh-benefit-cards">
               {[
-                { icon: "⭐", title: "కస్టమర్ ఫస్ట్", desc: "ప్రతి నిర్ణయంలో మీరే మొదట" },
+                { icon: "⭐", title: "కస్టమర్ ఫస్ట్",    desc: "ప్రతి నిర్ణయంలో మీరే మొదట" },
                 { icon: "🔒", title: "సురక్షితం & గోప్యం", desc: "మీ డేటా ఎల్లప్పుడూ సురక్షితంగా ఉంటుంది" },
-                { icon: "🎁", title: "ప్రత్యేక ఆఫర్లు", desc: "సభ్యులకు మాత్రమే డీల్స్ మరియు ముందస్తు యాక్సెస్" },
+                { icon: "🎁", title: "ప్రత్యేక ఆఫర్లు",   desc: "సభ్యులకు మాత్రమే డీల్స్ మరియు ముందస్తు యాక్సెస్" },
               ].map((b) => (
                 <div key={b.title} className="nh-benefit-card">
                   <div className="nh-bc-icon">{b.icon}</div>
@@ -480,14 +610,13 @@ export default function NabhiHeaderTelugu({ onCartOpen, cartCount = 0 }) {
             </div>
           </div>
 
-          {/* Right panel */}
           <div className="nh-modal-right">
             <button className="nh-modal-close" onClick={() => setModalOpen(false)}><X size={13} /></button>
 
             {submitted ? (
               <div className="nh-success-wrap">
                 <div className="nh-success-icon">
-                  <CheckCircle size={28} color="#2d5a27" strokeWidth={1.8} />
+                  <CheckCircle size={28} color="#184b24" strokeWidth={1.8} />
                 </div>
                 <div className="nh-success-title">
                   {mode === "login" ? "మళ్ళీ స్వాగతం!" : "మీరు లోపలికి వచ్చారు!"}
@@ -503,45 +632,23 @@ export default function NabhiHeaderTelugu({ onCartOpen, cartCount = 0 }) {
               </div>
             ) : (
               <>
-                {/* Tabs */}
                 <div className="nh-tabs">
-                  <button className={`nh-tab${mode === "login" ? " active" : ""}`} onClick={() => { setMode("login"); setError(""); }}>
-                    లాగిన్
-                  </button>
-                  <button className={`nh-tab${mode === "signup" ? " active" : ""}`} onClick={() => { setMode("signup"); setError(""); }}>
-                    నమోదు
-                  </button>
+                  <button className={`nh-tab${mode === "login" ? " active" : ""}`} onClick={() => { setMode("login"); setError(""); }}>లాగిన్</button>
+                  <button className={`nh-tab${mode === "signup" ? " active" : ""}`} onClick={() => { setMode("signup"); setError(""); }}>నమోదు</button>
                 </div>
 
-                {/* Signup-only: name */}
                 {mode === "signup" && (
                   <div className="nh-field">
                     <label className="nh-label">పేరు (ఐచ్ఛికం)</label>
-                    <input
-                      className="nh-input"
-                      type="text"
-                      placeholder="మీ పేరు"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      autoComplete="name"
-                    />
+                    <input className="nh-input" type="text" placeholder="మీ పేరు" value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" />
                   </div>
                 )}
 
-                {/* Email */}
                 <div className="nh-field">
                   <label className="nh-label">ఇమెయిల్</label>
-                  <input
-                    className={`nh-input${error && !email ? " error" : ""}`}
-                    type="email"
-                    placeholder="you@example.com"
-                    value={email}
-                    onChange={(e) => { setEmail(e.target.value); setError(""); }}
-                    autoComplete="email"
-                  />
+                  <input className={`nh-input${error && !email ? " error" : ""}`} type="email" placeholder="you@example.com" value={email} onChange={(e) => { setEmail(e.target.value); setError(""); }} autoComplete="email" />
                 </div>
 
-                {/* Password */}
                 <div className="nh-field">
                   <label className="nh-label">పాస్‌వర్డ్</label>
                   <div className="nh-input-wrap">
@@ -560,7 +667,6 @@ export default function NabhiHeaderTelugu({ onCartOpen, cartCount = 0 }) {
                   </div>
                 </div>
 
-                {/* Signup-only: confirm password */}
                 {mode === "signup" && (
                   <div className="nh-field">
                     <label className="nh-label">పాస్‌వర్డ్ నిర్ధారించండి</label>
@@ -581,7 +687,6 @@ export default function NabhiHeaderTelugu({ onCartOpen, cartCount = 0 }) {
                   </div>
                 )}
 
-                {/* Signup-only: notify */}
                 {mode === "signup" && (
                   <label className="nh-notify-row">
                     <input type="checkbox" checked={notify} onChange={() => setNotify(p => !p)} />
@@ -589,22 +694,15 @@ export default function NabhiHeaderTelugu({ onCartOpen, cartCount = 0 }) {
                   </label>
                 )}
 
-                {/* Error */}
                 {error && <div className="nh-error">⚠ {error}</div>}
 
-                {/* Submit */}
-                <button
-                  className="nh-submit-btn"
-                  onClick={mode === "login" ? handleLogin : handleSignup}
-                  disabled={submitting}
-                >
+                <button className="nh-submit-btn" onClick={mode === "login" ? handleLogin : handleSignup} disabled={submitting}>
                   {submitting && <span className="nh-spinner" />}
                   {submitting ? "దయచేసి వేచి ఉండండి…" : mode === "login" ? "లాగిన్ చేయండి" : "ఖాతా సృష్టించండి"}
                 </button>
 
                 <div className="nh-terms">
-                  కొనసాగించడం ద్వారా మీరు మా{" "}
-                  <a href="#">గోప్యతా విధానం మరియు నిబంధనలను</a> అంగీకరిస్తున్నారు.
+                  కొనసాగించడం ద్వారా మీరు మా <a href="#">గోప్యతా విధానం మరియు నిబంధనలను</a> అంగీకరిస్తున్నారు.
                 </div>
               </>
             )}
@@ -612,39 +710,39 @@ export default function NabhiHeaderTelugu({ onCartOpen, cartCount = 0 }) {
         </div>
       )}
 
-      {/* ── MOBILE MENU ── */}
+      {/* ── MOBILE DRAWER ── */}
       {menuOpen && (
         <div className="nh-mob-drawer">
           <div className="nh-mob-head">
-            <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 700 }}>Akravi</span>
+            <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 700, color: "#1a3d1e" }}>Akravi</span>
             <button
-              style={{ width: 36, height: 36, borderRadius: "50%", border: "1.5px solid #e0ddd5", background: "#fff", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "#444" }}
+              style={{ width: 34, height: 34, borderRadius: "50%", border: "1.5px solid rgba(24,75,36,0.20)", background: "rgba(255,255,255,0.7)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "#444" }}
               onClick={() => setMenuOpen(false)}
             >
-              <X size={15} />
+              <X size={14} />
             </button>
           </div>
           {navLinks.map((l) => (
             <div key={l.label} className="nh-mob-link" onClick={() => { navigate(l.path); setMenuOpen(false); }}>
               <span>{l.label}</span>
-              <span style={{ color: "#ccc", fontSize: 18 }}>›</span>
+              <span style={{ color: "#94a3b8", fontSize: 18 }}>›</span>
             </div>
           ))}
           {loggedInUser ? (
             <>
               <div className="nh-mob-link" onClick={() => { navigate("/my-orders-tlg"); setMenuOpen(false); }}>
                 <span>నా ఆర్డర్లు</span>
-                <span style={{ color: "#ccc", fontSize: 18 }}>›</span>
+                <span style={{ color: "#94a3b8", fontSize: 18 }}>›</span>
               </div>
               <div className="nh-mob-link" style={{ color: "#c0392b" }} onClick={handleLogout}>
                 <span>లాగ్అవుట్</span>
-                <span style={{ color: "#ccc", fontSize: 18 }}>›</span>
+                <span style={{ color: "#94a3b8", fontSize: 18 }}>›</span>
               </div>
             </>
           ) : (
             <div className="nh-mob-link" onClick={() => { openModal("login"); setMenuOpen(false); }}>
               <span>లాగిన్ / నమోదు</span>
-              <span style={{ color: "#ccc", fontSize: 18 }}>›</span>
+              <span style={{ color: "#94a3b8", fontSize: 18 }}>›</span>
             </div>
           )}
         </div>
