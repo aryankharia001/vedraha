@@ -66,9 +66,6 @@ function App() {
       <Routes>
         {/* ── Home Pages ─────────────────────────────────────────────────── */}
         <Route path="/" element={<Home/>}/>
-        <Route path="/hn" element={<HomeHi/>}/>
-        <Route path="/tml" element={<HomeTm/>}/>
-        <Route path="/tlg" element={<HomeTe/>}/>
 
         {/* ── Hindi Pages ─────────────────────────────────────────────────── */}
         <Route path="/products/nabhi-joint-hn" element={<NabhiJointPage />} />
