@@ -26,8 +26,8 @@ const product = {
 
 // ─── Variants ─────────────────────────────────────────────────────────────────
 const variants = [
-  { id: 1, label: "Buy 1 Jar",                   price: "₹669",  priceNum: 669,  badge: null,          externalVariantId: 477247394800564160 },
-  { id: 2, label: "Buy 2 Jars – ₹300 Off",       price: "₹1,099", priceNum: 1099, badge: "Save ₹300",  externalVariantId: 477247412248868800 },
+  { id: 1, label: "Buy 1 Jar",                   price: "₹669",  priceNum: 669,  mrp:769,badge: null,          externalVariantId: 477247394800564160 },
+  { id: 2, label: "Buy 2 Jars – ₹300 Off",       price: "₹1,099", priceNum: 1099, mrp:1399,badge: "Save ₹300",  externalVariantId: 477247412248868800 },
 ];
 
 // ─── Gallery images ───────────────────────────────────────────────────────────

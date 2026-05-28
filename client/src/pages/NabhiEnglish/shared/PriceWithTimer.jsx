@@ -14,7 +14,7 @@ export default function PriceWithTimer({ currentVariant, selectedPrice, themeCol
     <div className="my-2 mb-[18px]">
       <div className="flex items-center gap-3 flex-wrap">
         <span
-          className="text-[36px] font-black text-[#B89454]"
+          className="text-[30px] text-[#B89454] font-base"
           style={{ fontFamily: "'DM Sans', sans-serif" }}
         >
           ₹{selectedPrice.toLocaleString("en-IN")}
@@ -25,6 +25,20 @@ export default function PriceWithTimer({ currentVariant, selectedPrice, themeCol
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
             ₹{mrp.toLocaleString("en-IN")}
+          </span>
+        )}
+
+        {/* Discount badge — only shows if mrp exists and discount > 0 */}
+        {mrp && discountPct > 0 && (
+          <span
+            className="text-sm font-semibold px-2 py-0.5 rounded-full"
+            style={{
+              backgroundColor: themeColor ? `${themeColor}22` : "#22c55e22",
+              color: themeColor ?? "#22c55e",
+              fontFamily: "'DM Sans', sans-serif",
+            }}
+          >
+            {discountPct}% OFF
           </span>
         )}
       </div>
