@@ -17,6 +17,10 @@ import NabhiMenstrualPage from './pages/NabhiHindi/NabhiMensturation/NabhiMenstr
 import NabhiAmritPage from './pages/NabhiHindi/NabhiAmrit/NabhiAmritPage'
 import NabhiAboutHindi from './pages/NabhiHindi/NabhiAboutHindi'
 import NabhiContactHindi from './pages/NabhiHindi/NabhiContactHindi'
+import ExclusiveProductCatalog from './pages/ExclusiveProductCatalog'
+import ExclusiveProductCatalogHindi from './pages/ExclusiveProductCatalogHindi'
+import ExclusiveProductCatalogTamil from './pages/ExclusiveProductCatalogTamil'
+import ExclusiveProductCatalogTelugu from './pages/ExclusiveProductCatalogTelugu'
 
 // English pages
 import NabhiJointPageEng from './pages/NabhiEnglish/NabhiJointEng/NabhiJointPageEng'
@@ -79,8 +83,12 @@ function App() {
         <Route path="/products/nabhi-shilajit-hn" element={<NabhiShilajitPage />} />
         <Route path="/products/nabhi-menstrual-hn" element={<NabhiMenstrualPage />} />
         <Route path="/products/nabhi-amrit-hn" element={<NabhiAmritPage />} />
-        <Route path="/products/nabhi-about-hn" element={<NabhiAboutHindi />} />
-        <Route path="/products/nabhi-contact-hn" element={<NabhiContactHindi />} />
+        <Route path="/products/about-hn" element={<NabhiAboutHindi />} />
+        <Route path="/products/contact-hn" element={<NabhiContactHindi />} />
+        <Route path="/products" element={<ExclusiveProductCatalog />} />
+        <Route path="/products-hn" element={<ExclusiveProductCatalogHindi />} />
+        <Route path="/products-tml" element={<ExclusiveProductCatalogTamil />} />
+        <Route path="/products-tlg" element={<ExclusiveProductCatalogTelugu />} />
 
         {/* ── English Pages ────────────────────────────────────────────────── */}
         <Route path="/products/nabhi-joint-en" element={<NabhiJointPageEng />} />
