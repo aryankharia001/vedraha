@@ -56,9 +56,6 @@ import ExcFaliurePageHindi from './pages/razorpayPayments/ExcFaliurePageHindi'
 
 //Pages
 import Home from './pages/NabhiHome/Home'
-import HomeHi from './pages/NabhiHome/Home.hi'
-import HomeTm from './pages/NabhiHome/Home.ta'
-import HomeTe from './pages/NabhiHome/Home.te'
 
 // ── App ─────────────────────────────────────────────────────────────────────────
 export const backendurl = import.meta.env.VITE_BACKEND_URL;
