@@ -51,6 +51,8 @@ import NabhiAmritPageTamil from './pages/NabhiTamil/NabhiAmritTamil/NabhiAmritPa
 import NabhiAboutTamil from './pages/NabhiTamil/NabhiAboutTamil'
 import NabhiContactTamil from './pages/NabhiTamil/NabhiContactTamil'
 
+import RefundPolicy from './pages/RefundPolicy'
+import PrivacyPolicy from './pages/PrivacyPolicy'
 // Payment pages
 import ExcFaliurePageHindi from './pages/razorpayPayments/ExcFaliurePageHindi'
 
@@ -66,6 +68,8 @@ function App() {
       <Routes>
         {/* ── Home Pages ─────────────────────────────────────────────────── */}
         <Route path="/" element={<Home/>}/>
+        <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
+        <Route path="/refund-policy" element={<RefundPolicy/>}/>
 
         {/* ── Hindi Pages ─────────────────────────────────────────────────── */}
         <Route path="/products/nabhi-joint-hn" element={<NabhiJointPage />} />
@@ -110,6 +114,8 @@ function App() {
         <Route path="/products/nabhi-amrit-tamil" element={<NabhiAmritPageTamil />} />
         <Route path="/products/nabhi-about-tamil" element={<NabhiAboutTamil />} />
         <Route path="/products/nabhi-contact-tamil" element={<NabhiContactTamil />} />
+
+
 
         {/* ── Payment Pages ────────────────────────────────────────────────── */}
         <Route path="/exc-payment-success-hn" element={<ExcFaliurePageHindi />} />
