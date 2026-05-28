@@ -130,7 +130,7 @@ function Footer({ product }) {
           <div>
             <div className="flex items-center gap-2.5 mb-3">
               <div className="w-8 h-8 bg-[#2d5a27] rounded-lg flex items-center justify-center overflow-hidden">
-                <img src={product.logoImage} alt="logo" className="w-full h-full object-contain" />
+                <img src="https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=nabhiLogo.webp&version_id=null" alt="logo" className="w-full h-full object-contain" />
               </div>
               <span className="text-white text-xl font-bold" style={{ fontFamily: "'DM Sans', sans-serif" }}>{product.name}</span>
             </div>
