@@ -56,6 +56,7 @@ import ExcFaliurePageHindi from './pages/razorpayPayments/ExcFaliurePageHindi'
 
 //Pages
 import Home from './pages/NabhiHome/Home'
+import MainRouter from './pages/NabhiHome/Mainrouter'
 
 // ── App ─────────────────────────────────────────────────────────────────────────
 export const backendurl = import.meta.env.VITE_BACKEND_URL;
@@ -65,7 +66,9 @@ function App() {
     <BrowserRouter>
       <Routes>
         {/* ── Home Pages ─────────────────────────────────────────────────── */}
-        <Route path="/" element={<Home/>}/>
+        {/* <Route path="/" element={<Home/>}/> */}
+        <Route path="/*" element={<MainRouter/>}/>
+        {/* <Router */}
 
         {/* ── Hindi Pages ─────────────────────────────────────────────────── */}
         <Route path="/products/nabhi-joint-hn" element={<NabhiJointPage />} />
