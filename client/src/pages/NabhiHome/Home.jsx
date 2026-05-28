@@ -62,7 +62,7 @@ const Home = ({ lang = "en" }) => {
   return (
     <>
       {/* lang prop flows into header — controls nav links, button text, modal copy */}
-      <NabhiHeader lang={lang} />
+      {/* <NabhiHeader/> */}
 
       <main className="bg-gradient-to-b from-[#f7f7f5] to-[#f0f0ed]">
         <div className="relative overflow-hidden">

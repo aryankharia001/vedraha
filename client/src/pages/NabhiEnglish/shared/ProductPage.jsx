@@ -431,25 +431,34 @@ export default function ProductPage({ config, relatedProducts = [] }) {
             <PriceWithTimer currentVariant={currentVariant} selectedPrice={selectedPrice} themeColor={themeColor} />
             <hr className="border-0 border-t border-gray-200 my-4" />
 
-            {/* Size/Volume Selection - Capsule style */}
-            {/* <div className="text-xs font-bold uppercase tracking-widest mb-3.5 text-gray-500" style={{ fontFamily: "'DM Sans', sans-serif" }}>Size/Volume</div>
-            <div className="flex flex-wrap gap-2.5 mb-5">
-              {["30 ml", "60 ml", "80 ml", "100 ml"].map((size, idx) => (
-                <button
-                  key={size}
-                  onClick={() => setSelectedVariant(variants[idx]?.id)}
-                  className="px-4 py-2 rounded-full border cursor-pointer text-sm font-semibold transition-all duration-200"
-                  style={{
-                    fontFamily: "'DM Sans', sans-serif",
-                    background: selectedVariant === variants[idx]?.id ? themeColor : "#fff",
-                    color: selectedVariant === variants[idx]?.id ? "#fff" : "#666",
-                    borderColor: selectedVariant === variants[idx]?.id ? themeColor : "#e0e0e0",
-                  }}
-                >
-                  {size}
-                </button>
-              ))}
-            </div> */}
+            {/* Select Pack */}
+            <div className="text-xs font-bold uppercase tracking-widest mb-3.5 text-gray-500" style={{ fontFamily: "'DM Sans', sans-serif" }}>Select Pack</div>
+            {variants.map((v) => (
+              <div
+                key={v.id}
+                onClick={() => setSelectedVariant(v.id)}
+                className="rounded-2xl px-4 py-3 cursor-pointer mb-2.5 relative flex justify-between items-center transition-all duration-200"
+                style={{ border: selectedVariant === v.id ? `2px solid ${themeColor}` : "1.5px solid #ebe9e2", background: selectedVariant === v.id ? themeColor : "#fff" }}
+              >
+                {v.badge && (
+                  <span className="absolute -top-2.5 -right-1.5 bg-[#c8a84b] text-white text-[10px] px-2 py-0.5 rounded font-bold tracking-wider">{v.badge}</span>
+                )}
+                <div className="flex items-center gap-3">
+                  <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ border: `2px solid ${selectedVariant === v.id ? "#fff" : "#ccc"}` }}>
+                    {selectedVariant === v.id && <div className="w-2.5 h-2.5 rounded-full bg-white" />}
+                  </div>
+                  <span className="text-base font-semibold" style={{ color: selectedVariant === v.id ? "#fff" : "#1a1a1a" }}>{v.label}</span>
+                </div>
+                <div className="flex flex-col items-end gap-0.5">
+                  <span className="text-base font-bold" style={{ color: selectedVariant === v.id ? "#fff" : "#1a1a1a", fontFamily: "'DM Sans', sans-serif" }}>{v.price}</span>
+                  {v.mrp && (
+                    <span className="text-xs line-through" style={{ color: selectedVariant === v.id ? "rgba(255,255,255,0.65)" : "#aaa", fontFamily: "'DM Sans', sans-serif" }}>
+                      ₹{v.mrp.toLocaleString("en-IN")}
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
 
             {/* Quantity Selector - Grey bordered rounded box */}
             <div className="flex items-center gap-4 mb-5">
