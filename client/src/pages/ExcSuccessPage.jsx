@@ -198,6 +198,15 @@ export default function ExcSuccessPage() {
   const [loading,    setLoading]    = useState(!!oid);
   const [fetchError, setFetchError] = useState("");
 
+  
+  useEffect(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth", // optional
+      });
+    }, []);
+    
+
   // ── Fetch order ────────────────────────────────────────────────────────────
   useEffect(() => {
     if (!oid) {
@@ -394,7 +403,7 @@ export default function ExcSuccessPage() {
 
       {/* <NabhiHeader /> */}
 
-      <div className="max-w-[560px] mx-auto px-4 sm:px-6 pb-20">
+      <div className="max-w-[560px] mx-auto px-4 sm:px-6 pb-20 pt-20">
 
         {/* ── Hero ── */}
         <div className="anim-hero text-center pt-10 pb-6">
@@ -548,7 +557,7 @@ export default function ExcSuccessPage() {
         {/* ── View My Orders ── */}
         <div className="anim-btn-1">
           <button
-            onClick={() => navigate("/my-orders")}
+            onClick={() => navigate("/my-orders-en")}
             className="w-full border-[1.5px] border-[#2d5a27] rounded-[16px] px-5 py-3.5 bg-white flex items-center justify-center gap-2.5 text-[15px] font-bold text-[#2d5a27] hover:bg-green-50 active:scale-[.98] transition-all mb-3"
           >
             <FaBoxOpen size={14} color="#2d5a27" />
@@ -559,7 +568,7 @@ export default function ExcSuccessPage() {
         {/* ── Continue Shopping ── */}
         <div className="anim-btn-2">
           <button
-            onClick={() => navigate("/exclusive-products")}
+            onClick={() => navigate("/products")}
             className="shimmer-btn w-full rounded-[16px] px-5 py-4 bg-gradient-to-r from-[#2d5a27] via-[#4a8c40] to-[#1a3d16] text-white text-base font-extrabold flex items-center justify-center gap-2.5 shadow-[0_8px_28px_rgba(45,90,39,0.32)] active:scale-[.98] transition-transform"
           >
             <FaLeaf size={13} color="#fff" />

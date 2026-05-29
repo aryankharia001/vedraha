@@ -195,6 +195,13 @@ export default function ExcSuccessPage() {
   const [loading,    setLoading]    = useState(!!oid);
   const [fetchError, setFetchError] = useState("");
 
+  useEffect(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth", // optional
+        });
+      }, []);
+
   // ── Fetch order ────────────────────────────────────────────────────────────
   useEffect(() => {
     if (!oid) {
