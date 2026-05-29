@@ -113,9 +113,9 @@ export default function NabhiHeaderTelugu({ onCartOpen, cartCount = 0 }) {
   const handleCartClick = () => onCartOpen?.();
 
   const navLinks = [
-    { label: "జాబితా",         path: "/exclusive-products-tlg" },
-    { label: "సంప్రదించండి",   path: "/products/nabhi-telugu-contact" },
-    { label: "మా గురించి",     path: "/products/nabhi-telugu-aboutus" },
+    { label: "జాబితా",         path: "/products-tlg" },
+    { label: "సంప్రదించండి",   path: "/products/nabhi-contact-telugu" },
+    { label: "మా గురించి",     path: "/products/nabhi-about-telugu" },
   ];
 
   const displayName = loggedInUser?.name || loggedInUser?.email?.split("@")[0] || "ఖాతా";

@@ -113,9 +113,9 @@ export default function NabhiHeaderTamil({ onCartOpen, cartCount = 0 }) {
   const handleCartClick = () => onCartOpen?.();
 
   const navLinks = [
-    { label: "தயாரிப்புகள்",          path: "/exclusive-products-tml" },
-    { label: "தொடர்பு கொள்ளுங்கள்",   path: "/products/nabhi-tml-contact" },
-    { label: "எங்களை பற்றி",           path: "/products/nabhi-tml-aboutus" },
+    { label: "தயாரிப்புகள்",          path: "/products-tml" },
+    { label: "தொடர்பு கொள்ளுங்கள்",   path: "/products/nabhi-contact-tamil" },
+    { label: "எங்களை பற்றி",           path: "/products/nabhi-about-tamil" },
   ];
 
   const displayName = loggedInUser?.name || loggedInUser?.email?.split("@")[0] || "கணக்கு";
