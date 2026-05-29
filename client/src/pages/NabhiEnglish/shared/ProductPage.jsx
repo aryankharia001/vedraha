@@ -641,7 +641,7 @@ export default function ProductPage({ config, relatedProducts = [] }) {
         <RelatedProductsComponent products={relatedProducts} />
       )}
 
-      <Footer product={product} />
+      {/* <Footer product={product} /> */}
       <WhatsAppFloat showStickyBar={showStickyBar} whatsappNumber={product.whatsappNumber} whatsappMessage={product.whatsappMessage} />
       <StickyCTA show={showStickyBar} selectedPrice={selectedPrice} stickyTotal={stickyTotal} currentVariant={currentVariant} quantity={quantity} onBuyNow={handleBuyNowDirect} upiIcons={upiIcons} themeColor={themeColor} />
     </div>

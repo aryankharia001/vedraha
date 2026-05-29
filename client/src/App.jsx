@@ -11,6 +11,12 @@ import NabhiHeaderHindi from "./components/NabhiHeaderHindi";
 import NabhiHeaderTamil from "./components/NabhiHeaderTamil";
 import NabhiHeaderTelugu from "./components/NabhiHeaderTelugu";
 
+// ── Footers per Language ──────────────────────────────────────────────────────
+import Footer from "./components/Footer"; // English / Default
+import FooterHindi from "./components/FooterHindi";
+import FooterTamil from "./components/FooterTamil";
+import FooterTelugu from "./components/FooterTelugu";
+
 // ── Home Pages per Language ───────────────────────────────────────────────────
 import Home from './pages/NabhiHome/Home'
 import HomeHindi from './pages/NabhiHome/Home.hi'
@@ -44,6 +50,7 @@ import NabhiAmritPageEng from './pages/NabhiEnglish/NabhiAmritEng/NabhiAmritPage
 import NabhiAboutEng from './pages/NabhiEnglish/NabhiAboutEng'
 import NabhiContactEng from './pages/NabhiEnglish/NabhiContactEng'
 import MyOrdersEnglish from './pages/Nabhi Oil/MyOrdersEnglish'
+
 // ── Telugu Product Pages ──────────────────────────────────────────────────────
 import NabhiJointPageTelugu from './pages/NabhiTelugu/NabhiJointTelugu/NabhiJointPageTelugu'
 import NabhiEyePageTelugu from './pages/NabhiTelugu/NabhiEyeTelugu/NabhiEyePageTelugu'
@@ -72,6 +79,7 @@ import ExcFaliurePageHindi from './pages/razorpayPayments/ExcFaliurePageHindi'
 import ExcSuccessPageTelugu from './pages/ExcSuccessPageTelugu'
 import ExcSuccessPage from './pages/ExcSuccessPage'
 import ExcSuccessPageHindi from './pages/ExcSuccessPageHindi'
+
 export const backendurl = import.meta.env.VITE_BACKEND_URL;
 
 function AppContent() {
@@ -80,21 +88,38 @@ function AppContent() {
 
   // Render header ONLY on home layouts to prevent duplicates on sub-product pages
   const renderGlobalHeader = () => {
-    if (path === "/hn" || path === "/hn/") {
+    // Check for Hindi paths (exact home match or sub-product pages)
+    if (path === "/hn" || path === "/hn/" || path.includes("-hn") || path.includes("-hindi") || path === "/products-hn" || path === "/success-hn") {
       return <NabhiHeaderHindi />;
     }
-    if (path === "/te" || path === "/te/") {
+    // Check for Telugu paths
+    if (path === "/tlg" || path === "/tlg/" || path.includes("-telugu") || path === "/products-tlg" || path === "/success-telugu") {
       return <NabhiHeaderTelugu />;
     }
-    if (path === "/ta" || path === "/ta/") {
+    // Check for Tamil paths
+    if (path === "/tml" || path === "/tml/" || path.includes("-tamil") || path === "/products-tml") {
       return <NabhiHeaderTamil />;
     }
-    else {
-      return <NabhiHeader />;
+    // Fallback to English Footer for all other main paths
+    return <NabhiHeader />;
+  };
+
+  // Render footer based on active language tree path
+  const renderGlobalFooter = () => {
+    // Check for Hindi paths (exact home match or sub-product pages)
+    if (path === "/hn" || path === "/hn/" || path.includes("-hn") || path.includes("-hindi") || path === "/products-hn" || path === "/success-hn") {
+      return <FooterHindi />;
     }
-    
-    // Returns nothing for all product routes, let the pages use their internal headers
-    return null; 
+    // Check for Telugu paths
+    if (path === "/tlg" || path === "/tlg/" || path.includes("-telugu") || path === "/products-tlg" || path === "/success-telugu") {
+      return <FooterTelugu />;
+    }
+    // Check for Tamil paths
+    if (path === "/tml" || path === "/tml/" || path.includes("-tamil") || path === "/products-tml") {
+      return <FooterTamil />;
+    }
+    // Fallback to English Footer for all other main paths
+    return <Footer />;
   };
 
   return (
@@ -110,6 +135,7 @@ function AppContent() {
 
         {/* ── Hindi Language Tree ────────────────────────────────────────── */}
         <Route path="/hn" element={<HomeHindi />} />
+        <Route path="/products-hn" element={<ExclusiveProductCatalogHindi />} />
         <Route path="/products/nabhi-joint-hn" element={<NabhiJointPage />} />
         <Route path="/products/nabhi-eye-hn" element={<NabhiEyePage />} />
         <Route path="/products/nabhi-hair-hn" element={<NabhiHairPage />} />
@@ -119,7 +145,6 @@ function AppContent() {
         <Route path="/products/nabhi-amrit-hn" element={<NabhiAmritPage />} />
         <Route path="/products/about-hn" element={<NabhiAboutHindi />} />
         <Route path="/products/contact-hn" element={<NabhiContactHindi />} />
-        <Route path="/products-hn" element={<ExclusiveProductCatalogHindi />} />
         <Route path="/success-hn" element={<ExcSuccessPageHindi />} />
         <Route path="/my-orders-hn" element={<MyOrders />} />
 
@@ -138,7 +163,7 @@ function AppContent() {
         <Route path="/my-orders-en" element={<MyOrdersEnglish />} />
 
         {/* ── Telugu Language Tree ───────────────────────────────────────── */}
-        <Route path="/te" element={<HomeTelugu />} />
+        <Route path="/tlg" element={<HomeTelugu />} />
         <Route path="/products-tlg" element={<ExclusiveProductCatalogTelugu />} />
         <Route path="/products/nabhi-joint-telugu" element={<NabhiJointPageTelugu />} />
         <Route path="/products/nabhi-eye-telugu" element={<NabhiEyePageTelugu />} />
@@ -152,7 +177,7 @@ function AppContent() {
         <Route path="/success-telugu" element={<ExcSuccessPageTelugu />} />
 
         {/* ── Tamil Language Tree ────────────────────────────────────────── */}
-        <Route path="/ta" element={<HomeTamil />} />
+        <Route path="/tml" element={<HomeTamil />} />
         <Route path="/products-tml" element={<ExclusiveProductCatalogTamil />} />
         <Route path="/products/nabhi-joint-tamil" element={<NabhiJointPageTamil />} />
         <Route path="/products/nabhi-eye-tamil" element={<NabhiEyePageTamil />} />
@@ -167,6 +192,9 @@ function AppContent() {
         {/* ── Payment / Gateway Fallbacks ────────────────────────────────── */}
         <Route path="/payment-faliure" element={<ExcFaliurePageHindi />} />
       </Routes>
+
+      {/* Dynamic bottom footer element injection */}
+      {renderGlobalFooter()}
     </>
   );
 }
