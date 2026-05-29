@@ -7,7 +7,7 @@
 //  4. Pass openCart / cartTotalQty into every header
 // ─────────────────────────────────────────────────────────────────────────────
 
-import React, { lazy, Suspense } from 'react'
+import React, { lazy, Suspense, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { initTrackingCookies } from './utils/trackingCookies'
 
@@ -115,6 +115,31 @@ function AppContent() {
     removeItem,
   } = useCart();
 
+  // ── Load Shiprocket checkout SDK once for the whole app ─────────────────────
+  useEffect(() => {
+    // Avoid injecting twice
+    if (document.getElementById('shiprocket-checkout-script')) return;
+
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://checkout-ui.shiprocket.com/assets/styles/shopify.css';
+    document.head.appendChild(link);
+
+    const script = document.createElement('script');
+    script.id = 'shiprocket-checkout-script';
+    script.src = 'https://checkout-ui.shiprocket.com/assets/js/channels/shopify.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    ['headless-checkout-container', 'checkout-modal-root'].forEach((id) => {
+      if (!document.getElementById(id)) {
+        const div = document.createElement('div');
+        div.id = id;
+        document.body.appendChild(div);
+      }
+    });
+  }, []);
+
   // ── Header selector ─────────────────────────────────────────────────────────
   const renderGlobalHeader = () => {
     const commonProps = { onCartOpen: openCart, cartCount: cartTotalQty };
@@ -146,10 +171,23 @@ function AppContent() {
   };
 
   const openShiprocketGateway = async (clickEvent, checkoutItems) => {
-      if (!window.HeadlessCheckout?.addToCart) {
-        alert("Checkout is loading. Please try again in a moment.");
-        return;
-      }
+    // Wait up to 5s for the Shiprocket SDK to initialise before giving up
+    if (!window.HeadlessCheckout?.addToCart) {
+      let waited = 0;
+      await new Promise((resolve) => {
+        const interval = setInterval(() => {
+          waited += 200;
+          if (window.HeadlessCheckout?.addToCart || waited >= 5000) {
+            clearInterval(interval);
+            resolve();
+          }
+        }, 200);
+      });
+    }
+    if (!window.HeadlessCheckout?.addToCart) {
+      alert("Checkout is loading. Please try again in a moment.");
+      return;
+    }
       try {
         const paramsObject = Object.fromEntries(
           new URLSearchParams(window.location.search).entries(),
@@ -162,7 +200,7 @@ function AppContent() {
               variant_id: i.variantId,
               quantity: i.quantity,
             })),
-            redirect_url: `${window.location.origin}/exc-payment-success${queryString ? `?${queryString}` : ""}`,
+            redirect_url: `${window.location.origin}/success-en${queryString ? `?${queryString}` : ""}`,
             paramsObject,
           },
           { headers: { "Content-Type": "application/json" } },
@@ -181,24 +219,14 @@ function AppContent() {
   // ── Checkout handler for cart drawer ─────────────────────────────────────────
   // Reuse whatever checkout logic your ProductPage uses (Shiprocket, Razorpay, etc.)
   // For now we fire the same openShiprocketGateway pattern. Adjust as needed.
-  const handleCartBuyNow = () => {
-    // trackFacebookEvent("InitiateCheckout");
-    const totalValue = cartItems.reduce(
-      (s, i) => s + i.variantPriceNum * i.quantity,
-      0,
-    );
-    const totalQty = cartItems.reduce((s, i) => s + i.quantity, 0);
-    const contents = cartItems.map((i) => ({
-      id: i.variantId,
-      quantity: i.quantity,
-      item_price: i.variantPriceNum,
-      title: i.productName,
-    }));
+  const handleCartBuyNow = (e) => {
+    // Normalize the event exactly like handleBuyNowDirect does in ProductPage:
+    // synthetic React event → use .nativeEvent; plain MouseEvent → use as-is;
+    // undefined/null (e.g. called programmatically) → synthesize a new click event.
+    const clickEvent =
+      e?.nativeEvent ?? e ?? new MouseEvent("click", { bubbles: true });
 
-    openShiprocketGateway(
-      new MouseEvent("click", { bubbles: true }),
-      cartItems,
-    );
+    openShiprocketGateway(clickEvent, cartItems);
   };
 
   return (

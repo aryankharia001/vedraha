@@ -12,6 +12,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Search, User, ShoppingBag, X, Menu, CheckCircle, Eye, EyeOff, Package, LogOut, ChevronDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { backendurl } from "../App";
+import { useCart } from "../components/CartContext";
 
 // ── Product sub-pages shown in the Catalog dropdown ──────────────────────────
 const CATALOG_LINKS = [
@@ -22,7 +23,8 @@ const CATALOG_LINKS = [
   { label: "Gift Sets",       path: "/products/gift-sets" },
 ];
 
-export default function NabhiHeader({ onCartOpen, cartCount = 0 }) {
+export default function NabhiHeader({ onCartOpen }) {
+  const { cartTotalQty: cartCount } = useCart();
   const [modalOpen, setModalOpen]       = useState(false);
   const [mode, setMode]                 = useState("login");
   const [menuOpen, setMenuOpen]         = useState(false);

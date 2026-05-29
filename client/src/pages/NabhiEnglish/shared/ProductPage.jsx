@@ -11,10 +11,11 @@ import { backendurl } from "../../../App";
 import { Accordion, StarRating, UpiStack } from "./ui";
 import ProductGallery from "./ProductGallery";
 import PriceWithTimer from "./PriceWithTimer";
+// ADD this line near the top with other imports
+import { useCart } from "../../../components/CartContext";
 
 // ─── Lazy imports ─────────────────────────────────────────────────────────────
 const CodModal = lazy(() => import("./CodModal"));
-const CartDrawer = lazy(() => import("./CartDrawer"));
 const ReviewsSection = lazy(() => import("./ReviewsSection"));
 const BelowFoldSections = lazy(() => import("./BelowFoldSections"));
 
@@ -325,22 +326,24 @@ export default function ProductPage({ config, relatedProducts = [] }) {
   const [codModalOpen, setCodModalOpen] = useState(false);
   const [codSubmitting, setCodSubmitting] = useState(false);
   const [codSubmitted, setCodSubmitted] = useState(false);
-  const [cartOpen, setCartOpen] = useState(false);
   const [gatewayLoading, setGatewayLoading] = useState(false);
-  const [cartItems, setCartItems] = useState(() =>
-    loadCart(product.cartStorageKey),
-  );
+  
+// ── Cart comes from context now ──────────────────────────────────────────
+const {
+  cartItems,
+  cartOpen,
+  cartTotalQty,
+  openCart,
+  closeCart,
+  addToCart,
+  updateQty,
+  removeItem,
+} = useCart();
 
-  // ─── Derived ────────────────────────────────────────────────────────────────
-  const currentVariant = variants.find((v) => v.id === selectedVariant);
-  const selectedPrice = currentVariant?.priceNum ?? 0;
-  const stickyTotal = selectedPrice * quantity;
-  const cartTotalQty = cartItems.reduce((s, i) => s + i.quantity, 0);
-
-  // ─── Effects ────────────────────────────────────────────────────────────────
-  useEffect(() => {
-    saveCart(product.cartStorageKey, cartItems);
-  }, [cartItems]);
+// ─── Derived ────────────────────────────────────────────────────────────────
+const currentVariant = variants.find((v) => v.id === selectedVariant);
+const selectedPrice = currentVariant?.priceNum ?? 0;
+const stickyTotal = selectedPrice * quantity;
 
   useEffect(() => {
     trackViewContent(product.id, product.name, selectedPrice);
@@ -400,37 +403,45 @@ export default function ProductPage({ config, relatedProducts = [] }) {
   }, []);
 
   // ─── Handlers ───────────────────────────────────────────────────────────────
+  // const handleAddToCart = () => {
+  //   // trackFacebookEvent("AddToCart");
+  //   const v = variants.find((vv) => vv.id === selectedVariant);
+
+  //   trackAddToCart(product.id, product.name, selectedPrice, quantity);
+
+  //   const cartId = `${product.id}-${v.id}`;
+  //   setCartItems((prev) => {
+  //     const ex = prev.find((i) => i.cartId === cartId);
+  //     return ex
+  //       ? prev.map((i) =>
+  //           i.cartId === cartId ? { ...i, quantity: i.quantity + quantity } : i,
+  //         )
+  //       : [
+  //           ...prev,
+  //           {
+  //             cartId,
+  //             productId: product.id,
+  //             productName: product.name,
+  //             productTagline: product.tagline,
+  //             productImage: product.image,
+  //             variantId: String(v.externalVariantId),
+  //             variantLabel: v.label,
+  //             variantPrice: v.price,
+  //             variantPriceNum: v.priceNum,
+  //             quantity,
+  //           },
+  //         ];
+  //   });
+  //   setCartOpen(true);
+  // };
+
+
   const handleAddToCart = () => {
-    // trackFacebookEvent("AddToCart");
-    const v = variants.find((vv) => vv.id === selectedVariant);
-
-    trackAddToCart(product.id, product.name, selectedPrice, quantity);
-
-    const cartId = `${product.id}-${v.id}`;
-    setCartItems((prev) => {
-      const ex = prev.find((i) => i.cartId === cartId);
-      return ex
-        ? prev.map((i) =>
-            i.cartId === cartId ? { ...i, quantity: i.quantity + quantity } : i,
-          )
-        : [
-            ...prev,
-            {
-              cartId,
-              productId: product.id,
-              productName: product.name,
-              productTagline: product.tagline,
-              productImage: product.image,
-              variantId: String(v.externalVariantId),
-              variantLabel: v.label,
-              variantPrice: v.price,
-              variantPriceNum: v.priceNum,
-              quantity,
-            },
-          ];
-    });
-    setCartOpen(true);
-  };
+  const v = variants.find((vv) => vv.id === selectedVariant);
+  trackAddToCart(product.id, product.name, selectedPrice, quantity);
+  addToCart(product, v, quantity);
+  openCart();
+};
 
   const openShiprocketGateway = async (clickEvent, checkoutItems) => {
     if (!window.HeadlessCheckout?.addToCart) {
@@ -535,19 +546,29 @@ export default function ProductPage({ config, relatedProducts = [] }) {
     }
   };
 
-  const handleUpdateQty = (cartId, newQty) =>
-    setCartItems((prev) =>
-      newQty < 1
-        ? prev.filter((i) => i.cartId !== cartId)
-        : prev.map((i) =>
-            i.cartId === cartId ? { ...i, quantity: newQty } : i,
-          ),
-    );
+  // const handleUpdateQty = (cartId, newQty) =>
+  //   setCartItems((prev) =>
+  //     newQty < 1
+  //       ? prev.filter((i) => i.cartId !== cartId)
+  //       : prev.map((i) =>
+  //           i.cartId === cartId ? { ...i, quantity: newQty } : i,
+  //         ),
+  //   );
 
-  const handleRemoveItem = (cartId) =>
-    setCartItems((prev) => prev.filter((i) => i.cartId !== cartId));
+  // const handleRemoveItem = (cartId) =>
+  //   setCartItems((prev) => prev.filter((i) => i.cartId !== cartId));
 
   // ─── Render ─────────────────────────────────────────────────────────────────
+  
+  
+
+  const handleUpdateQty = (cartId, newQty) => {
+  if (newQty < 1) removeItem(cartId);
+  else updateQty(cartId, newQty);
+};
+
+const handleRemoveItem = (cartId) => removeItem(cartId);
+  
   return (
     <div className="font-sans text-gray-900 bg-white min-h-screen">
       <style>{`
@@ -613,14 +634,6 @@ export default function ProductPage({ config, relatedProducts = [] }) {
             submitted={codSubmitted}
           />
         )}
-        <CartDrawer
-          isOpen={cartOpen}
-          onClose={() => setCartOpen(false)}
-          cartItems={cartItems}
-          onUpdateQty={handleUpdateQty}
-          onRemoveItem={handleRemoveItem}
-          onBuyNow={handleCartBuyNow}
-        />
       </Suspense>
 
       {/* Above-fold */}
