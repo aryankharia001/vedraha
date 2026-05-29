@@ -8,7 +8,6 @@ import {
 import { TbTruckDelivery } from "react-icons/tb";
 import { MdVerified } from "react-icons/md";
 import { HiSparkles } from "react-icons/hi";
-import NabhiHeader from "../components/NabhiHeader";
 import { backendurl } from "../App";
 
 // ─── Config ───────────────────────────────────────────────────────────────────
@@ -329,7 +328,7 @@ export default function ExcSuccessPage() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#f8f6f0] via-[#edf4ea] to-[#f1ede1]"
         style={{ fontFamily: "'DM Sans', sans-serif" }}>
-        <NabhiHeader />
+        {/* <NabhiHeader /> */}
         <div className="max-w-[560px] mx-auto px-4 pt-12 pb-20 flex flex-col items-center gap-6">
           <Skel className="w-20 h-20 rounded-full" />
           <Skel className="w-48 h-5" />
@@ -351,7 +350,7 @@ export default function ExcSuccessPage() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#f8f6f0] via-[#edf4ea] to-[#f1ede1]"
         style={{ fontFamily: "'DM Sans', sans-serif" }}>
-        <NabhiHeader />
+        {/* <NabhiHeader /> */}
         <div className="max-w-[560px] mx-auto px-4 flex flex-col items-center pt-24 gap-4 text-center">
           <span className="text-5xl">⚠️</span>
           <p className="text-red-600 font-semibold text-sm">{fetchError}</p>
@@ -393,7 +392,7 @@ export default function ExcSuccessPage() {
         .shimmer-btn  { background-size:200% auto; animation: shimmer 2.4s linear infinite; }
       `}</style>
 
-      <NabhiHeader />
+      {/* <NabhiHeader /> */}
 
       <div className="max-w-[560px] mx-auto px-4 sm:px-6 pb-20">
 

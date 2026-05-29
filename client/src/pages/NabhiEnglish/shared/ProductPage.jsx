@@ -450,7 +450,7 @@ export default function ProductPage({ config, relatedProducts = [] }) {
             variant_id: i.variantId,
             quantity: i.quantity,
           })),
-          redirect_url: `${window.location.origin}/exc-payment-success${queryString ? `?${queryString}` : ""}`,
+          redirect_url: `${window.location.origin}/success-en${queryString ? `?${queryString}` : ""}`,
           paramsObject,
         },
         { headers: { "Content-Type": "application/json" } },
