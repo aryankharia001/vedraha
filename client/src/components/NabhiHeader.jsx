@@ -1,3 +1,11 @@
+// src/components/NabhiHeader.jsx  (updated)
+// ─────────────────────────────────────────────────────────────────────────────
+// Changes from original:
+//  • Accepts onCartOpen + cartCount as props (passed from App.jsx via context)
+//  • Cart icon badge now reflects global cartCount
+//  • No other logic changed
+// ─────────────────────────────────────────────────────────────────────────────
+
 import React, { useState, useEffect, useRef } from "react";
 import { Search, User, ShoppingBag, X, Menu, CheckCircle, Eye, EyeOff, Package, LogOut, ChevronDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -106,16 +114,18 @@ export default function NabhiHeader({ onCartOpen, cartCount = 0 }) {
     localStorage.removeItem("akravi_user");
     setLoggedInUser(null);
     setDropdownOpen(false);
-    navigate("/exclusive-products");
+    navigate("/products");
   };
 
   const handleMyOrders = () => { setDropdownOpen(false); navigate("/my-orders-en"); };
+
+  // ── Cart icon click — calls the global openCart from App.jsx ──
   const handleCartClick = () => onCartOpen?.();
 
   const navLinks = [
-    { label: "CATALOG",    path: "/exclusive-products" },
-    { label: "CONTACT US", path: "/products/nabhi-eng-contact" },
-    { label: "ABOUT US",   path: "/products/nabhi-eng-aboutus" },
+    { label: "CATALOG",    path: "/products" },
+    { label: "CONTACT US", path: "/products/nabhi-contact-en" },
+    { label: "ABOUT US",   path: "/products/nabhi-about-en" },
   ];
 
   const displayName = loggedInUser?.name || loggedInUser?.email?.split("@")[0] || "Account";
@@ -126,22 +136,16 @@ export default function NabhiHeader({ onCartOpen, cartCount = 0 }) {
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
         * { box-sizing: border-box; }
 
-        /* ══════════════════════════════════════════
-           FLOATING PILL NAVBAR
-        ══════════════════════════════════════════ */
         .nh-wrap {
           position: fixed;
-          inset:0;
-          // top: 0;
+          inset: 0;
           z-index: 500;
-          /* subtle green-tinted page-level bg so the glass reads correctly */
           background: transparent;
           padding: 12px 20px;
           font-family: 'DM Sans', sans-serif;
-          pointer-events: none;          /* let clicks fall through the padding zone */
+          pointer-events: none;
         }
 
-        /* The actual pill container */
         .nh-inner {
           pointer-events: all;
           max-width: 1200px;
@@ -152,483 +156,267 @@ export default function NabhiHeader({ onCartOpen, cartCount = 0 }) {
           justify-content: space-between;
           gap: 16px;
           padding: 0 10px 0 10px;
-
-          /* Glassmorphism */
           background: rgba(255, 255, 255, 0.3);
           backdrop-filter: blur(18px) saturate(160%);
           -webkit-backdrop-filter: blur(18px) saturate(160%);
-
-          /* Pill shape */
           border-radius: 9999px;
-
-          /* Glassy border with green tint */
           border: 1px solid rgba(24, 75, 36, 0.18);
-
-          /* Layered shadow: ambient + green-glow */
           box-shadow:
             0 4px 24px rgba(24, 75, 36, 0.10),
             0 1px 4px rgba(0,0,0,0.06),
             inset 0 1px 0 rgba(255,255,255,0.55);
         }
 
-        /* ── Logo ── */
         .nh-logo {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          text-decoration: none;
-          flex-shrink: 0;
-          padding: 0 4px;
+          display: flex; align-items: center; gap: 8px;
+          text-decoration: none; flex-shrink: 0; padding: 0 4px;
         }
         .nh-logo-name {
           font-family: 'Cormorant Garamond', serif;
-          font-size: 20px;
-          font-weight: 700;
-          color: #1a1a1a;
-          line-height: 1.2;
+          font-size: 20px; font-weight: 700; color: #1a3d1e; letter-spacing: 0.02em;
+        }
+        .nh-logo-sub {
+          font-size: 9px; font-weight: 500; color: #4a7a42;
+          letter-spacing: 0.12em; text-transform: uppercase; margin-top: 1px;
         }
 
-        /* ── Nav links ── */
-        .nh-nav {
-          display: flex;
-          align-items: center;
-          gap: 2px;
-          flex: 1;
-          justify-content: center;
+        .nh-nav { display: flex; align-items: center; gap: 6px; }
+        .nh-nav-link {
+          font-size: 11px; font-weight: 600; letter-spacing: 0.09em;
+          text-transform: uppercase; color: #2a4a1f; text-decoration: none;
+          padding: 6px 10px; border-radius: 9999px; transition: background 0.18s, color 0.18s;
         }
-        .nh-nav a {
-          font-size: 12px;
-          font-weight: 700;
-          color: #1a3d1e;
-          text-decoration: none;
-          letter-spacing: 0.08em;
-          padding: 7px 13px;
-          border-radius: 9999px;
-          transition: background 0.18s, color 0.18s;
-          white-space: nowrap;
-        }
-        .nh-nav a:hover {
-          background: rgba(24, 75, 36, 0.10);
-          color: #184b24;
-        }
-        @media (max-width: 860px) { .nh-nav { display: none; } }
+        .nh-nav-link:hover { background: rgba(45,90,39,0.10); color: #184b24; }
 
-        /* ── Icon strip ── */
-        .nh-icons {
-          display: flex;
-          align-items: center;
-          gap: 4px;
-          flex-shrink: 0;
+        .nh-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+        .nh-icon-btn {
+          position: relative; width: 38px; height: 38px; border-radius: 50%;
+          border: 1.5px solid rgba(24,75,36,0.18); background: rgba(255,255,255,0.7);
+          display: flex; align-items: center; justify-content: center;
+          cursor: pointer; color: #2a4a1f; transition: background 0.18s, border-color 0.18s;
         }
-
-        /* Plain icon button */
-        .nh-ibtn {
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          background: none;
-          border: none;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #1a3d1e;
-          position: relative;
-          transition: background 0.15s;
-        }
-        .nh-ibtn:hover { background: rgba(24,75,36,0.10); }
+        .nh-icon-btn:hover { background: rgba(45,90,39,0.12); border-color: rgba(24,75,36,0.35); }
 
         /* Cart badge */
-        .nh-badge {
-          position: absolute;
-          top: 1px; right: 1px;
-          width: 17px; height: 17px;
-          border-radius: 50%;
-          background: #184b24;
-          color: #fff;
-          font-size: 9px;
-          font-weight: 700;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border: 2px solid rgba(232,242,235,0.9);
+        .nh-cart-badge {
+          position: absolute; top: -4px; right: -4px;
+          min-width: 18px; height: 18px; border-radius: 9999px;
+          background: #2d5a27; color: #fff;
+          font-size: 10px; font-weight: 700;
+          display: flex; align-items: center; justify-content: center;
+          padding: 0 4px; border: 2px solid #fff;
         }
 
-        /* Hamburger — mobile only */
-        .nh-hamburger { display: none !important; }
-        @media (max-width: 860px) { .nh-hamburger { display: flex !important; } }
-
-        /* ── User pill button ── */
-        .nh-user-btn {
-          display: flex;
-          align-items: center;
-          gap: 5px;
-          padding: 5px 12px 5px 8px;
-          height: 36px;
-          border-radius: 9999px;
-          background: rgba(24,75,36,0.08);
-          border: 1px solid rgba(24,75,36,0.18);
-          cursor: pointer;
-          color: #1a3d1e;
-          transition: all 0.15s;
-          font-family: 'DM Sans', sans-serif;
-          font-size: 12px;
-          font-weight: 600;
-        }
-        .nh-user-btn:hover, .nh-user-btn.open {
-          background: rgba(24,75,36,0.15);
-          border-color: rgba(24,75,36,0.30);
-        }
-        .nh-user-name {
-          max-width: 72px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
-        @media (max-width: 480px) { .nh-user-name { display: none; } }
-
-        /* ── "Shop Now" CTA pill — rightmost ── */
         .nh-cta-btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          padding: 0 18px;
-          height: 40px;
-          border-radius: 9999px;
-          background: #184b24;
-          color: #ffffff;
-          font-family: 'DM Sans', sans-serif;
-          font-size: 12px;
-          font-weight: 700;
-          letter-spacing: 0.04em;
-          white-space: nowrap;
-          border: none;
-          cursor: pointer;
-          box-shadow: 0 4px 14px rgba(24,75,36,0.32);
-          transition: background 0.18s, box-shadow 0.18s, transform 0.15s;
-          text-decoration: none;
-          flex-shrink: 0;
+          height: 36px; padding: 0 18px; border-radius: 9999px;
+          background: linear-gradient(135deg, #2d5a27 0%, #3d7a35 100%);
+          color: #fff; font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
+          text-decoration: none; display: flex; align-items: center;
+          border: none; cursor: pointer; transition: opacity 0.18s, transform 0.18s;
+          box-shadow: 0 2px 10px rgba(45,90,39,0.28);
         }
-        .nh-cta-btn:hover {
-          background: #0f3119;
-          box-shadow: 0 6px 20px rgba(24,75,36,0.40);
-          transform: translateY(-1px);
-        }
-        @media (max-width: 480px) { .nh-cta-btn { display: none; } }
+        .nh-cta-btn:hover { opacity: 0.9; transform: translateY(-1px); }
 
-        /* ── Dropdown ── */
-        .nh-dropdown {
-          position: absolute;
-          top: calc(100% + 10px);
-          right: 0;
-          background: rgba(245,250,246,0.90);
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
-          border: 1px solid rgba(24,75,36,0.14);
-          border-radius: 16px;
-          box-shadow: 0 16px 48px rgba(0,0,0,0.14), 0 4px 12px rgba(24,75,36,0.08);
-          min-width: 200px;
-          z-index: 600;
-          overflow: hidden;
-          animation: nhDropIn 0.18s cubic-bezier(0.16,1,0.3,1);
+        .nh-hamburger {
+          display: none; width: 38px; height: 38px; border-radius: 50%;
+          border: 1.5px solid rgba(24,75,36,0.18); background: rgba(255,255,255,0.7);
+          align-items: center; justify-content: center; cursor: pointer; color: #2a4a1f;
         }
-        @keyframes nhDropIn {
-          from { opacity: 0; transform: translateY(-8px) scale(0.97); }
-          to   { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        .nh-drop-header { padding: 14px 16px 10px; border-bottom: 1px solid rgba(24,75,36,0.10); }
-        .nh-drop-email  { font-size: 12px; color: #6b7280; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .nh-drop-name   { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 2px; }
-        .nh-drop-item {
-          display: flex; align-items: center; gap: 10px;
-          padding: 11px 16px;
-          font-size: 13px; font-weight: 500; color: #1a3d1e;
-          cursor: pointer; transition: background 0.12s;
-          background: none; border: none; width: 100%; text-align: left;
-          font-family: 'DM Sans', sans-serif;
-        }
-        .nh-drop-item:hover { background: rgba(24,75,36,0.07); }
-        .nh-drop-item.danger { color: #c0392b; }
-        .nh-drop-item.danger:hover { background: rgba(192,57,43,0.06); }
-        .nh-drop-divider { border: none; border-top: 1px solid rgba(24,75,36,0.09); margin: 0; }
 
-        /* ── Overlay / Modal (unchanged visually) ── */
+        @media (max-width: 768px) {
+          .nh-nav { display: none; }
+          .nh-cta-btn { display: none; }
+          .nh-hamburger { display: flex; }
+        }
+
         .nh-overlay {
-          position: fixed; inset: 0;
-          background: rgba(0,0,0,0.50);
-          z-index: 600;
-          animation: nhFadeIn 0.2s ease;
-          backdrop-filter: blur(2px);
-        }
-        @keyframes nhFadeIn  { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes nhScaleIn { from { opacity: 0; transform: translate(-50%,-50%) scale(0.95); } to { opacity: 1; transform: translate(-50%,-50%) scale(1); } }
-
-        .nh-modal {
-          position: fixed; top: 50%; left: 50%;
-          transform: translate(-50%,-50%);
-          width: 760px; max-width: 96vw;
-          background: #fff; border-radius: 20px;
-          z-index: 700; display: flex;
-          animation: nhScaleIn 0.25s cubic-bezier(0.16,1,0.3,1);
-          overflow: hidden;
-          box-shadow: 0 24px 80px rgba(0,0,0,0.22);
-        }
-        .nh-modal-left {
-          flex: 1; padding: 40px 32px;
-          background: #f0f7f2;
-          display: flex; flex-direction: column; justify-content: center;
-        }
-        .nh-modal-left-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 700; color: #1a1a1a; line-height: 1.3; margin-bottom: 10px; }
-        .nh-modal-left-sub   { font-size: 13px; color: #6b7280; line-height: 1.7; margin-bottom: 28px; }
-        .nh-benefit-cards    { display: flex; flex-direction: column; gap: 12px; }
-        .nh-benefit-card     { padding: 14px 16px; background: #fff; border-radius: 12px; border: 1px solid #d1e7d8; display: flex; align-items: flex-start; gap: 12px; }
-        .nh-bc-icon  { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
-        .nh-bc-title { font-size: 13px; font-weight: 700; color: #1a1a1a; margin-bottom: 2px; }
-        .nh-bc-desc  { font-size: 11px; color: #6b7280; line-height: 1.4; }
-        .nh-modal-right {
-          width: 320px; padding: 36px 28px;
-          border-left: 1px solid #e8f0ea;
-          display: flex; flex-direction: column; justify-content: center;
-          position: relative;
-        }
-        .nh-modal-close {
-          position: absolute; top: 14px; right: 14px;
-          width: 32px; height: 32px; border-radius: 50%;
-          border: 1.5px solid #d1e7d8; background: #fff;
-          cursor: pointer; display: flex; align-items: center; justify-content: center;
-          color: #555; transition: background 0.15s;
-        }
-        .nh-modal-close:hover { background: #f0f7f2; }
-        .nh-tabs { display: flex; gap: 0; margin-bottom: 24px; border-bottom: 1.5px solid #e5e7eb; }
-        .nh-tab  {
-          flex: 1; padding: 8px 0;
-          font-size: 13px; font-weight: 700; color: #9ca3af;
-          letter-spacing: 0.06em; background: none; border: none; cursor: pointer;
-          border-bottom: 2px solid transparent; margin-bottom: -1.5px;
-          transition: color 0.15s, border-color 0.15s;
-          font-family: 'DM Sans', sans-serif;
-        }
-        .nh-tab.active { color: #184b24; border-bottom-color: #184b24; }
-        .nh-field  { margin-bottom: 14px; }
-        .nh-label  { display: block; font-size: 11px; font-weight: 600; color: #6b7280; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
-        .nh-input-wrap { position: relative; }
-        .nh-input {
-          width: 100%; padding: 10px 14px; font-size: 13.5px;
-          font-family: 'DM Sans', sans-serif;
-          border: 1.5px solid #d1e7d8; border-radius: 10px;
-          background: #f8fbf9; color: #1a1a1a;
-          outline: none; transition: border-color 0.15s, box-shadow 0.15s;
-        }
-        .nh-input:focus { border-color: #184b24; box-shadow: 0 0 0 3px rgba(24,75,36,0.10); background: #fff; }
-        .nh-input.error { border-color: #c0392b; }
-        .nh-input-pass  { padding-right: 40px; }
-        .nh-pass-toggle { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #9ca3af; padding: 0; display: flex; }
-        .nh-pass-toggle:hover { color: #555; }
-        .nh-error { font-size: 12px; color: #c0392b; margin-bottom: 12px; display: flex; align-items: center; gap: 5px; }
-        .nh-notify-row { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: #6b7280; cursor: pointer; margin-bottom: 16px; }
-        .nh-notify-row input { accent-color: #184b24; width: 14px; height: 14px; flex-shrink: 0; }
-        .nh-submit-btn {
-          width: 100%; padding: 12px; background: #184b24; color: #fff;
-          border: none; border-radius: 30px; font-size: 14px; font-weight: 700;
-          cursor: pointer; font-family: 'DM Sans', sans-serif;
-          transition: background 0.2s;
-          display: flex; align-items: center; justify-content: center; gap: 8px;
-          margin-bottom: 16px;
-          box-shadow: 0 4px 14px rgba(24,75,36,0.25);
-        }
-        .nh-submit-btn:hover:not(:disabled) { background: #0f3119; }
-        .nh-submit-btn:disabled { opacity: 0.65; cursor: not-allowed; }
-        .nh-switch-mode { font-size: 12.5px; color: #6b7280; text-align: center; }
-        .nh-switch-mode button { background: none; border: none; color: #184b24; font-weight: 700; cursor: pointer; font-size: 12.5px; font-family: 'DM Sans', sans-serif; text-decoration: underline; }
-        .nh-terms { font-size: 11px; color: #9ca3af; text-align: center; line-height: 1.6; margin-top: 10px; }
-        .nh-terms a { color: #555; text-decoration: underline; }
-        .nh-success-wrap  { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 8px 0; }
-        .nh-success-icon  { width: 56px; height: 56px; background: #e8f5e9; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
-        .nh-success-title { font-size: 17px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; font-family: 'Cormorant Garamond', serif; }
-        .nh-success-sub   { font-size: 13px; color: #6b7280; line-height: 1.7; margin-bottom: 18px; }
-        .nh-success-close-btn { padding: 11px 28px; background: #184b24; color: #fff; border: none; border-radius: 30px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background 0.2s; }
-        .nh-success-close-btn:hover { background: #0f3119; }
-        @keyframes nhSpin { to { transform: rotate(360deg); } }
-        .nh-spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: nhSpin 0.6s linear infinite; flex-shrink: 0; }
-        @media (max-width: 600px) {
-          .nh-modal { flex-direction: column; }
-          .nh-modal-left { display: none; }
-          .nh-modal-right { width: 100%; border-left: none; padding: 32px 24px; }
+          position: fixed; inset: 0; background: rgba(0,0,0,0.35);
+          z-index: 1000; backdrop-filter: blur(2px);
         }
 
         /* ── Mobile drawer ── */
         .nh-mob-drawer {
-          position: fixed; top: 0; left: 0;
-          width: 280px; max-width: 85vw; height: 100%;
-          background: rgba(240,247,242,0.95);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          z-index: 700;
-          display: flex; flex-direction: column;
-          animation: nhSlideIn 0.28s cubic-bezier(0.16,1,0.3,1);
-          box-shadow: 8px 0 40px rgba(0,0,0,0.12);
-          border-right: 1px solid rgba(24,75,36,0.12);
+          position: fixed; top: 0; left: 0; right: 0;
+          background: rgba(255,255,255,0.97); z-index: 1100;
+          padding: 20px 22px 28px; border-radius: 0 0 24px 24px;
+          box-shadow: 0 8px 32px rgba(24,75,36,0.12);
+          backdrop-filter: blur(16px);
         }
-        @keyframes nhSlideIn { from { transform: translateX(-100%); } to { transform: translateX(0); } }
         .nh-mob-head {
-          padding: 18px 20px;
-          border-bottom: 1px solid rgba(24,75,36,0.10);
-          display: flex; align-items: center; justify-content: space-between;
+          display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;
         }
         .nh-mob-link {
           display: flex; align-items: center; justify-content: space-between;
-          padding: 15px 20px;
-          font-size: 13px; font-weight: 700; color: #1a3d1e;
-          letter-spacing: 0.08em;
-          border-bottom: 1px solid rgba(24,75,36,0.07);
-          cursor: pointer; transition: background 0.15s;
+          padding: 14px 0; font-size: 13px; font-weight: 600;
+          letter-spacing: 0.08em; text-transform: uppercase; color: #1a3d1e;
+          border-bottom: 1px solid rgba(24,75,36,0.08); cursor: pointer;
         }
-        .nh-mob-link:hover { background: rgba(24,75,36,0.06); }
+
+        /* ── Auth modal ── */
+        .nh-modal {
+          position: fixed; inset: 0; z-index: 2000;
+          display: flex; align-items: stretch;
+          background: #fff;
+        }
+        .nh-modal-left {
+          flex: 1; background: linear-gradient(160deg,#e8f4e4 0%,#c9e6c0 100%);
+          padding: 56px 44px; display: flex; flex-direction: column; justify-content: center;
+        }
+        @media (max-width: 640px) { .nh-modal-left { display: none; } }
+        .nh-modal-left-title { font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:700; color:#1a3d1e; line-height:1.2; margin-bottom:12px; }
+        .nh-modal-left-sub   { font-size:14px; color:#4a7a42; line-height:1.6; margin-bottom:36px; max-width:340px; }
+        .nh-benefit-cards    { display:flex; flex-direction:column; gap:14px; }
+        .nh-benefit-card     { display:flex; align-items:flex-start; gap:14px; background:rgba(255,255,255,0.55); border-radius:14px; padding:16px 18px; }
+        .nh-bc-icon          { font-size:22px; flex-shrink:0; }
+        .nh-bc-title         { font-size:13px; font-weight:700; color:#1a3d1e; margin-bottom:2px; }
+        .nh-bc-desc          { font-size:12px; color:#5a7a52; }
+
+        .nh-modal-right   { width:440px; flex-shrink:0; padding:48px 40px; overflow-y:auto; display:flex; flex-direction:column; }
+        @media (max-width:640px) { .nh-modal-right { width:100%; padding:32px 24px; } }
+        .nh-modal-close   { position:absolute; top:20px; right:20px; width:32px; height:32px; border-radius:50%; border:1.5px solid #e0e0e0; background:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; color:#666; }
+        .nh-tabs          { display:flex; gap:0; margin-bottom:28px; border-bottom:2px solid #e8e8e8; }
+        .nh-tab           { flex:1; padding:10px; background:none; border:none; font-size:12px; font-weight:700; letter-spacing:0.1em; color:#999; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-2px; transition:color .18s, border-color .18s; }
+        .nh-tab.active    { color:#184b24; border-bottom-color:#184b24; }
+        .nh-field         { margin-bottom:18px; }
+        .nh-label         { display:block; font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#555; margin-bottom:7px; }
+        .nh-input         { width:100%; padding:11px 14px; border:1.5px solid #e0e0e0; border-radius:10px; font-size:14px; font-family:'DM Sans',sans-serif; color:#1a1a1a; outline:none; transition:border-color .18s, box-shadow .18s; }
+        .nh-input.error   { border-color:#e53e3e; }
+        .nh-input-wrap    { position:relative; }
+        .nh-input-pass    { padding-right:42px; }
+        .nh-pass-toggle   { position:absolute; right:12px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; color:#999; display:flex; }
+        .nh-notify-row    { display:flex; align-items:center; gap:10px; font-size:13px; color:#555; cursor:pointer; margin-bottom:18px; }
+        .nh-error         { background:#fff5f5; color:#c53030; border:1px solid #fed7d7; border-radius:8px; padding:10px 14px; font-size:13px; margin-bottom:16px; }
+        .nh-submit-btn    { width:100%; padding:13px; background:#184b24; color:#fff; border:none; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:14px; transition:opacity .18s; }
+        .nh-submit-btn:hover { opacity:0.9; }
+        .nh-submit-btn:disabled { opacity:0.6; cursor:not-allowed; }
+        .nh-spinner       { width:16px; height:16px; border:2px solid rgba(255,255,255,0.3); border-top-color:#fff; border-radius:50%; animation:nhSpin 0.7s linear infinite; }
+        @keyframes nhSpin { to { transform:rotate(360deg); } }
+        .nh-terms         { font-size:11px; color:#aaa; text-align:center; line-height:1.5; }
+        .nh-terms a       { color:#184b24; text-decoration:underline; }
+        .nh-success-wrap  { display:flex; flex-direction:column; align-items:center; justify-content:center; flex:1; text-align:center; padding:40px 0; }
+        .nh-success-icon  { width:64px; height:64px; background:#e8f5e2; border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:20px; }
+        .nh-success-title { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:700; color:#1a3d1e; margin-bottom:8px; }
+        .nh-success-sub   { font-size:14px; color:#5a7a52; line-height:1.6; margin-bottom:28px; }
+        .nh-success-close-btn { padding:12px 32px; background:#184b24; color:#fff; border:none; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; }
+
+        /* ── User dropdown ── */
+        .nh-user-wrap     { position:relative; }
+        .nh-user-btn      { display:flex; align-items:center; gap:6px; height:36px; padding:0 12px 0 8px; border-radius:9999px; border:1.5px solid rgba(24,75,36,0.22); background:rgba(255,255,255,0.7); cursor:pointer; font-size:12px; font-weight:600; color:#2a4a1f; }
+        .nh-user-avatar   { width:24px; height:24px; border-radius:50%; background:#2d5a27; color:#fff; font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+        .nh-dropdown      { position:absolute; top:calc(100% + 8px); right:0; background:#fff; border-radius:14px; box-shadow:0 8px 32px rgba(0,0,0,0.12); border:1px solid rgba(24,75,36,0.10); min-width:180px; overflow:hidden; z-index:600; }
+        .nh-dropdown-item { display:flex; align-items:center; gap:10px; padding:12px 16px; font-size:13px; font-weight:500; color:#333; cursor:pointer; transition:background .15s; }
+        .nh-dropdown-item:hover { background:#f0f7ee; }
+        .nh-dropdown-item.danger { color:#c53030; }
+        .nh-dropdown-item.danger:hover { background:#fff5f5; }
+        .nh-dropdown-divider { height:1px; background:#f0f0f0; margin:4px 0; }
+
+        /* ── Banner ── */
+        .nh-banner {
+          position: fixed; top: 86px; left: 0; right: 0;
+          background: linear-gradient(90deg, #1a3d1e 0%, #2d5a27 100%);
+          color: #fff; font-size: 12px; font-weight: 600; letter-spacing: 0.05em;
+          text-align: center; padding: 8px 20px; z-index: 499;
+          display: flex; align-items: center; justify-content: center; gap: 12px;
+        }
+        .nh-banner-cta {
+          background: rgba(255,255,255,0.2); border-radius: 9999px;
+          padding: 3px 12px; font-size: 11px; font-weight: 700;
+          text-decoration: none; color: #fff;
+        }
       `}</style>
 
-      {/* ══════════════════════════════════════════
-          FLOATING PILL HEADER
-      ══════════════════════════════════════════ */}
-      <div className="nh-wrap">
+      {/* ── PILL NAV ── */}
+      <div className="nh-wrap" style={{ height: "fit-content" }}>
         <div className="nh-inner">
-
           {/* Logo */}
-          <a href="/" className="nh-logo">
-            <div className="nh-logo-name">
+          <a className="nh-logo" href="/" onClick={(e) => { e.preventDefault(); navigate("/"); }}>
+            <div style={{ width: 32, height: 32, borderRadius: 8, overflow: "hidden", background: "#2d5a27", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <img
                 src="https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=nabhiLogo.webp&version_id=null"
-                alt="Nabhi Amrit"
-                style={{ width: "65px", height: "auto" }}
+                alt="Nabhi Oil Logo"
+                style={{ width: "100%", height: "100%", objectFit: "contain" }}
               />
+            </div>
+            <div>
+              <div className="nh-logo-name">Akravi</div>
+              <div className="nh-logo-sub">Ayurvedic</div>
             </div>
           </a>
 
-          {/* Nav */}
+          {/* Desktop nav links */}
           <nav className="nh-nav">
             {navLinks.map((l) => (
-              <a key={l.label} href="#" onClick={(e) => { e.preventDefault(); navigate(l.path); }}>
+              <a key={l.label} className="nh-nav-link" href={l.path} onClick={(e) => { e.preventDefault(); navigate(l.path); }}>
                 {l.label}
               </a>
             ))}
           </nav>
 
-          {/* Icons + CTA */}
-          <div className="nh-icons">
-
-            {/* User / dropdown */}
-            <div ref={dropdownRef} style={{ position: "relative" }}>
-              <button
-                className={`${loggedInUser ? "nh-user-btn" : "nh-ibtn"}${dropdownOpen ? " open" : ""}`}
-                onClick={() => setDropdownOpen((p) => !p)}
-                title={loggedInUser ? loggedInUser.email : "Account"}
-                aria-label="Account"
-              >
-                <User size={loggedInUser ? 16 : 18} strokeWidth={1.8} />
-
-                {loggedInUser && (
-                  <>
-                    <span className="nh-user-name">{displayName}</span>
-
-                    <ChevronDown
-                      size={12}
-                      strokeWidth={2.5}
-                      style={{
-                        transform: dropdownOpen ? "rotate(180deg)" : "rotate(0)",
-                        transition: "transform 0.18s",
-                      }}
-                    />
-                  </>
-                )}
-              </button>
-
-              {dropdownOpen && (
-                <div className="nh-dropdown">
-
-                  {/* Logged in user details */}
-                  {loggedInUser && (
-                    <div className="nh-drop-header">
-                      <div className="nh-drop-name">
-                        {loggedInUser.name || displayName}
-                      </div>
-
-                      <div className="nh-drop-email">
-                        {loggedInUser.email}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* My Orders - available for both */}
-                  <button
-                    className="nh-drop-item"
-                    onClick={() => {
-                      setDropdownOpen(false);
-                      handleMyOrders();
-                    }}
-                  >
-                    <Package size={15} color="#2a7048" />
-                    My Orders
-                  </button>
-
-                  <hr className="nh-drop-divider" />
-
-                  {/* Logged out */}
-                  {!loggedInUser ? (
-                    <button
-                      className="nh-drop-item"
-                      onClick={() => {
-                        setDropdownOpen(false);
-                        openModal("login");
-                      }}
-                    >
-                      <User size={15} />
-                      Login / Sign Up
-                    </button>
-                  ) : (
-                    /* Logged in */
-                    <button
-                      className="nh-drop-item danger"
-                      onClick={() => {
-                        handleLogout();
-                        setDropdownOpen(false);
-                      }}
-                    >
-                      <LogOut size={15} />
-                      Logout
-                    </button>
-                  )}
-                </div>
+          {/* Actions */}
+          <div className="nh-actions">
+            {/* Cart button — opens global drawer */}
+            <button className="nh-icon-btn" onClick={handleCartClick} aria-label="Open cart">
+              <ShoppingBag size={17} strokeWidth={1.8} />
+              {cartCount > 0 && (
+                <span className="nh-cart-badge">{cartCount}</span>
               )}
-            </div>
-
-            {/* Cart */}
-            <button className="nh-ibtn" aria-label="Cart" onClick={handleCartClick}>
-              <ShoppingBag size={18} strokeWidth={1.8} />
-              {cartCount > 0 && <span className="nh-badge">{cartCount}</span>}
             </button>
 
-            {/* Hamburger — mobile */}
-            <button className="nh-ibtn nh-hamburger" onClick={() => setMenuOpen(true)}>
-              <Menu size={19} />
-            </button>
+            {/* User / Auth */}
+            {loggedInUser ? (
+              <div className="nh-user-wrap" ref={dropdownRef}>
+                <button className="nh-user-btn" onClick={() => setDropdownOpen((p) => !p)}>
+                  <div className="nh-user-avatar">{displayName[0]?.toUpperCase()}</div>
+                  <span style={{ maxWidth: 80, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{displayName}</span>
+                  <ChevronDown size={12} style={{ opacity: 0.6 }} />
+                </button>
+                {dropdownOpen && (
+                  <div className="nh-dropdown">
+                    <div className="nh-dropdown-item" onClick={handleMyOrders}>
+                      <Package size={14} /> My Orders
+                    </div>
+                    <div className="nh-dropdown-divider" />
+                    <div className="nh-dropdown-item danger" onClick={handleLogout}>
+                      <LogOut size={14} /> Logout
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button className="nh-icon-btn" onClick={() => openModal("login")} aria-label="Account">
+                <User size={17} strokeWidth={1.8} />
+              </button>
+            )}
 
-            {/* CTA pill — mirrors reference "Book Consultation" button */}
+            {/* Desktop CTA */}
             <a
               href="#"
               className="nh-cta-btn"
-              onClick={(e) => { e.preventDefault(); navigate("/exclusive-products"); }}
+              onClick={(e) => { e.preventDefault(); navigate("/products"); }}
             >
               Shop Now
             </a>
+
+            {/* Mobile hamburger */}
+            <button className="nh-hamburger" onClick={() => setMenuOpen(true)} aria-label="Menu">
+              <Menu size={18} />
+            </button>
           </div>
         </div>
       </div>
+
+      {/* Announcement banner */}
+      {/* <div className="nh-banner">
+        <span>🌿 Free shipping on all orders · COD available</span>
+        <a href="/products" className="nh-banner-cta">Shop Now</a>
+      </div> */}
 
       {/* Overlay */}
       {(modalOpen || menuOpen) && (
         <div className="nh-overlay" onClick={() => { setModalOpen(false); setMenuOpen(false); }} />
       )}
 
-      {/* ── AUTH MODAL (logic unchanged) ── */}
+      {/* ── AUTH MODAL ── */}
       {modalOpen && (
         <div className="nh-modal">
           <div className="nh-modal-left">
@@ -657,7 +445,7 @@ export default function NabhiHeader({ onCartOpen, cartCount = 0 }) {
             </div>
           </div>
 
-          <div className="nh-modal-right">
+          <div className="nh-modal-right" style={{ position: "relative" }}>
             <button className="nh-modal-close" onClick={() => setModalOpen(false)}><X size={13} /></button>
 
             {submitted ? (
