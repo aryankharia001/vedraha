@@ -255,6 +255,13 @@ export default function ExclusiveProductCatalogHindi() {
   const [cartItems, setCartItems] = useState(() => loadCart());
   const cartCount = cartItems.reduce((s, i) => s + i.quantity, 0);
 
+   useEffect(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth", // optional
+      });
+    }, []);
+
   // Persist cart to localStorage on every change
   useEffect(() => { saveCart(cartItems); }, [cartItems]);
 
@@ -650,7 +657,7 @@ export default function ExclusiveProductCatalogHindi() {
       <NabhiHeaderHindi onCartOpen={() => setCartOpen(true)} cartCount={cartCount} />
 
       {/* Section Header */}
-      <div style={{ background: "#fff", borderBottom: "1px solid #D1E8D8", padding: "36px 20px 28px" }}>
+      <div style={{ background: "#fff", borderBottom: "1px solid #D1E8D8", padding: "100px 20px 28px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <p style={{ fontSize: 10, fontWeight: 700, color: "#2D7A4F", letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 8px", fontFamily: "'DM Sans', sans-serif" }}>
             हमारा संग्रह

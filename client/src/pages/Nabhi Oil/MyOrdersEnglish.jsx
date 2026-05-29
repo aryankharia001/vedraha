@@ -280,6 +280,13 @@ export default function MyOrdersEnglish() {
 
   const cartCount = cartItems.reduce((s, i) => s + i.quantity, 0);
 
+  useEffect(() => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth", // optional
+  });
+}, []);
+
   // Persist cart
   useEffect(() => { saveCart(cartItems); }, [cartItems]);
 

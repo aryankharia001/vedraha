@@ -253,6 +253,13 @@ export default function ExclusiveProductCatalog() {
 
   const cartCount = cartItems.reduce((s, i) => s + i.quantity, 0);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // optional
+    });
+  }, []);
+
   useEffect(() => { saveCart(cartItems); }, [cartItems]);
 
   useEffect(() => {
@@ -535,7 +542,7 @@ export default function ExclusiveProductCatalog() {
         @media(max-width:380px){.pcard-grid{grid-template-columns:1fr}}
       `}</style>
 
-      <section className="shop-hero">
+      <section className="shop-hero pt-20 pb-2">
         <div className="shop-hero__content">
           <h1>Shop</h1>
           <p>Home&nbsp;&nbsp;/&nbsp;&nbsp;Shop</p>
