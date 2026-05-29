@@ -19,10 +19,7 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { MdVerified } from "react-icons/md";
 import { HiSparkles } from "react-icons/hi";
 import { ArrowLeft, Package, MapPin } from "lucide-react";
-import { backendurl } from "../../../App";
-import NabhiHeaderHindi from "../../../components/NabhiHeaderHindi";
-import NabhiHeader from "../../../components/NabhiHeader";
-import CartDrawer from "../../NabhiEnglish/shared/CartDrawer";
+import { backendurl } from "../../App";
 
 // ── Cart helpers ───────────────────────────────────────────────────────────
 const CART_KEY = "exclusiveCart";
@@ -529,7 +526,7 @@ export default function OrderDetailEnglish() {
   if (loading) {
     return (
       <div className="od-page">
-        <NabhiHeader onCartOpen={() => setCartOpen(true)} cartCount={cartCount}  />
+        {/* <NabhiHeader onCartOpen={() => setCartOpen(true)} cartCount={cartCount}  /> */}
         <div className="od-spinner" />
       </div>
     );
@@ -539,7 +536,7 @@ export default function OrderDetailEnglish() {
   if (error || !order) {
     return (
       <div className="od-page">
-        <NabhiHeader onCartOpen={() => setCartOpen(true)} cartCount={cartCount}  />
+        {/* <NabhiHeader onCartOpen={() => setCartOpen(true)} cartCount={cartCount}  /> */}
         <div className="od-wrapper">
           <button className="od-back-btn" onClick={() => navigate("/my-orders-en")}>
             <ArrowLeft size={14} /> Back to My Orders
@@ -577,7 +574,7 @@ export default function OrderDetailEnglish() {
 
   return (
     <div className="od-page">
-      <Suspense fallback={null}>
+      {/* <Suspense fallback={null}>
         <CartDrawer
           isOpen={cartOpen}
           onClose={() => setCartOpen(false)}
@@ -586,9 +583,9 @@ export default function OrderDetailEnglish() {
           onRemoveItem={handleRemoveItem}
           onBuyNow={handleCartBuyNow}
         />
-      </Suspense>
+      </Suspense> */}
 
-      <NabhiHeader  onCartOpen={() => setCartOpen(true)} cartCount={cartCount} />
+      {/* <NabhiHeader  onCartOpen={() => setCartOpen(true)} cartCount={cartCount} /> */}
 
       <div className="od-wrapper">
         {/* ── Back button ── */}

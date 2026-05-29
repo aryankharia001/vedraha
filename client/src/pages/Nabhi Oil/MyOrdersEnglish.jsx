@@ -457,10 +457,10 @@ export default function MyOrdersEnglish() {
       </Suspense>
 
       {/* ── Header ── */}
-      <NabhiHeader
+      {/* <NabhiHeader
         onCartOpen={() => setCartOpen(true)}
         cartCount={cartCount}
-      />
+      /> */}
 
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 pt-25 ">
 
@@ -576,7 +576,7 @@ export default function MyOrdersEnglish() {
                 key={order.orderId}
                 className="group bg-white/80 backdrop-blur-sm border border-stone-200/50 rounded-2xl overflow-hidden shadow-lg shadow-stone-200/50 hover:shadow-xl hover:shadow-stone-300/50 hover:-translate-y-1 transition-all duration-300 cursor-pointer animate-fade-in-up"
                 style={{ animationDelay: `${200 + idx * 100}ms` }}
-                onClick={() => navigate(`/exc-order-en/${order.orderId}`)}
+                onClick={() => navigate(`/order-en/${order.orderId}`)}
               >
                 {/* Card Header */}
                 <div className="flex items-center justify-between px-5 py-4 border-b border-stone-100/50 bg-gradient-to-r from-stone-50/50 to-white group-hover:from-green-50/30 group-hover:to-white transition-all duration-300">

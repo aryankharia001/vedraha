@@ -528,7 +528,7 @@ export default function OrderDetail() {
   if (loading) {
     return (
       <div className="od-page">
-        <NabhiHeaderHindi  onCartOpen={() => setCartOpen(true)} cartCount={cartCount} />
+        {/* <NabhiHeaderHindi  onCartOpen={() => setCartOpen(true)} cartCount={cartCount} /> */}
         <div className="od-spinner" />
       </div>
     );
@@ -538,7 +538,7 @@ export default function OrderDetail() {
   if (error || !order) {
     return (
       <div className="od-page">
-        <NabhiHeaderHindi  onCartOpen={() => setCartOpen(true)} cartCount={cartCount} />
+        {/* <NabhiHeaderHindi  onCartOpen={() => setCartOpen(true)} cartCount={cartCount} /> */}
         <div className="od-wrapper">
           <button className="od-back-btn" onClick={() => navigate("/my-orders")}>
             <ArrowLeft size={14} /> Back to My Orders
@@ -586,7 +586,7 @@ export default function OrderDetail() {
           onBuyNow={handleCartBuyNow}
         />
       </Suspense>
-      <NabhiHeaderHindi  onCartOpen={() => setCartOpen(true)} cartCount={cartCount} />
+      {/* <NabhiHeaderHindi  onCartOpen={() => setCartOpen(true)} cartCount={cartCount} /> */}
 
       <div className="od-wrapper">
         {/* ── Back button ── */}

@@ -94,7 +94,7 @@ import ExcSuccessPageTelugu from './pages/ExcSuccessPageTelugu'
 import ExcSuccessPage       from './pages/ExcSuccessPage'
 import ExcSuccessPageHindi  from './pages/ExcSuccessPageHindi'
 import axios from 'axios'
-
+import OrderDetailsEnglish from './pages/Nabhi Oil/OrderDetailsEnglish'
 export const backendurl = import.meta.env.VITE_BACKEND_URL;
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -252,6 +252,7 @@ function AppContent() {
         <Route path="/products/nabhi-contact-en"       element={<NabhiContactEng />} />
         <Route path="/success-en"                      element={<ExcSuccessPage />} />
         <Route path="/my-orders-en"                    element={<MyOrdersEnglish />} />
+        <Route path="/order-en/:orderId"                    element={<OrderDetailsEnglish />} />
 
         {/* ── Telugu ───────────────────────────────────────────────────── */}
         <Route path="/tlg"                             element={<HomeTelugu />} />
