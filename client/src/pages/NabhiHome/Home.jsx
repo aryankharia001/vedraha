@@ -26,13 +26,75 @@ const marqueeItems = [
   "Fragrances", "Nail Care", "Body Care",
 ];
 
+const highlightsData = [
+  {
+    id: 1,
+    title: "Free Shipping",
+    subtitle: "Free shipping for order above $50",
+    icon: (
+      <svg
+        className="w-6 h-6 stroke-[var(--color-primary,#184b24)]"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+        />
+      </svg>
+    ),
+  },
+  {
+    id: 2,
+    title: "Flexible Payment",
+    subtitle: "Multiple secure payment options",
+    icon: (
+      <svg
+        className="w-6 h-6 stroke-[var(--color-primary,#184b24)]"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+        />
+      </svg>
+    ),
+  },
+  {
+    id: 3,
+    title: "24×7 Support",
+    subtitle: "We support online all days.",
+    icon: (
+      <svg
+        className="w-6 h-6 stroke-[var(--color-primary,#184b24)]"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"
+        />
+      </svg>
+    ),
+  },
+];
+
 const LeafIcon = () => (
   <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5 fill-[#bd9137]">
     <path d="M20.7 3.9C13 4.2 7.9 7.1 5.5 12.8c.9-.5 1.9-.8 3.1-.9 2.7-.2 5.1.7 7.4 2.1-2.5.2-4.9.7-7.2 1.8-1.8.9-3.2 2.2-4.2 3.9 3.9-.7 7.3-2.1 10-4.1 3.6-2.7 5.7-6.6 6.1-11.7Z" />
   </svg>
 );
 
-// `lang` defaults to "en" — MainRouter passes it based on the URL prefix
 const Home = ({ lang = "en" }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const timeoutRef = useRef(null);
@@ -61,8 +123,7 @@ const Home = ({ lang = "en" }) => {
 
   return (
     <>
-      {/* lang prop flows into header — controls nav links, button text, modal copy */}
-      {/* <NabhiHeader/> */}
+      {/* <NabhiHeader lang={lang} /> */}
 
       <main className="bg-gradient-to-b from-[#f7f7f5] to-[#f0f0ed]">
         <div className="relative overflow-hidden">
@@ -105,50 +166,44 @@ const Home = ({ lang = "en" }) => {
                 ))}
               </div>
 
-              {/* Floating badge — Fast Delivery */}
-              <div
-                className="absolute left-8 top-[30%] z-30 hidden items-center gap-3 rounded-2xl px-5 py-3.5 text-[12px] font-extrabold text-slate-800 sm:flex animate-floating-badge-1"
-                style={{ background: "rgba(255,255,255,0.97)", boxShadow: "0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.10)", border: "1.5px solid rgba(255,255,255,0.9)", backdropFilter: "blur(12px)" }}
-              >
+              {/* Glassmorphism Badge 1 — Fast Delivery */}
+              <div className="absolute left-8 top-[30%] z-30 hidden items-center gap-3 rounded-2xl px-5 py-3.5 text-[12px] font-extrabold text-slate-800 sm:flex animate-floating-badge-1 bg-white/70 border border-white/40 shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] backdrop-blur-md">
                 <span
-                  style={{ background: "var(--primary-color)", boxShadow: "0 4px 12px rgba(24,75,36,0.35)" }}
-                  className="grid h-9 w-9 place-items-center rounded-xl"
+                  style={{ background: "var(--color-primary, #184b24)" }}
+                  className="grid h-9 w-9 place-items-center rounded-xl shadow-[0_4px_12px_rgba(24,75,36,0.25)]"
                 >
                   <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5 fill-white">
                     <path d="M3 7h11v8H3V7Zm12 3h3.2l2.8 3v2h-2a3 3 0 0 0-6 0h-1V9h3v1Z" />
                   </svg>
                 </span>
                 <div className="flex flex-col leading-tight">
-                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">We Offer</span>
-                  <span>Fast Delivery</span>
+                  <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest">We Offer</span>
+                  <span className="text-slate-900">Fast Delivery</span>
                 </div>
               </div>
 
-              {/* Floating badge — Secure Payment */}
-              <div
-                className="absolute bottom-24 right-8 z-30 hidden items-center gap-3 rounded-2xl px-5 py-3.5 text-[12px] font-extrabold text-slate-800 sm:flex animate-floating-badge-2"
-                style={{ background: "rgba(255,255,255,0.97)", boxShadow: "0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.10)", border: "1.5px solid rgba(255,255,255,0.9)", backdropFilter: "blur(12px)" }}
-              >
+              {/* Glassmorphism Badge 2 — Secure Payment */}
+              <div className="absolute bottom-24 right-8 z-30 hidden items-center gap-3 rounded-2xl px-5 py-3.5 text-[12px] font-extrabold text-slate-800 sm:flex animate-floating-badge-2 bg-white/70 border border-white/40 shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] backdrop-blur-md">
                 <span
-                  style={{ background: "var(--primary-color)", boxShadow: "0 4px 12px rgba(24,75,36,0.35)" }}
-                  className="grid h-9 w-9 place-items-center rounded-xl"
+                  style={{ background: "var(--color-primary, #184b24)" }}
+                  className="grid h-9 w-9 place-items-center rounded-xl shadow-[0_4px_12px_rgba(24,75,36,0.25)]"
                 >
                   <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5 fill-white">
                     <path d="M4 6h16a2 2 0 0 1 2 2v1H2V8a2 2 0 0 1 2-2Zm-2 5h20v5a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-5Zm4 3v2h6v-2H6Z" />
                   </svg>
                 </span>
                 <div className="flex flex-col leading-tight">
-                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">100% Safe</span>
-                  <span>Secure Payment</span>
+                  <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest">100% Safe</span>
+                  <span className="text-slate-900">Secure Payment</span>
                 </div>
               </div>
 
               {/* Prev / Next + Dots */}
-              <div className="absolute bottom-5 left-1/2 z-40 flex -translate-x-1/2 items-center gap-3 rounded-2xl bg-white/95 backdrop-blur-md p-2.5 shadow-xl shadow-slate-200/50 border border-slate-100/50">
+              <div className="absolute bottom-5 left-1/2 z-40 flex -translate-x-1/2 items-center gap-3 rounded-2xl bg-white/80 backdrop-blur-md p-2.5 shadow-xl border border-white/40">
                 <button
                   type="button"
                   onClick={() => changeSlide("prev")}
-                  style={{ background: "var(--primary-color)" }}
+                  style={{ background: "var(--color-primary, #184b24)" }}
                   className="grid h-10 w-10 place-items-center rounded-xl text-lg font-bold text-white shadow-lg transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
                   aria-label="Previous slide"
                 >&lt;</button>
@@ -170,7 +225,7 @@ const Home = ({ lang = "en" }) => {
                 <button
                   type="button"
                   onClick={() => changeSlide("next")}
-                  style={{ background: "var(--primary-color)" }}
+                  style={{ background: "var(--color-primary, #184b24)" }}
                   className="grid h-10 w-10 place-items-center rounded-xl text-lg font-bold text-white shadow-lg transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
                   aria-label="Next slide"
                 >&gt;</button>
@@ -180,7 +235,7 @@ const Home = ({ lang = "en" }) => {
 
           {/* Marquee 1 */}
           <div
-            style={{ background: "linear-gradient(135deg, var(--primary-color) 0%, #1a5c2c 100%)" }}
+            style={{ background: "linear-gradient(135deg, var(--color-primary, #184b24) 0%, #1a5c2c 100%)" }}
             className="relative overflow-hidden py-3 text-white z-10"
           >
             <div className="beauty-marquee-track flex w-max items-center gap-12 relative z-10">
@@ -200,7 +255,7 @@ const Home = ({ lang = "en" }) => {
 
       {/* Marquee 2 */}
       <div
-        style={{ background: "linear-gradient(135deg, var(--primary-color) 0%, #1a5c2c 100%)" }}
+        style={{ background: "linear-gradient(135deg, var(--color-primary, #184b24) 0%, #1a5c2c 100%)" }}
         className="relative overflow-hidden py-3 text-white z-10"
       >
         <div className="beauty-marquee-track flex w-max items-center gap-12 relative z-10">
@@ -215,7 +270,53 @@ const Home = ({ lang = "en" }) => {
 
       <TestimonialCarousel />
       <FAQSection />
-      <Footer />
+
+      {/* Highlights Section Container — Styled for clean page layout */}
+      <section className="bg-white py-16 px-4 border-t border-slate-100">
+
+        {/* Marquee 2 */}
+      <div
+        style={{ background: "linear-gradient(135deg, var(--color-primary, #184b24) 0%, #1a5c2c 100%)" }}
+        className="relative overflow-hidden py-3 text-white z-10"
+      >
+        <div className="beauty-marquee-track flex w-max items-center gap-12 relative z-10">
+          {marqueeLoop.map((item, index) => (
+            <div key={`${item}-${index}`} className="flex min-w-max items-center gap-12 text-base font-bold tracking-wide sm:text-lg">
+              <span>{item}</span>
+              <LeafIcon />
+            </div>
+          ))}
+        </div>
+      </div>
+
+        <div className="max-w-[1200px] mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {highlightsData.map((highlight) => (
+              <div key={highlight.id} className="flex items-center gap-4 group p-4 rounded-2xl transition-all duration-300 hover:bg-slate-50">
+                {/* Flexible Graphic Frame Wrapper */}
+                <div
+                  className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm border border-slate-100 transition-transform duration-300 group-hover:scale-110"
+                  style={{ backgroundColor: "var(--color-white, #ffffff)" }}
+                >
+                  {highlight.icon}
+                </div>
+
+                {/* Informational Metadata Stack */}
+                <div>
+                  <h4 className="font-bold text-base text-[var(--color-heading,#111827)] mb-1">
+                    {highlight.title}
+                  </h4>
+                  <p className="text-sm text-[var(--color-muted,#6B7280)] font-medium">
+                    {highlight.subtitle}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* <Footer /> */}
     </>
   );
 };

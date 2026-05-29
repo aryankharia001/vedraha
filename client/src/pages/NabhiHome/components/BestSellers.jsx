@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import useEmblaCarousel from 'embla-carousel-react'
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'; 
 
 // ═══════════════════════════════════════════════════════════════
 //  DATA  (swap per language / CMS)
@@ -14,84 +14,106 @@ export const bestSellersContent = {
   viewAllHref:      '#',
 }
 
-export const filterCategories = [
-  { id: 'all',             label: 'All' },
-  { id: 'nabhi-sleep',     label: 'Sleep' },
-  { id: 'nabhi-menstrual', label: 'Menstrual' },
-  { id: 'nabhi-shilajit',  label: 'Shilajit' },
-  { id: 'nabhi-hair',      label: 'Hair' },
-  { id: 'nabhi-eye',       label: 'Eye' },
-  { id: 'nabhi-joint',     label: 'Joint' },
-  { id: 'nabhi-amrit',     label: 'Amrit' },
-]
-
 export const products = [
   {
-    id: 'p1',
-    category:      'nabhi-menstrual',
+    id: 'sleep-relief-nabhi-oil',
+    category:      'nabhi-sleep',
     badge:         '50% off',
-    name:          'Menstrual Relief Oil',
-    categoryLabel: 'Menstrual',
+    name:          'Sleep Relief Nabhi Oil – Reduce Stress & Enjoy Deep Sleep',
+    categoryLabel: 'Sleep',
     rating:        4.9,
-    price:         499,
-    originalPrice: 999,
-    image: 'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=menstrual1.webp&version_id=null',
+    price:         599,
+    originalPrice: 699,
+    image: 'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=sleep1.webp&version_id=null',
     hasCountdown: true,
     countdown:    { days: 5, hours: 12, minutes: 30, seconds: 25 },
     wishlist:     false,
+    route:        '/products/nabhi-sleep-en',
   },
   {
-    id: 'p2',
-    category:      'nabhi-sleep',
+    id: 'menstrual-pain-nabhi-oil',
+    category:      'nabhi-menstrual',
     badge:         '35% off',
-    name:          'Deep Sleep Drops',
-    categoryLabel: 'Sleep',
+    name:          'Menstrual Pain Relief Nabhi Oil – Natural Period Pain Relief',
+    categoryLabel: 'Menstrual',
     rating:        4.8,
-    price:         699,
-    originalPrice: 1099,
-    image: 'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=sleep1.webp&version_id=null',
+    price:         599,
+    originalPrice: 699,
+    image: 'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=menstrual1.webp&version_id=null',
     hasCountdown: false,
     wishlist:     false,
+    route:        '/products/nabhi-menstrual-en',
   },
   {
-    id: 'p3',
+    id: 'shilajit-energy-resin',
     category:      'nabhi-shilajit',
     badge:         '20% off',
-    name:          'Shilajit Care Oil',
+    name:          'Pure Shilajit Resin – For Strength, Stamina & Energy',
     categoryLabel: 'Shilajit',
     rating:        4.7,
-    price:         799,
-    originalPrice: 999,
+    price:         669,
+    originalPrice: 769,
     image: 'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=shilajitcare3.webp&version_id=null',
     hasCountdown: false,
     wishlist:     false,
+    route:        '/products/nabhi-shilajit-en',
   },
   {
-    id: 'p4',
+    id: 'hair-care-nabhi-oil',
     category:      'nabhi-hair',
     badge:         '30% off',
-    name:          'Hair Care Drops',
+    name:          'Hair Care Nabhi Oil – Nourish Hair from Within',
     categoryLabel: 'Hair',
     rating:        4.6,
-    price:         549,
-    originalPrice: 799,
+    price:         499,
+    originalPrice: 599,
     image: 'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=haircare1.webp&version_id=null',
     hasCountdown: false,
     wishlist:     false,
+    route:        '/products/nabhi-hair-en',
   },
   {
-    id: 'p5',
+    id: 'eye-care-nabhi-oil',
     category:      'nabhi-eye',
     badge:         '15% off',
-    name:          'Eye Care Serum',
+    name:          'Eye Care Nabhi Oil – Vision Support & Eye Strain Relief',
     categoryLabel: 'Eye',
     rating:        4.5,
-    price:         449,
-    originalPrice: 529,
-    image: 'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=eyecare2.webp&version_id=null',
+    price:         599,
+    originalPrice: 699,
+    image: 'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=eyecare1.webp&version_id=null',
     hasCountdown: false,
     wishlist:     false,
+    route:        '/products/nabhi-eye-en',
   },
+  {
+    id: 'joint-pain-nabhi-oil',
+    category:      'nabhi-joint',
+    badge:         '15% off',
+    name:          'Joint Pain Remedy Nabhi Oil – Relief for Knee & Back Pain',
+    categoryLabel: 'Joint',
+    rating:        4.5,
+    price:         549,
+    originalPrice: 649,
+    image: 'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=Gemini_Generated_Image_jejzeajejzeajejz.png.webp&version_id=null',
+    hasCountdown: false,
+    wishlist:     false,
+    route:        '/products/nabhi-joint-en',
+  },
+  {
+    id: 'nabhi-amrit',
+    category:      'nabhi-amrit',
+    badge:         '15% off',
+    name:          'Nabhi Amrit - Navel Oil for Digestion and Detox',
+    categoryLabel: 'Amrit',
+    rating:        4.5,
+    price:         499,
+    originalPrice: 599,
+    image: 'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=amriteng3.webp&version_id=null',
+    hasCountdown: false,
+    wishlist:     false,
+    route:        '/products/nabhi-amrit-en',
+  }
 ]
 
 export const promoContent = {
@@ -129,12 +151,6 @@ const ArrowIcon = () => (
   </svg>
 )
 
-const LeafSvg = ({ style, className = '' }) => (
-  <svg viewBox="0 0 80 80" fill="none" className={className} style={style} aria-hidden="true">
-    <path d="M10 70 C10 70 20 20 70 10 C70 10 60 55 10 70Z" fill="currentColor" />
-  </svg>
-)
-
 // ═══════════════════════════════════════════════════════════════
 //  COUNTDOWN HOOK
 // ═══════════════════════════════════════════════════════════════
@@ -145,7 +161,7 @@ function useCountdown(initialSeconds) {
     if (!initialSeconds) return
     const t = setInterval(() => setSecs(s => Math.max(0, s - 1)), 1000)
     return () => clearInterval(t)
-  }, [])
+  }, [initialSeconds])
   return {
     d: Math.floor(secs / 86400),
     h: Math.floor((secs % 86400) / 3600),
@@ -181,11 +197,11 @@ const Colon = () => (
 )
 
 // ═══════════════════════════════════════════════════════════════
-//  PRODUCT CARD — VERTICAL layout
+//  PRODUCT CARD layout
 // ═══════════════════════════════════════════════════════════════
 
 const ProductCard = ({ product }) => {
-  const [wished,  setWished]  = useState(product.wishlist)
+  const [wished, setWished] = useState(product.wishlist)
   const [hovered, setHovered] = useState(false)
 
   const totalSecs = product.hasCountdown
@@ -195,17 +211,16 @@ const ProductCard = ({ product }) => {
   const savePercent = Math.round((1 - product.price / product.originalPrice) * 100)
 
   return (
-    <div
-      /* fixed width so exactly 4 fit; Embla controls the scroll */
-      className="flex-none flex flex-col rounded-2xl overflow-hidden"
+    <a
+      href={product.route || `#`}
+      className="flex flex-col rounded-2xl overflow-hidden block no-underline w-full"
       style={{
-        width:      '260px',
         background: 'var(--color-surface-1)',
         boxShadow:  hovered ? 'var(--shadow-card-hover)' : 'var(--shadow-card)',
-        // boxShadow: 'var(--shadow-card)',
         transform:  hovered ? 'translateY(-4px)' : 'translateY(0)',
         transition: 'var(--transition-base)',
         border:     '1px solid var(--color-border)',
+        cursor:     'pointer'
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -244,14 +259,18 @@ const ProductCard = ({ product }) => {
           </span>
         )}
 
-        {/* Wishlist */}
+        {/* Wishlist Button */}
         <button
-          onClick={() => setWished(w => !w)}
-          className="absolute top-3 right-3 w-7 h-7 rounded-full flex items-center justify-center transition-all"
+          onClick={(e) => {
+            e.preventDefault();   
+            e.stopPropagation();  
+            setWished(w => !w);
+          }}
+          className="absolute top-3 right-3 w-7 h-7 rounded-full flex items-center justify-center transition-all z-10"
           style={{
-            background:     'rgba(255,255,255,0.90)',
+            background:    'rgba(255,255,255,0.90)',
             color:          wished ? 'var(--color-wishlist)' : 'var(--color-muted)',
-            boxShadow:      'var(--shadow-badge)',
+            boxShadow:     'var(--shadow-badge)',
             backdropFilter: 'blur(4px)',
           }}
           aria-label={wished ? 'Remove from wishlist' : 'Add to wishlist'}
@@ -259,7 +278,7 @@ const ProductCard = ({ product }) => {
           <HeartIcon filled={wished} />
         </button>
 
-        {/* Countdown overlay at bottom of image */}
+        {/* Countdown overlay */}
         {product.hasCountdown && (
           <div
             className="absolute bottom-0 left-0 right-0 px-3 pb-2.5 pt-10"
@@ -296,7 +315,6 @@ const ProductCard = ({ product }) => {
 
       {/* ── Info ── */}
       <div className="flex flex-col flex-1 px-4 pt-3.5 pb-4 gap-2">
-
         {/* Category + rating row */}
         <div className="flex items-center justify-between">
           <span
@@ -317,7 +335,7 @@ const ProductCard = ({ product }) => {
         <p
           className="text-[14px] font-bold leading-snug"
           style={{
-            color:             'var(--color-heading)',
+            color:              'var(--color-heading)',
             display:           '-webkit-box',
             WebkitLineClamp:   2,
             WebkitBoxOrient:   'vertical',
@@ -342,32 +360,8 @@ const ProductCard = ({ product }) => {
             Save {savePercent}%
           </span>
         </div>
-
-        {/* Divider */}
-        {/* <div className="h-px w-full" style={{ background: 'var(--color-border)' }} /> */}
-
-        {/* Shop Now */}
-        {/* <a
-          href="#"
-          className="mt-auto inline-flex items-center gap-2 self-start text-sm font-bold px-4 py-2 rounded-xl transition-all"
-          style={{
-            background: 'var(--color-primary)',
-            color:      'var(--color-white)',
-            boxShadow:  'var(--shadow-btn)',
-          }}
-          onMouseEnter={e => {
-            e.currentTarget.style.background = 'var(--color-primary-dark)'
-            e.currentTarget.style.transform  = 'translateY(-1px)'
-          }}
-          onMouseLeave={e => {
-            e.currentTarget.style.background = 'var(--color-primary)'
-            e.currentTarget.style.transform  = 'translateY(0)'
-          }}
-        >
-          Shop Now <ArrowIcon />
-        </a> */}
       </div>
-    </div>
+    </a>
   )
 }
 
@@ -381,26 +375,10 @@ const PromoBanner = ({ content = promoContent }) => {
   const units  = [{ v: d }, { v: h }, { v: m }, { v: s }]
 
   return (
-    <div
-      className="relative rounded-3xl overflow-hidden mt-10 flex items-stretch min-h-[260px] gap-5"
-      style={{
-        // background: 'var(--color-cream)',
-        // boxShadow:  'var(--shadow-promo)',
-        // border:     '1px solid var(--color-cream-deep)',
-      }}
-    >
-      <div
-        className="absolute inset-0 pointer-events-none"
-        // style={{ backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(192,138,62,0.07) 0%, transparent 70%)' }}
-      />
-      {/* <LeafSvg className="absolute -top-4 left-[26%] w-24 h-24 rotate-[20deg] pointer-events-none" style={{ color: 'rgba(24,75,36,0.10)' }} />
-      <LeafSvg className="absolute -bottom-4 right-[26%] w-28 h-28 rotate-[200deg] pointer-events-none" style={{ color: 'rgba(24,75,36,0.08)' }} /> */}
-
+    <div className="relative rounded-3xl overflow-hidden mt-10 flex items-stretch min-h-[260px] gap-5">
       <div className="hidden sm:block w-[26%] flex-none relative rounded-3xl overflow-hidden bg-[var(--color-cream)]">
         <img src="https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=shilajitcare3.webp&version_id=null" alt="Promo left" className="absolute inset-0 w-full h-full object-cover object-top" />
-        <div className="absolute inset-0" 
-        style={{ background: 'linear-gradient(to right, transparent 60%, var(--color-cream) 100%)' }} 
-        />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, transparent 60%, var(--color-cream) 100%)' }} />
       </div>
 
       <div className="flex-1 flex flex-col items-center justify-center text-center px-6 py-12 z-10 relative rounded-3xl overflow-hidden bg-[var(--color-cream)]">
@@ -446,121 +424,52 @@ const PromoBanner = ({ content = promoContent }) => {
 
 const BestSellers = ({
   content     = bestSellersContent,
-  filters     = filterCategories,
   productList = products,
   promo       = promoContent,
   showPromo   = true,
 }) => {
-  const [activeFilter, setActiveFilter] = useState('all')
-
-  const filtered = activeFilter === 'all'
-    ? productList
-    : productList.filter(p => p.category === activeFilter)
-
-  // ── Product carousel — dragFree, shows 4 at once on desktop ──
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop:          false,
-    align:         'start',
-    dragFree:      true,
-    watchDrag:     true,
-    containScroll: 'trimSnaps',
-  })
-  const isDragging = useRef(false)
-
-  // ── Filter pill strip — draggable on mobile ──
-  const [filterRef] = useEmblaCarousel({
-    loop:          false,
-    align:         'start',
-    dragFree:      true,
-    watchDrag:     true,
-    containScroll: 'trimSnaps',
-  })
-
-  useEffect(() => {
-    if (emblaApi) emblaApi.reInit()
-  }, [filtered.length, emblaApi])
-
-  useEffect(() => {
-    if (!emblaApi) return
-    emblaApi.on('pointerDown', () => { isDragging.current = false })
-    emblaApi.on('scroll',      () => { isDragging.current = true  })
-  }, [emblaApi])
+  // Directly grab the first 4 products to keep the design clean and static
+  const displayProducts = productList.slice(0, 4);
 
   return (
     <section className="py-10" style={{ background: 'var(--color-off-white)', boxShadow: 'inset 0 12px 12px -10px rgba(24,75,36,0.3)'}}>
       <div className="max-w-[1240px] mx-auto px-4 md:px-8 lg:px-12">
 
         {/* ── Header ── */}
-<div className="flex items-start justify-between flex-wrap gap-4 mb-8">
-  <div>
-    <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: 'var(--color-primary-tint)' }}>
-      {content.subtitle}
-    </p>
-    <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
-      <span style={{ color: 'var(--color-heading)' }}>{content.headingPrefix}</span>
-      <span className="bg-gradient-to-r from-[#C08A3E] to-[#d4a55a] bg-clip-text text-transparent">
-        {content.headingHighlight}
-      </span>
-      <span style={{ color: 'var(--color-heading)' }}>{content.headingSuffix}</span>
-    </h2>
-    <div className="mt-4 w-20 h-1 bg-gradient-to-r from-[#184b24] to-[#C08A3E] rounded-full" />
-  </div>
-
-  <a
-    href={content.viewAllHref}
-    className="self-center inline-flex items-center gap-2 text-sm font-bold px-5 py-2.5 rounded-full transition-all"
-    style={{ background: 'var(--color-primary)', color: 'var(--color-white)', boxShadow: 'var(--shadow-btn)' }}
-    onMouseEnter={e => { e.currentTarget.style.background = 'var(--color-primary-dark)'; e.currentTarget.style.transform = 'translateY(-1px)' }}
-    onMouseLeave={e => { e.currentTarget.style.background = 'var(--color-primary)';      e.currentTarget.style.transform = 'translateY(0)' }}
-  >
-    {content.viewAllLabel}
-  </a>
-</div>
-
-        {/* ── Filter pills ── */}
-        <div className="overflow-hidden cursor-grab active:cursor-grabbing mb-8" ref={filterRef}>
-          <div className="flex gap-2 w-max select-none p-1">
-            {filters.map(f => {
-              const active = activeFilter === f.id
-              return (
-                <button
-                  key={f.id}
-                  onClick={() => setActiveFilter(f.id)}
-                  className="flex-none text-sm font-semibold px-4 py-2 rounded-full border transition-all focus:outline-none"
-                  style={{
-                    background:  active ? 'var(--color-filter-active-bg)' : 'var(--color-surface-1)',
-                    color:       active ? 'var(--color-filter-active-txt)' : 'var(--color-filter-idle-txt)',
-                    borderColor: active ? 'var(--color-primary)'           : 'var(--color-filter-border)',
-                    boxShadow:   active ? 'var(--shadow-filter)'           : 'var(--shadow-xs)',
-                    transform:   active ? 'translateY(-1px)'               : 'none',
-                    transition:  'var(--transition-base)',
-                  }}
-                >
-                  {f.label}
-                </button>
-              )
-            })}
+        <div className="flex items-start justify-between flex-wrap gap-4 mb-8">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: 'var(--color-primary-tint)' }}>
+              {content.subtitle}
+            </p>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+              <span style={{ color: 'var(--color-heading)' }}>{content.headingPrefix}</span>
+              <span className="bg-gradient-to-r from-[#C08A3E] to-[#d4a55a] bg-clip-text text-transparent">
+                {content.headingHighlight}
+              </span>
+              <span style={{ color: 'var(--color-heading)' }}>{content.headingSuffix}</span>
+            </h2>
+            <div className="mt-4 w-20 h-1 bg-gradient-to-r from-[#184b24] to-[#C08A3E] rounded-full" />
           </div>
+
+          <a
+            href={content.viewAllHref}
+            className="self-center inline-flex items-center gap-2 text-sm font-bold px-5 py-2.5 rounded-full transition-all"
+            style={{ background: 'var(--color-primary)', color: 'var(--color-white)', boxShadow: 'var(--shadow-btn)' }}
+            onMouseEnter={e => { e.currentTarget.style.background = 'var(--color-primary-dark)'; e.currentTarget.style.transform = 'translateY(-1px)' }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'var(--color-primary)';      e.currentTarget.style.transform = 'translateY(0)' }}
+          >
+            {content.viewAllLabel}
+          </a>
         </div>
 
-        {/* ── Product carousel — 4 visible, drag to reveal more ── */}
-        {filtered.length > 0 ? (
-          <div
-            className="overflow-hidden active:cursor-grabbing -mx-1 px-1"
-            ref={emblaRef}
-          >
-            {/* gap-4 between cards; each card is 260px so 4×260 + 3×16 = 1088px ≈ fits 1240px container */}
-            <div className="flex gap-4 select-none py-2">
-              {filtered.map(product => (
-                <div
-                className='cursor-pointer'
-                  key={product.id}
-                  onClick={e => { if (isDragging.current) e.preventDefault() }}
-                >
-                  <ProductCard product={product} />
-                </div>
-              ))}
-            </div>
+        {/* ── Product Grid — 4 items strictly displayed, no scroll ── */}
+        {displayProducts.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 py-2">
+            {displayProducts.map(product => (
+              <div key={product.id}>
+                <ProductCard product={product} />
+              </div>
+            ))}
           </div>
         ) : (
           <div
@@ -569,7 +478,7 @@ const BestSellers = ({
           >
             <p className="text-2xl">🌿</p>
             <p className="text-sm font-medium" style={{ color: 'var(--color-muted)' }}>
-              No products in this category yet.
+              No products found.
             </p>
           </div>
         )}
