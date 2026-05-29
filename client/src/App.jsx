@@ -42,7 +42,7 @@ import NabhiMenstrualPageEng from './pages/NabhiEnglish/NabhiMenstrualEng/NabhiM
 import NabhiAmritPageEng from './pages/NabhiEnglish/NabhiAmritEng/NabhiAmritPageEng'
 import NabhiAboutEng from './pages/NabhiEnglish/NabhiAboutEng'
 import NabhiContactEng from './pages/NabhiEnglish/NabhiContactEng'
-
+import MyOrdersEnglish from './pages/Nabhi Oil/MyOrdersEnglish'
 // ── Telugu Product Pages ──────────────────────────────────────────────────────
 import NabhiJointPageTelugu from './pages/NabhiTelugu/NabhiJointTelugu/NabhiJointPageTelugu'
 import NabhiEyePageTelugu from './pages/NabhiTelugu/NabhiEyeTelugu/NabhiEyePageTelugu'
@@ -68,7 +68,9 @@ import NabhiContactTamil from './pages/NabhiTamil/NabhiContactTamil'
 import RefundPolicy from './pages/RefundPolicy'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import ExcFaliurePageHindi from './pages/razorpayPayments/ExcFaliurePageHindi'
-
+import ExcSuccessPageTelugu from './pages/ExcSuccessPageTelugu'
+import ExcSuccessPage from './pages/ExcSuccessPage'
+import ExcSuccessPageHindi from './pages/ExcSuccessPageHindi'
 export const backendurl = import.meta.env.VITE_BACKEND_URL;
 
 function AppContent() {
@@ -117,6 +119,7 @@ function AppContent() {
         <Route path="/products/about-hn" element={<NabhiAboutHindi />} />
         <Route path="/products/contact-hn" element={<NabhiContactHindi />} />
         <Route path="/products-hn" element={<ExclusiveProductCatalogHindi />} />
+        <Route path="/success-hn" element={<ExcSuccessPageHindi />} />
 
         {/* ── English Language Tree ──────────────────────────────────────── */}
         <Route path="/products" element={<ExclusiveProductCatalog />} />
@@ -129,6 +132,8 @@ function AppContent() {
         <Route path="/products/nabhi-amrit-en" element={<NabhiAmritPageEng />} />
         <Route path="/products/nabhi-about-en" element={<NabhiAboutEng />} />
         <Route path="/products/nabhi-contact-en" element={<NabhiContactEng />} />
+        <Route path="/success-en" element={<ExcSuccessPage />} />
+        <Route path="/my-orders-en" element={<MyOrdersEnglish />} />
 
         {/* ── Telugu Language Tree ───────────────────────────────────────── */}
         <Route path="/te" element={<HomeTelugu />} />
@@ -142,6 +147,7 @@ function AppContent() {
         <Route path="/products/nabhi-amrit-telugu" element={<NabhiAmritPageTelugu />} />
         <Route path="/products/about-telugu" element={<NabhiAboutTelugu />} />
         <Route path="/products/contact-telugu" element={<NabhiContactTelugu />} />
+        <Route path="/success-telugu" element={<ExcSuccessPageTelugu />} />
 
         {/* ── Tamil Language Tree ────────────────────────────────────────── */}
         <Route path="/ta" element={<HomeTamil />} />
@@ -157,7 +163,6 @@ function AppContent() {
         <Route path="/products/contact-tamil" element={<NabhiContactTamil />} />
 
         {/* ── Payment / Gateway Fallbacks ────────────────────────────────── */}
-        <Route path="/exc-payment-success-hn" element={<ExcFaliurePageHindi />} />
         <Route path="/payment-faliure" element={<ExcFaliurePageHindi />} />
       </Routes>
     </>
