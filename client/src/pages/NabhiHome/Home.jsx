@@ -158,7 +158,7 @@ const Home = ({ lang = "en" }) => {
               .animate-floating-badge-2 { animation: smooth-float-delayed 4.5s ease-in-out infinite; }
             `}</style>
 
-            <div className="mx-auto w-full max-w-[1440px] relative">
+            <div className="mx-auto w-full max-w-[1920px] relative">
               {/* Slide Strip */}
               <div
                 className="flex transition-transform duration-700 ease-in-out will-change-transform"
@@ -167,7 +167,7 @@ const Home = ({ lang = "en" }) => {
                 {slides.map((slide, index) => (
                   <div
                     key={index}
-                    className="relative w-full min-w-full h-[600px]"
+                    className="relative w-full min-w-full h-[700px]"
                   >
                     <img
                       src={slide.image}
