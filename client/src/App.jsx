@@ -93,6 +93,7 @@ import ExcFaliurePageHindi  from './pages/razorpayPayments/ExcFaliurePageHindi'
 import ExcSuccessPageTelugu from './pages/ExcSuccessPageTelugu'
 import ExcSuccessPage       from './pages/ExcSuccessPage'
 import ExcSuccessPageHindi  from './pages/ExcSuccessPageHindi'
+import axios from 'axios'
 
 export const backendurl = import.meta.env.VITE_BACKEND_URL;
 
@@ -144,19 +145,60 @@ function AppContent() {
     return <Footer />;
   };
 
+  const openShiprocketGateway = async (clickEvent, checkoutItems) => {
+      if (!window.HeadlessCheckout?.addToCart) {
+        alert("Checkout is loading. Please try again in a moment.");
+        return;
+      }
+      try {
+        const paramsObject = Object.fromEntries(
+          new URLSearchParams(window.location.search).entries(),
+        );
+        const queryString = new URLSearchParams(paramsObject).toString();
+        const response = await axios.post(
+          `${backendurl}/api/ad/generate_shiprocket_token`,
+          {
+            items: checkoutItems.map((i) => ({
+              variant_id: i.variantId,
+              quantity: i.quantity,
+            })),
+            redirect_url: `${window.location.origin}/exc-payment-success${queryString ? `?${queryString}` : ""}`,
+            paramsObject,
+          },
+          { headers: { "Content-Type": "application/json" } },
+        );
+        const token = response.data?.result?.token;
+        if (!token) throw new Error("No token");
+        window.HeadlessCheckout.addToCart(clickEvent, token, {
+          fallbackUrl: `${window.location.origin}/payment-failure`,
+        });
+      } catch (err) {
+        console.error(err);
+        alert("Failed to open checkout. Please try again.");
+      } 
+    };
+
   // ── Checkout handler for cart drawer ─────────────────────────────────────────
   // Reuse whatever checkout logic your ProductPage uses (Shiprocket, Razorpay, etc.)
   // For now we fire the same openShiprocketGateway pattern. Adjust as needed.
   const handleCartBuyNow = () => {
-    if (!window.HeadlessCheckout?.addToCart) {
-      alert("Checkout is loading. Please try again in a moment.");
-      return;
-    }
-    const checkoutItems = cartItems.map((i) => ({
-      variantId: i.variantId,
-      quantity:  i.quantity,
+    // trackFacebookEvent("InitiateCheckout");
+    const totalValue = cartItems.reduce(
+      (s, i) => s + i.variantPriceNum * i.quantity,
+      0,
+    );
+    const totalQty = cartItems.reduce((s, i) => s + i.quantity, 0);
+    const contents = cartItems.map((i) => ({
+      id: i.variantId,
+      quantity: i.quantity,
+      item_price: i.variantPriceNum,
+      title: i.productName,
     }));
-    window.HeadlessCheckout.addToCart(checkoutItems);
+
+    openShiprocketGateway(
+      new MouseEvent("click", { bubbles: true }),
+      cartItems,
+    );
   };
 
   return (
