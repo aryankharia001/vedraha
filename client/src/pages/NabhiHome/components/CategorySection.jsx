@@ -13,44 +13,51 @@ const categories = [
   {
     id: 'nabhi-sleep',
     title: 'Sleep',
-    image: 'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=sleep1.webp&version_id=null',
-    href: '#',
+    image:
+      'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=sleep1.webp&version_id=null',
+    href: '/products/nabhi-sleep-en',
   },
   {
     id: 'nabhi-menstrual',
     title: 'Menstrual',
-    image: 'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=menstrual1.webp&version_id=null',
-    href: '#',
+    image:
+      'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=menstrual1.webp&version_id=null',
+    href: '/products/nabhi-menstrual-en',
   },
   {
     id: 'nabhi-shilajit',
     title: 'Shilajit',
-    image: 'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=shilajitcare3.webp&version_id=null',
-    href: '#',
+    image:
+      'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=shilajitcare3.webp&version_id=null',
+    href: '/products/nabhi-shilajit-en',
   },
   {
     id: 'nabhi-hair',
     title: 'Hair',
-    image: 'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=haircare1.webp&version_id=null',
-    href: '#',
+    image:
+      'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=haircare1.webp&version_id=null',
+    href: '/products/nabhi-hair-en',
   },
   {
     id: 'nabhi-eye',
     title: 'Eye',
-    image: 'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=eyecare2.webp&version_id=null',
-    href: '#',
+    image:
+      'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=eyecare2.webp&version_id=null',
+    href: '/products/nabhi-eye-en',
   },
   {
     id: 'nabhi-joint',
     title: 'Joint',
-    image: 'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=Gemini_Generated_Image_3y48f93y48f93y48.png.webp&version_id=null',
-    href: '#',
+    image:
+      'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=Gemini_Generated_Image_3y48f93y48f93y48.png.webp&version_id=null',
+    href: '/products/nabhi-joint-en',
   },
   {
     id: 'nabhi-amrit',
     title: 'Amrit',
-    image: 'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=3e_V1.jpg&version_id=null',
-    href: '#',
+    image:
+      'https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=3e_V1.jpg&version_id=null',
+    href: '/products/nabhi-amrit-en',
   },
 ]
 
