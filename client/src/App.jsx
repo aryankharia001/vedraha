@@ -31,6 +31,7 @@ import ExclusiveProductCatalog from './pages/ExclusiveProductCatalog'
 import ExclusiveProductCatalogHindi from './pages/ExclusiveProductCatalogHindi'
 import ExclusiveProductCatalogTamil from './pages/ExclusiveProductCatalogTamil'
 import ExclusiveProductCatalogTelugu from './pages/ExclusiveProductCatalogTelugu'
+import MyOrders from './pages/Nabhi Oil/MyOrders'
 
 // ── English Product Pages ─────────────────────────────────────────────────────
 import NabhiJointPageEng from './pages/NabhiEnglish/NabhiJointEng/NabhiJointPageEng'
@@ -120,6 +121,7 @@ function AppContent() {
         <Route path="/products/contact-hn" element={<NabhiContactHindi />} />
         <Route path="/products-hn" element={<ExclusiveProductCatalogHindi />} />
         <Route path="/success-hn" element={<ExcSuccessPageHindi />} />
+        <Route path="/my-orders-hn" element={<MyOrders />} />
 
         {/* ── English Language Tree ──────────────────────────────────────── */}
         <Route path="/products" element={<ExclusiveProductCatalog />} />

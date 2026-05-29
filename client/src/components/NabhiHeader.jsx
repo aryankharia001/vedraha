@@ -19,7 +19,7 @@ export default function NabhiHeader({ onCartOpen, cartCount = 0 }) {
 
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  
+
   const [submitted, setSubmitted] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(() => {
     try { return JSON.parse(localStorage.getItem("akravi_user")) || null; }
@@ -113,9 +113,9 @@ export default function NabhiHeader({ onCartOpen, cartCount = 0 }) {
   const handleCartClick = () => onCartOpen?.();
 
   const navLinks = [
-    { label: "CATALOG",    path: "/exclusive-products" },
+    { label: "CATALOG", path: "/exclusive-products" },
     { label: "CONTACT US", path: "/products/nabhi-eng-contact" },
-    { label: "ABOUT US",   path: "/products/nabhi-eng-aboutus" },
+    { label: "ABOUT US", path: "/products/nabhi-eng-aboutus" },
   ];
 
   const displayName = loggedInUser?.name || loggedInUser?.email?.split("@")[0] || "Account";
@@ -519,43 +519,81 @@ export default function NabhiHeader({ onCartOpen, cartCount = 0 }) {
             <div ref={dropdownRef} style={{ position: "relative" }}>
               <button
                 className={`${loggedInUser ? "nh-user-btn" : "nh-ibtn"}${dropdownOpen ? " open" : ""}`}
-                onClick={() => {
-                  if (loggedInUser) { setDropdownOpen(p => !p); }
-                  else { openModal("login"); }
-                }}
-                title={loggedInUser ? loggedInUser.email : "Login / Sign up"}
+                onClick={() => setDropdownOpen((p) => !p)}
+                title={loggedInUser ? loggedInUser.email : "Account"}
                 aria-label="Account"
               >
                 <User size={loggedInUser ? 16 : 18} strokeWidth={1.8} />
-                {loggedInUser && <span className="nh-user-name">{displayName}</span>}
+
                 {loggedInUser && (
-                  <ChevronDown
-                    size={12}
-                    strokeWidth={2.5}
-                    style={{ transform: dropdownOpen ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.18s" }}
-                  />
+                  <>
+                    <span className="nh-user-name">{displayName}</span>
+
+                    <ChevronDown
+                      size={12}
+                      strokeWidth={2.5}
+                      style={{
+                        transform: dropdownOpen ? "rotate(180deg)" : "rotate(0)",
+                        transition: "transform 0.18s",
+                      }}
+                    />
+                  </>
                 )}
               </button>
 
               {dropdownOpen && (
                 <div className="nh-dropdown">
+
+                  {/* Logged in user details */}
                   {loggedInUser && (
                     <div className="nh-drop-header">
-                      <div className="nh-drop-name">{loggedInUser.name || displayName}</div>
-                      <div className="nh-drop-email">{loggedInUser.email}</div>
+                      <div className="nh-drop-name">
+                        {loggedInUser.name || displayName}
+                      </div>
+
+                      <div className="nh-drop-email">
+                        {loggedInUser.email}
+                      </div>
                     </div>
                   )}
-                  <button className="nh-drop-item" onClick={() => { setDropdownOpen(false); handleMyOrders(); }}>
-                    <Package size={15} color="#2a7048" /> My Orders
+
+                  {/* My Orders - available for both */}
+                  <button
+                    className="nh-drop-item"
+                    onClick={() => {
+                      setDropdownOpen(false);
+                      handleMyOrders();
+                    }}
+                  >
+                    <Package size={15} color="#2a7048" />
+                    My Orders
                   </button>
+
                   <hr className="nh-drop-divider" />
+
+                  {/* Logged out */}
                   {!loggedInUser ? (
-                    <button className="nh-drop-item" onClick={() => { openModal("login"); setDropdownOpen(false); }}>
-                      <User size={15} /> Login / Sign Up
+                    <button
+                      className="nh-drop-item"
+                      onClick={() => {
+                        setDropdownOpen(false);
+                        openModal("login");
+                      }}
+                    >
+                      <User size={15} />
+                      Login / Sign Up
                     </button>
                   ) : (
-                    <button className="nh-drop-item danger" onClick={() => { handleLogout(); setDropdownOpen(false); }}>
-                      <LogOut size={15} /> Logout
+                    /* Logged in */
+                    <button
+                      className="nh-drop-item danger"
+                      onClick={() => {
+                        handleLogout();
+                        setDropdownOpen(false);
+                      }}
+                    >
+                      <LogOut size={15} />
+                      Logout
                     </button>
                   )}
                 </div>
@@ -604,7 +642,7 @@ export default function NabhiHeader({ onCartOpen, cartCount = 0 }) {
             </div>
             <div className="nh-benefit-cards">
               {[
-                { icon: "⭐", title: "Customer-first",  desc: "Putting you in the center of every decision" },
+                { icon: "⭐", title: "Customer-first", desc: "Putting you in the center of every decision" },
                 { icon: "🔒", title: "Secure & Private", desc: "Your data is always protected" },
                 { icon: "🎁", title: "Exclusive Offers", desc: "Member-only deals and early access" },
               ].map((b) => (
