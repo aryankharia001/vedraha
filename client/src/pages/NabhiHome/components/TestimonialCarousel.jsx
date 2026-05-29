@@ -109,7 +109,7 @@ export default function TestimonialCarousel() {
 
   return (
     <section
-      className="relative w-full max-w-[1240px] mx-auto px-4 sm:px-6 py-12 md:py-20 flex flex-col items-center select-none overflow-hidden"
+      className="relative w-full max-w-[1240px] mx-auto px-4 sm:px-6 py-10 md:py-10 flex flex-col items-center select-none overflow-hidden"
       style={{ backgroundColor: 'var(--color-white, #ffffff)' }}
     >
       {/* Header */}

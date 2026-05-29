@@ -74,7 +74,7 @@ const Home = () => {
 
   return (
     <>
-      <NabhiHeader />
+      {/* <NabhiHeader /> */}
 
       <main className="bg-[#f7f7f5]">
         <section className="mx-auto w-full max-w-[1240px] overflow-hidden bg-[#f7f7f5]">

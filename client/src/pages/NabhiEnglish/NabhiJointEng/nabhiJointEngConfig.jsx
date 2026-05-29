@@ -26,8 +26,8 @@ const product = {
 
 // ─── Variants ─────────────────────────────────────────────────────────────────
 const variants = [
-  { id: 1, label: "Buy 1 Bottle",                   price: "₹549",  priceNum: 549,  mrp: 699,  badge: null,          externalVariantId: 477155402648532032 },
-  { id: 2, label: "Buy 2 Bottles – ₹100 Off",       price: "₹899",  priceNum: 899,  mrp: 1198, badge: "Save ₹299",   externalVariantId: 477155416070304832 },
+  { id: 1, label: "Buy 1 Bottle",                   price: "₹549",  priceNum: 549,  mrp: 649,  badge: null,          externalVariantId: 477155402648532032 },
+  { id: 2, label: "Buy 2 Bottles – ₹300 Off",       price: "₹899",  priceNum: 899,  mrp: 1299, badge: "Save ₹300",   externalVariantId: 477155416070304832 },
 ];
 
 // ─── Gallery images ───────────────────────────────────────────────────────────

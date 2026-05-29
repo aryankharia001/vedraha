@@ -4,25 +4,39 @@ export const relatedProducts = [
     title: "Joint Pain Remedy Nabhi Oil",
     price: 549,
     originalPrice: 599,
-    badge: "Sale",
+    discount: "8% off",
+    badge: "Ayurvedic",
+    rating: "4.9",
     url: "/products/nabhi-joint"
   },
   {
     image: "https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=Gemini_Generated_Image_tghk4ptghk4ptghk.png.webp&version_id=null",
     title: "Sleep Relief Nabhi Oil",
     price: 599,
+    originalPrice: 799,
+    discount: "25% off",
+    badge: "Natural",
+    rating: "4.8",
     url: "/products/nabhi-sleep"
   },
   {
     image: "https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=Gemini_Generated_Image_2ym21x2ym21x2ym2.png.webp&version_id=null",
     title: "Eye Care & Vision Support Nabhi Oil",
     price: 599,
+    originalPrice: 899,
+    discount: "33% off",
+    badge: "Herbal",
+    rating: "4.7",
     url: "/products/nabhi-eye"
   },
   {
     image: "https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=Gemini_Generated_Image_xodoaxxodoaxxodo.png.webp&version_id=null",
     title: "Hair Growth & Strength Nabhi Oil",
     price: 599,
+    originalPrice: 749,
+    discount: "20% off",
+    badge: "Organic",
+    rating: "4.9",
     url: "/products/nabhi-hair"
   },
 ];
