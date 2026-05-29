@@ -22,8 +22,12 @@ const slides = [
 ];
 
 const marqueeItems = [
-  "Skin Care", "Makeup", "Hair Care",
-  "Fragrances", "Nail Care", "Body Care",
+  "Skin Care",
+  "Makeup",
+  "Hair Care",
+  "Fragrances",
+  "Nail Care",
+  "Body Care",
 ];
 
 const highlightsData = [
@@ -90,7 +94,11 @@ const highlightsData = [
 ];
 
 const LeafIcon = () => (
-  <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5 fill-[#bd9137]">
+  <svg
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    className="h-5 w-5 fill-[#bd9137]"
+  >
     <path d="M20.7 3.9C13 4.2 7.9 7.1 5.5 12.8c.9-.5 1.9-.8 3.1-.9 2.7-.2 5.1.7 7.4 2.1-2.5.2-4.9.7-7.2 1.8-1.8.9-3.2 2.2-4.2 3.9 3.9-.7 7.3-2.1 10-4.1 3.6-2.7 5.7-6.6 6.1-11.7Z" />
   </svg>
 );
@@ -117,7 +125,9 @@ const Home = ({ lang = "en" }) => {
     if (direction === "next") {
       setActiveSlide((current) => (current + 1) % slides.length);
     } else {
-      setActiveSlide((current) => (current - 1 + slides.length) % slides.length);
+      setActiveSlide(
+        (current) => (current - 1 + slides.length) % slides.length,
+      );
     }
   };
 
@@ -155,92 +165,119 @@ const Home = ({ lang = "en" }) => {
                 style={{ transform: `translateX(-${activeSlide * 100}%)` }}
               >
                 {slides.map((slide, index) => (
-                  <div key={index} className="relative w-full min-w-full h-[600px]">
+                  <div
+                    key={index}
+                    className="relative w-full min-w-full h-[600px]"
+                  >
                     <img
                       src={slide.image}
                       alt={`Slide ${index + 1}`}
                       className="absolute inset-0 w-full h-full object-cover object-top"
                     />
-                    <div className="absolute inset-0 bg-black/10" />
+                    {/* <div className="absolute inset-0 bg-black/10" /> */}
                   </div>
                 ))}
               </div>
 
               {/* Glassmorphism Badge 1 — Fast Delivery */}
-              <div className="absolute left-8 top-[30%] z-30 hidden items-center gap-3 rounded-2xl px-5 py-3.5 text-[12px] font-extrabold text-slate-800 sm:flex animate-floating-badge-1 bg-white/70 border border-white/40 shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] backdrop-blur-md">
+              <div className="absolute left-20 top-[30%] z-30 hidden items-center gap-2 rounded-2xl px-2 py-2 text-[12px] font-extrabold text-slate-800 sm:flex animate-floating-badge-1 bg-white/70 border border-white/40 shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] backdrop-blur-md">
                 <span
                   style={{ background: "var(--color-primary, #184b24)" }}
-                  className="grid h-9 w-9 place-items-center rounded-xl shadow-[0_4px_12px_rgba(24,75,36,0.25)]"
+                  className="grid h-7 w-7 place-items-center rounded-xl shadow-[0_4px_12px_rgba(24,75,36,0.25)]"
                 >
-                  <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5 fill-white">
+                  <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                    className="h-5 w-5 fill-white"
+                  >
                     <path d="M3 7h11v8H3V7Zm12 3h3.2l2.8 3v2h-2a3 3 0 0 0-6 0h-1V9h3v1Z" />
                   </svg>
                 </span>
                 <div className="flex flex-col leading-tight">
-                  <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest">We Offer</span>
+                  <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest">
+                    We Offer
+                  </span>
                   <span className="text-slate-900">Fast Delivery</span>
                 </div>
               </div>
 
               {/* Glassmorphism Badge 2 — Secure Payment */}
-              <div className="absolute bottom-24 right-8 z-30 hidden items-center gap-3 rounded-2xl px-5 py-3.5 text-[12px] font-extrabold text-slate-800 sm:flex animate-floating-badge-2 bg-white/70 border border-white/40 shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] backdrop-blur-md">
+              <div className="absolute bottom-24 right-15 z-30 hidden items-center gap-2 rounded-2xl px-2 py-2 text-[12px] font-extrabold text-slate-800 sm:flex animate-floating-badge-2 bg-white/70 border border-white/40 shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] backdrop-blur-md">
                 <span
                   style={{ background: "var(--color-primary, #184b24)" }}
-                  className="grid h-9 w-9 place-items-center rounded-xl shadow-[0_4px_12px_rgba(24,75,36,0.25)]"
+                  className="grid h-7 w-7 place-items-center rounded-xl shadow-[0_4px_12px_rgba(24,75,36,0.25)]"
                 >
-                  <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5 fill-white">
+                  <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                    className="h-5 w-5 fill-white"
+                  >
                     <path d="M4 6h16a2 2 0 0 1 2 2v1H2V8a2 2 0 0 1 2-2Zm-2 5h20v5a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-5Zm4 3v2h6v-2H6Z" />
                   </svg>
                 </span>
                 <div className="flex flex-col leading-tight">
-                  <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest">100% Safe</span>
+                  <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest">
+                    100% Safe
+                  </span>
                   <span className="text-slate-900">Secure Payment</span>
                 </div>
               </div>
 
               {/* Prev / Next + Dots */}
-              <div className="absolute bottom-5 left-1/2 z-40 flex -translate-x-1/2 items-center gap-3 rounded-2xl bg-white/80 backdrop-blur-md p-2.5 shadow-xl border border-white/40">
+              <div className="absolute bottom-4 left-1/2 z-40 flex -translate-x-1/2 items-center gap-2 rounded-xl bg-white/80 backdrop-blur-md p-1.5 shadow-lg border border-white/40">
                 <button
                   type="button"
                   onClick={() => changeSlide("prev")}
                   style={{ background: "var(--color-primary, #184b24)" }}
-                  className="grid h-10 w-10 place-items-center rounded-xl text-lg font-bold text-white shadow-lg transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
+                  className="grid h-7 w-7 place-items-center rounded-lg text-sm font-bold text-white shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
                   aria-label="Previous slide"
-                >&lt;</button>
-                <div className="flex items-center gap-2">
+                >
+                  &lt;
+                </button>
+
+                <div className="flex items-center gap-1.5">
                   {slides.map((_, index) => (
                     <button
                       key={index}
                       type="button"
                       onClick={() => setActiveSlide(index)}
-                      className={`h-3 rounded-full transition-all duration-300 ${
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
                         activeSlide === index
-                          ? "w-10 bg-gradient-to-r from-[#C08A3E] to-[#d4a55a]"
-                          : "w-3 bg-slate-300 hover:bg-slate-400"
+                          ? "w-6 bg-gradient-to-r from-[#C08A3E] to-[#d4a55a]"
+                          : "w-1.5 bg-slate-300 hover:bg-slate-400"
                       }`}
                       aria-label={`Go to slide ${index + 1}`}
                     />
                   ))}
                 </div>
+
                 <button
                   type="button"
                   onClick={() => changeSlide("next")}
                   style={{ background: "var(--color-primary, #184b24)" }}
-                  className="grid h-10 w-10 place-items-center rounded-xl text-lg font-bold text-white shadow-lg transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
+                  className="grid h-7 w-7 place-items-center rounded-lg text-sm font-bold text-white shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
                   aria-label="Next slide"
-                >&gt;</button>
+                >
+                  &gt;
+                </button>
               </div>
             </div>
           </section>
 
           {/* Marquee 1 */}
           <div
-            style={{ background: "linear-gradient(135deg, var(--color-primary, #184b24) 0%, #1a5c2c 100%)" }}
+            style={{
+              background:
+                "linear-gradient(135deg, var(--color-primary, #184b24) 0%, #1a5c2c 100%)",
+            }}
             className="relative overflow-hidden py-3 text-white z-10"
           >
             <div className="beauty-marquee-track flex w-max items-center gap-12 relative z-10">
               {marqueeLoop.map((item, index) => (
-                <div key={`${item}-${index}`} className="flex min-w-max items-center gap-12 text-base font-bold tracking-wide sm:text-lg">
+                <div
+                  key={`${item}-${index}`}
+                  className="flex min-w-max items-center gap-12 text-base font-bold tracking-wide sm:text-lg"
+                >
                   <span>{item}</span>
                   <LeafIcon />
                 </div>
@@ -255,12 +292,18 @@ const Home = ({ lang = "en" }) => {
 
       {/* Marquee 2 */}
       <div
-        style={{ background: "linear-gradient(135deg, var(--color-primary, #184b24) 0%, #1a5c2c 100%)" }}
+        style={{
+          background:
+            "linear-gradient(135deg, var(--color-primary, #184b24) 0%, #1a5c2c 100%)",
+        }}
         className="relative overflow-hidden py-3 text-white z-10"
       >
         <div className="beauty-marquee-track flex w-max items-center gap-12 relative z-10">
           {marqueeLoop.map((item, index) => (
-            <div key={`${item}-${index}`} className="flex min-w-max items-center gap-12 text-base font-bold tracking-wide sm:text-lg">
+            <div
+              key={`${item}-${index}`}
+              className="flex min-w-max items-center gap-12 text-base font-bold tracking-wide sm:text-lg"
+            >
               <span>{item}</span>
               <LeafIcon />
             </div>
@@ -271,17 +314,20 @@ const Home = ({ lang = "en" }) => {
       <TestimonialCarousel />
       <FAQSection />
 
-      {/* Highlights Section Container — Styled for clean page layout */}
-      <section className="bg-white py-16 px-4 border-t border-slate-100">
-
-        {/* Marquee 2 */}
+      {/* Marquee 2 */}
       <div
-        style={{ background: "linear-gradient(135deg, var(--color-primary, #184b24) 0%, #1a5c2c 100%)" }}
+        style={{
+          background:
+            "linear-gradient(135deg, var(--color-primary, #184b24) 0%, #1a5c2c 100%)",
+        }}
         className="relative overflow-hidden py-3 text-white z-10"
       >
         <div className="beauty-marquee-track flex w-max items-center gap-12 relative z-10">
           {marqueeLoop.map((item, index) => (
-            <div key={`${item}-${index}`} className="flex min-w-max items-center gap-12 text-base font-bold tracking-wide sm:text-lg">
+            <div
+              key={`${item}-${index}`}
+              className="flex min-w-max items-center gap-12 text-base font-bold tracking-wide sm:text-lg"
+            >
               <span>{item}</span>
               <LeafIcon />
             </div>
@@ -289,10 +335,15 @@ const Home = ({ lang = "en" }) => {
         </div>
       </div>
 
-        <div className="max-w-[1200px] mx-auto">
+      {/* Highlights Section Container — Styled for clean page layout */}
+      <section className="bg-white py-10 px-4 border-t border-slate-100">
+        <div className="max-w-[1240px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {highlightsData.map((highlight) => (
-              <div key={highlight.id} className="flex items-center gap-4 group p-4 rounded-2xl transition-all duration-300 hover:bg-slate-50">
+              <div
+                key={highlight.id}
+                className="flex flex-col items-center text-center gap-4 group p-6 rounded-2xl transition-all duration-300 hover:bg-slate-50"
+              >
                 {/* Flexible Graphic Frame Wrapper */}
                 <div
                   className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm border border-slate-100 transition-transform duration-300 group-hover:scale-110"

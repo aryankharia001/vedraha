@@ -77,7 +77,7 @@ export default function FAQSection() {
         </div>
 
         {/* --- Core Content Grid: Accordion & CTA Sidebar Box --- */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8 items-start mb-16 md:mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8 items-start">
           {/* Left Column: List Layout of Accordions */}
           <div className="space-y-4 w-full">
             {faqData.map((faq) => {
