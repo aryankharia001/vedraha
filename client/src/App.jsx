@@ -61,6 +61,7 @@ import NabhiMenstrualPageTelugu from './pages/NabhiTelugu/NabhiMenstrualTelugu/N
 import NabhiAmritPageTelugu from './pages/NabhiTelugu/NabhiAmritTelugu/NabhiAmritPageTelugu'
 import NabhiAboutTelugu from './pages/NabhiTelugu/NabhiAboutTelugu'
 import NabhiContactTelugu from './pages/NabhiTelugu/NabhiContactTelugu'
+import MyOrdersTelugu from './pages/Nabhi Oil/MyOrdersTelugu'
 
 // ── Tamil Product Pages ───────────────────────────────────────────────────────
 import NabhiJointPageTamil from './pages/NabhiTamil/NabhiJointTamil/NabhiJointPageTamil'
@@ -72,6 +73,7 @@ import NabhiMenstrualPageTamil from './pages/NabhiTamil/NabhiMenstrualTamil/Nabh
 import NabhiAmritPageTamil from './pages/NabhiTamil/NabhiAmritTamil/NabhiAmritPageTamil'
 import NabhiAboutTamil from './pages/NabhiTamil/NabhiAboutTamil'
 import NabhiContactTamil from './pages/NabhiTamil/NabhiContactTamil'
+import MyOrdersTamil from './pages/Nabhi Oil/MyOrdersTamil'
 
 import RefundPolicy from './pages/RefundPolicy'
 import PrivacyPolicy from './pages/PrivacyPolicy'
@@ -175,6 +177,7 @@ function AppContent() {
         <Route path="/products/about-telugu" element={<NabhiAboutTelugu />} />
         <Route path="/products/contact-telugu" element={<NabhiContactTelugu />} />
         <Route path="/success-telugu" element={<ExcSuccessPageTelugu />} />
+        <Route path="/my-orders-tlg" element={<MyOrdersTelugu />} />
 
         {/* ── Tamil Language Tree ────────────────────────────────────────── */}
         <Route path="/tml" element={<HomeTamil />} />
@@ -188,6 +191,7 @@ function AppContent() {
         <Route path="/products/nabhi-amrit-tamil" element={<NabhiAmritPageTamil />} />
         <Route path="/products/about-tamil" element={<NabhiAboutTamil />} />
         <Route path="/products/contact-tamil" element={<NabhiContactTamil />} />
+        <Route path="/my-orders-tml" element={<MyOrdersTamil />} />
 
         {/* ── Payment / Gateway Fallbacks ────────────────────────────────── */}
         <Route path="/payment-faliure" element={<ExcFaliurePageHindi />} />

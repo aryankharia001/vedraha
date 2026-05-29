@@ -120,14 +120,14 @@ export default function NabhiHeaderHindi({ onCartOpen, cartCount = 0 }) {
 
   const handleMyOrders = () => {
     setDropdownOpen(false);
-    navigate("/my-orders");
+    navigate("/my-orders-hn");
   };
 
   const handleCartClick = () => onCartOpen?.();
 
   const navLinks = [
-    { label: "उत्पाद सूची",   path: "/products-hn" },
-    { label: "संपर्क करें",   path: "/products/nabhi-contact-hn" },
+    { label: "उत्पाद सूची", path: "/products-hn" },
+    { label: "संपर्क करें", path: "/products/nabhi-contact-hn" },
     { label: "हमारे बारे में", path: "/products/nabhi-about-hn" },
   ];
 
@@ -574,7 +574,7 @@ export default function NabhiHeaderHindi({ onCartOpen, cartCount = 0 }) {
         <div className="nhh-inner">
 
           {/* Logo */}
-          <a href="/" className="nhh-logo">
+          <a href="/hn" className="nhh-logo">
             <div className="nhh-logo-name">
               <img
                 src="https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=nabhiLogo.webp&version_id=null"
@@ -597,46 +597,85 @@ export default function NabhiHeaderHindi({ onCartOpen, cartCount = 0 }) {
           <div className="nhh-icons">
 
             {/* User / dropdown */}
+            {/* User / dropdown */}
             <div ref={dropdownRef} style={{ position: "relative" }}>
               <button
                 className={`${loggedInUser ? "nhh-user-btn" : "nhh-ibtn"}${dropdownOpen ? " open" : ""}`}
-                onClick={() => {
-                  if (loggedInUser) { setDropdownOpen(p => !p); }
-                  else { openModal("login"); }
-                }}
-                title={loggedInUser ? loggedInUser.email : "लॉगिन / साइन अप"}
+                onClick={() => setDropdownOpen((p) => !p)}
+                title={loggedInUser ? loggedInUser.email : "अकाउंट"}
                 aria-label="अकाउंट"
               >
                 <User size={loggedInUser ? 16 : 18} strokeWidth={1.8} />
-                {loggedInUser && <span className="nhh-user-name">{displayName}</span>}
+
                 {loggedInUser && (
-                  <ChevronDown
-                    size={12}
-                    strokeWidth={2.5}
-                    style={{ transform: dropdownOpen ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.18s" }}
-                  />
+                  <>
+                    <span className="nhh-user-name">{displayName}</span>
+
+                    <ChevronDown
+                      size={12}
+                      strokeWidth={2.5}
+                      style={{
+                        transform: dropdownOpen ? "rotate(180deg)" : "rotate(0deg)",
+                        transition: "transform 0.18s",
+                      }}
+                    />
+                  </>
                 )}
               </button>
 
               {dropdownOpen && (
                 <div className="nhh-dropdown">
+
+                  {/* User info */}
                   {loggedInUser && (
                     <div className="nhh-drop-header">
-                      <div className="nhh-drop-name">{loggedInUser.name || displayName}</div>
-                      <div className="nhh-drop-email">{loggedInUser.email}</div>
+                      <div className="nhh-drop-name">
+                        {loggedInUser.name || displayName}
+                      </div>
+
+                      <div className="nhh-drop-email">
+                        {loggedInUser.email}
+                      </div>
                     </div>
                   )}
-                  <button className="nhh-drop-item" onClick={() => { setDropdownOpen(false); handleMyOrders(); }}>
-                    <Package size={15} color="#2a7048" /> मेरे ऑर्डर
+
+                  {/* Orders for both */}
+                  <button
+                    className="nhh-drop-item"
+                    onClick={() => {
+                      setDropdownOpen(false);
+                      handleMyOrders();
+                    }}
+                  >
+                    <Package size={15} color="#2a7048" />
+                    मेरे ऑर्डर
                   </button>
+
                   <hr className="nhh-drop-divider" />
+
+                  {/* Logged out */}
                   {!loggedInUser ? (
-                    <button className="nhh-drop-item" onClick={() => { openModal("login"); setDropdownOpen(false); }}>
-                      <User size={15} /> लॉगिन / साइन अप
+                    <button
+                      className="nhh-drop-item"
+                      onClick={() => {
+                        setDropdownOpen(false);
+                        openModal("login");
+                      }}
+                    >
+                      <User size={15} />
+                      लॉगिन / साइन अप
                     </button>
                   ) : (
-                    <button className="nhh-drop-item danger" onClick={() => { handleLogout(); setDropdownOpen(false); }}>
-                      <LogOut size={15} /> लॉगआउट
+                    /* Logged in */
+                    <button
+                      className="nhh-drop-item danger"
+                      onClick={() => {
+                        handleLogout();
+                        setDropdownOpen(false);
+                      }}
+                    >
+                      <LogOut size={15} />
+                      लॉग आउट
                     </button>
                   )}
                 </div>
@@ -686,9 +725,9 @@ export default function NabhiHeaderHindi({ onCartOpen, cartCount = 0 }) {
             </div>
             <div className="nhh-benefit-cards">
               {[
-                { icon: "⭐", title: "ग्राहक प्रथम",    desc: "हर निर्णय में आपको केंद्र में रखते हैं" },
+                { icon: "⭐", title: "ग्राहक प्रथम", desc: "हर निर्णय में आपको केंद्र में रखते हैं" },
                 { icon: "🔒", title: "सुरक्षित और निजी", desc: "आपका डेटा हमेशा सुरक्षित रहता है" },
-                { icon: "🎁", title: "विशेष ऑफ़र",      desc: "सदस्य-विशेष डील और अर्ली एक्सेस" },
+                { icon: "🎁", title: "विशेष ऑफ़र", desc: "सदस्य-विशेष डील और अर्ली एक्सेस" },
               ].map((b) => (
                 <div key={b.title} className="nhh-benefit-card">
                   <div className="nhh-bc-icon">{b.icon}</div>
@@ -864,7 +903,7 @@ export default function NabhiHeaderHindi({ onCartOpen, cartCount = 0 }) {
           ))}
           {loggedInUser ? (
             <>
-              <div className="nhh-mob-link" onClick={() => { navigate("/my-orders"); setMenuOpen(false); }}>
+              <div className="nhh-mob-link" onClick={() => { navigate("/my-orders-hn"); setMenuOpen(false); }}>
                 <span>मेरे ऑर्डर</span>
                 <span style={{ color: "#94a3b8", fontSize: 18 }}>›</span>
               </div>

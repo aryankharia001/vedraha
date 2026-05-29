@@ -113,9 +113,9 @@ export default function NabhiHeaderTelugu({ onCartOpen, cartCount = 0 }) {
   const handleCartClick = () => onCartOpen?.();
 
   const navLinks = [
-    { label: "జాబితా",         path: "/products-tlg" },
-    { label: "సంప్రదించండి",   path: "/products/nabhi-contact-telugu" },
-    { label: "మా గురించి",     path: "/products/nabhi-about-telugu" },
+    { label: "జాబితా", path: "/products-tlg" },
+    { label: "సంప్రదించండి", path: "/products/nabhi-contact-telugu" },
+    { label: "మా గురించి", path: "/products/nabhi-about-telugu" },
   ];
 
   const displayName = loggedInUser?.name || loggedInUser?.email?.split("@")[0] || "ఖాతా";
@@ -484,7 +484,7 @@ export default function NabhiHeaderTelugu({ onCartOpen, cartCount = 0 }) {
         <div className="nh-inner">
 
           {/* Logo */}
-          <a href="/" className="nh-logo">
+          <a href="/tlg" className="nh-logo">
             <div className="nh-logo-name">
               <img
                 src="https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=nabhiLogo.webp&version_id=null"
@@ -509,44 +509,85 @@ export default function NabhiHeaderTelugu({ onCartOpen, cartCount = 0 }) {
             {/* User / dropdown */}
             <div ref={dropdownRef} style={{ position: "relative" }}>
               <button
-                className={`${loggedInUser ? "nh-user-btn" : "nh-ibtn"}${dropdownOpen ? " open" : ""}`}
-                onClick={() => {
-                  if (loggedInUser) { setDropdownOpen(p => !p); }
-                  else { openModal("login"); }
-                }}
-                title={loggedInUser ? loggedInUser.email : "లాగిన్ / సైన్ అప్"}
-                aria-label="ఖాతా"
+                className={`${loggedInUser ? "nh-user-btn" : "nh-ibtn"}${dropdownOpen ? " open" : ""
+                  }`}
+                onClick={() => setDropdownOpen((p) => !p)}
+                title={loggedInUser ? loggedInUser.email : "Account"}
+                aria-label="Account"
               >
                 <User size={loggedInUser ? 16 : 18} strokeWidth={1.8} />
-                {loggedInUser && <span className="nh-user-name">{displayName}</span>}
+
                 {loggedInUser && (
-                  <ChevronDown
-                    size={12}
-                    strokeWidth={2.5}
-                    style={{ transform: dropdownOpen ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.18s" }}
-                  />
+                  <>
+                    <span className="nh-user-name">{displayName}</span>
+
+                    <ChevronDown
+                      size={12}
+                      strokeWidth={2.5}
+                      style={{
+                        transform: dropdownOpen
+                          ? "rotate(180deg)"
+                          : "rotate(0)",
+                        transition: "transform 0.18s",
+                      }}
+                    />
+                  </>
                 )}
               </button>
 
               {dropdownOpen && (
                 <div className="nh-dropdown">
+
+                  {/* Logged in user details */}
                   {loggedInUser && (
                     <div className="nh-drop-header">
-                      <div className="nh-drop-name">{loggedInUser.name || displayName}</div>
-                      <div className="nh-drop-email">{loggedInUser.email}</div>
+                      <div className="nh-drop-name">
+                        {loggedInUser.name || displayName}
+                      </div>
+
+                      <div className="nh-drop-email">
+                        {loggedInUser.email}
+                      </div>
                     </div>
                   )}
-                  <button className="nh-drop-item" onClick={() => { setDropdownOpen(false); handleMyOrders(); }}>
-                    <Package size={15} color="#2a7048" /> నా ఆర్డర్లు
+
+                  {/* My Orders - available for both */}
+                  <button
+                    className="nh-drop-item"
+                    onClick={() => {
+                      setDropdownOpen(false);
+                      handleMyOrders();
+                    }}
+                  >
+                    <Package size={15} color="#2a7048" />
+                    నా ఆర్డర్లు
                   </button>
+
                   <hr className="nh-drop-divider" />
+
+                  {/* Logged out */}
                   {!loggedInUser ? (
-                    <button className="nh-drop-item" onClick={() => { openModal("login"); setDropdownOpen(false); }}>
-                      <User size={15} /> లాగిన్ / సైన్ అప్
+                    <button
+                      className="nh-drop-item"
+                      onClick={() => {
+                        setDropdownOpen(false);
+                        openModal("login");
+                      }}
+                    >
+                      <User size={15} />
+                      లాగిన్ / నమోదు
                     </button>
                   ) : (
-                    <button className="nh-drop-item danger" onClick={() => { handleLogout(); setDropdownOpen(false); }}>
-                      <LogOut size={15} /> లాగౌట్
+                    /* Logged in */
+                    <button
+                      className="nh-drop-item danger"
+                      onClick={() => {
+                        handleLogout();
+                        setDropdownOpen(false);
+                      }}
+                    >
+                      <LogOut size={15} />
+                      లాగౌట్
                     </button>
                   )}
                 </div>
@@ -595,9 +636,9 @@ export default function NabhiHeaderTelugu({ onCartOpen, cartCount = 0 }) {
             </div>
             <div className="nh-benefit-cards">
               {[
-                { icon: "⭐", title: "కస్టమర్ ఫస్ట్",    desc: "ప్రతి నిర్ణయంలో మీరే మొదట" },
+                { icon: "⭐", title: "కస్టమర్ ఫస్ట్", desc: "ప్రతి నిర్ణయంలో మీరే మొదట" },
                 { icon: "🔒", title: "సురక్షితం & గోప్యం", desc: "మీ డేటా ఎల్లప్పుడూ సురక్షితంగా ఉంటుంది" },
-                { icon: "🎁", title: "ప్రత్యేక ఆఫర్లు",   desc: "సభ్యులకు మాత్రమే డీల్స్ మరియు ముందస్తు యాక్సెస్" },
+                { icon: "🎁", title: "ప్రత్యేక ఆఫర్లు", desc: "సభ్యులకు మాత్రమే డీల్స్ మరియు ముందస్తు యాక్సెస్" },
               ].map((b) => (
                 <div key={b.title} className="nh-benefit-card">
                   <div className="nh-bc-icon">{b.icon}</div>

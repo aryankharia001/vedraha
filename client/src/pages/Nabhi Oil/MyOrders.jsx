@@ -466,7 +466,7 @@ export default function MyOrdersHindi() {
 
         {/* ── Top Bar ── */}
         <AnimatedSection delay={0}>
-          <div className="flex items-start justify-between flex-wrap gap-5 pb-8">
+          <div className="flex items-start justify-between flex-wrap gap-5 pb-8 py-15">
             <div>
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-800 to-green-900 flex items-center justify-center shadow-lg shadow-green-800/30">
@@ -550,7 +550,7 @@ export default function MyOrdersHindi() {
                   इस डिवाइस पर किए गए ऑर्डर यहाँ दिखाई देंगे। कोई अकाउंट जरूरी नहीं।
                 </p>
                 <button
-                  onClick={() => navigate("/exclusive-products")}
+                  onClick={() => navigate("/products-hn")}
                   className="inline-flex items-center gap-2.5 px-8 py-4 bg-gradient-to-r from-green-800 to-green-900 text-white text-sm font-bold rounded-full shadow-lg shadow-green-800/30 hover:shadow-xl hover:shadow-green-800/40 hover:-translate-y-0.5 transition-all duration-300"
                 >
                   नाभि अमृत खरीदें <ArrowRight size={16} />

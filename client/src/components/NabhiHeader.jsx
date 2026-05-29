@@ -113,9 +113,9 @@ export default function NabhiHeader({ onCartOpen, cartCount = 0 }) {
   const handleCartClick = () => onCartOpen?.();
 
   const navLinks = [
-    { label: "CATALOG",    path: "/products" },
-    { label: "CONTACT US", path: "/products/nabhi-contact-en" },
-    { label: "ABOUT US",   path: "/products/nabhi-about-en" },
+    { label: "CATALOG",    path: "/exclusive-products" },
+    { label: "CONTACT US", path: "/products/nabhi-eng-contact" },
+    { label: "ABOUT US",   path: "/products/nabhi-eng-aboutus" },
   ];
 
   const displayName = loggedInUser?.name || loggedInUser?.email?.split("@")[0] || "Account";
