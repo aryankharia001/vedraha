@@ -113,9 +113,9 @@ export default function NabhiHeader({ onCartOpen, cartCount = 0 }) {
   const handleCartClick = () => onCartOpen?.();
 
   const navLinks = [
-    { label: "CATALOG",    path: "/exclusive-products" },
-    { label: "CONTACT US", path: "/products/nabhi-eng-contact" },
-    { label: "ABOUT US",   path: "/products/nabhi-eng-aboutus" },
+    { label: "CATALOG",    path: "/products" },
+    { label: "CONTACT US", path: "/products/nabhi-contact-en" },
+    { label: "ABOUT US",   path: "/products/nabhi-about-en" },
   ];
 
   const displayName = loggedInUser?.name || loggedInUser?.email?.split("@")[0] || "Account";
@@ -154,7 +154,7 @@ export default function NabhiHeader({ onCartOpen, cartCount = 0 }) {
           padding: 0 10px 0 10px;
 
           /* Glassmorphism */
-          background: rgba(232, 242, 235, 0.72);
+          background: rgba(255, 255, 255, 0.3);
           backdrop-filter: blur(18px) saturate(160%);
           -webkit-backdrop-filter: blur(18px) saturate(160%);
 

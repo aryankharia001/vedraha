@@ -126,9 +126,9 @@ export default function NabhiHeaderHindi({ onCartOpen, cartCount = 0 }) {
   const handleCartClick = () => onCartOpen?.();
 
   const navLinks = [
-    { label: "उत्पाद सूची",   path: "/exclusive-products-hn" },
-    { label: "संपर्क करें",   path: "/products/nabhi-contact" },
-    { label: "हमारे बारे में", path: "/products/nabhi-aboutus" },
+    { label: "उत्पाद सूची",   path: "/products-hn" },
+    { label: "संपर्क करें",   path: "/products/nabhi-contact-hn" },
+    { label: "हमारे बारे में", path: "/products/nabhi-about-hn" },
   ];
 
   const displayName = loggedInUser?.name || loggedInUser?.email?.split("@")[0] || "खाता";
