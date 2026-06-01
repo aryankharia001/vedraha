@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { backendurl } from "../App";
 import axios from "axios";
-// import { useDispatch } from "react-redux";
-
 
 const CART_KEY = "exclusiveCart";
 const loadCart = () => { try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { return []; } };
@@ -94,7 +92,6 @@ function SortDropdown({ sort, setSort }) {
 }
 
 function ProductCard({ product, redirectUrl }) {
-  // const dispatch = useDispatch();
   const navigate = useNavigate();
   const [hovered, setHovered] = useState(false);
   const [adding, setAdding] = useState(false);
@@ -115,7 +112,6 @@ function ProductCard({ product, redirectUrl }) {
           <button className="pcard__action-btn" onClick={(e) => e.stopPropagation()} title="Quick view">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
           </button>
-          
         </div>
         <img src={product.image} alt={product.name} className="pcard__img"
           onError={(e) => { e.target.style.display = "none"; e.target.parentElement.insertAdjacentHTML("beforeend", `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#f5f0e8;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#c8b99a" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`); }}
@@ -219,8 +215,14 @@ function FilterTag({ label, onRemove }) {
   return <span className="filter-tag">{label}<span onClick={onRemove}>×</span></span>;
 }
 
+// ─── HEADER HEIGHT CONSTANTS ───────────
+const HEADER_H       = 86;
+const HEADER_H_MOB   = 72;
+const TOPBAR_H       = 56;
+const SIDEBAR_TOP    = HEADER_H + TOPBAR_H + 8;
+const SIDEBAR_TOP_M  = HEADER_H_MOB + TOPBAR_H + 8;
+
 export default function ExclusiveProductCatalog() {
-  const catalogProductsRef = useRef(null);
   const [products, setProducts] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -242,6 +244,8 @@ export default function ExclusiveProductCatalog() {
   const [filterClosing, setFilterClosing] = useState(false);
   const [gatewayLoading, setGatewayLoading] = useState(false);
 
+  const productsRef = useRef(null);
+
   const filterOpen = filterVisible;
   const closeFilter = () => {
     setFilterClosing(true);
@@ -251,20 +255,8 @@ export default function ExclusiveProductCatalog() {
 
   const cartCount = cartItems.reduce((s, i) => s + i.quantity, 0);
 
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth", // optional
-    });
-  }, []);
-
   useEffect(() => { saveCart(cartItems); }, [cartItems]);
 
-  useEffect(() => {
-    if (catalogProductsRef.current) catalogProductsRef.current.scrollTo({ top: 0, behavior: "auto" });
-  }, [currentPage, sort, selectedCategories, selectedPromotions, selectedRating, minPrice, maxPrice]);
-
-  // Close filter drawer on desktop resize
   useEffect(() => {
     const handler = () => { if (window.innerWidth >= 768 && filterVisible) closeFilter(); };
     window.addEventListener("resize", handler);
@@ -274,9 +266,7 @@ export default function ExclusiveProductCatalog() {
   const handleUpdateQty = (cartId, newQty) => setCartItems((prev) => newQty < 1 ? prev.filter((i) => i.cartId !== cartId) : prev.map((i) => i.cartId === cartId ? { ...i, quantity: newQty } : i));
   const handleRemoveItem = (cartId) => setCartItems((prev) => prev.filter((i) => i.cartId !== cartId));
 
- 
-
-  const handleCartBuyNow = () => { setCartOpen(false); openShiprocketGateway(new MouseEvent("click", { bubbles: true }), cartItems); };
+  const handleCartBuyNow = () => { setCartOpen(false); };
 
   useEffect(() => {
     const link = document.createElement("link");
@@ -351,6 +341,14 @@ export default function ExclusiveProductCatalog() {
 
   const clearAllFilters = () => { setMinPrice(0); setMaxPrice(priceMax); setSelectedCategories([]); setSelectedPromotions([]); setSelectedRating(null); };
 
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+    if (productsRef.current) {
+      const top = productsRef.current.getBoundingClientRect().top + window.scrollY - SIDEBAR_TOP - 8;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
+  };
+
   const filterProps = { minPrice, maxPrice, priceMax, setMinPrice, setMaxPrice, selectedCategories, setSelectedCategories, selectedPromotions, setSelectedPromotions, selectedRating, setSelectedRating };
 
   return (
@@ -362,7 +360,6 @@ export default function ExclusiveProductCatalog() {
         </div>
       )}
 
-      {/* Mobile filter drawer backdrop */}
       {filterOpen && <div className={`filter-backdrop${filterClosing ? " closing" : ""}`} onClick={closeFilter}/>}
       {filterOpen && (
         <div className={`filter-drawer${filterClosing ? " closing" : ""}`}>
@@ -374,14 +371,19 @@ export default function ExclusiveProductCatalog() {
         </div>
       )}
 
-
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&display=swap');
         *,*::before,*::after{box-sizing:border-box}
         html{scroll-behavior:smooth}
-        .exclusive-catalog{--hh:72px;--ch:calc(100dvh - var(--hh));font-family:'DM Sans',sans-serif;background:#fff;min-height:100vh;color:#222}
 
-        /* Hero */
+        .exclusive-catalog{
+          font-family:'DM Sans',sans-serif;
+          background:#fff;
+          min-height:100vh;
+          color:#222;
+          padding-top:${HEADER_H}px;
+        }
+
         .shop-hero{position:relative;background:#f3f3f2;min-height:120px;display:flex;align-items:center;justify-content:center;overflow:hidden}
         .shop-hero::before,.shop-hero::after{content:"";position:absolute;width:110px;height:54px;opacity:.55;background-image:radial-gradient(#cfd6cf 2px,transparent 2.5px);background-size:14px 14px}
         .shop-hero::before{left:14%;top:0}.shop-hero::after{right:13%;bottom:0}
@@ -389,17 +391,62 @@ export default function ExclusiveProductCatalog() {
         .shop-hero__content h1{margin:0 0 8px;font-size:34px;font-weight:800;color:#252525}
         .shop-hero__content p{margin:0;font-size:13px;color:#333}
 
-        /* Shell */
-        .catalog-shell{position:sticky;top:var(--hh);height:var(--ch);max-width:1240px;margin:0 auto;padding:30px 32px 0;background:#fff;display:flex;flex-direction:column;overflow:hidden;z-index:10}
-        .catalog-topbar{display:grid;grid-template-columns:230px minmax(0,1fr) auto;align-items:center;gap:26px;margin-bottom:18px;flex-shrink:0}
+        .catalog-shell{
+          max-width:1240px;
+          margin:0 auto;
+          padding:0 32px 60px;
+          background:#fff;
+        }
+
+        .catalog-topbar{
+          display:grid;
+          grid-template-columns:230px minmax(0,1fr) auto;
+          align-items:center;
+          gap:26px;
+          position:sticky;
+          top:${HEADER_H}px;
+          z-index:30;
+          background:#fff;
+          padding:14px 0 12px;
+          margin-left:-32px;
+          margin-right:-32px;
+          padding-left:32px;
+          padding-right:32px;
+          box-shadow:0 2px 0 0 #f0f0f0;
+          margin-bottom:0;
+        }
         .catalog-topbar__filter-title{font-size:18px;font-weight:800;color:#252525}
         .catalog-result-text{font-size:14px;color:#333}
         .catalog-sort-wrap{display:flex;align-items:center;justify-content:flex-end;gap:10px;white-space:nowrap}
         .catalog-sort-wrap span{font-size:14px;color:#333}
-        .catalog-body{display:flex;gap:26px;flex:1;min-height:0;overflow:hidden}
 
-        /* Sidebar */
-        .pcat-sidebar{width:230px;height:100%;flex-shrink:0;padding:0 20px 28px 0;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable}
+        .catalog-body{
+          display:flex;
+          gap:26px;
+          align-items:flex-start;
+          padding-top:24px;
+        }
+
+        .pcat-sidebar{
+          width:230px;
+          flex-shrink:0;
+          padding:0 20px 28px 0;
+          position:sticky;
+          top:${SIDEBAR_TOP}px;
+          align-self:flex-start;
+          max-height:calc(100vh - ${SIDEBAR_TOP}px - 24px);
+          overflow-y:auto;
+          overscroll-behavior:contain;
+          -webkit-overflow-scrolling:touch;
+          scroll-behavior:smooth;
+          will-change:transform;
+        }
+
+        .pcat-sidebar::-webkit-scrollbar{width:4px}
+        .pcat-sidebar::-webkit-scrollbar-track{background:transparent}
+        .pcat-sidebar::-webkit-scrollbar-thumb{background:#1a4731;border-radius:999px;opacity:.6}
+        .pcat-sidebar:hover::-webkit-scrollbar-thumb{opacity:1}
+
         .filter-mobile-header{display:none;justify-content:space-between;align-items:center;padding-block:15px 4px}
         .filter-title{font-size:16px;font-weight:800;color:#252525;margin:0 0 8px}
         .filter-close-btn{background:none;border:none;font-size:20px;cursor:pointer;color:#6b7280;line-height:1;padding:4px}
@@ -424,20 +471,26 @@ export default function ExclusiveProductCatalog() {
         .filter-radio span{width:6px;height:6px;border-radius:50%;background:#fff}
         .filter-rating-text{font-size:12px;color:#6b7280}
 
-        /* Products */
-        .catalog-products{flex:1;min-width:0;height:100%;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding:0 4px 44px 0}
-        .pcat-sidebar::-webkit-scrollbar,.catalog-products::-webkit-scrollbar{width:5px}
-        .pcat-sidebar::-webkit-scrollbar-track,.catalog-products::-webkit-scrollbar-track{background:transparent}
-        .pcat-sidebar::-webkit-scrollbar-thumb,.catalog-products::-webkit-scrollbar-thumb{background:#1a4731;border-radius:999px}
+        .catalog-products{
+          flex:1;
+          min-width:0;
+          padding-bottom:44px;
+          scroll-margin-top:${SIDEBAR_TOP + 8}px;
+        }
 
-        /* Active filters */
-        .active-filter-row{position:sticky;top:0;z-index:6;display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:18px;padding-bottom:10px;background:#fff}
+        .active-filter-row{
+          display:flex;
+          align-items:center;
+          flex-wrap:wrap;
+          gap:8px;
+          margin-bottom:18px;
+          padding-bottom:10px;
+        }
         .active-filter-label{font-size:14px;font-weight:500;color:#252525;margin-right:4px}
         .filter-tag{display:inline-flex;align-items:center;gap:8px;background:#1a4731;color:#fff;font-size:13px;font-weight:500;padding:7px 13px;border-radius:999px}
         .filter-tag span{cursor:pointer;line-height:1;opacity:.9;font-size:14px;font-weight:700}
         .clear-filter-btn{font-size:13px;font-weight:600;color:#c2995d;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;padding:0 4px;text-decoration:underline}
 
-        /* Sort */
         @keyframes dropdownOpen{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
         .sort-btn{display:flex;align-items:center;gap:10px;padding:9px 16px;border-radius:999px;border:1px solid #e5e7eb;background:#fff;color:#111827;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;justify-content:space-between;transition:border-color .18s,box-shadow .18s}
         .sort-btn:hover{border-color:#1a4731;box-shadow:0 0 0 3px rgba(26,71,49,.08)}
@@ -448,7 +501,6 @@ export default function ExclusiveProductCatalog() {
         .sort-option.active:hover{background:#e6f4ed}
         .sort-option__check{width:16px;height:16px;border-radius:50%;background:#1a4731;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 
-        /* Product grid */
         .pcard-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
         .pcard{background:#fff;border-radius:14px;overflow:hidden;cursor:pointer;transition:box-shadow .22s,transform .22s;display:flex;flex-direction:column;border:1px solid #ececec;box-shadow:0 2px 8px rgba(0,0,0,.04)}
         .pcard:hover{box-shadow:0 12px 36px rgba(0,0,0,.13);transform:translateY(-3px)}
@@ -472,7 +524,6 @@ export default function ExclusiveProductCatalog() {
         @keyframes pcardShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
         @keyframes pcardSpin{to{transform:rotate(360deg)}}
 
-        /* Range inputs */
         input[type=range]{-webkit-appearance:none;appearance:none;height:100%;background:transparent;outline:none;cursor:pointer;position:absolute;left:0;right:0;width:100%;margin:0;padding:0}
         input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;height:17px;border-radius:50%;background:#1a4731;border:2.5px solid #fff;box-shadow:0 1px 6px rgba(0,0,0,.22);cursor:pointer;margin-top:-7px}
         input[type=range]::-webkit-slider-runnable-track{height:3px;background:transparent}
@@ -480,17 +531,14 @@ export default function ExclusiveProductCatalog() {
         input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
         input[type=number]{-moz-appearance:textfield}
 
-        /* Pagination */
         .pcat-page-btn{width:34px;height:34px;border-radius:8px;border:1.5px solid #e5e7eb;background:#fff;color:#374151;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
         .pcat-page-btn:hover:not(:disabled){border-color:#1a4731;color:#1a4731}
         .pcat-page-btn.active{background:#1a4731;color:#fff;border-color:#1a4731}
         .pcat-page-btn:disabled{opacity:.38;cursor:not-allowed}
 
-        /* Gateway */
         .gateway-overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:#fff;font-size:16px;font-weight:600}
         .gateway-spinner{width:48px;height:48px;border:4px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;display:inline-block;animation:pcardSpin .7s linear infinite}
 
-        /* Mobile filter drawer */
         @keyframes backdropFadeIn{from{opacity:0}to{opacity:1}}
         @keyframes backdropFadeOut{from{opacity:1}to{opacity:0}}
         @keyframes drawerSlideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
@@ -499,35 +547,51 @@ export default function ExclusiveProductCatalog() {
         .filter-backdrop.closing{animation:backdropFadeOut .3s ease forwards}
         .filter-drawer{position:fixed;bottom:0;left:0;right:0;max-height:88vh;background:#fff;border-radius:20px 20px 0 0;z-index:400;display:flex;flex-direction:column;overflow:hidden;animation:drawerSlideUp .32s cubic-bezier(.32,1,.23,1) forwards}
         .filter-drawer.closing{animation:drawerSlideDown .3s cubic-bezier(.4,0,1,1) forwards}
-        .filter-drawer .pcat-sidebar{display:block !important;width:100% !important;height:auto;max-height:calc(88vh - 80px);overflow-y:auto;padding:0 20px 8px;flex-shrink:0}
+        .filter-drawer .pcat-sidebar{display:block !important;width:100% !important;height:auto;max-height:calc(88vh - 80px);overflow-y:auto;padding:0 20px 8px;flex-shrink:0;position:static !important}
         .filter-drawer .filter-mobile-header{display:flex}
 
-        /* Mobile topbar filter btn */
         .filter-mobile-btn{display:none;align-items:center;gap:7px;padding:9px 16px;border-radius:999px;border:1px solid #e5e7eb;background:#fff;color:#111827;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap}
 
-        /* Responsive */
         @media(max-width:980px){
           .catalog-topbar{grid-template-columns:1fr auto;gap:14px}
           .catalog-topbar__filter-title{display:none}
           .pcat-sidebar{width:210px;padding-right:14px}
           .pcard-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
         }
+
         @media(max-width:768px){
-          .exclusive-catalog{--ch:auto}
-          .shop-hero{min-height:100px}.shop-hero__content h1{font-size:26px}
-          .catalog-shell{position:relative;top:auto;height:auto;max-width:none;overflow:visible;padding:20px 16px 0}
-          .catalog-topbar{grid-template-columns:auto 1fr auto;gap:10px;align-items:center;margin-bottom:14px}
+          .exclusive-catalog{padding-top:${HEADER_H_MOB}px}
+          .shop-hero{min-height:100px}
+          .shop-hero__content h1{font-size:26px}
+          .catalog-shell{padding:0 16px 60px}
+          .catalog-topbar{
+            grid-template-columns:auto 1fr auto;
+            gap:10px;
+            align-items:center;
+            top:${HEADER_H_MOB}px;
+            margin-left:-16px;
+            margin-right:-16px;
+            padding-left:16px;
+            padding-right:16px;
+          }
           .catalog-topbar__filter-title{display:none}
-          .catalog-body{display:block;overflow:visible}
+          .catalog-body{display:block;padding-top:20px}
           .catalog-body > .pcat-sidebar{display:none}
-          .catalog-products{height:auto;overflow:visible;padding-right:0;padding-bottom:28px}
+          .catalog-products{padding-right:0;padding-bottom:28px;scroll-margin-top:${SIDEBAR_TOP_M + 8}px}
           .filter-mobile-btn{display:flex}
-          .active-filter-row{position:relative;top:auto}
           .pcard-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
         }
+
         @media(max-width:600px){
           .catalog-shell{padding-left:12px;padding-right:12px}
-          .catalog-topbar{grid-template-columns:auto 1fr;gap:8px}
+          .catalog-topbar{
+            grid-template-columns:auto 1fr;
+            gap:8px;
+            margin-left:-12px;
+            margin-right:-12px;
+            padding-left:12px;
+            padding-right:12px;
+          }
           .catalog-sort-wrap>span{display:none}
           .pcard-grid{gap:10px}
           .pcard__body{padding:10px 10px 12px}
@@ -537,10 +601,11 @@ export default function ExclusiveProductCatalog() {
           .pcard__badge{top:8px;left:8px;font-size:10px;padding:4px 9px}
           .pcard__action-btn{width:29px;height:29px}
         }
+
         @media(max-width:380px){.pcard-grid{grid-template-columns:1fr}}
       `}</style>
 
-      <section className="shop-hero pt-20 pb-2">
+      <section className="shop-hero">
         <div className="shop-hero__content">
           <h1>Shop</h1>
           <p>Home&nbsp;&nbsp;/&nbsp;&nbsp;Shop</p>
@@ -549,7 +614,6 @@ export default function ExclusiveProductCatalog() {
 
       <main className="catalog-shell">
         <div className="catalog-topbar">
-          {/* Mobile filter button */}
           <button className="filter-mobile-btn" onClick={() => setFilterVisible(true)}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
             Filter {activeFilterTags.length > 0 && <span style={{ background: "#1a4731", color: "#fff", borderRadius: "50%", width: 18, height: 18, fontSize: 11, fontWeight: 700, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>{activeFilterTags.length}</span>}
@@ -570,7 +634,7 @@ export default function ExclusiveProductCatalog() {
         <div className="catalog-body">
           <FilterSidebar {...filterProps}/>
 
-          <div className="catalog-products" ref={catalogProductsRef}>
+          <div className="catalog-products" ref={productsRef}>
             {activeFilterTags.length > 0 && (
               <div className="active-filter-row">
                 <span className="active-filter-label">Active Filter</span>
@@ -579,7 +643,11 @@ export default function ExclusiveProductCatalog() {
               </div>
             )}
 
-            {loading && <div className="pcard-grid">{Array.from({ length: 9 }).map((_, i) => <div key={i} className="pcard-skeleton"/>)}</div>}
+            {loading && (
+              <div className="pcard-grid">
+                {Array.from({ length: 9 }).map((_, i) => <div key={i} className="pcard-skeleton"/>)}
+              </div>
+            )}
 
             {!loading && error && (
               <div style={{ textAlign: "center", padding: "80px 0" }}>
@@ -595,29 +663,52 @@ export default function ExclusiveProductCatalog() {
                 <div style={{ fontSize: 40, marginBottom: 12 }}>🔍</div>
                 <div style={{ fontSize: 20, fontWeight: 700, color: "#111827", marginBottom: 8 }}>No products found</div>
                 <div style={{ color: "#6b7280", fontSize: 14, marginBottom: 24 }}>Try adjusting your filters</div>
-                {activeFilterTags.length > 0 && <button onClick={clearAllFilters} style={{ padding: "11px 28px", background: "#1a4731", color: "#fff", border: "none", borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: "pointer" }}>Clear Filters</button>}
+                {activeFilterTags.length > 0 && (
+                  <button onClick={clearAllFilters} style={{ padding: "11px 28px", background: "#1a4731", color: "#fff", border: "none", borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: "pointer" }}>Clear Filters</button>
+                )}
               </div>
             )}
 
             {!loading && !error && paginatedProducts.length > 0 && (
               <div className="pcard-grid">
-                {paginatedProducts.map((product) => <ProductCard key={product._id} product={product} redirectUrl={`/products/${product.path}`}/>)}
+                {paginatedProducts.map((product) => (
+                  <ProductCard key={product._id} product={product} redirectUrl={`/products/${product.path}`}/>
+                ))}
               </div>
             )}
 
             {!loading && !error && totalPages > 1 && (
               <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 6, marginTop: 36 }}>
-                <button className="pcat-page-btn" disabled={currentPage === 1} onClick={() => setCurrentPage((p) => p - 1)}>
+                <button
+                  className="pcat-page-btn"
+                  disabled={currentPage === 1}
+                  onClick={() => handlePageChange(currentPage - 1)}
+                >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="15 18 9 12 15 6"/></svg>
                 </button>
+
                 {Array.from({ length: totalPages }, (_, i) => i + 1)
                   .filter((p) => p === 1 || p === totalPages || Math.abs(p - currentPage) <= 1)
-                  .reduce((acc, p, idx, arr) => { if (idx > 0 && p - arr[idx - 1] > 1) acc.push("..."); acc.push(p); return acc; }, [])
-                  .map((p, idx) => p === "..."
-                    ? <span key={`e${idx}`} style={{ fontSize: 13, color: "#9ca3af", padding: "0 2px" }}>...</span>
-                    : <button key={p} className={`pcat-page-btn${currentPage === p ? " active" : ""}`} onClick={() => setCurrentPage(p)}>{p}</button>
+                  .reduce((acc, p, idx, arr) => {
+                    if (idx > 0 && p - arr[idx - 1] > 1) acc.push("...");
+                    acc.push(p);
+                    return acc;
+                  }, [])
+                  .map((p, idx) =>
+                    p === "..."
+                      ? <span key={`e${idx}`} style={{ fontSize: 13, color: "#9ca3af", padding: "0 2px" }}>...</span>
+                      : <button
+                          key={p}
+                          className={`pcat-page-btn${currentPage === p ? " active" : ""}`}
+                          onClick={() => handlePageChange(p)}
+                        >{p}</button>
                   )}
-                <button className="pcat-page-btn" disabled={currentPage === totalPages} onClick={() => setCurrentPage((p) => p + 1)}>
+
+                <button
+                  className="pcat-page-btn"
+                  disabled={currentPage === totalPages}
+                  onClick={() => handlePageChange(currentPage + 1)}
+                >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="9 18 15 12 9 6"/></svg>
                 </button>
               </div>
