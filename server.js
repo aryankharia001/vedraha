@@ -7,6 +7,8 @@ import { fileURLToPath } from 'url'
 import additionalRoutes from './routes/additionalRoutes.js'
 import NabhiRoutes from './routes/AuthRoutes.js'
 import connectDB from './config/db.js'
+import exclusiveRoutes from './routes/ExclusiveProductRoutes.js'
+import fileUpload from 'express-fileupload'    
 
 dotenv.config()
 
@@ -17,11 +19,16 @@ connectDB()
 app.use(cors({ origin: '*' }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(fileUpload({                                  // ← add this
+  useTempFiles: true,
+  tempFileDir: '/tmp/',
+  limits: { fileSize: 10 * 1024 * 1024 },
+}))
 
 // API Routes
 app.use('/api/ad', additionalRoutes)
 app.use('/api/auth', NabhiRoutes)
-
+app.use('/api/exclusiveproducts', exclusiveRoutes)
 
 // FRONTEND SERVING
 

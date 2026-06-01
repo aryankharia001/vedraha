@@ -54,6 +54,8 @@ import ExclusiveProductCatalogTelugu  from './pages/ExclusiveProductCatalogTelug
 import MyOrders        from './pages/Nabhi Oil/MyOrders'
 import MyOrdersEnglish from './pages/Nabhi Oil/MyOrdersEnglish'
 
+import CreateExclusiveProduct from './pages/admin/CreateExclusiveProduct'
+
 // ── English Product Pages ─────────────────────────────────────────────────────
 import NabhiJointPageEng     from './pages/NabhiEnglish/NabhiJointEng/NabhiJointPageEng'
 import NabhiEyePageEng       from './pages/NabhiEnglish/NabhiEyeEng/NabhiEyePageEng'
@@ -281,6 +283,7 @@ function AppContent() {
         <Route path="/success-en"                      element={<ExcSuccessPage />} />
         <Route path="/my-orders-en"                    element={<MyOrdersEnglish />} />
         <Route path="/order-en/:orderId"                    element={<OrderDetailsEnglish />} />
+        <Route path="/admin"                    element={<CreateExclusiveProduct />} />
 
         {/* ── Telugu ───────────────────────────────────────────────────── */}
         <Route path="/tlg"                             element={<HomeTelugu />} />

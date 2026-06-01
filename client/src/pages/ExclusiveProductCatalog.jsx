@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { backendurl } from "../App";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 
 
 const CART_KEY = "exclusiveCart";
@@ -94,7 +94,7 @@ function SortDropdown({ sort, setSort }) {
 }
 
 function ProductCard({ product, redirectUrl }) {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
   const [hovered, setHovered] = useState(false);
   const [adding, setAdding] = useState(false);
@@ -103,8 +103,6 @@ function ProductCard({ product, redirectUrl }) {
   const discountPct = product.discountPercent || (product.price > 0 ? Math.round(((product.price - (product.discountedPrice ?? product.price)) / product.price) * 100) : 0);
   const salePrice = product.discountedPrice ?? product.price;
   const origPrice = product.price;
-
-  
 
   return (
     <div className="pcard" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} onClick={() => navigate(redirectUrl)}>
