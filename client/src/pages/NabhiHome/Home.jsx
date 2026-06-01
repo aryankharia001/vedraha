@@ -22,12 +22,12 @@ const slides = [
 ];
 
 const marqueeItems = [
-  "Skin Care",
-  "Makeup",
-  "Hair Care",
-  "Fragrances",
-  "Nail Care",
-  "Body Care",
+  "AYURVEDA",
+  "AYURVEDA",
+  "AYURVEDA",
+  "AYURVEDA",
+  "AYURVEDA",
+  "AYURVEDA",
 ];
 
 const highlightsData = [
@@ -139,7 +139,7 @@ const Home = ({ lang = "en" }) => {
         <div className="relative overflow-hidden">
           {/* Hero Slider */}
           <section className="relative w-full overflow-hidden">
-  <style>{`
+            <style>{`
     @keyframes beauty-marquee {
       from { transform: translateX(0); }
       to   { transform: translateX(-33.333%); }
@@ -158,131 +158,140 @@ const Home = ({ lang = "en" }) => {
     .animate-floating-badge-2 { animation: smooth-float-delayed 4.5s ease-in-out infinite; }
   `}</style>
 
-  <div className="relative w-full">
-    {/* Slide Strip - Full Width */}
-    <div
-      className="flex transition-transform duration-700 ease-in-out will-change-transform"
-      style={{ transform: `translateX(-${activeSlide * 100}%)` }}
-    >
-      {slides.map((slide, index) => (
-        <a
-          key={index}
-          href={slide.href || '#'}
-          className="relative w-full min-w-full h-[700px] block cursor-pointer"
-        >
-          <img
-            src={slide.image}
-            alt={`Slide ${index + 1}`}
-            className="absolute inset-0 w-full h-full object-cover object-center"
-          />
-        </a>
-      ))}
-    </div>
+            <div className="relative w-full">
+              {/* Slide Strip - Full Width */}
+              <div
+                className="flex transition-transform duration-700 ease-in-out will-change-transform"
+                style={{ transform: `translateX(-${activeSlide * 100}%)` }}
+              >
+                {slides.map((slide, index) => (
+                  <a
+                    key={index}
+                    href={slide.href || "#"}
+                    className="relative w-full min-w-full h-[700px] block cursor-pointer"
+                  >
+                    <img
+                      src={slide.image}
+                      alt={`Slide ${index + 1}`}
+                      className="absolute inset-0 w-full h-full object-cover object-center"
+                    />
+                  </a>
+                ))}
+              </div>
 
-    {/* Container for positioned elements - Max Width 1240px */}
-    <div className="absolute inset-0 w-full max-w-[1240px] mx-auto pointer-events-none">
-      {/* Glassmorphism Badge 1 — Fast Delivery */}
-      <div className="absolute left-8 top-[30%] z-30 hidden items-center gap-1.5 rounded-xl px-2 py-1.5 text-[11px] font-extrabold text-slate-800 sm:flex animate-floating-badge-1 bg-white/70 border border-white/40 shadow-[0_6px_24px_0_rgba(0,0,0,0.08)] backdrop-blur-md pointer-events-auto">
-        <span
-          style={{ background: "var(--color-primary, #184b24)" }}
-          className="grid h-6 w-6 place-items-center rounded-lg shadow-[0_3px_10px_rgba(24,75,36,0.25)]"
-        >
-          <svg
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-            className="h-4 w-4 fill-white"
-          >
-            <path d="M3 7h11v8H3V7Zm12 3h3.2l2.8 3v2h-2a3 3 0 0 0-6 0h-1V9h3v1Z" />
-          </svg>
-        </span>
-        <div className="flex flex-col leading-tight">
-          <span className="text-[9px] font-semibold text-slate-500 uppercase tracking-widest">
-            We Offer
-          </span>
-          <span className="text-slate-900">Fast Delivery</span>
-        </div>
-      </div>
+              {/* Container for positioned elements - Max Width 1240px */}
+              <div className="absolute inset-0 w-full max-w-[1240px] mx-auto pointer-events-none">
+                {/* Glassmorphism Badge 1 — Fast Delivery */}
+                <div className="absolute left-8 top-[30%] z-30 hidden items-center gap-1.5 rounded-xl px-2 py-1.5 text-[11px] font-extrabold text-slate-800 sm:flex animate-floating-badge-1 bg-white/70 border border-white/40 shadow-[0_6px_24px_0_rgba(0,0,0,0.08)] backdrop-blur-md pointer-events-auto">
+                  <span
+                    style={{ background: "var(--color-primary, #184b24)" }}
+                    className="grid h-6 w-6 place-items-center rounded-lg shadow-[0_3px_10px_rgba(24,75,36,0.25)]"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                      className="h-4 w-4 fill-white"
+                    >
+                      <path d="M3 7h11v8H3V7Zm12 3h3.2l2.8 3v2h-2a3 3 0 0 0-6 0h-1V9h3v1Z" />
+                    </svg>
+                  </span>
+                  <div className="flex flex-col leading-tight">
+                    <span className="text-[9px] font-semibold text-slate-500 uppercase tracking-widest">
+                      We Offer
+                    </span>
+                    <span className="text-slate-900">Fast Delivery</span>
+                  </div>
+                </div>
 
-      {/* Glassmorphism Badge 2 — Secure Payment */}
-      <div className="absolute bottom-24 right-8 z-30 hidden items-center gap-1.5 rounded-xl px-2 py-1.5 text-[11px] font-extrabold text-slate-800 sm:flex animate-floating-badge-2 bg-white/70 border border-white/40 shadow-[0_6px_24px_0_rgba(0,0,0,0.08)] backdrop-blur-md pointer-events-auto">
-        <span
-          style={{ background: "var(--color-primary, #184b24)" }}
-          className="grid h-6 w-6 place-items-center rounded-lg shadow-[0_3px_10px_rgba(24,75,36,0.25)]"
-        >
-          <svg
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-            className="h-4 w-4 fill-white"
-          >
-            <path d="M4 6h16a2 2 0 0 1 2 2v1H2V8a2 2 0 0 1 2-2Zm-2 5h20v5a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-5Zm4 3v2h6v-2H6Z" />
-          </svg>
-        </span>
-        <div className="flex flex-col leading-tight">
-          <span className="text-[9px] font-semibold text-slate-500 uppercase tracking-widest">
-            100% Safe
-          </span>
-          <span className="text-slate-900">Secure Payment</span>
-        </div>
-      </div>
+                {/* Glassmorphism Badge 2 — Secure Payment */}
+                <div className="absolute bottom-24 right-8 z-30 hidden items-center gap-1.5 rounded-xl px-2 py-1.5 text-[11px] font-extrabold text-slate-800 sm:flex animate-floating-badge-2 bg-white/70 border border-white/40 shadow-[0_6px_24px_0_rgba(0,0,0,0.08)] backdrop-blur-md pointer-events-auto">
+                  <span
+                    style={{ background: "var(--color-primary, #184b24)" }}
+                    className="grid h-6 w-6 place-items-center rounded-lg shadow-[0_3px_10px_rgba(24,75,36,0.25)]"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                      className="h-4 w-4 fill-white"
+                    >
+                      <path d="M4 6h16a2 2 0 0 1 2 2v1H2V8a2 2 0 0 1 2-2Zm-2 5h20v5a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-5Zm4 3v2h6v-2H6Z" />
+                    </svg>
+                  </span>
+                  <div className="flex flex-col leading-tight">
+                    <span className="text-[9px] font-semibold text-slate-500 uppercase tracking-widest">
+                      100% Safe
+                    </span>
+                    <span className="text-slate-900">Secure Payment</span>
+                  </div>
+                </div>
 
-      {/* Prev / Next + Dots - Smaller Size */}
-      <div className="absolute bottom-3 left-1/2 z-40 flex -translate-x-1/2 items-center gap-1.5 rounded-lg bg-white/80 backdrop-blur-md p-1 shadow-lg border border-white/40 pointer-events-auto">
-        <button
-          type="button"
-          onClick={() => changeSlide("prev")}
-          style={{ background: "var(--color-primary, #184b24)" }}
-          className="grid h-6 w-6 place-items-center rounded text-xs font-bold text-white shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
-          aria-label="Previous slide"
-        >
-          &lt;
-        </button>
+                {/* Prev / Next + Dots - Smaller Size */}
+                <div className="absolute bottom-3 left-1/2 z-40 flex -translate-x-1/2 items-center gap-1.5 rounded-lg bg-white/80 backdrop-blur-md p-1 shadow-lg border border-white/40 pointer-events-auto">
+                  <button
+                    type="button"
+                    onClick={() => changeSlide("prev")}
+                    style={{ background: "var(--color-black, black)" }}
+                    className="grid h-6 w-6 place-items-center rounded text-xs font-bold text-white shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+                    aria-label="Previous slide"
+                  >
+                    &lt;
+                  </button>
 
-        <div className="flex items-center gap-1">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              type="button"
-              onClick={() => setActiveSlide(index)}
-              className={`h-1 rounded-full transition-all duration-300 ${
-                activeSlide === index
-                  ? "w-5 bg-gradient-to-r from-[#C08A3E] to-[#d4a55a]"
-                  : "w-1 bg-slate-300 hover:bg-slate-400"
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
+                  <div className="flex items-center gap-1">
+                    {slides.map((_, index) => (
+                      <button
+                        key={index}
+                        type="button"
+                        onClick={() => setActiveSlide(index)}
+                        className={`h-1 rounded-full transition-all duration-300 ${
+                          activeSlide === index
+                            ? "w-5 bg-gradient-to-r from-[#C08A3E] to-[#d4a55a]"
+                            : "w-1 bg-slate-300 hover:bg-slate-400"
+                        }`}
+                        aria-label={`Go to slide ${index + 1}`}
+                      />
+                    ))}
+                  </div>
 
-        <button
-          type="button"
-          onClick={() => changeSlide("next")}
-          style={{ background: "var(--color-primary, #184b24)" }}
-          className="grid h-6 w-6 place-items-center rounded text-xs font-bold text-white shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
-          aria-label="Next slide"
-        >
-          &gt;
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
+                  <button
+                    type="button"
+                    onClick={() => changeSlide("next")}
+                    style={{ background: "var(--color-black, black)" }}
+                    className="grid h-6 w-6 place-items-center rounded text-xs font-bold text-white shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+                    aria-label="Next slide"
+                  >
+                    &gt;
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
 
-          {/* Marquee 1 */}
+          {/* Marquee */}
           <div
             style={{
-              background:
-                "linear-gradient(135deg, var(--color-primary, #184b24) 0%, #1a5c2c 100%)",
+              background: "var(--color-black)",
             }}
-            className="relative overflow-hidden py-3 text-white z-10"
+            className="relative overflow-hidden py-2.5 text-white z-10"
           >
-            <div className="beauty-marquee-track flex w-max items-center gap-12 relative z-10">
+            <div className="beauty-marquee-track flex w-max items-center relative z-10">
               {marqueeLoop.map((item, index) => (
                 <div
                   key={`${item}-${index}`}
-                  className="flex min-w-max items-center gap-12 text-base font-bold tracking-wide sm:text-lg"
+                  className="flex min-w-max items-center"
                 >
-                  <span>{item}</span>
-                  <LeafIcon />
+                  <span
+                    className="text-xs font-semibold tracking-[0.2em] uppercase italic"
+                    style={{ color: "rgba(255,255,255,0.85)" }}
+                  >
+                    {item}
+                  </span>
+                  <span
+                    className="mx-3 text-xs"
+                    style={{ color: "rgba(255,255,255,0.5)" }}
+                  >
+                    •
+                  </span>
                 </div>
               ))}
             </div>
@@ -294,7 +303,7 @@ const Home = ({ lang = "en" }) => {
       <BestSellers />
 
       {/* Marquee 2 */}
-      <div
+      {/* <div
         style={{
           background:
             "linear-gradient(135deg, var(--color-primary, #184b24) 0%, #1a5c2c 100%)",
@@ -312,27 +321,66 @@ const Home = ({ lang = "en" }) => {
             </div>
           ))}
         </div>
+      </div> */}
+
+      {/* Marquee */}
+      <div
+        style={{
+          background: "var(--color-black)",
+        }}
+        className="relative overflow-hidden py-2.5 text-white z-10"
+      >
+        <div className="beauty-marquee-track flex w-max items-center relative z-10">
+          {marqueeLoop.map((item, index) => (
+            <div
+              key={`${item}-${index}`}
+              className="flex min-w-max items-center"
+            >
+              <span
+                className="text-xs font-semibold tracking-[0.2em] uppercase italic"
+                style={{ color: "rgba(255,255,255,0.85)" }}
+              >
+                {item}
+              </span>
+              <span
+                className="mx-3 text-xs"
+                style={{ color: "rgba(255,255,255,0.5)" }}
+              >
+                •
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
 
       <TestimonialCarousel />
       <FAQSection />
 
-      {/* Marquee 2 */}
+      {/* Marquee */}
       <div
         style={{
-          background:
-            "linear-gradient(135deg, var(--color-primary, #184b24) 0%, #1a5c2c 100%)",
+          background: "var(--color-black)",
         }}
-        className="relative overflow-hidden py-3 text-white z-10"
+        className="relative overflow-hidden py-2.5 text-white z-10"
       >
-        <div className="beauty-marquee-track flex w-max items-center gap-12 relative z-10">
+        <div className="beauty-marquee-track flex w-max items-center relative z-10">
           {marqueeLoop.map((item, index) => (
             <div
               key={`${item}-${index}`}
-              className="flex min-w-max items-center gap-12 text-base font-bold tracking-wide sm:text-lg"
+              className="flex min-w-max items-center"
             >
-              <span>{item}</span>
-              <LeafIcon />
+              <span
+                className="text-xs font-semibold tracking-[0.2em] uppercase italic"
+                style={{ color: "rgba(255,255,255,0.85)" }}
+              >
+                {item}
+              </span>
+              <span
+                className="mx-3 text-xs"
+                style={{ color: "rgba(255,255,255,0.5)" }}
+              >
+                •
+              </span>
             </div>
           ))}
         </div>
@@ -369,8 +417,6 @@ const Home = ({ lang = "en" }) => {
           </div>
         </div>
       </section>
-
-      {/* <Footer /> */}
     </>
   );
 };

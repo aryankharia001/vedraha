@@ -40,7 +40,7 @@ const socialLinks = [
 // ─── RESPONSIVE STYLES ────────────────────────────────────────────────────────
 const styles = `
   .footer-root {
-    background-color: var(--color-off-white);
+    background-color: var(--color-primary-2);
     font-family: var(--font-body);
     padding: 0 1.5rem 1.5rem;
   }

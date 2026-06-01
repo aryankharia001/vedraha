@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 /* ═══════════════════════════════════════════════════════════════
    Nabhi Design System — Enhanced with Depth & Modern Typography
@@ -7,7 +8,8 @@
 :root {
   --primary-color: #184b24;
   /* ── Brand Greens ── */
-  --color-primary:          #184b24;
+  --color-primary:          #5900ff;
+  --color-primary-2:        #f9f6ff;
   --color-primary-dark:     #11391a;
   --color-primary-light:    #edf4e8;
   --color-primary-mid:      #214E34;
@@ -17,7 +19,10 @@
   --color-promo-green:      #1F5A37;
 
   /* ── Gold / Accent ── */
+  
   --color-gold:             #C08A3E;
+  /* --color-gold:             black; */
+  --color-blue:             #5900ff;
   --color-gold-dark:        #a37832;
   --color-gold-border:      #d5b260;
   --color-gold-bg:          #fdf6ec;
@@ -40,7 +45,8 @@
   --color-placeholder:      #d1d5db;
 
   /* ── Semantic ── */
-  --color-sale-badge:       #184b24;
+  /* --color-sale-badge:       #184b24; */
+  --color-sale-badge:       #5900ff;
   --color-sale-text:        #ffffff;
   --color-price-active:     #C08A3E;
   --color-price-original:   #9CA3AF;
@@ -60,6 +66,8 @@
   /* ── Typography System ── */
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-new-1: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-new-2: 'Times New Roman', -apple-system, Times, serif;
 
   /* ── Enhanced Shadows (Depth System) ── */
   --shadow-xs:              0 1px 2px rgba(0,0,0,0.04);

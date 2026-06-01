@@ -42,7 +42,6 @@ const faqData = [
 
 // Fully dynamic data schema for the feature highlight banners at the bottom
 
-
 export default function FAQSection() {
   const [openId, setOpenId] = useState("discounts");
 
@@ -54,26 +53,42 @@ export default function FAQSection() {
     <section
       className="w-full"
       style={{
-        backgroundColor: "var(--color-off-white, #f7f7f5)",
+        backgroundColor: "var(--color-primary-2, #f9f6ff)",
         boxShadow: "inset 0 12px 12px -10px rgba(24,75,36,0.3)",
       }}
     >
       <div className="max-w-[1240px] mx-auto px-6 py-16 select-none">
         {/* --- Section Title Header --- */}
-        <div className="flex flex-col items-center text-center mb-12 relative">
-          <span
+        <div className="flex flex-col items-center text-center mb-12">
+          <p
             className="text-xs font-bold uppercase tracking-widest mb-3"
-            style={{ color: "var(--color-primary-tint)" }}
+            style={{ color: "var(--color-blue)" }}
           >
             FAQs
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
-            <span style={{ color: "var(--color-heading)" }}>Frequently </span>
-            <span className="bg-gradient-to-r from-[#C08A3E] to-[#d4a55a] bg-clip-text text-transparent">
+          </p>
+          <h2
+            className="text-4xl md:text-5xl font-semibold tracking-tight leading-tight"
+            style={{
+              fontFamily: "var(--font-new-1)",
+              color: "var(--color-heading)",
+            }}
+          >
+            Frequently{" "}
+            <em
+              style={{
+                color: "var(--color-blue)",
+                fontFamily: "var(--font-new-2)",
+                fontStyle: "italic",
+                fontWeight: "500",
+              }}
+            >
               Asked Questions
-            </span>
+            </em>
           </h2>
-          <div className="mt-4 mx-auto w-20 h-1 bg-gradient-to-r from-[#184b24] to-[#C08A3E] rounded-full" />
+          <div
+            className="mt-3 w-12 h-[3px] rounded-full mx-auto"
+            style={{ background: "var(--color-blue)" }}
+          />
         </div>
 
         {/* --- Core Content Grid: Accordion & CTA Sidebar Box --- */}
@@ -140,7 +155,7 @@ export default function FAQSection() {
           {/* Right Column: CTA Sidebar Panel Info Box */}
           <div
             className="rounded-3xl p-8 text-center flex flex-col items-center justify-center min-h-[340px] text-white w-full shadow-md"
-            style={{ backgroundColor: "var(--color-primary-dark, #11391a)" }}
+            style={{ backgroundColor: "var(--color-primary, #11391a)" }}
           >
             {/* Conversational Chat Icon Block */}
             <div
@@ -184,8 +199,6 @@ export default function FAQSection() {
             </a>
           </div>
         </div>
-
-        
       </div>
     </section>
   );
