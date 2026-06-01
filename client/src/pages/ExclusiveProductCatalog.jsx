@@ -345,7 +345,7 @@ export default function ExclusiveProductCatalog() {
     setCurrentPage(newPage);
     if (productsRef.current) {
       const top = productsRef.current.getBoundingClientRect().top + window.scrollY - SIDEBAR_TOP - 8;
-      window.scrollTo({ top, behavior: "smooth" });
+      window.scrollTo({ top, behavior: "auto" });
     }
   };
 
@@ -374,7 +374,6 @@ export default function ExclusiveProductCatalog() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&display=swap');
         *,*::before,*::after{box-sizing:border-box}
-        html{scroll-behavior:smooth}
 
         .exclusive-catalog{
           font-family:'DM Sans',sans-serif;
@@ -396,6 +395,7 @@ export default function ExclusiveProductCatalog() {
           margin:0 auto;
           padding:0 32px 60px;
           background:#fff;
+          scroll-padding-top:${HEADER_H + 24}px;
         }
 
         .catalog-topbar{
@@ -438,8 +438,6 @@ export default function ExclusiveProductCatalog() {
           overflow-y:auto;
           overscroll-behavior:contain;
           -webkit-overflow-scrolling:touch;
-          scroll-behavior:smooth;
-          will-change:transform;
         }
 
         .pcat-sidebar::-webkit-scrollbar{width:4px}
@@ -524,7 +522,7 @@ export default function ExclusiveProductCatalog() {
         @keyframes pcardShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
         @keyframes pcardSpin{to{transform:rotate(360deg)}}
 
-        input[type=range]{-webkit-appearance:none;appearance:none;height:100%;background:transparent;outline:none;cursor:pointer;position:absolute;left:0;right:0;width:100%;margin:0;padding:0}
+        input[type=range]{-webkit-appearance:none;appearance:none;height:100%;background:transparent;outline:none;cursor:pointer;position:absolute;left:0;right:0;width:100%;margin:0;padding:0;touch-action:none}
         input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;height:17px;border-radius:50%;background:#1a4731;border:2.5px solid #fff;box-shadow:0 1px 6px rgba(0,0,0,.22);cursor:pointer;margin-top:-7px}
         input[type=range]::-webkit-slider-runnable-track{height:3px;background:transparent}
         input[type=range]::-moz-range-thumb{width:17px;height:17px;border-radius:50%;background:#1a4731;border:2.5px solid #fff;cursor:pointer}

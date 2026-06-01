@@ -6,6 +6,25 @@
    Nabhi Design System — Enhanced with Depth & Modern Typography
    ═══════════════════════════════════════════════════════════════ */
 :root {
+
+  --new-primary-color:#35105f;
+
+  /* text heading */
+  --new-heading-text:#21124c;
+  --new-para-text:#262239;
+
+  /* accent color */
+  --new-accent-color:#df8804;
+
+  /* neutral color */
+  --new-neutral-color:#aaa4b8;
+
+  /* section header accent color */
+  --new-purple-color:#5d27aa;
+
+
+
+
   --primary-color: #184b24;
   /* ── Brand Greens ── */
   --color-primary:          #5900ff;
