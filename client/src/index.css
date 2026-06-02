@@ -9,6 +9,11 @@
 
   --new-primary-color:#35105f;
 
+  --new-header-bg:#35105f1a;
+
+  --new-bg-color:#f2eafa;
+  --new-bg-white-color:#fafafa;
+
   /* text heading */
   --new-heading-text:#21124c;
   --new-para-text:#262239;
@@ -21,6 +26,11 @@
 
   /* section header accent color */
   --new-purple-color:#5d27aa;
+  --color-black: black;
+
+  /* fonts */
+  --font-new-1: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-new-2: 'Times New Roman', -apple-system, Times, serif;
 
 
 
@@ -48,7 +58,6 @@
 
   /* ── Neutrals ── */
   --color-white:            #ffffff;
-  --color-black:            black;
   --color-off-white:        #f7f7f5;
   --color-cream:            #F5F1EC;
   --color-surface:          #f7f7f5;
@@ -85,8 +94,7 @@
   /* ── Typography System ── */
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-new-1: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-new-2: 'Times New Roman', -apple-system, Times, serif;
+  
 
   /* ── Enhanced Shadows (Depth System) ── */
   --shadow-xs:              0 1px 2px rgba(0,0,0,0.04);

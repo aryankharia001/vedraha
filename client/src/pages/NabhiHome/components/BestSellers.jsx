@@ -93,7 +93,7 @@ export const products = [
 
 const FlowerCorner = ({ side = "left" }) => (
   <svg
-    className={`pointer-events-none absolute top-0 h-[112px] w-[112px] opacity-70 md:h-[150px] md:w-[150px] ${
+    className={`pointer-events-none absolute top-0 h-[80px] w-[80px] opacity-40 sm:h-[112px] sm:w-[112px] md:h-[150px] md:w-[150px] ${
       side === "left" ? "left-0" : "right-0 scale-x-[-1]"
     }`}
     viewBox="0 0 160 160"
@@ -123,49 +123,47 @@ const FlowerCorner = ({ side = "left" }) => (
 
 const ProductCard = ({ product }) => (
   <Link
-  to={product.route || "#"}
-  className="group flex h-[300px] flex-col overflow-hidden rounded-[10px] border border-[#eeeaf6] bg-white text-center no-underline shadow-[0_3px_5px_rgba(37,25,70,0.15)] transition-transform duration-300 hover:-translate-y-1"
->
-  {/* Image Section - 50% */}
-  <div className="h-1/2 w-full overflow-hidden">
-    <img
-      src={product.image}
-      alt={`${product.name} Nabhi Oil`}
-      draggable="false"
-      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-    />
-  </div>
-
-  {/* Content Section - 50% */}
-  <div className="flex h-1/2 flex-col items-center justify-between p-3 pt-2 pb-4">
-    <div>
-      <h3 className="text-[15px] font-extrabold leading-[1.12] text-[var(--new-heading-text)]">
-        {product.name}
-        <br />
-        Nabhi Oil
-      </h3>
-
-      <p className="mt-2 text-[11px] font-medium leading-[1.35] text-[var(--new-para-text)]">
-        {product.description}
-      </p>
+    to={product.route || "#"}
+    className="group flex flex-col justify-between overflow-hidden rounded-xl border border-[#eeeaf6] bg-white text-center no-underline shadow-[0_4px_12px_rgba(37,25,70,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(37,25,70,0.15)]"
+  >
+    {/* Image container handles shifting ratios safely */}
+    <div className="relative aspect-square w-full overflow-hidden bg-slate-50 min-[480px]:aspect-[4/3] sm:aspect-square">
+      <img
+        src={product.image}
+        alt={`${product.name} Nabhi Oil`}
+        draggable="false"
+        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+      />
     </div>
 
-    <div>
-      <div className="flex items-center justify-center gap-2">
-        <span className="text-[13px] font-extrabold text-[var(--new-accent-color)]">
-          ₹{product.price}
-        </span>
-        <span className="text-[13px] font-bold text-[var(--new-neutral-color)] line-through">
-          ₹{product.originalPrice}
-        </span>
+    {/* Content Container with fluid typographic scaling */}
+    <div className="flex flex-1 flex-col justify-between p-3.5 sm:p-4">
+      <div className="mb-3">
+        <h3 className="text-[14px] font-extrabold leading-tight text-[var(--new-heading-text)] min-[480px]:text-[15px] xl:text-[13px] min-[1400px]:text-[15px]">
+          {product.name} Nabhi Oil
+        </h3>
+
+        <p className="mt-1.5 line-clamp-2 text-[11px] font-medium leading-normal text-[var(--new-para-text)] xl:text-[10px] min-[1400px]:text-[11px]">
+          {product.description}
+        </p>
       </div>
 
-      <span className="mt-3 inline-flex h-7 min-w-[84px] items-center justify-center rounded-[5px] bg-[var(--new-primary-color)] px-4 text-[10px] font-extrabold uppercase tracking-wide text-white shadow-[0_3px_7px_rgba(53,16,95,0.28)]">
-        Shop Now
-      </span>
+      <div>
+        <div className="flex items-center justify-center gap-1.5">
+          <span className="text-[13px] font-extrabold text-[var(--new-accent-color)] sm:text-[14px] xl:text-[12px] min-[1400px]:text-[14px]">
+            ₹{product.price}
+          </span>
+          <span className="text-[11px] font-bold text-[var(--new-neutral-color)] line-through sm:text-[12px] xl:text-[11px]">
+            ₹{product.originalPrice}
+          </span>
+        </div>
+
+        <span className="mt-3 inline-flex w-full items-center justify-center rounded-lg bg-[var(--new-primary-color)] py-2 text-[10px] font-extrabold uppercase tracking-wider text-white shadow-[0_3px_7px_rgba(53,16,95,0.2)] transition-opacity group-hover:opacity-90 xl:text-[9px] min-[1400px]:text-[10px]">
+          Shop Now
+        </span>
+      </div>
     </div>
-  </div>
-</Link>
+  </Link>
 );
 
 // ═══════════════════════════════════════════════════════════════
@@ -179,23 +177,24 @@ const BestSellers = ({
   const displayProducts = productList.slice(0, 7);
 
   return (
-    <section className="relative overflow-hidden bg-[#f2eafa] py-8 md:py-9">
+    <section className="relative overflow-hidden bg-[var(--new-bg-color)] py-12 md:py-16">
       <FlowerCorner side="left" />
       <FlowerCorner side="right" />
 
-      <div className="relative z-10 mx-auto max-w-[1220px] px-4 md:px-8">
-        <div className="mb-10 text-center">
-          <p className="mb-2 text-[12px] font-extrabold uppercase tracking-[0.28em] text-[var(--new-heading-text)]">
+      <div className="relative z-10 mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
+        {/* Section header */}
+        <div className="mx-auto mb-10 max-w-2xl text-center md:mb-12">
+          <p className="mb-2 text-[11px] font-extrabold uppercase tracking-[0.28em] text-[var(--new-heading-text)] sm:text-[12px]">
             {content.subtitle}
           </p>
 
           <h2
-            className="text-[26px] font-semibold leading-tight text-[#171021] md:text-[32px]"
+            className="text-[24px] font-semibold leading-tight text-[var(--color-black)] sm:text-[28px] md:text-[34px]"
             style={{ fontFamily: "var(--font-new-1)" }}
           >
             {content.heading}{" "}
             <span
-              className="font-medium text-[var(--new-purple-color)] text-[28px] md:text-[34px]"
+              className="font-medium text-[var(--new-purple-color)] text-[26px] sm:text-[30px] md:text-[36px]"
               style={{
                 fontFamily: "var(--font-new-2)",
                 fontStyle: "italic",
@@ -206,19 +205,26 @@ const BestSellers = ({
             {content.headingSuffix}
           </h2>
 
-          <p className="mt-2 text-[14px] font-medium text-[var(--new-para-text)]">
+          <p className="mt-3 text-[13px] font-medium leading-relaxed text-[var(--new-para-text)] sm:text-[14px]">
             {content.description}
           </p>
         </div>
 
         {displayProducts.length > 0 ? (
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7">
+          /* 
+            Optimized Fluid Grid:
+            - 2 columns on small screens (<640px)
+            - 3 columns on tablets (sm)
+            - 4 columns on small desktops (lg)
+            - 7 columns on high-res widescreens (xl+)
+          */
+          <div className="grid grid-cols-2 gap-3 min-[480px]:gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7">
             {displayProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
         ) : (
-          <div className="py-10 text-center">
+          <div className="py-12 text-center">
             <p className="text-sm font-semibold text-[#2d283d]">
               No products found.
             </p>

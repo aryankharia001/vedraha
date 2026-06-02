@@ -11,6 +11,9 @@ import banner3 from "../../../public/hero-img/banner-3.png";
 import banner4 from "../../../public/hero-img/banner-4.png";
 import banner5 from "../../../public/hero-img/banner-5.png";
 import banner6 from "../../../public/hero-img/banner-6.png";
+import UspBar from "./components/Uspbar";
+import ConcernSection from "../../components/ConcernSection";
+import SingleBestSeller from "./components/SingleBestSeller";
 
 const slides = [
   { image: banner1 },
@@ -136,92 +139,99 @@ const Home = ({ lang = "en" }) => {
       {/* <NabhiHeader lang={lang} /> */}
 
       <main className="">
-  <div className="relative overflow-hidden">
-    {/* Hero Slider */}
-    <section className="relative w-full overflow-hidden">
-      <style>{`
+        <div className="relative bg-[var(--new-bg-color)]">
+          {/* Hero Slider */}
+          <section className="relative w-full overflow-hidden">
+            <style>{`
         .hero-header-gradient {
           background: linear-gradient(
             to bottom,
-            rgba(255, 255, 255, 0.5) 0%,
+            rgba(255, 255, 255, 0.8) 0%,
             rgba(255, 255, 255, 0.0) 38%,
             rgba(255, 255, 255, 0) 100%
           );
         }
       `}</style>
 
-      <div className="relative w-full">
-        {/* Slide Strip - Full Width */}
-        <div
-          className="flex transition-transform duration-700 ease-in-out will-change-transform"
-          style={{ transform: `translateX(-${activeSlide * 100}%)` }}
-        >
-          {slides.map((slide, index) => (
-            <a
-              key={index}
-              href={slide.href || "#"}
-              className="relative w-full min-w-full h-[700px] block cursor-pointer"
-            >
-              <img
-                src={slide.image}
-                alt={`Slide ${index + 1}`}
-                className="absolute inset-0 w-full h-full object-cover object-center"
-              />
+            <div className="relative w-full">
+              {/* Slide Strip - Full Width */}
+              <div
+                className="flex transition-transform duration-700 ease-in-out will-change-transform"
+                style={{ transform: `translateX(-${activeSlide * 100}%)` }}
+              >
+                {slides.map((slide, index) => (
+                  <a
+                    key={index}
+                    href={slide.href || "#"}
+                    className="relative w-full min-w-full h-[700px] block cursor-pointer"
+                  >
+                    <img
+                      src={slide.image}
+                      alt={`Slide ${index + 1}`}
+                      className="absolute inset-0 w-full h-full object-cover object-center"
+                    />
 
-              {/* White gradient overlay for header visibility */}
-              <div className="hero-header-gradient absolute inset-0 pointer-events-none" />
-            </a>
-          ))}
-        </div>
+                    {/* White gradient overlay for header visibility */}
+                    <div className="hero-header-gradient absolute inset-0 pointer-events-none" />
+                  </a>
+                ))}
+              </div>
 
-        {/* Container for positioned elements - Max Width 1240px */}
-        <div className="absolute inset-0 w-full max-w-[1240px] mx-auto pointer-events-none">
-          {/* Prev / Next + Dots */}
-          <div className="absolute bottom-3 left-1/2 z-40 flex -translate-x-1/2 items-center gap-1.5 rounded-lg bg-white/80 backdrop-blur-md p-1 shadow-lg border border-white/40 pointer-events-auto">
-            <button
-              type="button"
-              onClick={() => changeSlide("prev")}
-              style={{ background: "var(--color-black, black)" }}
-              className="grid h-6 w-6 place-items-center rounded text-xs font-bold text-white shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
-              aria-label="Previous slide"
-            >
-              &lt;
-            </button>
+              {/* Container for positioned elements - Max Width 1240px */}
+              <div className="absolute inset-0 w-full max-w-[1240px] mx-auto pointer-events-none">
+                {/* Prev / Next + Dots */}
+                {/* <div className="absolute bottom-3 left-1/2 z-40 flex -translate-x-1/2 items-center gap-1.5 rounded-lg bg-white/80 backdrop-blur-md p-1 shadow-lg border border-white/40 pointer-events-auto">
+                  <button
+                    type="button"
+                    onClick={() => changeSlide("prev")}
+                    style={{ background: "var(--color-black, black)" }}
+                    className="grid h-6 w-6 place-items-center rounded text-xs font-bold text-white shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+                    aria-label="Previous slide"
+                  >
+                    &lt;
+                  </button>
 
-            <div className="flex items-center gap-1">
-              {slides.map((_, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  onClick={() => setActiveSlide(index)}
-                  className={`h-1 rounded-full transition-all duration-300 ${
-                    activeSlide === index
-                      ? "w-5 bg-gradient-to-r from-[#C08A3E] to-[#d4a55a]"
-                      : "w-1 bg-slate-300 hover:bg-slate-400"
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
+                  <div className="flex items-center gap-1">
+                    {slides.map((_, index) => (
+                      <button
+                        key={index}
+                        type="button"
+                        onClick={() => setActiveSlide(index)}
+                        className={`h-1 rounded-full transition-all duration-300 ${
+                          activeSlide === index
+                            ? "w-5 bg-gradient-to-r from-[#C08A3E] to-[#d4a55a]"
+                            : "w-1 bg-slate-300 hover:bg-slate-400"
+                        }`}
+                        aria-label={`Go to slide ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => changeSlide("next")}
+                    style={{ background: "var(--color-black, black)" }}
+                    className="grid h-6 w-6 place-items-center rounded text-xs font-bold text-white shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+                    aria-label="Next slide"
+                  >
+                    &gt;
+                  </button>
+                </div> */}
+              </div>
             </div>
+          </section>
 
-            <button
-              type="button"
-              onClick={() => changeSlide("next")}
-              style={{ background: "var(--color-black, black)" }}
-              className="grid h-6 w-6 place-items-center rounded text-xs font-bold text-white shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
-              aria-label="Next slide"
-            >
-              &gt;
-            </button>
-          </div>
+          {/* usp bar */}
+          <UspBar/>
         </div>
-      </div>
-    </section>
-  </div>
-</main>
+      </main>
 
-      <CategorySection />
+      {/* <CategorySection /> */}
       <BestSellers />
+
+      <ConcernSection/>
+
+      <SingleBestSeller/>
 
       {/* Marquee 2 */}
       {/* <div
