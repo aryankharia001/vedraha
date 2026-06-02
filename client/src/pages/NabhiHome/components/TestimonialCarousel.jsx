@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import SectionHeader from "./SectionHeader";
 
 const testimonialsData = [
   {
@@ -123,37 +124,11 @@ export default function TestimonialCarousel() {
       style={{ backgroundColor: "var(--color-white, #ffffff)" }}
     >
       {/* Header */}
-      <div className="flex flex-col items-center text-center mb-14">
-        <p
-          className="text-xs font-bold uppercase tracking-widest mb-3"
-          style={{ color: "var(--color-blue)" }}
-        >
-          Testimonials
-        </p>
-        <h2
-          className="text-4xl md:text-5xl font-semibold tracking-tight leading-tight"
-          style={{
-            fontFamily: "var(--font-new-1)",
-            color: "var(--color-heading)",
-          }}
-        >
-          What Our{" "}
-          <em
-            style={{
-              color: "var(--color-blue)",
-              fontFamily: "var(--font-new-2)",
-              fontStyle: "italic",
-              fontWeight: "500",
-            }}
-          >
-            Customers Say
-          </em>
-        </h2>
-        <div
-          className="mt-3 w-12 h-[3px] rounded-full mx-auto"
-          style={{ background: "var(--color-blue)" }}
-        />
-      </div>
+      <SectionHeader
+                subtitle="Testimonials"
+                heading="What Our"
+                headingHighlight="Customers Say"
+              />
 
       {/* Progress bar */}
       <div className="w-full max-w-xs mt-6 h-0.5 bg-slate-100 rounded-full overflow-hidden">

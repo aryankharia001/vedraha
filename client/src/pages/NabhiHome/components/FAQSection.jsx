@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import SectionHeader from "./SectionHeader";
 
 // Fully dynamic data schema for the accordions
 const faqData = [
@@ -59,37 +60,11 @@ export default function FAQSection() {
     >
       <div className="max-w-[1240px] mx-auto px-6 py-16 select-none">
         {/* --- Section Title Header --- */}
-        <div className="flex flex-col items-center text-center mb-12">
-          <p
-            className="text-xs font-bold uppercase tracking-widest mb-3"
-            style={{ color: "var(--color-blue)" }}
-          >
-            FAQs
-          </p>
-          <h2
-            className="text-4xl md:text-5xl font-semibold tracking-tight leading-tight"
-            style={{
-              fontFamily: "var(--font-new-1)",
-              color: "var(--color-heading)",
-            }}
-          >
-            Frequently{" "}
-            <em
-              style={{
-                color: "var(--color-blue)",
-                fontFamily: "var(--font-new-2)",
-                fontStyle: "italic",
-                fontWeight: "500",
-              }}
-            >
-              Asked Questions
-            </em>
-          </h2>
-          <div
-            className="mt-3 w-12 h-[3px] rounded-full mx-auto"
-            style={{ background: "var(--color-blue)" }}
-          />
-        </div>
+        <SectionHeader
+                        subtitle="Faqs"
+                        heading="Frequently"
+                        headingHighlight="Asked Questions"
+                      />
 
         {/* --- Core Content Grid: Accordion & CTA Sidebar Box --- */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8 items-start">
