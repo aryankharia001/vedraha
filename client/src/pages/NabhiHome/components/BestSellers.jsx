@@ -1,5 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import product1 from "../../../../public/product-1.png";
+import product2 from "../../../../public/product-2.png";
+import product3 from "../../../../public/product-3.png";
+import product4 from "../../../../public/product-4.png";
+import product5 from "../../../../public/product-5.png";
+// import product6 from "../../../../public/product-6.png";
 
 // ═══════════════════════════════════════════════════════════════
 //  DATA
@@ -21,8 +27,7 @@ export const products = [
     description: "Promotes deep & restful sleep",
     price: 699,
     originalPrice: 999,
-    image:
-      "https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=sleep1.webp&version_id=null",
+    image: product1,
     route: "/products/nabhi-sleep-en",
   },
   {
@@ -31,8 +36,7 @@ export const products = [
     description: "Improves digestion & gut health",
     price: 699,
     originalPrice: 999,
-    image:
-      "https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=amriteng3.webp&version_id=null",
+    image: product2,
     route: "/products/nabhi-amrit-en",
   },
   {
@@ -41,8 +45,7 @@ export const products = [
     description: "Relieves joint pain & inflammation",
     price: 699,
     originalPrice: 999,
-    image:
-      "https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=Gemini_Generated_Image_jejzeajejzeajejz.png.webp&version_id=null",
+    image: product3,
     route: "/products/nabhi-joint-en",
   },
   {
@@ -51,8 +54,7 @@ export const products = [
     description: "Reduces stress, anxiety & tension",
     price: 699,
     originalPrice: 999,
-    image:
-      "https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=menstrual1.webp&version_id=null",
+    image: product4,
     route: "/products/nabhi-menstrual-en",
   },
   {
@@ -61,8 +63,7 @@ export const products = [
     description: "Strengthens immunity naturally",
     price: 699,
     originalPrice: 999,
-    image:
-      "https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=haircare1.webp&version_id=null",
+    image: product5,
     route: "/products/nabhi-hair-en",
   },
   {
@@ -71,19 +72,8 @@ export const products = [
     description: "Supports hormonal balance",
     price: 699,
     originalPrice: 999,
-    image:
-      "https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=eyecare1.webp&version_id=null",
+    image: product5,
     route: "/products/nabhi-eye-en",
-  },
-  {
-    id: "muscle-relax-nabhi-oil",
-    name: "Muscle Relax",
-    description: "Relaxes muscles & reduces stiffness",
-    price: 699,
-    originalPrice: 999,
-    image:
-      "https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=shilajitcare3.webp&version_id=null",
-    route: "/products/nabhi-shilajit-en",
   },
 ];
 
@@ -181,7 +171,7 @@ const BestSellers = ({
       <FlowerCorner side="left" />
       <FlowerCorner side="right" />
 
-      <div className="relative z-10 mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="mx-auto mb-10 max-w-2xl text-center md:mb-12">
           <p className="mb-2 text-[11px] font-extrabold uppercase tracking-[0.28em] text-[var(--new-heading-text)] sm:text-[12px]">
@@ -218,7 +208,7 @@ const BestSellers = ({
             - 4 columns on small desktops (lg)
             - 7 columns on high-res widescreens (xl+)
           */
-          <div className="grid grid-cols-2 gap-3 min-[480px]:gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7">
+          <div className="grid grid-cols-2 gap-3 min-[480px]:gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
             {displayProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}

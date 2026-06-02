@@ -105,7 +105,7 @@ export default function ConcernSection() {
       `}</style>
 
       <section
-        className="relative overflow-hidden py-12 md:py-16"
+        className="relative overflow-hidden py-8 pb-4 md:pb-4 md:py-10"
         style={{ backgroundColor: "var(--new-bg-white-color, #fafafa)" }}
       >
         {/* ── Corner botanical — top left ── */}

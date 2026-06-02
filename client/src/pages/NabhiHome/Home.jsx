@@ -10,10 +10,12 @@ import banner2 from "../../../public/hero-img/banner-2.png";
 import banner3 from "../../../public/hero-img/banner-3.png";
 import banner4 from "../../../public/hero-img/banner-4.png";
 import banner5 from "../../../public/hero-img/banner-5.png";
-import banner6 from "../../../public/hero-img/banner-6.png";
 import UspBar from "./components/Uspbar";
 import ConcernSection from "../../components/ConcernSection";
 import SingleBestSeller from "./components/SingleBestSeller";
+import HowItWorks from "./components/HowItWorks";
+import Ingredients from "./components/Ingredients";
+import NewsLetter from "./components/NewsLetter";
 
 const slides = [
   { image: banner1 },
@@ -21,7 +23,6 @@ const slides = [
   { image: banner3 },
   { image: banner4 },
   { image: banner5 },
-  { image: banner6 },
 ];
 
 const marqueeItems = [
@@ -163,12 +164,12 @@ const Home = ({ lang = "en" }) => {
                   <a
                     key={index}
                     href={slide.href || "#"}
-                    className="relative w-full min-w-full h-[700px] block cursor-pointer"
+                    className="relative w-full min-w-full h-[800px] block cursor-pointer"
                   >
                     <img
                       src={slide.image}
                       alt={`Slide ${index + 1}`}
-                      className="absolute inset-0 w-full h-full object-cover object-center"
+                      className="absolute inset-0 w-full h-full object-cover object-top"
                     />
 
                     {/* White gradient overlay for header visibility */}
@@ -232,6 +233,10 @@ const Home = ({ lang = "en" }) => {
       <ConcernSection/>
 
       <SingleBestSeller/>
+
+      <HowItWorks/>
+
+      <Ingredients/>
 
       {/* Marquee 2 */}
       {/* <div
@@ -348,6 +353,8 @@ const Home = ({ lang = "en" }) => {
           </div>
         </div>
       </section>
+
+      <NewsLetter/>
     </>
   );
 };

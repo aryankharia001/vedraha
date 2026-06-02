@@ -1,4 +1,5 @@
     import React from "react";
+import bgImg from "../../../../public/ingreidient-bg.png";
 
 const benefits = [
   {
@@ -121,13 +122,13 @@ export default function SingleBestSeller({
   imageAlt = "Woman sleeping beside Nabhi oil",
 }) {
   return (
-    <section className="w-full bg-[var(--new-bg-color)] py-5 md:py-7">
+    <section className="w-full bg-[var(--new-bg-white-color)] pb-8 md:pb-10">
       <div className="mx-auto grid max-w-[1240px] grid-cols-1 items-center gap-8 px-4 md:grid-cols-[1fr_1fr] md:gap-10">
         <div className="overflow-hidden rounded-[8px]">
           <img
-            src={imageSrc}
+            src={bgImg}
             alt={imageAlt}
-            className="h-[220px] md:h-[300px] w-full object-cover object-center border-2"
+            className="h-[220px] md:h-[300px] w-full object-cover object-center"
           />
         </div>
 
