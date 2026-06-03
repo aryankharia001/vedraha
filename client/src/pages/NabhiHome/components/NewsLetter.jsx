@@ -1,58 +1,38 @@
 import React, { useState } from "react";
-
-// Leave your newsletter background image import here:
-// import newsletterBg from "../../../../public/newsletter-bg.png";
+import newsletterbg from "../../../../public/newsletter-bg.png";
 
 export default function NewsLetter() {
   const [email, setEmail] = useState("");
 
   const handleSubscribe = (e) => {
     e.preventDefault();
-    // Add subscription handler logic here
     console.log("Subscribed email:", email);
   };
 
   return (
-    <section className="w-full px-4 py-12 sm:px-6 lg:px-8">
-      {/* CARD WRAPPER 
-        - Constrained to exactly max-w-[1240px] matching your global design layout.
-        - Set to your custom purple base with an overlay opacity layer to serve as a 
-          bulletproof CSS fallback if your background image fails to load.
-      */}
-      <div 
-        className="relative mx-auto w-full max-w-[1240px] overflow-hidden rounded-2xl bg-[var(--new-purple-color)] px-6 py-12 sm:px-12 sm:py-16 md:px-16 lg:py-20 shadow-[0_12px_40px_rgba(33,18,76,0.15)]"
+    <section className="w-full px-4 py-12 sm:px-6 lg:px-8 bg-[var(--new-bg-white-color)]">
+      <div
+        className="relative mx-auto w-full max-w-[1240px] overflow-hidden rounded-2xl px-6 py-12 sm:px-12 sm:py-16 md:px-16 lg:py-20"
         style={{
           background: "linear-gradient(135deg, var(--new-purple-color) 0%, #1a083a 100%)"
         }}
       >
-        
-        {/* ═══════════════════════════════════════════════════════════════
-            EMPTY BACKGROUND IMAGE LAYER (As requested per image_598b1f.jpg)
-           ═══════════════════════════════════════════════════════════════ */}
-        <div 
-          className="pointer-events-none absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-40 mix-blend-screen"
-          style={{ 
-            // Replace with your actual imported asset variable when ready:
-            backgroundImage: `url('')` 
-          }}
+        <div
+          className="pointer-events-none absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url('${newsletterbg}')` }}
           aria-hidden="true"
         />
 
-        {/* Inner Content Block Grid Core - Elevated above absolute ambient textures */}
         <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center text-center">
-          
-          {/* Elegant Top Mail Icon + Sparkles */}
+
           <div className="mb-4 flex flex-col items-center text-[var(--new-accent-color)]">
             <div className="relative">
-              {/* Decorative Vector Sparkle Icons */}
               <span className="absolute -left-4 -top-2 animate-pulse text-xs">✦</span>
               <span className="absolute -right-3 -top-3 text-[10px]">✦</span>
               <span className="absolute -bottom-2 -right-4 text-xs">✦</span>
-              
-              {/* Minimalist Mail Envelope Outline (Matching image_598b1f.jpg) */}
-              <svg 
-                className="h-9 w-9 stroke-current fill-transparent stroke-[1.25]" 
-                viewBox="0 0 24 24" 
+              <svg
+                className="h-9 w-9 stroke-current fill-transparent stroke-[1.25]"
+                viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
@@ -60,23 +40,21 @@ export default function NewsLetter() {
             </div>
           </div>
 
-          {/* Core Headings */}
-          <h2 
+          <h2
             className="text-2xl font-normal text-white sm:text-3xl md:text-4xl tracking-wide"
             style={{ fontFamily: "var(--font-new-1)" }}
           >
             Stay Updated, <span className="italic font-light opacity-95">Stay Healthy</span>
           </h2>
 
-          <p 
+          <p
             className="mt-3 text-[13px] font-medium leading-relaxed text-white/80 max-w-md sm:text-[14px]"
             style={{ fontFamily: "var(--font-new-1)" }}
           >
             Subscribe to our newsletter and get exclusive offers, health tips & updates.
           </p>
 
-          {/* Premium Form Container */}
-          <form 
+          <form
             onSubmit={handleSubscribe}
             className="group mt-8 flex w-full flex-col gap-0 overflow-hidden rounded-xl border-2 border-[var(--new-neutral-color)] bg-white shadow-lg sm:flex-row sm:items-center sm:bg-white/10 sm:backdrop-blur-md"
           >
@@ -84,7 +62,7 @@ export default function NewsLetter() {
               type="email"
               required
               value={email}
-              onChange={(e) => setEmail(e.target.value)} // Fixed: changed e.value to e.target.value
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email address"
               className="w-full flex-1 bg-white px-5 py-4 text-[16px] font-medium text-[var(--new-heading-text)] outline-none placeholder:text-neutral-400 focus:outline-none sm:bg-white"
               style={{ fontFamily: "var(--font-new-1)" }}
@@ -95,36 +73,14 @@ export default function NewsLetter() {
               style={{ fontFamily: "var(--font-new-1)" }}
             >
               <span>Subscribe</span>
-              {/* Arrow Icon */}
-              <svg 
-                className="h-3.5 w-3.5 stroke-current fill-none stroke-[2.5] transition-transform duration-300 group-hover:translate-x-1" 
+              <svg
+                className="h-3.5 w-3.5 stroke-current fill-none stroke-[2.5] transition-transform duration-300 group-hover:translate-x-1"
                 viewBox="0 0 24 24"
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
               </svg>
             </button>
           </form>
-
-          {/* Inline Checkbox Perks Footer Row */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-20 gap-y-3 text-white/90">
-            {[
-              "Exclusive Offers", 
-              "Health Tips", 
-              "New Launch Alerts"
-            ].map((perk) => (
-              <div 
-                key={perk} 
-                className="flex items-center gap-2 text-[12px] font-semibold tracking-wide sm:text-[14px]"
-                style={{ fontFamily: "var(--font-new-1)" }}
-              >
-                {/* Round Checkmark Icon Badge */}
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/20 p-0.5 text-[14px] border-2 border-[var(--new-neutral-color)] text-white">
-                  ✓
-                </span>
-                <span>{perk}</span>
-              </div>
-            ))}
-          </div>
 
         </div>
       </div>

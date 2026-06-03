@@ -9,7 +9,8 @@
 
   --new-primary-color:#35105f;
 
-  --new-header-bg:#35105f1a;
+  /* --new-header-bg:#35105f1a; */
+  --new-header-bg:rgba(255, 255, 255, 0.664);
 
   --new-bg-color:#f2eafa;
   --new-bg-white-color:#fafafa;

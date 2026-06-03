@@ -1,10 +1,11 @@
 // ConcernSection.jsx
 
-import React, { useState } from "react";
+import React from "react";
 
 const CONCERNS = [
   {
     label: "Poor Sleep",
+    url: "/collections/sleep-oils",
     icon: (
       <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M20 8C14.477 8 10 12.477 10 18C10 23.523 14.477 28 20 28C23.5 28 26.6 26.3 28.5 23.7C27.7 23.9 26.9 24 26 24C20.477 24 16 19.523 16 14C16 11.9 16.6 9.9 17.7 8.3C17.2 8.1 16.6 8 16 8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
@@ -17,6 +18,7 @@ const CONCERNS = [
   },
   {
     label: "Digestion",
+    url: "/collections/digestion-oils",
     icon: (
       <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M15 10C15 10 13 11 13 14C13 17 15 18 15 21C15 24 13 25 13 28" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" fill="none"/>
@@ -28,6 +30,7 @@ const CONCERNS = [
   },
   {
     label: "Joint Pain",
+    url: "/collections/joint-pain-oils",
     icon: (
       <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M14 10C14 10 12 13 14 17L19 19L24 17C26 13 24 10 24 10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
@@ -39,6 +42,7 @@ const CONCERNS = [
   },
   {
     label: "Stress & Anxiety",
+    url: "/collections/stress-relief",
     icon: (
       <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="19" cy="17" r="7" stroke="currentColor" strokeWidth="1.8" fill="none"/>
@@ -52,6 +56,7 @@ const CONCERNS = [
   },
   {
     label: "Low Immunity",
+    url: "/collections/immunity-boosters",
     icon: (
       <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M19 8L27 11.5V19C27 23.5 23.5 27.5 19 29C14.5 27.5 11 23.5 11 19V11.5L19 8Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" fill="none"/>
@@ -62,6 +67,7 @@ const CONCERNS = [
   },
   {
     label: "Hormonal Imbalance",
+    url: "/collections/hormonal-balance",
     icon: (
       <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="19" cy="16" r="6" stroke="currentColor" strokeWidth="1.8" fill="none"/>
@@ -74,6 +80,7 @@ const CONCERNS = [
   },
   {
     label: "Muscle Stiffness",
+    url: "/collections/muscle-stiffness",
     icon: (
       <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M22 10C22 10 26 11 26 15C26 17.5 24.5 18.5 24.5 18.5L27 22C27 22 28.5 21 28.5 19" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
@@ -85,7 +92,11 @@ const CONCERNS = [
 ];
 
 export default function ConcernSection() {
-  const [active, setActive] = useState(0);
+  const handleNavigation = (url) => {
+    if (url) {
+      window.location.href = url;
+    }
+  };
 
   return (
     <>
@@ -94,19 +105,25 @@ export default function ConcernSection() {
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        .concern-card-active::before {
+        /* Smoothly apply the radial gradient reflection effect on hover */
+        .concern-card::before {
           content: '';
           position: absolute;
           inset: 0;
           background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.15) 0%, transparent 75%);
           pointer-events: none;
           border-radius: inherit;
+          opacity: 0;
+          transition: opacity 0.30s ease;
+        }
+        .concern-card:hover::before {
+          opacity: 1;
         }
       `}</style>
 
       <section
         className="relative overflow-hidden py-8 pb-4 md:pb-4 md:py-10"
-        style={{ backgroundColor: "var(--new-bg-white-color, #fafafa)" }}
+        style={{ backgroundColor: "var(--new-bg-color, #f2eafa)" }}
       >
         {/* ── Corner botanical — top left ── */}
         <svg
@@ -175,43 +192,25 @@ export default function ConcernSection() {
 
           {/* Cards Track Wrapper */}
           <div className="no-scrollbar w-full overflow-x-auto pb-4 pt-2 sm:overflow-visible">
-            {/* Responsive Blueprint:
-              - Mobile (< 640px): Horizontal sliding track with snapping logic.
-              - Tablet (sm to md): Balanced multi-row CSS grid layout.
-              - Desktop (lg+): Uniformly distributed flex row alignment.
-            */}
             <div className="flex w-max gap-3 px-1 sm:grid sm:w-full sm:grid-cols-3 sm:gap-4 sm:px-0 md:grid-cols-4 lg:flex lg:flex-nowrap lg:justify-between">
               {CONCERNS.map((item, i) => {
-                const isActive = active === i;
                 return (
                   <button
                     key={i}
                     type="button"
-                    onClick={() => setActive(i)}
-                    className={[
-                      "relative flex flex-col items-center justify-center gap-3 overflow-hidden rounded-[16px] border p-4 transition-all duration-300 select-none",
-                      "w-[135px] min-h-[120px] sm:w-auto sm:min-h-[130px] lg:w-full lg:flex-1", 
-                      isActive
-                        ? "concern-card-active border-[var(--new-primary-color)] bg-[var(--new-primary-color)] shadow-[0_10px_24px_rgba(53,16,95,0.22)] scale-[1.02]"
-                        : "border-[rgba(170,164,184,0.24)] bg-white hover:-translate-y-1 hover:border-[rgba(93,39,170,0.35)] hover:shadow-[0_8px_24px_rgba(93,39,170,0.12)]",
-                    ].join(" ")}
+                    onClick={() => handleNavigation(item.url)}
+                    className="concern-card relative flex flex-col items-center justify-center gap-3 overflow-hidden rounded-[16px] p-4 transition-all duration-300 select-none w-[135px] min-h-[120px] sm:w-auto sm:min-h-[130px] lg:w-full lg:flex-1 bg-white border border-[rgba(170,164,184,0.24)] shadow-[0_2px_8px_rgba(93,39,170,0.04)] group hover:scale-[1.02] hover:-translate-y-1 hover:border-[var(--new-primary-color)] hover:bg-[var(--new-primary-color)] hover:shadow-[0_10px_24px_rgba(53,16,95,0.22)]"
                   >
                     {/* Icon */}
                     <span
-                      className={[
-                        "flex items-center justify-center transition-colors duration-200 transform scale-95 sm:scale-105",
-                        isActive ? "text-white" : "text-[var(--new-purple-color)]",
-                      ].join(" ")}
+                      className="flex items-center justify-center transition-colors duration-200 transform scale-95 sm:scale-105 text-[var(--new-purple-color)] group-hover:text-white"
                     >
                       {item.icon}
                     </span>
 
                     {/* Label */}
                     <span
-                      className={[
-                        "text-center text-[12px] sm:text-[13px] font-bold leading-tight transition-colors duration-200 break-words max-w-full",
-                        isActive ? "text-white" : "text-[var(--new-heading-text)]",
-                      ].join(" ")}
+                      className="text-center text-[12px] sm:text-[13px] font-bold leading-tight transition-colors duration-200 break-words max-w-full text-[var(--new-heading-text)] group-hover:text-white"
                       style={{ fontFamily: "var(--font-new-1)" }}
                     >
                       {item.label}
