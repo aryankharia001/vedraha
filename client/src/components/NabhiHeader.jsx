@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   CheckCircle,
   ChevronDown,
@@ -42,6 +42,7 @@ export default function NabhiHeader({ onCartOpen }) {
   const navigate = useNavigate();
   const userDropRef = useRef(null);
   const catalogRef = useRef(null);
+  const googleBtnRef = useRef(null);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [mode, setMode] = useState("login");
@@ -62,6 +63,9 @@ export default function NabhiHeader({ onCartOpen }) {
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [googleReady, setGoogleReady] = useState(false);
+  const [googleSubmitting, setGoogleSubmitting] = useState(false);
+  const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
   const [loggedInUser, setLoggedInUser] = useState(() => {
     try {
@@ -98,6 +102,74 @@ export default function NabhiHeader({ onCartOpen }) {
     setShowConfirmPass(false);
     setNotify(false);
   }, [modalOpen, mode]);
+
+
+  const handleGoogleCredentialResponse = useCallback(async (response) => {
+    if (!response?.credential) {
+      setError("Google sign-in was cancelled");
+      return;
+    }
+    setError("");
+    setGoogleSubmitting(true);
+    try {
+      const res = await fetch(`${backendurl}/api/auth/google`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ credential: response.credential }),
+      });
+      const data = await res.json();
+      if (!data.success) {
+        setError(data.message || "Google sign-in failed");
+        return;
+      }
+      localStorage.setItem("akravi_token", data.token);
+      localStorage.setItem("akravi_user", JSON.stringify(data.user));
+      setLoggedInUser(data.user);
+      setSubmitted(true);
+    } catch {
+      setError("Network error. Please try again.");
+    } finally {
+      setGoogleSubmitting(false);
+    }
+  }, []);
+  
+  useEffect(() => {
+    if (!googleClientId) return;
+
+    let cancelled = false;
+    const init = () => {
+      if (cancelled) return;
+      if (!window.google?.accounts?.id) return;
+      window.google.accounts.id.initialize({
+        client_id: googleClientId,
+        callback: handleGoogleCredentialResponse,
+        auto_select: false,
+        cancel_on_tap_outside: true,
+      });
+      setGoogleReady(true);
+    };
+
+    if (window.google?.accounts?.id) {
+      init();
+      return () => { cancelled = true; };
+    }
+
+    const existing = document.querySelector('script[data-google-gsi="true"]');
+    if (existing) {
+      existing.addEventListener("load", init, { once: true });
+      return () => { cancelled = true; };
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://accounts.google.com/gsi/client";
+    script.async = true;
+    script.defer = true;
+    script.dataset.googleGsi = "true";
+    script.onload = init;
+    document.head.appendChild(script);
+
+    return () => { cancelled = true; };
+  }, [googleClientId, handleGoogleCredentialResponse]);
 
   useEffect(() => {
     const handler = (e) => {
@@ -205,6 +277,24 @@ export default function NabhiHeader({ onCartOpen }) {
     if (menuOpen) closeMobileMenu();
     navigate("/");
   };
+
+  
+
+  // Render Google's hosted button into the ref div whenever the modal is open
+  // and GSI is ready. renderButton() is immune to browser popup suppression.
+  useEffect(() => {
+    if (!modalOpen || !googleReady || !googleClientId || !googleBtnRef.current) return;
+    googleBtnRef.current.innerHTML = "";
+    window.google.accounts.id.renderButton(googleBtnRef.current, {
+      type: "standard",
+      theme: "outline",
+      size: "large",
+      text: mode === "signup" ? "signup_with" : "signin_with",
+      shape: "rectangular",
+      logo_alignment: "left",
+      width: googleBtnRef.current.offsetWidth || 340,
+    });
+  }, [modalOpen, googleReady, googleClientId, mode]);
 
   const handleMyOrders = () => {
     setUserDropOpen(false);
@@ -974,6 +1064,52 @@ export default function NabhiHeader({ onCartOpen }) {
           font-family: 'DM Sans', sans-serif;
         }
 
+        .nh-google-btn-wrap {
+          width: 100%;
+          margin-bottom: 14px;
+          min-height: 44px;
+          display: flex;
+          justify-content: center;
+        }
+        .nh-google-btn-placeholder {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          padding: 12px 14px;
+          border: 1.5px solid rgba(238, 234, 246, 1);
+          border-radius: 10px;
+          background: #fff;
+          color: var(--new-neutral-color, #aaa4b8);
+          font-family: 'DM Sans', sans-serif;
+          font-size: 14px;
+          font-weight: 600;
+        }
+        .nh-google-icon { flex-shrink: 0; }
+        .nh-spinner-dark {
+          border-color: rgba(33, 18, 76, 0.2);
+          border-top-color: var(--new-primary-color, #35105f);
+        }
+        .nh-divider {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin: 6px 0 16px;
+          color: var(--new-neutral-color, #aaa4b8);
+          font-size: 12px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+        }
+        .nh-divider::before,
+        .nh-divider::after {
+          content: "";
+          flex: 1;
+          height: 1px;
+          background: rgba(238, 234, 246, 1);
+        }
+
         @media (max-width: 1100px) {
           .nh-inner,
           .nh-wrap.scrolled .nh-inner {
@@ -1338,6 +1474,28 @@ export default function NabhiHeader({ onCartOpen }) {
                     <button className={`nh-tab${mode === "signup" ? " active" : ""}`} onClick={() => { setMode("signup"); setError(""); }}>
                       SIGN UP
                     </button>
+                  </div>
+
+                  <div className="nh-google-btn-wrap">
+                    {(!googleReady || !googleClientId) && (
+                      <div className="nh-google-btn-placeholder">
+                        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.99.66-2.25 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                          <path fill="#FBBC05" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.83z"/>
+                          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.83C6.71 7.31 9.14 5.38 12 5.38z"/>
+                        </svg>
+                        <span>{!googleClientId ? "Google sign-in not configured" : "Loading Google…"}</span>
+                      </div>
+                    )}
+                    <div
+                      ref={googleBtnRef}
+                      style={{ width: "100%", display: googleReady && googleClientId ? "flex" : "none", justifyContent: "center" }}
+                    />
+                  </div>
+
+                  <div className="nh-divider">
+                    <span>or</span>
                   </div>
 
                   {mode === "signup" && (
