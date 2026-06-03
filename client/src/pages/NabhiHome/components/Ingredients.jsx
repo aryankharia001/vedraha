@@ -1,6 +1,6 @@
 import React from "react";
-import SectionHeader from "./SectionHeader"; // Using the dynamic header component created earlier
-import bgImg from "../../../../public/ingreidient-bg.png";
+import SectionHeader from "./SectionHeader";
+import bgImg from "../../../../public/ingredients/ingredients-bg.png";
 import ingredient1 from "../../../../public/ingredients/ingredient1.png";
 import ingredient2 from "../../../../public/ingredients/ingredient2.png";
 import ingredient3 from "../../../../public/ingredients/ingredient3.png";
@@ -42,29 +42,90 @@ const INGREDIENTS = [
     name: "Sandalwood",
     description: "Soothes body, calms the mind & promotes peace.",
     imageUrl: ingredient6,
-  }
+  },
 ];
 
 const TRUST_BADGES = [
   {
     title: "100% Natural",
     subtitle: "Pure & Safe",
-    imageUrl: "https://your-cdn.com/assets/natural-badge.png",
+    icon: (
+      <svg
+        viewBox="0 0 48 48"
+        fill="none"
+        className="w-7 h-7"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <path
+          strokeLinejoin="round"
+          d="M39 10C21.5 11.2 11.8 19.2 11.8 32.3c0 3.9 3.2 7.1 7.1 7.1C32.1 39.4 38.2 26.7 39 10Z"
+        />
+        <path strokeLinecap="round" d="M12 38c5.7-8.8 12.4-15 20.2-18.6" />
+      </svg>
+    ),
   },
   {
     title: "No Chemicals",
     subtitle: "No Toxins",
-    imageUrl: "https://your-cdn.com/assets/chemical-badge.png",
+    icon: (
+      <svg
+        viewBox="0 0 48 48"
+        fill="none"
+        className="w-7 h-7"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M20 8h12M23 8v10.2L13.6 34.1A6 6 0 0 0 18.8 43h13.4a6 6 0 0 0 5.1-9.1L29 18.2V8"
+        />
+        <path strokeLinecap="round" d="M20.8 32h11.4M24 24l5 5M29 24l-5 5" />
+      </svg>
+    ),
   },
   {
     title: "Cold Pressed Oils",
     subtitle: "Maximum Potency",
-    imageUrl: "https://your-cdn.com/assets/oils-badge.png",
+    icon: (
+      <svg
+        viewBox="0 0 48 48"
+        fill="none"
+        className="w-7 h-7"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <path
+          strokeLinejoin="round"
+          d="M24 8c-5 0-9.2 3.8-9.8 8.7-3.1 1.1-5.2 4-5.2 7.4 0 3.7 2.6 6.9 6.1 7.7A9.9 9.9 0 0 0 24 40h3.5V8H24Z"
+        />
+        <path
+          strokeLinejoin="round"
+          d="M27.5 12.5c5.8 0 10.5 4.7 10.5 10.5 0 2.4-.8 4.6-2.1 6.4 1.1 1.1 1.7 2.6 1.7 4.2 0 3.4-2.8 6.2-6.2 6.2h-3.9V12.5Z"
+        />
+      </svg>
+    ),
   },
   {
     title: "Made with Authentic Herbs",
     subtitle: "Handpicked with Care",
-    imageUrl: "https://your-cdn.com/assets/herbs-badge.png",
+    icon: (
+      <svg
+        viewBox="0 0 48 48"
+        fill="none"
+        className="w-7 h-7"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <path
+          strokeLinejoin="round"
+          d="M39 10C21.5 11.2 11.8 19.2 11.8 32.3c0 3.9 3.2 7.1 7.1 7.1C32.1 39.4 38.2 26.7 39 10Z"
+        />
+        <circle cx="24" cy="24" r="5" />
+        <path strokeLinecap="round" d="M12 38c5.7-8.8 12.4-15 20.2-18.6" />
+      </svg>
+    ),
   },
 ];
 
@@ -75,98 +136,84 @@ const TRUST_BADGES = [
 export default function Ingredients() {
   return (
     <section
-      className="relative w-full overflow-hidden px-4 py-12 sm:px-6 md:py-16 lg:px-8"
-      style={{ backgroundColor: "var(--new-bg-white-color)" }}
+      className="relative w-full overflow-hidden"
+      style={{ backgroundColor: "var(--new-bg-color)" }}
     >
-      {/* 
-        FULL-HEIGHT BACKGROUND IMAGE WRAPPER 
-        - Placed perfectly as a direct child of the section tag to take up full height (`inset-y-0`)
-        - Hidden on mobile to prevent layouts crashing, rendering beautifully on desktop viewports
-        - Employs gradient feathers to replicate the appearance of image_8cddfd.jpg seamlessly
-      */}
-      <div className="pointer-events-none absolute inset-y-0 left-[-200px] z-0 hidden w-[45%] max-w-[580px] lg:block">
-        {/* Left Side Blur Fade */}
-        <div 
-          className="absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-[var(--new-bg-white-color)] to-transparent" 
-          aria-hidden="true"
-        />
-
-        {/* 100% Height Local Asset Image Rendering Layer */}
+      {/* ── Full-height background image anchored left ── */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 left-0 z-0 w-[100%] hidden lg:block"
+      >
         <img
           src={bgImg}
-          alt="Nabhi Amrit Premium Bottle ambient environment background presentation"
-          className="h-full w-full object-cover object-left mix-blend-multiply opacity-95"
+          alt=""
+          className="h-full w-full object-cover object-top"
         />
-
-        {/* Right Side Blur Edge Feathering */}
-        <div 
-          className="absolute inset-y-0 right-0 z-10 w-40 bg-gradient-to-l from-[var(--new-bg-white-color)] via-[var(--new-bg-white-color)]/30 to-transparent" 
-          aria-hidden="true"
+        <div
+          className="absolute inset-x-0 bottom-0 h-[40%]"
+          style={{
+            background:
+              "linear-gradient(to top, #f2eafa5b 0%, #f2eafa5b 5%, transparent 20%, transparent 100%)",
+          }}
         />
       </div>
 
-      {/* Center-Aligned Core Content Area */}
-      <div className="relative z-10 mx-auto max-w-[1240px]">
-        
-        {/* Dynamic Header Component Instance */}
+      {/* ── Content area ── */}
+      <div className="relative z-10 mx-auto max-w-[1240px] px-4 py-12 sm:px-6 md:py-16 lg:px-8">
+        {/* Header — centred */}
         <SectionHeader
           subtitle="The Goodness Within"
           heading="Pure Herbs. Real"
           headingHighlight="Results."
         />
 
-        {/* Subtitle Description text directly below headers */}
+        {/* Subheading */}
         <p
-          className="mx-auto -mt-8 mb-12 max-w-xl text-center text-[13px] font-medium leading-relaxed text-[var(--new-para-text)] opacity-90 sm:text-[14px]"
+          className="mx-auto -mt-8 mb-10 max-w-xl text-center text-[13px] font-medium leading-relaxed text-[var(--new-para-text)] opacity-90 sm:text-[14px]"
           style={{ fontFamily: "var(--font-new-1)" }}
         >
           We use the finest Ayurvedic herbs and cold-pressed oils to ensure
           maximum potency and effectiveness.
         </p>
 
-        {/* Parent Grid Layer Layout Row */}
-        <div className="relative grid w-full grid-cols-1 items-center gap-6 lg:grid-cols-12 lg:gap-4 xl:gap-5">
-          
-          {/* MOBILE SPOTLIGHT DISPLAY FALLBACK 
-              - Your image handles mobile responsively here where the background asset layout drops off
-          */}
-          <div className="flex w-full flex-col items-center justify-center p-2 lg:hidden">
-            <img
-              src={bgImg}
-              alt="Nabhi Amrit Premium Bottle presentation mobile fallback"
-              className="h-auto w-full max-w-[240px] object-contain drop-shadow-[0_10px_25px_rgba(33,18,76,0.12)]"
-            />
-          </div>
+        {/* ── Ingredient cards — right-aligned on desktop ── */}
+        <div className="flex justify-end">
+          <div className="w-full lg:w-[68%]">
+            {/* Mobile fallback image */}
+            {/* <div className="mb-6 flex justify-center lg:hidden">
+              <img
+                src={bgImg}
+                alt="Nabhi Amrit bottle"
+                className="w-[200px] object-contain drop-shadow-lg"
+              />
+            </div> */}
 
-          {/* Right Column Layout: Safely nesting your matrix code blocks */}
-          <div className="w-full lg:col-span-8 lg:col-start-5 lg:justify-self-end">
-            {/* 7-column matrix dynamically scaling across screen sizes */}
-            <div className="grid w-full grid-cols-2 gap-2.5 min-[480px]:grid-cols-3 sm:gap-3 md:grid-cols-4 lg:grid-cols-6 lg:gap-1.5 xl:gap-2">
+            {/* Cards grid */}
+            <div className="grid grid-cols-2 gap-2.5 min-[480px]:grid-cols-3 sm:gap-3 md:grid-cols-4 lg:grid-cols-6 lg:gap-2">
               {INGREDIENTS.map((herb) => (
                 <div
                   key={herb.name}
-                  className="group flex h-[250px] flex-col overflow-hidden rounded-[8px] border-opacity-20 bg-white shadow-[0_4px_8px_rgba(33,18,76,0.4)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(33,18,76,0.07)] min-[480px]:h-[230px] lg:h-[190px] xl:h-[230px]"
+                  className="group flex flex-col overflow-hidden rounded-[8px] bg-white shadow-[0_4px_14px_rgba(33,18,76,0.10)] border border-[rgba(123,43,236,0.4)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(33,18,76,0.15)] min-h-[200px]"
                 >
-                  {/* Top Section - Exactly 50% height for the Image */}
-                  <div className="flex h-1/2 w-full items-center justify-center bg-slate-50/40 p-2 overflow-hidden relative">
+                  {/* Image — square top half */}
+                  <div className="aspect-square w-full overflow-hidden bg-slate-50/60 p-2.5">
                     <img
                       src={herb.imageUrl}
-                      alt={`${herb.name} Herb element`}
+                      alt={herb.name}
                       className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
 
-                  {/* Bottom Section - Exactly 50% height for Content */}
-                  <div className="flex h-1/2 w-full flex-col items-center justify-center p-2 text-center bg-white">
+                  {/* Text — bottom half */}
+                  <div className="flex flex-col items-center justify-start gap-1.5 px-2 py-3 pb-3 text-center">
                     <h3
-                      className="mb-1 text-[11px] font-extrabold text-[var(--new-purple-color)] leading-tight sm:text-[12px] lg:text-[11px] xl:text-[12px]"
+                      className="text-[13px] font-extrabold leading-tight text-[var(--new-purple-color)] lg:text-[12.5px] xl:text-[13.5px]"
                       style={{ fontFamily: "var(--font-new-1)" }}
                     >
                       {herb.name}
                     </h3>
-
                     <p
-                      className="line-clamp-3 text-[10px] font-medium leading-normal text-[var(--new-para-text)] opacity-85 lg:text-[9.5px] xl:text-[10px]"
+                      className="line-clamp-3 text-[11.5px] font-medium leading-snug text-[var(--new-para-text)] opacity-80 lg:text-[11px] xl:text-[11.5px]"
                       style={{ fontFamily: "var(--font-new-1)" }}
                     >
                       {herb.description}
@@ -178,41 +225,7 @@ export default function Ingredients() {
           </div>
         </div>
 
-        {/* Bottom Horizontal Trust Metrics Deck */}
-        {/* <div className="mt-20 grid w-full grid-cols-2 gap-x-4 gap-y-8 border-t border-neutral-200/60 pt-10 sm:gap-6 md:grid-cols-4 md:divide-x md:divide-neutral-200/50">
-          {TRUST_BADGES.map((badge) => (
-            <div
-              key={badge.title}
-              className="flex flex-col items-center gap-2.5 text-center px-4 sm:flex-row sm:text-left sm:justify-center sm:gap-3.5"
-            >
-              
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-slate-50/80 text-[var(--new-purple-color)] p-2.5 border border-neutral-100">
-                <img
-                  src={badge.imageUrl}
-                  alt={badge.title}
-                  className="h-full w-full object-contain"
-                />
-              </div>
-
-              
-              <div className="flex flex-col">
-                <h4
-                  className="text-[12px] font-extrabold uppercase tracking-wide text-[var(--new-heading-text)] leading-tight sm:text-[13px]"
-                  style={{ fontFamily: "var(--font-new-1)" }}
-                >
-                  {badge.title}
-                </h4>
-                <p
-                  className="mt-0.5 text-[11px] font-medium text-[var(--new-para-text)] opacity-65 sm:text-[12px]"
-                  style={{ fontFamily: "var(--font-new-1)" }}
-                >
-                  {badge.subtitle}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div> */}
-        
+        {/* ── Trust badges bar ── */}
       </div>
     </section>
   );

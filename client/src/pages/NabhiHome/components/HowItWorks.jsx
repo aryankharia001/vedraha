@@ -1,5 +1,10 @@
 import React from "react";
 import SectionHeader from "./SectionHeader";
+import step1 from "../../../../public/how-it-works/step-1.png";
+import step2 from "../../../../public/how-it-works/step-2.png";
+import step3 from "../../../../public/how-it-works/step-3.png";
+import step4 from "../../../../public/how-it-works/step-4.png";
+import step5 from "../../../../public/how-it-works/step-5.png";
 
 // ═══════════════════════════════════════════════════════════════
 //  DATA CONFIGURATION
@@ -10,56 +15,56 @@ const PROCESS_STEPS = [
     stepNumber: "01",
     title: "Apply",
     description: "Take a few drops of Nabhi Oil",
-    imageUrl: "https://your-cdn.com/assets/apply-icon.png", // Replace with your image asset URL
+    imageUrl: step1,
   },
   {
     stepNumber: "02",
     title: "Message", // Matching the typo "Message" verbatim from image_8eaf57.jpg
     description: "Gently massage on the Nabhi (belly button)",
-    imageUrl: "https://your-cdn.com/assets/massage-icon.png",
+    imageUrl: step2,
   },
   {
     stepNumber: "03",
     title: "Absorb",
     description: "Herbs penetrate deep through 72,000 Nadis",
-    imageUrl: "https://your-cdn.com/assets/absorb-icon.png",
+    imageUrl: step3,
   },
   {
     stepNumber: "04",
     title: "Balance",
     description: "Balances body energies & restores harmony",
-    imageUrl: "https://your-cdn.com/assets/balance-icon.png",
+    imageUrl: step4,
   },
   {
     stepNumber: "05",
     title: "Results",
     description: "Feel the natural difference in your body & mind",
-    imageUrl: "https://your-cdn.com/assets/results-icon.png",
+    imageUrl: step5,
   },
 ];
 
-const HIGHLIGHT_FEATURES = [
-  {
-    title: "Fast Absorption",
-    description: "Deep action from within",
-    imageUrl: "https://your-cdn.com/assets/absorption-feat.png",
-  },
-  {
-    title: "Ancient Ayurvedic",
-    description: "Time-tested wisdom",
-    imageUrl: "https://your-cdn.com/assets/ayurvedic-feat.png",
-  },
-  {
-    title: "Safe & Natural",
-    description: "Gentle, effective & non-habit forming",
-    imageUrl: "https://your-cdn.com/assets/safe-feat.png",
-  },
-  {
-    title: "For Whole Family",
-    description: "Suitable for men, women & all ages",
-    imageUrl: "https://your-cdn.com/assets/family-feat.png",
-  },
-];
+// const HIGHLIGHT_FEATURES = [
+//   {
+//     title: "Fast Absorption",
+//     description: "Deep action from within",
+//     imageUrl: "https://your-cdn.com/assets/absorption-feat.png",
+//   },
+//   {
+//     title: "Ancient Ayurvedic",
+//     description: "Time-tested wisdom",
+//     imageUrl: "https://your-cdn.com/assets/ayurvedic-feat.png",
+//   },
+//   {
+//     title: "Safe & Natural",
+//     description: "Gentle, effective & non-habit forming",
+//     imageUrl: "https://your-cdn.com/assets/safe-feat.png",
+//   },
+//   {
+//     title: "For Whole Family",
+//     description: "Suitable for men, women & all ages",
+//     imageUrl: "https://your-cdn.com/assets/family-feat.png",
+//   },
+// ];
 
 // ═══════════════════════════════════════════════════════════════
 //  MAIN COMPONENT
@@ -69,7 +74,7 @@ export default function HowItWorks() {
   return (
     <section
       className="relative w-full overflow-hidden px-4 py-12 sm:px-6 md:py-16 lg:px-8"
-      style={{ backgroundColor: "var(--new-bg-color)" }}
+      style={{ backgroundColor: "var(--new-bg-white-color)" }}
     >
       {/* Decorative Floral Background (Top Right Corner as shown in image_8eaf57.jpg) */}
       <div
@@ -96,7 +101,7 @@ export default function HowItWorks() {
               className="relative flex flex-col items-center px-2"
             >
               {/* Circular Icon Wrapper with Step Tag */}
-              <div className="relative mb-4 flex h-24 w-24 items-center justify-center rounded-full border border-[var(--new-purple-color)] border-opacity-30 bg-[var(--new-bg-white-color)] p-5 shadow-sm transition-transform duration-300 hover:scale-105 sm:h-28 sm:w-28">
+              <div className="relative mb-4 flex h-24 w-24 items-center justify-center rounded-full border border-[var(--new-purple-color)] border-opacity-30 bg-[#fdfdfd] p-5 shadow-sm transition-transform duration-300 hover:scale-105 sm:h-28 sm:w-28">
                 {/* Image Icon replacing SVGs */}
                 <img
                   src={step.imageUrl}
@@ -125,8 +130,8 @@ export default function HowItWorks() {
                   aria-hidden="true"
                 >
                   <svg
-                    width="20"
-                    height="12"
+                    width="48"
+                    height="28"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -159,45 +164,7 @@ export default function HowItWorks() {
         </div>
 
         {/* Bottom Feature Highlights Bar */}
-        <div
-          className="grid w-full grid-cols-1 gap-y-6 rounded-2xl border border-[var(--new-neutral-color)] border-opacity-20 p-5 shadow-[0_6px_20px_rgba(33,18,76,0.03)] sm:grid-cols-2 sm:p-6 md:grid-cols-4 md:divide-x md:divide-[var(--new-neutral-color)] md:divide-opacity-30 md:py-5 md:px-2 text-left"
-          style={{ backgroundColor: "var(--new-bg-white-color)" }}
-        >
-          {HIGHLIGHT_FEATURES.map((feat) => (
-            <div
-              key={feat.title}
-              className="flex items-center gap-4 px-4 sm:px-6 md:justify-start"
-            >
-              {/* Feature Image Wrapper */}
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-[var(--new-primary-color)]">
-                <img
-                  src={feat.imageUrl}
-                  alt={feat.title}
-                  className="h-8 w-8 object-contain"
-                  onError={(e) => {
-                    e.target.style.opacity = "0.3";
-                  }}
-                />
-              </div>
-
-              {/* Feature Content */}
-              <div className="flex flex-col">
-                <h4
-                  className="text-[13px] font-extrabold text-[var(--new-primary-color)] leading-tight"
-                  style={{ fontFamily: "var(--font-new-1)" }}
-                >
-                  {feat.title}
-                </h4>
-                <p
-                  className="mt-0.5 text-[11px] font-medium text-[var(--new-para-text)] opacity-85 leading-tight"
-                  style={{ fontFamily: "var(--font-new-1)" }}
-                >
-                  {feat.description}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
+        
       </div>
     </section>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 
 const USP_ITEMS = [
+  // --- Kept top 2 original USP items ---
   {
     label: "Ayurvedic",
     sub: "Science Backed",
@@ -23,41 +24,73 @@ const USP_ITEMS = [
         <circle cx="16" cy="10" r="3.5" stroke="currentColor" strokeWidth="1.6" fill="none"/>
         <path d="M5 24c0-2.21 1.79-4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none"/>
         <circle cx="7" cy="13" r="2.5" stroke="currentColor" strokeWidth="1.6" fill="none"/>
-        <path d="M27 24c0-2.21-1.79-4-4-4" stroke="currentColor" strokeWidth="1.6" fill="none"/>
+        <path d="M27 24c0-2.21-1.79-4-4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none"/>
         <circle cx="25" cy="13" r="2.5" stroke="currentColor" strokeWidth="1.6" fill="none"/>
       </svg>
     ),
   },
+
+  // --- Replaced bottom 3 items with highlightsData ---
   {
-    label: "Crafted with",
-    sub: "Pure Herbs",
+    label: "Free Shipping",
+    sub: "Free shipping for order above $50",
     icon: (
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M16 26 C16 26 8 20 8 13 C8 9 11.5 7 14 8 C15 8.5 15.5 9.5 16 10 C16.5 9.5 17 8.5 18 8 C20.5 7 24 9 24 13 C24 20 16 26 16 26Z" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinejoin="round"/>
-        <line x1="16" y1="26" x2="16" y2="15" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
-        <path d="M16 19 C14 17 11 17 10 15" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" fill="none"/>
+      <svg
+        width="32"
+        height="32"
+        className="stroke-[var(--color-primary,#184b24)]"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+        />
       </svg>
     ),
   },
   {
-    label: "Safe for Daily",
-    sub: "Use",
+    label: "Flexible Payment",
+    sub: "Multiple secure payment options",
     icon: (
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M16 5 L26 9 L26 17 C26 22 21.5 26.5 16 28 C10.5 26.5 6 22 6 17 L6 9 Z" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinejoin="round"/>
-        <path d="M11.5 16 L14.5 19 L20.5 13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+      <svg
+        width="32"
+        height="32"
+        className="stroke-[var(--color-primary,#184b24)]"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+        />
       </svg>
     ),
   },
   {
-    label: "Made in India",
-    sub: "with",
-    heart: true,
+    label: "24×7 Support",
+    sub: "We support online all days.",
     icon: (
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M6 10 L16 6 L26 10 L26 22 L16 26 L6 22 Z" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinejoin="round"/>
-        <line x1="16" y1="6"  x2="16" y2="26" stroke="currentColor" strokeWidth="1.2" strokeDasharray="2 2"/>
-        <line x1="6"  y1="16" x2="26" y2="16" stroke="currentColor" strokeWidth="1.2" strokeDasharray="2 2"/>
+      <svg
+        width="32"
+        height="32"
+        className="stroke-[var(--color-primary,#184b24)]"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"
+        />
       </svg>
     ),
   },

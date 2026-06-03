@@ -120,10 +120,13 @@ export default function TestimonialCarousel() {
 
   return (
     <section
-      className="relative w-full max-w-[1240px] mx-auto px-4 sm:px-6 py-10 md:py-10 flex flex-col items-center select-none overflow-hidden"
-      style={{ backgroundColor: "var(--color-white, #ffffff)" }}
+      className="w-full bg-[var(--new-bg-white-color]"
+      
     >
-      {/* Header */}
+      <div className="relative w-full max-w-[1240px] mx-auto px-4 sm:px-6 py-10 md:py-10 flex flex-col items-center select-none overflow-hidden"
+      // style={{ backgroundColor: "var(--new-bg-white-color, #fafafa)" }}
+      >
+        {/* Header */}
       <SectionHeader
                 subtitle="Testimonials"
                 heading="What Our"
@@ -131,7 +134,7 @@ export default function TestimonialCarousel() {
               />
 
       {/* Progress bar */}
-      <div className="w-full max-w-xs mt-6 h-0.5 bg-slate-100 rounded-full overflow-hidden">
+      <div className="w-full max-w-xs mt-6 h-0.5 rounded-full overflow-hidden">
         <div
           key={activeIndex}
           className="h-full bg-gradient-to-r from-[#184b24] to-[#C08A3E] rounded-full"
@@ -274,6 +277,7 @@ export default function TestimonialCarousel() {
             />
           </svg>
         </button>
+      </div>
       </div>
     </section>
   );

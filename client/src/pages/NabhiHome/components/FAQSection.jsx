@@ -54,8 +54,7 @@ export default function FAQSection() {
     <section
       className="w-full"
       style={{
-        backgroundColor: "var(--color-primary-2, #f9f6ff)",
-        boxShadow: "inset 0 12px 12px -10px rgba(24,75,36,0.3)",
+        backgroundColor: "var(--new-bg-color, #f2eafa)",
       }}
     >
       <div className="max-w-[1240px] mx-auto px-6 py-16 select-none">

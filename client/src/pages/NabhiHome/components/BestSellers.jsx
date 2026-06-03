@@ -12,8 +12,8 @@ import product5 from "../../../../public/product-5.png";
 // ═══════════════════════════════════════════════════════════════
 
 export const bestSellersContent = {
-  subtitle: "Our Best Sellers",
-  heading: "Our 7",
+  subtitle: "All products",
+  heading: "Our 6",
   headingHighlight: "Ayurvedic",
   headingSuffix: "Nabhi Oils",
   description:
@@ -113,47 +113,50 @@ const FlowerCorner = ({ side = "left" }) => (
 
 const ProductCard = ({ product }) => (
   <Link
-    to={product.route || "#"}
-    className="group flex flex-col justify-between overflow-hidden rounded-xl border border-[#eeeaf6] bg-white text-center no-underline shadow-[0_4px_12px_rgba(37,25,70,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(37,25,70,0.15)]"
-  >
-    {/* Image container handles shifting ratios safely */}
-    <div className="relative aspect-square w-full overflow-hidden bg-slate-50 min-[480px]:aspect-[4/3] sm:aspect-square">
-      <img
-        src={product.image}
-        alt={`${product.name} Nabhi Oil`}
-        draggable="false"
-        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-      />
+  to={product.route || "#"}
+  className="group flex flex-col justify-between overflow-hidden border border-[#eeeaf6] bg-white text-center no-underline shadow-[0_4px_12px_rgba(37,25,70,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(37,25,70,0.15)]"
+>
+  {/* Image container handles shifting ratios safely */}
+  <div className="relative aspect-square w-full overflow-hidden bg-slate-50 min-[480px]:aspect-[4/3] sm:aspect-square">
+    <img
+      src={product.image}
+      alt={`${product.name} Nabhi Oil`}
+      draggable="false"
+      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+    />
+  </div>
+
+  {/* Content Container with fluid typographic scaling */}
+  <div className="flex flex-1 flex-col justify-between p-3.5 sm:p-4">
+    <div className="mb-3">
+      <h3 className="text-[16px] font-extrabold leading-tight text-[var(--new-heading-text)] min-[480px]:text-[17px] xl:text-[15px] min-[1400px]:text-[17px]">
+        {product.name} Nabhi Oil
+      </h3>
+
+      <p className="mt-1.5 line-clamp-2 text-[13px] font-medium leading-normal text-[var(--new-para-text)] xl:text-[12px] min-[1400px]:text-[13px]">
+        {product.description}
+      </p>
     </div>
 
-    {/* Content Container with fluid typographic scaling */}
-    <div className="flex flex-1 flex-col justify-between p-3.5 sm:p-4">
-      <div className="mb-3">
-        <h3 className="text-[14px] font-extrabold leading-tight text-[var(--new-heading-text)] min-[480px]:text-[15px] xl:text-[13px] min-[1400px]:text-[15px]">
-          {product.name} Nabhi Oil
-        </h3>
-
-        <p className="mt-1.5 line-clamp-2 text-[11px] font-medium leading-normal text-[var(--new-para-text)] xl:text-[10px] min-[1400px]:text-[11px]">
-          {product.description}
-        </p>
-      </div>
-
-      <div>
-        <div className="flex items-center justify-center gap-1.5">
-          <span className="text-[13px] font-extrabold text-[var(--new-accent-color)] sm:text-[14px] xl:text-[12px] min-[1400px]:text-[14px]">
-            ₹{product.price}
-          </span>
-          <span className="text-[11px] font-bold text-[var(--new-neutral-color)] line-through sm:text-[12px] xl:text-[11px]">
-            ₹{product.originalPrice}
-          </span>
-        </div>
-
-        <span className="mt-3 inline-flex w-full items-center justify-center rounded-lg bg-[var(--new-primary-color)] py-2 text-[10px] font-extrabold uppercase tracking-wider text-white shadow-[0_3px_7px_rgba(53,16,95,0.2)] transition-opacity group-hover:opacity-90 xl:text-[9px] min-[1400px]:text-[10px]">
-          Shop Now
+    <div>
+      <div className="flex items-center justify-center gap-1.5">
+        <span className="text-[15px] font-extrabold text-[var(--new-accent-color)] sm:text-[16px] xl:text-[14px] min-[1400px]:text-[16px]">
+          ₹{product.price}
+        </span>
+        <span className="text-[13px] font-bold text-[var(--new-neutral-color)] line-through sm:text-[14px] xl:text-[13px]">
+          ₹{product.originalPrice}
         </span>
       </div>
+
+      <span
+        className="mt-3 inline-flex w-full items-center justify-center bg-[var(--new-primary-color)] py-2 text-[12px] font-extrabold capitalise tracking-wider text-white shadow-[0_3px_7px_rgba(53,16,95,0.2)] transition-opacity group-hover:opacity-90 xl:text-[11px] min-[1400px]:text-[12px]"
+        style={{ fontFamily: "var(--font-new-1)" }}
+      >
+        Shop Now
+      </span>
     </div>
-  </Link>
+  </div>
+</Link>
 );
 
 // ═══════════════════════════════════════════════════════════════
