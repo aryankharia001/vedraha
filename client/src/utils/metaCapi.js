@@ -1,8 +1,8 @@
 // ─── utils/metaCapi.js ────────────────────────────────────────────────────────
 
-const PIXEL_ID     = "2025318038197449";
+const PIXEL_ID     = "2028603691416544";
 const ACCESS_TOKEN = "EAARpWmAjBnEBRbhJOO8gMO7OJGJKIvXHFMAmqZA0OWbz0K5mo2qhlBkAx5Y2ubnUyOAHPQhD2N7dETfj2bIYRsWoeEFqwRZB8FUeHx1pyXbqRXhK1jCAZCT53Ic1vaiFtbFZBKqwo4ODYPnU6Qds8H9A4we5pWDEoFUbEqeW7KINXZA1Kvcxe7TuwEzmciwZDZD";
-const TEST_CODE    = "TEST96014";
+const TEST_CODE    = "TEST79297";
 
 // ─── fbp ─────────────────────────────────────────────────────────────────────
 const getFbp = () => {
