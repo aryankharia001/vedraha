@@ -3,8 +3,10 @@ import { Minus, Plus, Trash2, ShoppingBag, X } from "lucide-react";
 import { UpiStack } from "./ui";
 import { upiIcons } from "./constants";
 import React from "react";
+import { useCart } from "../../../components/CartContext";
 
-export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQty, onRemoveItem, onBuyNow }) {
+export default function CartDrawer({ onBuyNow }) {
+  const { cartItems, cartOpen: isOpen, closeCart: onClose, updateQty, removeItem } = useCart();
   const totalQty = cartItems.reduce((s, i) => s + i.quantity, 0);
   const totalAmt = cartItems.reduce((s, i) => s + i.variantPriceNum * i.quantity, 0);
 
@@ -81,20 +83,20 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQty, on
                     <div className="text-xs text-[#2d5a27] font-semibold mb-2">{item.variantLabel}</div>
                     <div className="flex items-center gap-1.5">
                       <button
-                        onClick={() => onUpdateQty(item.cartId, item.quantity - 1)}
+                        onClick={() => updateQty(item.cartId, item.quantity - 1)}
                         className={`w-7 h-7 rounded-md border border-gray-200 bg-white cursor-pointer flex items-center justify-center ${item.quantity === 1 ? "text-gray-300" : "text-gray-900"}`}
                       >
                         <Minus size={11} />
                       </button>
                       <span className="text-sm font-bold min-w-[18px] text-center">{item.quantity}</span>
                       <button
-                        onClick={() => onUpdateQty(item.cartId, item.quantity + 1)}
+                        onClick={() => updateQty(item.cartId, item.quantity + 1)}
                         className="w-7 h-7 rounded-md border border-gray-200 bg-white cursor-pointer flex items-center justify-center text-[#2d5a27]"
                       >
                         <Plus size={11} />
                       </button>
                       <button
-                        onClick={() => onRemoveItem(item.cartId)}
+                        onClick={() => removeItem(item.cartId)}
                         className="w-7 h-7 rounded-md border border-gray-200 bg-white cursor-pointer flex items-center justify-center text-gray-400 ml-1"
                       >
                         <Trash2 size={11} />

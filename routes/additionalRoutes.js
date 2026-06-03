@@ -11,6 +11,10 @@ import { v4 as uuidv4 } from "uuid";
 import { firePixel } from '../utils/metaCapi.js';
 import { MetaEventLog } from '../models/MetaEventLog.js';
 
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const router = express.Router();
 
 const generateHMAC = (payload) =>
@@ -878,6 +882,7 @@ router.post('/customer-data', async (req, res) => {
 router.get("/order/:orderId", async (req, res) => {
   try {
     const { orderId } = req.params;
+    console.log("OID : ", orderId);
     if (!orderId) {
       return res.status(400).json({ success: false, message: "orderId is required" });
     }
@@ -887,7 +892,7 @@ router.get("/order/:orderId", async (req, res) => {
     const hmac    = generateHMAC(payload);
 
     const srResponse = await axios.post(
-      `${BASE_URL}/api/v1/custom-platform-order/details`,
+      `https://checkout-api.shiprocket.com/api/v1/custom-platform-order/details`,
       payload,
       {
         headers: {
@@ -897,6 +902,8 @@ router.get("/order/:orderId", async (req, res) => {
         },
       }
     );
+
+    console.log("SRRESP : " , srResponse);
 
     const r = srResponse.data?.result || srResponse.data;
 

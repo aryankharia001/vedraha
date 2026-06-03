@@ -13,7 +13,7 @@ const product = {
   subtitle:       "प्राचीन आयुर्वेदिक फॉर्मूला",
   h1:             "नाभि अमृत - पाचन और डिटॉक्स के लिए नाभि तेल",
   reviewSummary:  "4.62 · 189 सत्यापित समीक्षाएं",
-  paymentImage:   "/NabhiImg/allpayment.png",
+  paymentImage:   "https://console.minio.traffakpay.com/api/v1/buckets/vedraha/objects/download?preview=true&prefix=allpayment.png&version_id=null",
   logoImage:      "/NabhiLogo/nabhiLogo.png",
   brandName:      "होम विद केयर · वेद संजीवनी",
   contactEmail:   "akravipvtltd@gmail.com",

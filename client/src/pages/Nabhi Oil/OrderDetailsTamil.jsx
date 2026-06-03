@@ -19,10 +19,10 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { MdVerified } from "react-icons/md";
 import { HiSparkles } from "react-icons/hi";
 import { ArrowLeft, Package, MapPin } from "lucide-react";
-import { backendurl } from "../../../App";
-import NabhiHeader from "../../../components/NabhiHeader";
-import NabhiHeaderTamil from "../../../components/NabhiHeaderTamil";
-import CartDrawer from "../../NabhiTamil/shared/CartDrawer";
+import { backendurl } from "../../App";
+import NabhiHeader from "../../components/NabhiHeader";
+import NabhiHeaderTamil from "../../components/NabhiHeaderTamil";
+import CartDrawer from "../NabhiTamil/shared/CartDrawer";
 
 // ── Cart helpers ───────────────────────────────────────────────────────────
 const CART_KEY = "exclusiveCart";
@@ -242,7 +242,7 @@ export default function OrderDetailTamil() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-stone-100 via-green-50 to-amber-50">
-        <NabhiHeaderTamil  onCartOpen={() => setCartOpen(true)} cartCount={cartCount} />
+        {/* <NabhiHeaderTamil  onCartOpen={() => setCartOpen(true)} cartCount={cartCount} /> */}
         <div className="flex justify-center mt-24">
           <div className="w-10 h-10 border-4 border-stone-200 border-t-green-800 rounded-full animate-spin" />
         </div>
@@ -254,7 +254,7 @@ export default function OrderDetailTamil() {
   if (error || !order) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-stone-100 via-green-50 to-amber-50">
-        <NabhiHeaderTamil  onCartOpen={() => setCartOpen(true)} cartCount={cartCount} />
+        {/* <NabhiHeaderTamil  onCartOpen={() => setCartOpen(true)} cartCount={cartCount} /> */}
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 pt-9">
           <button
             className="inline-flex items-center gap-2 bg-white border border-stone-200 rounded-full px-5 py-2.5 text-sm font-semibold text-green-800 shadow-sm hover:bg-green-50 hover:border-green-800 hover:-translate-y-0.5 transition-all mb-7"
@@ -306,7 +306,7 @@ export default function OrderDetailTamil() {
         />
       </Suspense>
 
-      <NabhiHeaderTamil  onCartOpen={() => setCartOpen(true)} cartCount={cartCount} />
+      {/* <NabhiHeaderTamil  onCartOpen={() => setCartOpen(true)} cartCount={cartCount} /> */}
 
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 pt-9">
 

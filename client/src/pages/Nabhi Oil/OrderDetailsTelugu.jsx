@@ -196,7 +196,7 @@ export default function OrderDetailTelugu() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#f8f6f0] via-[#eef4eb] to-[#f2ede0]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-        <NabhiHeaderTelugu  onCartOpen={() => setCartOpen(true)} cartCount={cartCount} />
+        {/* <NabhiHeaderTelugu  onCartOpen={() => setCartOpen(true)} cartCount={cartCount} /> */}
         <div className="flex items-center justify-center pt-24">
           <div className="w-10 h-10 border-4 border-[#e5e0d4] border-t-[#2d5a27] rounded-full animate-spin" />
         </div>
@@ -209,7 +209,7 @@ export default function OrderDetailTelugu() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#f8f6f0] via-[#eef4eb] to-[#f2ede0] pb-20" style={{ fontFamily: "'DM Sans', sans-serif" }}>
         <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@300;400;500;600;700;800&display=swap');`}</style>
-        <NabhiHeaderTelugu  onCartOpen={() => setCartOpen(true)} cartCount={cartCount} />
+        {/* <NabhiHeaderTelugu  onCartOpen={() => setCartOpen(true)} cartCount={cartCount} /> */}
         <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 pt-9">
           <button
             onClick={() => navigate("/my-orders-tlg")}
@@ -279,7 +279,7 @@ export default function OrderDetailTelugu() {
         />
       </Suspense>
 
-      <NabhiHeaderTelugu  onCartOpen={() => setCartOpen(true)} cartCount={cartCount} />
+      {/* <NabhiHeaderTelugu  onCartOpen={() => setCartOpen(true)} cartCount={cartCount} /> */}
 
       <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-8 xl:px-12 pt-9">
 

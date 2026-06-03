@@ -89,8 +89,8 @@ export default function NabhiContactEng() {
         * { box-sizing: border-box; }
         input:focus, textarea:focus { outline: none; border-color: #2d5a27 !important; box-shadow: 0 0 0 3px rgba(45,90,39,0.12); }
       `}</style>
-
-      <NabhiHeader />
+{/* 
+      <NabhiHeader /> */}
 
       {/* ── Contact Cards ───────────────────────────────────────────────────── */}
       <div className="max-w-[1100px] mx-auto px-5 py-14">

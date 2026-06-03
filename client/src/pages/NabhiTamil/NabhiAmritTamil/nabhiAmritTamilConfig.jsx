@@ -12,7 +12,7 @@ const product = {
   subtitle:       "பண்டைய ஆயுர்வேத சூத்திரம்",
   h1:             "நாபி அமிர்த் - செரிமானம் மற்றும் டிடாக்ஸிற்கான நாபி எண்ணெய்",
   reviewSummary:  "4.62 · 189 சரிபார்க்கப்பட்ட மதிப்புரைகள்",
-  paymentImage:   "/NabhiImg/allpayment.png",
+  paymentImage:   "https://console.minio.traffakpay.com/api/v1/buckets/vedraha/objects/download?preview=true&prefix=allpayment.png&version_id=null",
   logoImage:      "/NabhiLogo/nabhiLogo.png",
   brandName:      "ஹோம் வித் கேர் · வேத சஞ்சீவனி",
   contactEmail:   "akravipvtltd@gmail.com",

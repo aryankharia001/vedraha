@@ -8,7 +8,6 @@ import {
 import { TbTruckDelivery } from "react-icons/tb";
 import { MdVerified } from "react-icons/md";
 import { HiSparkles } from "react-icons/hi";
-import NabhiHeader from "../components/NabhiHeader";
 import { backendurl } from "../App";
 
 // ─── Config ───────────────────────────────────────────────────────────────────
@@ -199,6 +198,15 @@ export default function ExcSuccessPage() {
   const [loading,    setLoading]    = useState(!!oid);
   const [fetchError, setFetchError] = useState("");
 
+  
+  useEffect(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth", // optional
+      });
+    }, []);
+    
+
   // ── Fetch order ────────────────────────────────────────────────────────────
   useEffect(() => {
     if (!oid) {
@@ -329,7 +337,7 @@ export default function ExcSuccessPage() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#f8f6f0] via-[#edf4ea] to-[#f1ede1]"
         style={{ fontFamily: "'DM Sans', sans-serif" }}>
-        <NabhiHeader />
+        {/* <NabhiHeader /> */}
         <div className="max-w-[560px] mx-auto px-4 pt-12 pb-20 flex flex-col items-center gap-6">
           <Skel className="w-20 h-20 rounded-full" />
           <Skel className="w-48 h-5" />
@@ -351,7 +359,7 @@ export default function ExcSuccessPage() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#f8f6f0] via-[#edf4ea] to-[#f1ede1]"
         style={{ fontFamily: "'DM Sans', sans-serif" }}>
-        <NabhiHeader />
+        {/* <NabhiHeader /> */}
         <div className="max-w-[560px] mx-auto px-4 flex flex-col items-center pt-24 gap-4 text-center">
           <span className="text-5xl">⚠️</span>
           <p className="text-red-600 font-semibold text-sm">{fetchError}</p>
@@ -393,9 +401,9 @@ export default function ExcSuccessPage() {
         .shimmer-btn  { background-size:200% auto; animation: shimmer 2.4s linear infinite; }
       `}</style>
 
-      <NabhiHeader />
+      {/* <NabhiHeader /> */}
 
-      <div className="max-w-[560px] mx-auto px-4 sm:px-6 pb-20">
+      <div className="max-w-[560px] mx-auto px-4 sm:px-6 pb-20 pt-20">
 
         {/* ── Hero ── */}
         <div className="anim-hero text-center pt-10 pb-6">
@@ -549,7 +557,7 @@ export default function ExcSuccessPage() {
         {/* ── View My Orders ── */}
         <div className="anim-btn-1">
           <button
-            onClick={() => navigate("/my-orders")}
+            onClick={() => navigate("/my-orders-en")}
             className="w-full border-[1.5px] border-[#2d5a27] rounded-[16px] px-5 py-3.5 bg-white flex items-center justify-center gap-2.5 text-[15px] font-bold text-[#2d5a27] hover:bg-green-50 active:scale-[.98] transition-all mb-3"
           >
             <FaBoxOpen size={14} color="#2d5a27" />
@@ -560,7 +568,7 @@ export default function ExcSuccessPage() {
         {/* ── Continue Shopping ── */}
         <div className="anim-btn-2">
           <button
-            onClick={() => navigate("/exclusive-products")}
+            onClick={() => navigate("/products")}
             className="shimmer-btn w-full rounded-[16px] px-5 py-4 bg-gradient-to-r from-[#2d5a27] via-[#4a8c40] to-[#1a3d16] text-white text-base font-extrabold flex items-center justify-center gap-2.5 shadow-[0_8px_28px_rgba(45,90,39,0.32)] active:scale-[.98] transition-transform"
           >
             <FaLeaf size={13} color="#fff" />

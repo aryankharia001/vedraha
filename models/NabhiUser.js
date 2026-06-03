@@ -19,9 +19,19 @@ const NabhiUserSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, "Password is required"],
+      required: false,
       minlength: [6, "Password must be at least 6 characters"],
       select: false, // don't return password by default
+    },
+    googleId: {
+      type: String,
+      default: null,
+      index: true,
+      sparse: true,
+    },
+    avatar: {
+      type: String,
+      default: "",
     },
     notifyOffers: {
       type: Boolean,
