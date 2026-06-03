@@ -8,18 +8,6 @@ import banner5 from "../../../../public/hero-img/banner-5.png";
 
 // ─────────────────────────────────────────────────────────────
 //  SLIDE CONFIGURATION
-//  All visual colours for each slide are defined here.
-//
-//  colors.text        – badge, subtext, feature pills, headline (non-accent lines)
-//  colors.headlineAccent – the accent headline line colour
-//  colors.divider     – the small rule below the headline
-//  colors.badgeBg     – pill background (rgba / hex / css var)
-//  colors.badgeBorder – pill border
-//  colors.pillBg      – feature pill background
-//  colors.pillBorder  – feature pill border
-//  colors.ctaBg       – CTA button background
-//  colors.ctaText     – CTA button text
-//  colors.overlay     – left-side gradient scrim (set to "none" if not needed)
 // ─────────────────────────────────────────────────────────────
 const slides = [
   {
@@ -31,15 +19,15 @@ const slides = [
       "Powerful herbal blend that penetrates deep to soothe sore joints, relieve muscle tension, and restore natural mobility.",
     features: ["Eases Joint Pain", "Reduces Inflammation", "Restores Mobility"],
     cta: { label: "Explore Now", href: "/products/pain-nabhi-oil" },
-    colors: { // Remaining position 1 color values
+    colors: {
       text:            "var(--color-black)",
-      headlineAccent:  "var(--new-accent-color)",
-      divider:         "var(--new-accent-color)",
+      headlineAccent:  "var(--color)",
+      divider:         "var(--color)",
       badgeBg:         "rgba(255,255,255,0.15)",
       badgeBorder:     "rgba(255,255,255,0.30)",
       pillBg:          "rgba(255,255,255,0.10)",
       pillBorder:      "rgba(255,255,255,0.35)",
-      ctaBg:           "var(--new-accent-color)",
+      ctaBg:           "var(--color)",
       ctaText:         "#ffffff",
       overlay:         "linear-gradient(to right,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.25) 45%,transparent 70%)",
     },
@@ -53,10 +41,10 @@ const slides = [
       "Ancient Ayurvedic Nabhi Oil — applied at the navel to calm the mind, ease anxiety & promote deep, restorative sleep.",
     features: ["Promotes Deep Sleep", "Relieves Stress & Anxiety", "Calms Mind & Body"],
     cta: { label: "Shop Now", href: "/products/sleep-nabhi-oil" },
-    colors: { // Remaining position 2 color values
+    colors: {
       text:            "var(--color-white)",
-      headlineAccent:  "var(--new-accent-color)",
-      divider:         "var(--new-accent-color)",
+      headlineAccent:  "var(--new-bg-color)",
+      divider:         "var(--new-bg-color)",
       badgeBg:         "rgba(53,16,95,0.10)",
       badgeBorder:     "rgba(53,16,95,0.25)",
       pillBg:          "rgba(53,16,95,0.08)",
@@ -75,7 +63,7 @@ const slides = [
       "Revive your digestive fire with our traditional Nabhi therapy oil — targeting the root of gut health through the navel chakra.",
     features: ["Improves Digestion", "Reduces Bloating", "Balances Gut Flora"],
     cta: { label: "Discover Now", href: "/products/gut-nabhi-oil" },
-    colors: { // Remaining position 3 color values
+    colors: {
       text:            "var(--color-black)",
       headlineAccent:  "var(--new-accent-color)",
       divider:         "var(--new-accent-color)",
@@ -97,15 +85,15 @@ const slides = [
       "Time-tested Ayurvedic formulation applied through the navel to soothe dry eyes, reduce strain, and nourish optical nerves naturally.",
     features: ["Soothes Eye Strain", "Reduces Dryness", "Nourishes From Within"],
     cta: { label: "Nourish Eyes", href: "/products/eyecare-nabhi-oil" },
-    colors: { // Remaining position 4 color values
+    colors: {
       text:            "var(--new-heading-text)",
-      headlineAccent:  "var(--new-purple-color)",
-      divider:         "var(--new-purple-color)",
+      headlineAccent:  "#2b66a0",
+      divider:         "#2b66a0",
       badgeBg:         "rgba(93,39,170,0.10)",
       badgeBorder:     "rgba(93,39,170,0.25)",
       pillBg:          "rgba(93,39,170,0.08)",
       pillBorder:      "rgba(93,39,170,0.20)",
-      ctaBg:           "var(--new-purple-color)",
+      ctaBg:           "#2b66a0",
       ctaText:         "#ffffff",
       overlay:         "linear-gradient(to right,rgba(255,255,255,0.5) 0%,rgba(255,255,255,0.15) 45%,transparent 70%)",
     },
@@ -119,15 +107,15 @@ const slides = [
       "A powerful Ayurvedic immunity booster — applied at the navel to fortify your body's natural defence and energy systems.",
     features: ["Boosts Immunity", "Increases Energy", "Holistic Wellness"],
     cta: { label: "Build Immunity", href: "/products/immunity-nabhi-oil" },
-    colors: { // Remaining position 5 color values
+    colors: {
       text:            "var(--color-black)",
-      headlineAccent:  "var(--new-accent-color)",
-      divider:         "var(--new-accent-color)",
+      headlineAccent:  "#2b66a0",
+      divider:         "#2b66a0",
       badgeBg:         "rgba(255,255,255,0.15)",
       badgeBorder:     "rgba(255,255,255,0.30)",
       pillBg:          "rgba(255,255,255,0.10)",
       pillBorder:      "rgba(255,255,255,0.35)",
-      ctaBg:           "var(--new-accent-color)",
+      ctaBg:           "#2b66a0",
       ctaText:         "#ffffff",
       overlay:         "linear-gradient(to right,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.25) 45%,transparent 70%)",
     },
@@ -180,10 +168,9 @@ const HeroSection = () => {
   const slide      = slides[activeSlide];
 
   return (
-    <div className="relative bg-[var(--new-bg-color)]">
+    <div className="relative">
     <section className="relative w-full overflow-hidden h-[clamp(520px,70vw,800px)]">
 
-      {/* Entrance keyframes — only what Tailwind can't express */}
       <style>{`
         @keyframes heroFadeUp {
           from { opacity:0; transform:translateY(20px); }
@@ -196,9 +183,10 @@ const HeroSection = () => {
         .anim-badge { animation: heroBadgePop 0.5s cubic-bezier(0.34,1.56,0.64,1) both; }
         .anim-1 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.08s; }
         .anim-2 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.18s; }
-        .anim-3 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.28s; }
-        .anim-4 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.38s; }
-        .anim-5 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.48s; }
+        .anim-3 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.18s; } /* Slipped down with text */
+        .anim-4 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.28s; }
+        .anim-5 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.38s; }
+        .anim-6 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.48s; }
       `}</style>
 
       {/* ── Image strip ── */}
@@ -218,11 +206,8 @@ const HeroSection = () => {
         ))}
       </div>
 
-      {/* ── Gradient scrim (per-slide) ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        // style={{ background: colors.overlay }}
-      />
+      {/* ── Gradient scrim ── */}
+      <div className="absolute inset-0 pointer-events-none" />
 
       {/* ── Text content ── */}
       <div
@@ -231,7 +216,7 @@ const HeroSection = () => {
         style={{ color: colors.text }}
       >
         <div className="w-full max-w-[1240px] mx-auto px-6 md:px-10 lg:px-12">
-          <div className="max-w-[500px] flex flex-col">
+          <div className="max-w-[540px] flex flex-col">
 
             {/* Badge */}
             <div className="anim-badge pointer-events-auto inline-flex mb-4 sm:mb-5">
@@ -248,36 +233,44 @@ const HeroSection = () => {
               </span>
             </div>
 
-            {/* Headline */}
+            {/* Headline Group with Multi-Font Separation */}
             <h1
-              className="anim-1 leading-[1.08] tracking-tight font-bold mb-2"
-              style={{
-                fontFamily: "var(--font-new-2)",
-                fontSize:   "clamp(2.2rem, 4.5vw, 3.8rem)",
-              }}
+              className="leading-[1.1] tracking-tight mb-3"
+              style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.8rem)" }}
             >
-              {slide.headline.map((line, li) => (
-                <span
-                  key={li}
-                  className="block"
-                  style={{
-                    color: li === slide.headlineAccentLine ? colors.headlineAccent : colors.text,
-                  }}
-                >
-                  {line}
-                </span>
-              ))}
+              {/* Part 1: Primary Heading Font */}
+              <span 
+                className="block font-bold anim-1"
+                style={{ 
+                  fontFamily: "var(--font-new-1)",
+                  color: slide.headlineAccentLine === 0 ? colors.headlineAccent : colors.text
+                }}
+              >
+                {slide.headline[0]}
+              </span>
+              
+              {/* Part 2: Accent Elegant/Italic Font Style */}
+              <em 
+                className="block font-medium italic not-implemented anim-2"
+                style={{ 
+                  fontFamily: "var(--font-new-2)",
+                  color: slide.headlineAccentLine === 1 ? colors.headlineAccent : colors.text,
+                  fontSize: "1.05em" // Slightly boosted to balance out display weight differences typical of italic scripts
+                }}
+              >
+                {slide.headline[1]}
+              </em>
             </h1>
 
             {/* Divider */}
             <div
-              className="anim-2 mb-4 h-0.5 w-12 rounded-full"
+              className="anim-3 mb-4 h-0.5 w-12 rounded-full"
               style={{ background: colors.divider }}
             />
 
             {/* Subtext */}
             <p
-              className="anim-3 leading-relaxed opacity-90 mb-5 max-w-[400px] text-sm sm:text-[0.9rem]"
+              className="anim-4 leading-relaxed opacity-90 mb-5 max-w-[400px] text-sm sm:text-[0.9rem]"
               style={{
                 color:      colors.text,
                 fontFamily: "var(--font-new-1)",
@@ -288,7 +281,7 @@ const HeroSection = () => {
 
             {/* Feature pills */}
             <div
-              className="anim-4 hidden sm:flex flex-wrap gap-2 mb-6 pointer-events-auto"
+              className="anim-5 hidden sm:flex flex-wrap gap-2 mb-6 pointer-events-auto"
               style={{ color: colors.text }}
             >
               {slide.features.map((feat, fi) => (
@@ -308,7 +301,7 @@ const HeroSection = () => {
             </div>
 
             {/* CTA */}
-            <div className="anim-5 pointer-events-auto">
+            <div className="anim-6 pointer-events-auto">
               <a
                 href={slide.cta.href}
                 className="inline-block text-[0.78rem] font-bold uppercase tracking-widest px-7 py-3 rounded-sm transition-all duration-200 hover:brightness-110 hover:-translate-y-0.5"
@@ -328,7 +321,6 @@ const HeroSection = () => {
 
       {/* ── Dots + Arrows ── */}
       <div className="absolute bottom-20 inset-x-0 max-w-[1240px] mx-auto px-6 md:px-10 flex items-center gap-3 pointer-events-auto">
-
         <button
           type="button"
           onClick={prev}
@@ -365,7 +357,6 @@ const HeroSection = () => {
       </div>
     </section>
 
-      {/* UspBar sits directly below the slider, inside the same bg wrapper */}
       <UspBar />
     </div>
   );

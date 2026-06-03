@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import product1 from "../../../../public/product-1.png";
-import product2 from "../../../../public/product-2.png";
-import product3 from "../../../../public/product-3.png";
-import product4 from "../../../../public/product-4.png";
+import product4 from "../../../../public/product-1.png";
+import product1 from "../../../../public/product-2.png";
+import product2 from "../../../../public/product-3.png";
+import product3 from "../../../../public/product-4.png";
 import product5 from "../../../../public/product-5.png";
 // import product6 from "../../../../public/product-6.png";
 
@@ -49,32 +49,32 @@ export const products = [
     route: "/products/nabhi-joint-en",
   },
   {
-    id: "stress-relief-nabhi-oil",
-    name: "Stress Relief",
-    description: "Reduces stress, anxiety & tension",
-    price: 699,
-    originalPrice: 999,
-    image: product4,
-    route: "/products/nabhi-menstrual-en",
-  },
+  id: "eyecare-nabhi-oil",
+  name: "Vision & Eyecare",
+  description: "Soothes eye strain, dryness & nourishes naturally",
+  price: 699,
+  originalPrice: 999,
+  image: product4, // Or your respective product variable (e.g., product_eyecare)
+  route: "/products/eyecare-nabhi-oil",
+},
   {
-    id: "immunity-boost-nabhi-oil",
-    name: "Immunity Boost",
-    description: "Strengthens immunity naturally",
-    price: 699,
-    originalPrice: 999,
-    image: product5,
-    route: "/products/nabhi-hair-en",
-  },
+  id: "haircare-nabhi-oil",
+  name: "Hair Care",
+  description: "Promotes hair growth, reduces fall & nourishes roots",
+  price: 699,
+  originalPrice: 999,
+  image: product5,
+  route: "/products/nabhi-hair-en",
+},
   {
-    id: "womens-care-nabhi-oil",
-    name: "Women's Care",
-    description: "Supports hormonal balance",
-    price: 699,
-    originalPrice: 999,
-    image: product5,
-    route: "/products/nabhi-eye-en",
-  },
+  id: "shilajit-nabhi-oil",
+  name: "Nabhi Shilajit",
+  description: "Boosts strength, stamina & vital energy naturally",
+  price: 699,
+  originalPrice: 999,
+  image: product5, // Or your respective shilajit asset variable if available
+  route: "/products/nabhi-shilajit",
+},
 ];
 
 // ═══════════════════════════════════════════════════════════════
