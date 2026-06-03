@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { backendurl } from "../App";
 import axios from "axios";
+import { trackPageView } from "../utils/metaCapi";
 
 const CART_KEY = "exclusiveCart";
 const loadCart = () => { try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { return []; } };
@@ -256,6 +257,10 @@ export default function ExclusiveProductCatalog() {
   const cartCount = cartItems.reduce((s, i) => s + i.quantity, 0);
 
   useEffect(() => { saveCart(cartItems); }, [cartItems]);
+
+  useEffect(() => {
+     trackPageView();
+   }, []);
 
   useEffect(() => {
     const handler = () => { if (window.innerWidth >= 768 && filterVisible) closeFilter(); };
