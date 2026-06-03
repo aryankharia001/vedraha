@@ -10,7 +10,7 @@ import banner2 from "../../../public/hero-img/banner-2.png";
 import banner3 from "../../../public/hero-img/banner-3.png";
 import banner4 from "../../../public/hero-img/banner-4.png";
 import banner5 from "../../../public/hero-img/banner-5.png";
-import UspBar from "./components/Uspbar.jsx";
+import UspBar from "./components/UspBar.jsx";
 import ConcernSection from "../../components/ConcernSection";
 import SingleBestSeller from "./components/SingleBestSeller";
 import HowItWorks from "./components/HowItWorks";
