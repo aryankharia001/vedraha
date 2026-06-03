@@ -949,7 +949,7 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
             {product.paymentImage && (
               <img
                 src={product.paymentImage}
-                alt="Payment Methods"
+                alt="payment Methods"
                 className="w-full max-w-[500px] h-auto object-contain block mt-5"
                 loading="lazy"
               />

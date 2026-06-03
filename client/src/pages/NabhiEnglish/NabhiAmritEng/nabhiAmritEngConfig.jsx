@@ -13,7 +13,7 @@ const product = {
   subtitle:       "Ancient Ayurvedic Formula",
   h1:             "Nabhi Amrit - Navel Oil for Digestion and Detox",
   reviewSummary:  "4.62 · 189 Verified Reviews",
-  paymentImage:   "/NabhiImg/allpayment.png",
+  paymentImage:   "https://console.minio.traffakpay.com/api/v1/buckets/vedraha/objects/download?preview=true&prefix=allpayment.png&version_id=null",
   logoImage:      "/NabhiLogo/nabhiLogo.png",
   brandName:      "Home With Care · Ved Sanjeevani",
   contactEmail:   "akravipvtltd@gmail.com",

@@ -13,7 +13,7 @@ const product = {
   subtitle:       "పురాతన ఆయుర్వేద సూత్రం",
   h1:             "నాభి అమృత్ - జీర్ణక్రియ మరియు డిటాక్స్ కోసం నాభి నూనె",
   reviewSummary:  "4.62 · 189 ధృవీకరించిన సమీక్షలు",
-  paymentImage:   "/NabhiImg/allpayment.png",
+  paymentImage:   "https://console.minio.traffakpay.com/api/v1/buckets/vedraha/objects/download?preview=true&prefix=allpayment.png&version_id=null",
   logoImage:      "/NabhiLogo/nabhiLogo.png",
   brandName:      "హోమ్ విత్ కేర్ · వేద సంజీవని",
   contactEmail:   "akravipvtltd@gmail.com",
