@@ -1,6 +1,3 @@
-// UspBar.jsx — Placed right after the hero slider </section>
-// Overlaps the bottom of the banner smoothly across all viewport breakpoints.
-
 import React from "react";
 
 const USP_ITEMS = [
