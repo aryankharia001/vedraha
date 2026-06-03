@@ -1,7 +1,7 @@
 // ─── utils/metaCapi.js ────────────────────────────────────────────────────────
 
 const PIXEL_ID     = "2028603691416544";
-const ACCESS_TOKEN = "EAARpWmAjBnEBRbhJOO8gMO7OJGJKIvXHFMAmqZA0OWbz0K5mo2qhlBkAx5Y2ubnUyOAHPQhD2N7dETfj2bIYRsWoeEFqwRZB8FUeHx1pyXbqRXhK1jCAZCT53Ic1vaiFtbFZBKqwo4ODYPnU6Qds8H9A4we5pWDEoFUbEqeW7KINXZA1Kvcxe7TuwEzmciwZDZD";
+const ACCESS_TOKEN = "EAARpWmAjBnEBRot98bnh8AoIUXt4GC3UZBh0IrjZAnoYmECZA7nLU1DnZAzkGKjSpp1S5ZAG2jNYEOiCLVDZBfxiWOMuLxDKGM8jtDmb2x7zi9oi6M9f25g6YOhA9mXk9GRB3n6dTBRWDUzSYMKN7U3trfZC4qjMZC4dXOgSrUm9pi2tkEuUDZBHu8ASemV826AZDZD";
 const TEST_CODE    = "TEST79297";
 
 // ─── fbp ─────────────────────────────────────────────────────────────────────
