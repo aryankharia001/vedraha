@@ -18,6 +18,9 @@ import { useCart } from "../../../components/CartContext";
 const CodModal = lazy(() => import("./CodModal"));
 const ReviewsSection = lazy(() => import("./ReviewsSection"));
 const BelowFoldSections = lazy(() => import("./BelowFoldSections"));
+const ProductReviewSection = lazy(() =>
+  import("../../../components/ProductReviewSection")
+);
 
 import RelatedProductsComponent from "../../../components/Relatedproducts";
 import NabhiHeader from "../../../components/NabhiHeader";
@@ -1002,6 +1005,13 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
             reviews={reviews.items}
             photos={reviews.photos}
             photoReviewers={reviews.photoReviewers}
+            themeColor={themeColor}
+          />
+        )}
+        {/* DB-driven, fully functional reviews section */}
+        {product?.id && (
+          <ProductReviewSection
+            productId={product.id}
             themeColor={themeColor}
           />
         )}
