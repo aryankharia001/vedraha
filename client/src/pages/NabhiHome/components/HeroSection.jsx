@@ -20,13 +20,14 @@ const slides = [
     features: ["Eases Joint Pain", "Reduces Inflammation", "Restores Mobility"],
     cta: { label: "Explore Now", href: "/products/pain-nabhi-oil" },
     colors: {
-      text:            "var(--color-black)",
+      text:            "var(--color-white)",
       headlineAccent:  "var(--color)",
       divider:         "var(--color)",
-      badgeBg:         "rgba(255,255,255,0.15)",
-      badgeBorder:     "rgba(255,255,255,0.30)",
-      pillBg:          "rgba(255,255,255,0.10)",
-      pillBorder:      "rgba(255,255,255,0.35)",
+      /* Light semi-transparent accents over dark image backdrops */
+      badgeBg:         "rgba(168, 19, 19, 0.747)",
+      badgeBorder:     "var(--color)",
+      pillBg:          "rgba(168, 19, 19, 0.747)",
+      pillBorder:      "rgba(168, 19, 19, 0.404)",
       ctaBg:           "var(--color)",
       ctaText:         "#ffffff",
       overlay:         "linear-gradient(to right,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.25) 45%,transparent 70%)",
@@ -45,10 +46,11 @@ const slides = [
       text:            "var(--color-white)",
       headlineAccent:  "var(--new-bg-color)",
       divider:         "var(--new-bg-color)",
-      badgeBg:         "rgba(53,16,95,0.10)",
-      badgeBorder:     "rgba(53,16,95,0.25)",
-      pillBg:          "rgba(53,16,95,0.08)",
-      pillBorder:      "rgba(53,16,95,0.20)",
+      /* Light tint elements to stand out against purple deep settings */
+      badgeBg:         "rgba(242, 234, 250, 0.15)", // Tilted using --new-bg-color
+      badgeBorder:     "rgba(242, 234, 250, 0.30)",
+      pillBg:          "rgba(242, 234, 250, 0.10)",
+      pillBorder:      "rgba(242, 234, 250, 0.22)",
       ctaBg:           "var(--new-primary-color)",
       ctaText:         "#ffffff",
       overlay:         "linear-gradient(to right,rgba(255,255,255,0.45) 0%,rgba(255,255,255,0.15) 45%,transparent 70%)",
@@ -67,10 +69,11 @@ const slides = [
       text:            "var(--color-black)",
       headlineAccent:  "var(--new-accent-color)",
       divider:         "var(--new-accent-color)",
-      badgeBg:         "rgba(255,255,255,0.15)",
-      badgeBorder:     "rgba(255,255,255,0.30)",
-      pillBg:          "rgba(255,255,255,0.10)",
-      pillBorder:      "rgba(255,255,255,0.35)",
+      /* Dark tint settings using black theme variables */
+      badgeBg:         "rgba(33, 18, 76, 0.06)", // Subtle tint of --new-heading-text
+      badgeBorder:     "rgba(33, 18, 76, 0.15)",
+      pillBg:          "rgba(33, 18, 76, 0.04)",
+      pillBorder:      "rgba(33, 18, 76, 0.12)",
       ctaBg:           "var(--new-accent-color)",
       ctaText:         "#ffffff",
       overlay:         "linear-gradient(to right,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.25) 45%,transparent 70%)",
@@ -89,10 +92,11 @@ const slides = [
       text:            "var(--new-heading-text)",
       headlineAccent:  "#2b66a0",
       divider:         "#2b66a0",
-      badgeBg:         "rgba(93,39,170,0.10)",
-      badgeBorder:     "rgba(93,39,170,0.25)",
-      pillBg:          "rgba(93,39,170,0.08)",
-      pillBorder:      "rgba(93,39,170,0.20)",
+      /* Custom deep ocean blue theme transparency properties */
+      badgeBg:         "rgba(43, 102, 160, 0.08)", // Tinted using #2b66a0
+      badgeBorder:     "rgba(43, 102, 160, 0.22)",
+      pillBg:          "rgba(43, 102, 160, 0.05)",
+      pillBorder:      "rgba(43, 102, 160, 0.15)",
       ctaBg:           "#2b66a0",
       ctaText:         "#ffffff",
       overlay:         "linear-gradient(to right,rgba(255,255,255,0.5) 0%,rgba(255,255,255,0.15) 45%,transparent 70%)",
@@ -111,10 +115,11 @@ const slides = [
       text:            "var(--color-black)",
       headlineAccent:  "#2b66a0",
       divider:         "#2b66a0",
-      badgeBg:         "rgba(255,255,255,0.15)",
-      badgeBorder:     "rgba(255,255,255,0.30)",
-      pillBg:          "rgba(255,255,255,0.10)",
-      pillBorder:      "rgba(255,255,255,0.35)",
+      /* Clean, scannable deep corporate blue accent contrasts */
+      badgeBg:         "rgba(43, 102, 160, 0.08)",
+      badgeBorder:     "rgba(43, 102, 160, 0.22)",
+      pillBg:          "rgba(43, 102, 160, 0.05)",
+      pillBorder:      "rgba(43, 102, 160, 0.15)",
       ctaBg:           "#2b66a0",
       ctaText:         "#ffffff",
       overlay:         "linear-gradient(to right,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.25) 45%,transparent 70%)",
@@ -168,7 +173,7 @@ const HeroSection = () => {
   const slide      = slides[activeSlide];
 
   return (
-    <div className="relative">
+    <div className="relative bg-[var(--new-bg-color)]">
     <section className="relative w-full overflow-hidden h-[clamp(520px,70vw,800px)]">
 
       <style>{`

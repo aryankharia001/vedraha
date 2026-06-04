@@ -13,8 +13,6 @@ import NewsLetter from "./components/NewsLetter";
 import HeroSection from "./components/HeroSection.jsx";
 import ConcernSection from "./components/ConcernSection.jsx";
 
-
-
 const marqueeItems = [
   {
     text: "100% Ayurvedic",
@@ -58,31 +56,28 @@ const marqueeItems = [
   }
 ];
 
-
-
-const LeafIcon = () => (
-  <svg
-    viewBox="0 0 24 24"
-    aria-hidden="true"
-    className="h-5 w-5 fill-[#bd9137]"
-  >
-    <path d="M20.7 3.9C13 4.2 7.9 7.1 5.5 12.8c.9-.5 1.9-.8 3.1-.9 2.7-.2 5.1.7 7.4 2.1-2.5.2-4.9.7-7.2 1.8-1.8.9-3.2 2.2-4.2 3.9 3.9-.7 7.3-2.1 10-4.1 3.6-2.7 5.7-6.6 6.1-11.7Z" />
-  </svg>
-);
-
 const Home = ({ lang = "en" }) => {
-  const [activeSlide, setActiveSlide] = useState(0);
-  const timeoutRef = useRef(null);
-
-  const resetTimeout = () => {
-    if (timeoutRef.current) window.clearInterval(timeoutRef.current);
-  };
-
-
-  const marqueeLoop = [...marqueeItems, ...marqueeItems, ...marqueeItems];
+  // Creating a robust loop to prevent visual clipping gaps during high-resolution infinite passes
+  const marqueeLoop = [...marqueeItems, ...marqueeItems, ...marqueeItems, ...marqueeItems];
 
   return (
     <>
+      {/* ── Marquee CSS Engine ── */}
+      <style>{`
+        @keyframes structuralMarquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-33.3333%); }
+        }
+        .beauty-marquee-track {
+          display: flex;
+          width: max-content;
+          animation: structuralMarquee 28s linear infinite;
+        }
+        /* Pauses animation when user hovers over it for clear scannability */
+        .beauty-marquee-track:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
 
       <HeroSection/>
 
@@ -92,15 +87,13 @@ const Home = ({ lang = "en" }) => {
 
       <BestSellers />
 
-
-      <div
-        // className={`nh-marquee-bar${scrolled ? " scrolled-marquee-hidden" : ""}`}
-      >
+      {/* ── Dynamic Infinite Marquee Bar ── */}
+      <div className="w-full overflow-hidden select-none">
         <div
           style={{ background: "var(--new-primary-color)" }}
-          className="relative overflow-hidden py-2.5 text-white"
+          className="relative w-full overflow-hidden py-3 text-white"
         >
-          <div className="beauty-marquee-track relative z-10 flex w-max items-center">
+          <div className="beauty-marquee-track relative z-10 flex items-center">
             {marqueeLoop.map((item, index) => (
               <div
                 key={`${item.text}-${index}`}
@@ -111,7 +104,6 @@ const Home = ({ lang = "en" }) => {
                   className="flex items-center gap-2 text-xs font-medium tracking-wide"
                   style={{ color: "rgba(255,255,255,0.95)" }}
                 >
-                  {/* Dynamic Gold/Amber accents on the icons to mimic image style */}
                   <span
                     style={{ color: "#d9a05b" }}
                     className="flex items-center shrink-0"
@@ -121,9 +113,9 @@ const Home = ({ lang = "en" }) => {
                   <span>{item.text}</span>
                 </div>
 
-                {/* Vertical Separator Pipeline Pipe instead of Bullet Dot */}
+                {/* Vertical Separator Pipeline */}
                 <span
-                  className="mx-6 text-[10px]"
+                  className="mx-6 text-[10px] font-light opacity-40"
                   style={{ color: "rgba(255,255,255,0.25)" }}
                 >
                   |
@@ -134,40 +126,9 @@ const Home = ({ lang = "en" }) => {
         </div>
       </div>
 
-
       <HowItWorks/>
 
       <Ingredients/>
-
-      {/* Marquee */}
-      {/* <div
-        style={{
-          background: "var(--color-black)",
-        }}
-        className="relative overflow-hidden py-2.5 text-white z-10"
-      >
-        <div className="beauty-marquee-track flex w-max items-center relative z-10">
-          {marqueeLoop.map((item, index) => (
-            <div
-              key={`${item}-${index}`}
-              className="flex min-w-max items-center"
-            >
-              <span
-                className="text-xs font-semibold tracking-[0.2em] uppercase italic"
-                style={{ color: "rgba(255,255,255,0.85)" }}
-              >
-                {item}
-              </span>
-              <span
-                className="mx-3 text-xs"
-                style={{ color: "rgba(255,255,255,0.5)" }}
-              >
-                •
-              </span>
-            </div>
-          ))}
-        </div>
-      </div> */}
 
       <TestimonialCarousel />
 

@@ -144,7 +144,7 @@ export default function SingleBestSeller({
         >
           {/* Eyebrow */}
           <p className="text-[11px] font-extrabold uppercase tracking-[0.28em] text-[var(--new-heading-text)]">
-            Best for Bloating & Gut Health
+            Best Seller Item
           </p>
 
           {/* Heading */}

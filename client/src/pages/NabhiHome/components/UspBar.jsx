@@ -33,7 +33,7 @@ const USP_ITEMS = [
   // --- Replaced bottom 3 items with highlightsData ---
   {
     label: "Free Shipping",
-    sub: "Free shipping for order above $50",
+    sub: "Free shipping for order",
     icon: (
       <svg
         width="32"
@@ -46,7 +46,7 @@ const USP_ITEMS = [
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth={2}
+        //   strokeWidth={2}
           d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
         />
       </svg>
@@ -54,7 +54,7 @@ const USP_ITEMS = [
   },
   {
     label: "Flexible Payment",
-    sub: "Multiple secure payment options",
+    sub: "Secure payment options",
     icon: (
       <svg
         width="32"
@@ -67,7 +67,7 @@ const USP_ITEMS = [
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth={2}
+        //   strokeWidth={2}
           d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
         />
       </svg>
@@ -75,7 +75,7 @@ const USP_ITEMS = [
   },
   {
     label: "24×7 Support",
-    sub: "We support online all days.",
+    sub: "Support online all days.",
     icon: (
       <svg
         width="32"
@@ -88,7 +88,7 @@ const USP_ITEMS = [
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth={2}
+        //   strokeWidth={2}
           d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"
         />
       </svg>

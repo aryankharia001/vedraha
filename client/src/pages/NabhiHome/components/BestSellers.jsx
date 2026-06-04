@@ -114,7 +114,7 @@ const FlowerCorner = ({ side = "left" }) => (
 const ProductCard = ({ product }) => (
   <Link
   to={product.route || "#"}
-  className="group flex flex-col justify-between overflow-hidden border border-[#eeeaf6] bg-white text-center no-underline shadow-[0_4px_12px_rgba(37,25,70,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(37,25,70,0.15)]"
+  className="group flex flex-col justify-between overflow-hidden border border-[#eeeaf6] bg-white text-center no-underline shadow-[0_4px_12px_rgba(37,25,70,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(37,25,70,0.15)] rounded-[7px]"
 >
   {/* Image container handles shifting ratios safely */}
   <div className="relative aspect-square w-full overflow-hidden bg-slate-50 min-[480px]:aspect-[4/3] sm:aspect-square">
@@ -149,7 +149,7 @@ const ProductCard = ({ product }) => (
       </div>
 
       <span
-        className="mt-3 inline-flex w-full items-center justify-center bg-[var(--new-primary-color)] py-2 text-[12px] font-extrabold capitalise tracking-wider text-white shadow-[0_3px_7px_rgba(53,16,95,0.2)] transition-opacity group-hover:opacity-90 xl:text-[11px] min-[1400px]:text-[12px]"
+        className="mt-3 inline-flex w-full items-center justify-center bg-[var(--new-primary-color)] py-2 text-[12px] font-extrabold capitalise tracking-wider text-white shadow-[0_3px_7px_rgba(53,16,95,0.2)] transition-opacity group-hover:opacity-90 xl:text-[11px] min-[1400px]:text-[12px] rounded"
         style={{ fontFamily: "var(--font-new-1)" }}
       >
         Shop Now

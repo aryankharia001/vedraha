@@ -16,6 +16,7 @@
   --new-bg-white-color:#fafafa;
 
   --color:rgb(168, 19, 19);
+  --color-2:rgba(168, 19, 19, 0.637);
 
   /* text heading */
   --new-heading-text:#21124c;
@@ -96,7 +97,7 @@
 
   /* ── Typography System ── */
   --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   
 
   /* ── Enhanced Shadows (Depth System) ── */

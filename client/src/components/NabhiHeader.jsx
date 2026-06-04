@@ -25,6 +25,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { backendurl } from "../App";
 import { useCart } from "../components/CartContext";
+import loginImg from "../../public/best-seller/best-seller.png"
 
 // ── Product sub-pages shown in the Catalog dropdown ──────────────────────────
 const CATALOG_LINKS = [
@@ -34,109 +35,6 @@ const CATALOG_LINKS = [
   { label: "Herbal Blends", path: "/products/herbal-blends" },
   { label: "Gift Sets", path: "/products/gift-sets" },
 ];
-
-const navLinks = [
-  { label: "Home", path: "/" },
-  { label: "Shop", path: "/products" },
-  { label: "About Us", path: "/products/nabhi-about-en" },
-  { label: "Our Ingredients", path: "/products/nabhi-ingredients-en" },
-  { label: "Blogs", path: "/blogs" },
-  { label: "Contact", path: "/products/nabhi-contact-en" },
-];
-
-const marqueeItems = [
-  {
-    text: "100% Ayurvedic",
-    icon: (
-      <svg
-        className="w-3.5 h-3.5"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M12 3v18M3 12h18M12 3a9 9 0 110 18 9 9 0 010-18z"
-        />
-      </svg>
-    ),
-  },
-  {
-    text: "Made with Authentic Herbs",
-    icon: (
-      <svg
-        className="w-3.5 h-3.5"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M20.7 3.9C13 4.2 7.9 7.1 5.5 12.8c.9-.5 1.9-.8 3.1-.9 2.7-.2 5.1.7 7.4 2.1-2.5.2-4.9.7-7.2 1.8-1.8.9-3.2 2.2-4.2 3.9 3.9-.7 7.3-2.1 10-4.1 3.6-2.7 5.7-6.6 6.1-11.7Z"
-        />
-      </svg>
-    ),
-  },
-  {
-    text: "No Mineral Oil / No Chemicals",
-    icon: (
-      <svg
-        className="w-3.5 h-3.5"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
-        />
-      </svg>
-    ),
-  },
-  {
-    text: "Cruelty Free",
-    icon: (
-      <svg
-        className="w-3.5 h-3.5"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-        />
-      </svg>
-    ),
-  },
-  {
-    text: "Free Shipping on Orders ₹999+",
-    icon: (
-      <svg
-        className="w-3.5 h-3.5"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"
-        />
-      </svg>
-    ),
-  },
-];
-const marqueeLoop = [...marqueeItems, ...marqueeItems, ...marqueeItems];
 
 export default function NabhiHeader({ onCartOpen }) {
   const { cartTotalQty: cartCount } = useCart();
@@ -179,7 +77,9 @@ export default function NabhiHeader({ onCartOpen }) {
   // ── Lock scroll when modal / drawer open ──────────────────────────────────
   useEffect(() => {
     document.body.style.overflow = modalOpen || menuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [modalOpen, menuOpen]);
 
   // ── Reset auth form on open ───────────────────────────────────────────────
@@ -211,7 +111,6 @@ export default function NabhiHeader({ onCartOpen }) {
   }, []);
 
   // ── Google credential callback ────────────────────────────────────────────
-
   const handleGoogleCredentialResponse = useCallback(async (response) => {
     if (!response?.credential) {
       setError("Google sign-in was cancelled.");
@@ -243,7 +142,6 @@ export default function NabhiHeader({ onCartOpen }) {
   }, []);
 
   // ── Load Google GSI script once ───────────────────────────────────────────
-
   useEffect(() => {
     if (!googleClientId) return;
     let cancelled = false;
@@ -290,7 +188,8 @@ export default function NabhiHeader({ onCartOpen }) {
   // ── Render Google hosted button whenever modal opens ─────────────────────
   // renderButton() is immune to browser popup suppression.
   useEffect(() => {
-    if (!modalOpen || !googleReady || !googleClientId || !googleBtnRef.current) return;
+    if (!modalOpen || !googleReady || !googleClientId || !googleBtnRef.current)
+      return;
     googleBtnRef.current.innerHTML = "";
     window.google.accounts.id.renderButton(googleBtnRef.current, {
       type: "standard",
@@ -376,23 +275,6 @@ export default function NabhiHeader({ onCartOpen }) {
     navigate("/");
   };
 
-  // Render Google's hosted button into the ref div whenever the modal is open
-  // and GSI is ready. renderButton() is immune to browser popup suppression.
-  useEffect(() => {
-    if (!modalOpen || !googleReady || !googleClientId || !googleBtnRef.current)
-      return;
-    googleBtnRef.current.innerHTML = "";
-    window.google.accounts.id.renderButton(googleBtnRef.current, {
-      type: "standard",
-      theme: "outline",
-      size: "large",
-      text: mode === "signup" ? "signup_with" : "signin_with",
-      shape: "rectangular",
-      logo_alignment: "left",
-      width: googleBtnRef.current.offsetWidth || 340,
-    });
-  }, [modalOpen, googleReady, googleClientId, mode]);
-
   const handleMyOrders = () => {
     setUserDropOpen(false);
     navigate("/my-orders-en");
@@ -411,14 +293,14 @@ export default function NabhiHeader({ onCartOpen }) {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+        // @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
         * { box-sizing: border-box; }
 
         /* ── Pill wrapper ───────────────────────────────────────────────── */
         .nh-wrap {
           position: fixed; inset: 0; z-index: 500;
           background: transparent; padding: 12px 20px;
-          font-family: var(--font-body, 'DM Sans', sans-serif); 
+          font-family: var(--font-new-1); 
           pointer-events: none;
         }
         .nh-inner {
@@ -432,7 +314,7 @@ export default function NabhiHeader({ onCartOpen }) {
           -webkit-backdrop-filter: blur(18px) saturate(160%);
           border-radius: var(--radius-pill, 9999px);
           border: 1px solid rgba(255, 255, 255, 0.15);
-          box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25), 0 1px 4px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          // box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25), 0 1px 4px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
         /* ── Logo ───────────────────────────────────────────────────────── */
@@ -446,16 +328,17 @@ export default function NabhiHeader({ onCartOpen }) {
           filter: brightness(0) invert(1);
         }
         .nh-logo-name {
-          font-family: var(--font-display, 'Cormorant Garamond', serif);
-          font-size: 22px; font-weight: 700;
-          color: var(--color-white, #ffffff);
-          letter-spacing: 0.02em; line-height: 1;
-        }
+  font-family: var(--font-new-1);
+  font-size: 20px;
+  font-weight: 400; /* changed from 500 */
+  color: var(--color-white, #ffffff);
+  letter-spacing: 0.02em; line-height: 1;
+}
 
         /* ── Desktop nav ─────────────────────────────────────────────────── */
         .nh-nav { display: flex; align-items: center; gap: 4px; }
         .nh-nav-link {
-          font-size: 13px; font-weight: 600; letter-spacing: 0.07em;
+          font-size: 13px; font-weight: 100 !important; letter-spacing: 0.07em;
           text-transform: capitalize; color: var(--color-white, #ffffff);
           text-decoration: none; padding: 7px 12px; 
           border-radius: var(--radius-pill, 9999px);
@@ -536,40 +419,50 @@ export default function NabhiHeader({ onCartOpen }) {
         /* ── Overlays ─────────────────────────────────────────────────────── */
         .nh-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 1000; backdrop-filter: blur(2px); }
         .nh-mob-drawer {
-          position: fixed; top: 0; left: 0; right: 0;
-          background: rgba(255,255,255,.97); z-index: 1100;
-          padding: 20px 22px 28px; border-radius: 0 0 24px 24px;
-          box-shadow: 0 8px 32px rgba(24,75,36,.12); backdrop-filter: blur(16px);
-        }
+  position: fixed; top: 0; right: 0; bottom: 0; width: 80%; max-width: 320px;
+  background: #ffffff; z-index: 1100;
+  padding: 24px 22px 32px; border-radius: 20px 0 0 20px;
+  box-shadow: -8px 0 40px rgba(0,0,0,.18);
+  animation: nhDrawerIn .3s cubic-bezier(0.34,1.15,0.64,1) forwards;
+}
+@keyframes nhDrawerIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
         .nh-mob-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
         .nh-mob-link {
-          display: flex; align-items: center; justify-content: space-between;
-          padding: 14px 0; font-size: 13px; font-weight: 600;
-          letter-spacing: .08em; text-transform: uppercase; color: #1a3d1e;
-          border-bottom: 1px solid rgba(24,75,36,.08); cursor: pointer;
-          transition: color .15s;
-        }
-        .nh-mob-link:hover { color: #184b24; }
-        .nh-mob-catalog-sub { padding: 6px 0 6px 12px; border-bottom: 1px solid rgba(24,75,36,.05); }
-        .nh-mob-catalog-sub a { display: block; padding: 8px 4px; font-size: 13px; font-weight: 500; color: #3a5a2e; text-decoration: none; transition: color .15s; }
-        .nh-mob-catalog-sub a:hover { color: #184b24; }
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 0; font-size: 13px; font-weight: 500;
+  letter-spacing: .08em; text-transform: uppercase; color: #111;
+  border-bottom: 1px solid rgba(0,0,0,.07); cursor: pointer;
+  transition: color .15s;
+}
+.nh-mob-link:hover { color: #000; }
+.nh-mob-catalog-sub { padding: 6px 0 6px 12px; border-bottom: 1px solid rgba(0,0,0,.05); }
+.nh-mob-catalog-sub a { display: block; padding: 8px 4px; font-size: 13px; font-weight: 500; color: #333; text-decoration: none; transition: color .15s; }
+.nh-mob-catalog-sub a:hover { color: #000; }
 
         /* ── Auth modal ──────────────────────────────────────────────────── */
         .nh-modal-overlay {
-          position: fixed; inset: 0; z-index: 9999;
-          background: rgba(0,0,0,.82); display: flex;
-          align-items: center; justify-content: center; padding: 20px;
-          animation: nhFadeIn .2s ease forwards;
-        }
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,10,.85); display: flex;
+  align-items: center; justify-content: center; padding: 20px;
+  animation: nhFadeIn .22s ease forwards;
+  backdrop-filter: blur(6px);
+}
         @keyframes nhFadeIn { from { opacity: 0; } to { opacity: 1; } }
         .nh-modal {
-          position: relative; display: flex; align-items: stretch;
-          width: 100%; max-width: 800px; max-height: calc(100vh - 40px);
-          border-radius: 20px; overflow: hidden;
-          box-shadow: 0 40px 100px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.06);
-          animation: nhSlideUp .3s cubic-bezier(0.34,1.15,0.64,1) forwards;
-        }
-        @keyframes nhSlideUp { from { opacity: 0; transform: translateY(20px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  position: relative; display: flex; align-items: stretch;
+  width: 100%; max-width: 780px; max-height: calc(100vh - 40px);
+  border-radius: 24px; overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.08);
+  animation: nhSlideUp .35s cubic-bezier(0.34,1.15,0.64,1) forwards;
+  background: #fff;
+}
+@keyframes nhSlideUp {
+  from { opacity: 0; transform: translateY(28px) scale(.95); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+}
 
         .nh-modal-left {
           flex: 1; position: relative; overflow: hidden; min-height: 480px;
@@ -577,17 +470,18 @@ export default function NabhiHeader({ onCartOpen }) {
         }
         .nh-modal-left-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
         .nh-modal-left::before {
-          content: ''; position: absolute; inset: 0; z-index: 1;
-          background: linear-gradient(175deg, rgba(56,124,62,.52) 0%, rgba(30,80,36,.28) 45%, rgba(10,40,14,.70) 100%);
-        }
+  content: ''; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.00) 100%);
+}
         @media (max-width: 640px) { .nh-modal-left { display: none; } }
 
         .nh-modal-left-top { position: relative; z-index: 2; padding: 36px 36px 0; }
         .nh-modal-left-brand { display: flex; align-items: center; gap: 9px; margin-bottom: 20px; }
         .nh-modal-left-brand-logo { width: 32px; height: auto; display: block; }
         .nh-modal-left-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 700; color: rgba(255,255,255,.95); letter-spacing: .02em; }
-        .nh-modal-left-tagline { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700; color: #fff; line-height: 1.2; letter-spacing: -.01em; text-shadow: 0 2px 12px rgba(0,0,0,.3); }
-        .nh-modal-left-tagline em { font-style: italic; color: #b6f0b0; }
+        .nh-modal-left-tagline { font-family: var(--font-new-1); font-size: 26px; font-weight: 700; color: #fff; line-height: 1.25; letter-spacing: -.02em; text-shadow: 0 2px 16px rgba(0,0,0,.5); margin-bottom: 12px; }
+.nh-modal-left-tagline em { font-style: normal; color: #fff; }
+.nh-modal-left-desc { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6; }
         .nh-modal-left-content { position: relative; z-index: 2; margin-top: auto; padding: 0 36px 36px; }
         .nh-modal-left-title { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.7); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 5px; }
         .nh-modal-left-sub { font-size: 12.5px; color: rgba(255,255,255,.55); line-height: 1.6; max-width: 270px; }
@@ -609,20 +503,19 @@ export default function NabhiHeader({ onCartOpen }) {
         }
         .nh-modal-close:hover { background: #f0f0f0; border-color: #ccc; }
 
-        .nh-modal-right-logo { display: flex; align-items: center; gap: 8px; margin-bottom: 24px; }
-        .nh-modal-right-logo img { width: 36px; height: auto; }
-        .nh-modal-right-logo-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: #1a3d1e; letter-spacing: .02em; line-height: 1; }
-        .nh-modal-right-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 700; color: #0f1f11; margin-bottom: 6px; line-height: 1.2; }
-        .nh-modal-right-sub { font-size: 13px; color: #888; margin-bottom: 26px; line-height: 1.5; }
+        .nh-modal-right-logo { display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+.nh-modal-right-logo img { width: 56px; height: auto; }
+        .nh-modal-right-title { font-family: var(--font-new-1); font-size: 22px; font-weight: 700; color: #111; margin-bottom: 6px; line-height: 1.2; text-align: center; }
+.nh-modal-right-sub { font-size: 13px; color: #aaa; margin-bottom: 22px; line-height: 1.5; text-align: center; }
 
         .nh-tabs { display: flex; gap: 0; margin-bottom: 22px; border-bottom: 1.5px solid #efefef; }
         .nh-tab { flex: 1; padding: 9px 0; background: none; border: none; font-size: 12px; font-weight: 700; letter-spacing: .1em; color: #bbb; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1.5px; transition: color .18s, border-color .18s; font-family: 'DM Sans', sans-serif; }
-        .nh-tab.active { color: #184b24; border-bottom-color: #184b24; }
+        .nh-tab.active { color: var(--new-purple-color); border-bottom-color: var(--new-purple-color); }
 
         .nh-field { margin-bottom: 16px; }
         .nh-label { display: block; font-size: 12px; font-weight: 600; color: #444; margin-bottom: 7px; }
         .nh-input { width: 100%; padding: 11px 14px; border: 1.5px solid #e8e8e8; border-radius: 10px; font-size: 14px; font-family: 'DM Sans', sans-serif; color: #1a1a1a; outline: none; background: #fff; transition: border-color .18s, box-shadow .18s; }
-        .nh-input:focus { border-color: #2d5a27; box-shadow: 0 0 0 3px rgba(45,90,39,.10); }
+        .nh-input:focus { border-color: var(--new-purple-color); box-shadow: 0 0 0 3px rgba(45,90,39,.10); }
         .nh-input.error { border-color: #e53e3e; }
         .nh-input-wrap { position: relative; }
         .nh-input-pass { padding-right: 42px; }
@@ -633,13 +526,13 @@ export default function NabhiHeader({ onCartOpen }) {
         .nh-error { background: #fff5f5; color: #c53030; border: 1px solid #fed7d7; border-radius: 8px; padding: 9px 13px; font-size: 13px; margin-bottom: 14px; }
 
         .nh-submit-btn {
-          width: 100%; padding: 13px; background: #184b24; color: #fff;
+          width: 100%; padding: 13px; background: var(--new-primary-color); color: #fff;
           border: none; border-radius: 10px; font-size: 14px; font-weight: 700;
           font-family: 'DM Sans', sans-serif; cursor: pointer;
           display: flex; align-items: center; justify-content: center; gap: 8px;
           margin-bottom: 14px; transition: background .18s, transform .15s; letter-spacing: .03em;
         }
-        .nh-submit-btn:hover { background: #1f6030; }
+        .nh-submit-btn:hover { background: var(--new-purple-color); }
         .nh-submit-btn:active { transform: scale(.99); }
         .nh-submit-btn:disabled { opacity: .6; cursor: not-allowed; }
 
@@ -658,19 +551,19 @@ export default function NabhiHeader({ onCartOpen }) {
         .nh-divider::before, .nh-divider::after { content: ''; flex: 1; height: 1px; background: #efefef; }
 
         .nh-switch-row { font-size: 12px; color: #999; text-align: center; }
-        .nh-switch-row button { background: none; border: none; color: #184b24; font-size: 12px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; padding: 0; }
+        .nh-switch-row button { background: none; border: none; color: var(--new-purple-color); font-size: 12px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; padding: 0; }
 
         .nh-spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: nhSpin .7s linear infinite; }
         @keyframes nhSpin { to { transform: rotate(360deg); } }
 
         .nh-terms { font-size: 11px; color: #bbb; text-align: center; line-height: 1.5; margin-top: 10px; }
-        .nh-terms a { color: #2d5a27; text-decoration: underline; }
+        .nh-terms a { color: var(--new-purple-color); text-decoration: underline; }
 
         .nh-success-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; text-align: center; padding: 32px 0; }
         .nh-success-icon { width: 60px; height: 60px; background: linear-gradient(135deg,#e8f5e2,#d0edcb); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
         .nh-success-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 700; color: #1a3d1e; margin-bottom: 8px; }
         .nh-success-sub { font-size: 13px; color: #6a8a62; line-height: 1.6; margin-bottom: 26px; }
-        .nh-success-close-btn { padding: 12px 32px; background: #184b24; color: #fff; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background .18s; }
+        .nh-success-close-btn { padding: 12px 32px; background: var(--new-purple-color); color: #fff; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background .18s; }
         .nh-success-close-btn:hover { background: #1f6030; }
 
         /* ── User dropdown ───────────────────────────────────────────────── */
@@ -688,55 +581,8 @@ export default function NabhiHeader({ onCartOpen }) {
 
       {/* ── PILL NAV ── */}
       <div className="nh-wrap" style={{ height: "fit-content" }}>
-      <div
-        className={`nh-marquee-bar${scrolled ? " scrolled-marquee-hidden" : ""}`}
-      >
-        <div
-          style={{ background: "var(--new-primary-color)" }}
-          className="relative overflow-hidden py-2.5 text-white"
-        >
-          <div className="beauty-marquee-track relative z-10 flex w-max items-center">
-            {marqueeLoop.map((item, index) => (
-              <div
-                key={`${item.text}-${index}`}
-                className="flex min-w-max items-center"
-              >
-                {/* Item Content Wrapper */}
-                <div
-                  className="flex items-center gap-2 text-xs font-medium tracking-wide"
-                  style={{ color: "rgba(255,255,255,0.95)" }}
-                >
-                  {/* Dynamic Gold/Amber accents on the icons to mimic image style */}
-                  <span
-                    style={{ color: "#d9a05b" }}
-                    className="flex items-center shrink-0"
-                  >
-                    {item.icon}
-                  </span>
-                  <span>{item.text}</span>
-                </div>
-
-                {/* Vertical Separator Pipeline Pipe instead of Bullet Dot */}
-                <span
-                  className="mx-6 text-[10px]"
-                  style={{ color: "rgba(255,255,255,0.25)" }}
-                >
-                  |
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div className={`nh-wrap${scrolled ? " scrolled" : ""}`}>
         <div className="nh-inner">
           {/* Logo */}
-          <a className="nh-logo" href="/" onClick={(e) => { e.preventDefault(); navigate("/"); }}>
-            <img
-              src="https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=nabhiLogo.webp&version_id=null"
-              alt="Nabhi Amrit"
-            />
           <a
             className="nh-logo"
             href="/"
@@ -745,66 +591,27 @@ export default function NabhiHeader({ onCartOpen }) {
               navigate("/");
             }}
           >
-            <img src={logo} alt="Nabhi Amrit" />
-            <span className="nh-logo-name">Vedraha</span>
+            <img
+              src="https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=nabhiLogo.webp&version_id=null"
+              alt="Nabhi Amrit"
+            />
+            <span className="nh-logo-name" style={{ fontWeight: "400" }}>
+              Ved
+              <span
+                style={{
+                  fontFamily: "'Times New Roman', serif",
+                  fontSize: "22px",
+                  fontWeight: "400",
+                }}
+              >
+                Raha
+              </span>
+            </span>
           </a>
 
           {/* Desktop nav links */}
           <nav className="nh-nav">
             {navLinks.map((l) => (
-              <a key={l.label} className="nh-nav-link" href={l.path} onClick={(e) => { e.preventDefault(); navigate(l.path); }}>
-                {l.label}
-              </a>
-            ))}
-            <a
-              className="nh-nav-link"
-              href="/"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate("/");
-              }}
-            >
-              Home
-            </a>
-
-            {/* Catalog with dropdown */}
-            <div className="nh-catalog-wrap" ref={catalogRef}>
-              <button
-                className={`nh-catalog-btn${catalogOpen ? " open" : ""}`}
-                onClick={() => setCatalogOpen((p) => !p)}
-                aria-haspopup="true"
-                aria-expanded={catalogOpen}
-              >
-                Catalog
-                <span className={`nh-catalog-chevron${catalogOpen ? " open" : ""}`}>
-                Shop
-                <span
-                  className={`nh-catalog-chevron${catalogOpen ? " open" : ""}`}
-                >
-                  <ChevronDown size={13} strokeWidth={2.5} />
-                </span>
-              </button>
-              <div className={`nh-catalog-drop${catalogOpen ? " open" : ""}`} role="menu">
-
-              <div
-                className={`nh-catalog-drop${catalogOpen ? " open" : ""}`}
-                role="menu"
-              >
-                {CATALOG_LINKS.map((item) => (
-                  <a
-                    key={item.label}
-                    className="nh-catalog-drop-item"
-                    href={item.path}
-                    role="menuitem"
-                    onClick={(e) => { e.preventDefault(); setCatalogOpen(false); navigate(item.path); }}
-                  >
-                    {item.label}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {navLinks.slice(2).map((l) => (
               <a
                 key={l.label}
                 className="nh-nav-link"
@@ -817,29 +624,62 @@ export default function NabhiHeader({ onCartOpen }) {
                 {l.label}
               </a>
             ))}
+
+            {/* Catalog with dropdown */}
+            <div className="nh-catalog-wrap" ref={catalogRef}>
+              <button
+                className={`nh-catalog-btn${catalogOpen ? " open" : ""}`}
+                onClick={() => setCatalogOpen((p) => !p)}
+                aria-haspopup="true"
+                aria-expanded={catalogOpen}
+              >
+                Catalog
+                <span
+                  className={`nh-catalog-chevron${catalogOpen ? " open" : ""}`}
+                >
+                  <ChevronDown size={13} strokeWidth={2.5} />
+                </span>
+              </button>
+              <div
+                className={`nh-catalog-drop${catalogOpen ? " open" : ""}`}
+                role="menu"
+              >
+                {CATALOG_LINKS.map((item) => (
+                  <a
+                    key={item.label}
+                    className="nh-catalog-drop-item"
+                    href={item.path}
+                    role="menuitem"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setCatalogOpen(false);
+                      navigate(item.path);
+                    }}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            </div>
           </nav>
 
           {/* Actions */}
           <div className="nh-actions">
             {/* Cart */}
-            <button className="nh-icon-btn" onClick={handleCartClick} aria-label="Open cart">
-              <ShoppingBag size={17} strokeWidth={1.8} />
-              {cartCount > 0 && <span className="nh-cart-badge">{cartCount}</span>}
             <button
               className="nh-icon-btn"
-              onClick={() => navigate("/products")}
-              aria-label="Search"
+              onClick={handleCartClick}
+              aria-label="Open cart"
             >
-              <Search size={23} strokeWidth={2} />
+              <ShoppingBag size={17} strokeWidth={1.8} />
+              {cartCount > 0 && (
+                <span className="nh-cart-badge">{cartCount}</span>
+              )}
             </button>
 
             {/* User / Auth */}
             {loggedInUser ? (
               <div className="nh-user-wrap" ref={userDropRef}>
-                <button className="nh-user-btn" onClick={() => setUserDropOpen((p) => !p)}>
-                  <div className="nh-user-avatar">{displayName[0]?.toUpperCase()}</div>
-                  <span className="max-w-[80px] overflow-hidden text-ellipsis whitespace-nowrap">{displayName}</span>
-                  <ChevronDown size={12} style={{ opacity: 0.6 }} />
                 <button
                   className="nh-user-btn"
                   onClick={() => setUserDropOpen((p) => !p)}
@@ -847,23 +687,17 @@ export default function NabhiHeader({ onCartOpen }) {
                   <div className="nh-user-avatar">
                     {displayName[0]?.toUpperCase()}
                   </div>
-                  <span
-                    style={{
-                      maxWidth: 80,
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
+                  <span className="max-w-[80px] overflow-hidden text-ellipsis whitespace-nowrap">
                     {displayName}
                   </span>
-                  <ChevronDown size={12} />
+                  <ChevronDown size={12} style={{ opacity: 0.6 }} />
                 </button>
                 {userDropOpen && (
                   <div className="nh-dropdown">
-                    <div className="nh-dropdown-item" onClick={handleMyOrders}><Package size={14} /> My Orders</div>
+                    <div className="nh-dropdown-item" onClick={handleMyOrders}>
+                      <Package size={14} /> My Orders
+                    </div>
                     <div className="nh-dropdown-divider" />
-                    <div className="nh-dropdown-item danger" onClick={handleLogout}><LogOut size={14} /> Logout</div>
                     <div
                       className="nh-dropdown-item danger"
                       onClick={handleLogout}
@@ -875,18 +709,15 @@ export default function NabhiHeader({ onCartOpen }) {
               </div>
             ) : (
               <div className="nh-user-wrap" ref={userDropRef}>
-                <button className="nh-icon-btn" onClick={() => setUserDropOpen((p) => !p)} aria-label="Account">
-                  <User size={17} strokeWidth={1.8} />
                 <button
                   className="nh-icon-btn"
                   onClick={() => setUserDropOpen((p) => !p)}
                   aria-label="Account"
                 >
-                  <User size={23} strokeWidth={2} />
+                  <User size={17} strokeWidth={1.8} />
                 </button>
                 {userDropOpen && (
                   <div className="nh-dropdown">
-                    <div className="nh-dropdown-item" onClick={() => { setUserDropOpen(false); navigate("/my-orders-en"); }}><Package size={14} /> My Orders</div>
                     <div
                       className="nh-dropdown-item"
                       onClick={() => {
@@ -897,7 +728,6 @@ export default function NabhiHeader({ onCartOpen }) {
                       <Package size={14} /> My Orders
                     </div>
                     <div className="nh-dropdown-divider" />
-                    <div className="nh-dropdown-item" onClick={() => { setUserDropOpen(false); openModal("login"); }}><User size={14} /> Login / Sign Up</div>
                     <div
                       className="nh-dropdown-item"
                       onClick={() => {
@@ -913,168 +743,42 @@ export default function NabhiHeader({ onCartOpen }) {
             )}
 
             {/* Desktop CTA */}
-            <a href="#" className="nh-cta-btn" onClick={(e) => { e.preventDefault(); navigate("/products"); }}>
+            <a
+              href="#"
+              className="nh-cta-btn"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/products");
+              }}
+            >
               Shop Now
             </a>
 
             {/* Mobile hamburger */}
-            <button className="nh-hamburger" onClick={() => setMenuOpen(true)} aria-label="Menu">
+            <button
+              className="nh-hamburger"
+              onClick={() => setMenuOpen(true)}
+              aria-label="Menu"
+            >
               <Menu size={18} />
             </button>
           </div>
         </div>
       </div>
-            <button
-              className="nh-icon-btn"
-              onClick={() => onCartOpen?.()}
-              aria-label="Open cart"
-            >
-              <ShoppingBag size={23} strokeWidth={2} />
-              {cartCount > 0 && (
-                <span className="nh-cart-badge">{cartCount}</span>
-              )}
-            </button>
-
-            <button
-              className="nh-hamburger"
-              onClick={openMobileMenu}
-              aria-label="Menu"
-            >
-              <Menu size={22} />
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {modalOpen && (
-        <div className="nh-overlay" onClick={() => setModalOpen(false)} />
-      )}
-
-      {menuOpen && (
-        <>
-          <div
-            className={`nh-menu-overlay${menuClosing ? " closing" : ""}`}
-            onClick={closeMobileMenu}
-          />
-          <aside
-            className={`nh-mob-drawer open${menuClosing ? " closing" : ""}`}
-            aria-label="Mobile navigation"
-          >
-            <div className="nh-mob-head">
-              <a
-                className="nh-mob-brand"
-                href="/"
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigateAndCloseMenu("/");
-                }}
-              >
-                <img src={logo} alt="Nabhi Amrit" />
-              </a>
-              <button
-                className="nh-mob-close"
-                onClick={closeMobileMenu}
-                aria-label="Close menu"
-              >
-                <X size={15} />
-              </button>
-            </div>
-
-            <div className="nh-mob-body">
-              <button
-                className="nh-mob-link"
-                onClick={() => navigateAndCloseMenu("/")}
-              >
-                <span>Home</span>
-                <span>›</span>
-              </button>
-
-              <button
-                className="nh-mob-catalog-trigger"
-                onClick={() => setMobileCatalogOpen((p) => !p)}
-                aria-expanded={mobileCatalogOpen}
-              >
-                <span>Shop</span>
-                <ChevronDown
-                  className={`nh-mob-catalog-chevron${mobileCatalogOpen ? " open" : ""}`}
-                  size={16}
-                />
-              </button>
-              <div
-                className={`nh-mob-catalog-sub${mobileCatalogOpen ? " open" : ""}`}
-              >
-                <div className="nh-mob-catalog-sub-inner">
-                  {CATALOG_LINKS.map((item) => (
-                    <a
-                      key={item.label}
-                      href={item.path}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        navigateAndCloseMenu(item.path);
-                      }}
-                    >
-                      {item.label}
-                    </a>
-                  ))}
-                </div>
-              </div>
-
-              {navLinks.slice(2).map((l) => (
-                <button
-                  key={l.label}
-                  className="nh-mob-link"
-                  onClick={() => navigateAndCloseMenu(l.path)}
-                >
-                  <span>{l.label}</span>
-                  <span>›</span>
-                </button>
-              ))}
-
-              <button
-                className="nh-mob-link"
-                onClick={() => navigateAndCloseMenu("/my-orders-en")}
-              >
-                <span>My Orders</span>
-                <span>›</span>
-              </button>
-            </div>
 
       {/* Overlay */}
       {(modalOpen || menuOpen) && (
-        <div className="nh-overlay" onClick={() => { setModalOpen(false); setMenuOpen(false); }} />
+        <div
+          className="nh-overlay"
+          onClick={() => {
+            setModalOpen(false);
+            setMenuOpen(false);
+          }}
+        />
       )}
 
       {/* ── AUTH MODAL ── */}
-            <div className="nh-mob-footer">
-              {loggedInUser ? (
-                <button
-                  className="nh-mob-account-btn"
-                  style={{ background: "#c53030" }}
-                  onClick={handleLogout}
-                >
-                  <LogOut size={16} /> Logout
-                </button>
-              ) : (
-                <button
-                  className="nh-mob-account-btn"
-                  onClick={() => {
-                    closeMobileMenu();
-                    window.setTimeout(() => openModal("login"), 240);
-                  }}
-                >
-                  <User size={16} /> Login / Sign Up
-                </button>
-              )}
-            </div>
-          </aside>
-        </>
-      )}
-
       {modalOpen && (
-        <div
-          className="nh-modal-overlay"
-          onClick={(e) => { if (e.target === e.currentTarget) setModalOpen(false); }}
-        >
         <div
           className="nh-modal-overlay"
           onClick={(e) => {
@@ -1083,49 +787,41 @@ export default function NabhiHeader({ onCartOpen }) {
         >
           <div className="nh-modal">
             {/* Left image panel */}
-            <div className="nh-modal-left">
+            <div className="nh-modal-left ml-10 my-10 rounded-xl">
               <img
                 className="nh-modal-left-img"
-                src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&q=80"
+                src={loginImg}
                 alt="Ayurvedic wellness"
               />
               <div className="nh-modal-left-top">
-                <div className="nh-modal-left-brand">
-                  <img
-                    className="nh-modal-left-brand-logo"
-                    src="https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=nabhiLogo.webp&version_id=null"
-                    alt="Nabhi Amrit"
-                  />
-                  <img
-                    className="nh-modal-left-brand-logo"
-                    src={logo}
-                    alt="Nabhi Amrit"
-                  />
-                  <span className="nh-modal-left-brand-name">Vedraha</span>
-                </div>
                 <div className="nh-modal-left-tagline">
-                  {mode === "login" ? (<><em>Reconnect</em> with<br />Ancient Wellness.</>) : (<>Begin Your<br /><em>Wellness</em> Journey.</>)}
+                  {mode === "login" ? (
+                    <>
+                      Simplify The Process.
+                      <br />
+                      Supercharge The Results.
+                    </>
+                  ) : (
+                    <>
+                      Begin Your
+                      <br />
+                      Wellness Journey.
+                    </>
+                  )}
                 </div>
-              </div>
-              <div className="nh-modal-left-content">
-                <div className="nh-modal-left-title">
-                  Pure · Natural · Ayurvedic
-                </div>
-                <div className="nh-modal-left-sub">
+                <div className="nh-modal-left-desc">
                   {mode === "login"
-                    ? "Access your orders, track shipments, and unlock member-only Ayurvedic offers."
-                    : "Join Vedraha for faster checkout, exclusive formulations, and personalised care."}
+                    ? "Focus On The Big Picture While We Automate The Daily Details."
+                    : "Join us for exclusive wellness products and personalised care."}
                 </div>
               </div>
             </div>
 
             {/* Right form panel */}
             <div className="nh-modal-right">
-              <button className="nh-modal-close" onClick={() => setModalOpen(false)}><X size={12} /></button>
               <button
                 className="nh-modal-close"
                 onClick={() => setModalOpen(false)}
-                aria-label="Close"
               >
                 <X size={12} />
               </button>
@@ -1133,12 +829,7 @@ export default function NabhiHeader({ onCartOpen }) {
               {submitted ? (
                 <div className="nh-success-wrap">
                   <div className="nh-success-icon">
-                    <CheckCircle size={26} color="#184b24" strokeWidth={1.8} />
-                    <CheckCircle
-                      size={26}
-                      color="var(--new-primary-color, #35105f)"
-                      strokeWidth={1.8}
-                    />
+                    <CheckCircle size={26} color="var(--new-purple-color)" strokeWidth={1.8} />
                   </div>
                   <div className="nh-success-title">
                     {mode === "login" ? "Welcome back!" : "You're in!"}
@@ -1148,7 +839,6 @@ export default function NabhiHeader({ onCartOpen }) {
                       ? `Good to see you again, ${loggedInUser?.name || loggedInUser?.email?.split("@")[0]}.`
                       : `Welcome to Vedraha${notify ? ". We'll keep you updated on offers." : "."}`}
                   </div>
-                  <button className="nh-success-close-btn" onClick={() => setModalOpen(false)}>Continue Shopping</button>
                   <button
                     className="nh-success-close-btn"
                     onClick={() => setModalOpen(false)}
@@ -1158,32 +848,28 @@ export default function NabhiHeader({ onCartOpen }) {
                 </div>
               ) : (
                 <>
-                  <div className="nh-modal-right-logo">
+                  <div
+                    className="nh-modal-right-logo"
+                    style={{ justifyContent: "center", marginBottom: 8 }}
+                  >
                     <img
                       src="https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=nabhiLogo.webp&version_id=null"
                       alt="Nabhi Amrit"
                     />
-                    <span className="nh-modal-right-logo-name">Vedraha</span>
                   </div>
 
-                  <div className="nh-modal-right-title">
-                    {mode === "login" ? "Log in to your account" : "Create your account"}
-                  </div>
                   <div className="nh-modal-right-title">
                     {mode === "login"
                       ? "Log in to your account"
                       : "Create your account"}
                   </div>
                   <div className="nh-modal-right-sub">
-                    {mode === "login" ? "Welcome back. Fill in your details to get back in." : "Join us — it takes less than a minute."}
                     {mode === "login"
                       ? "Welcome back. Fill in your details to get back in."
-                      : "Join us. It takes less than a minute."}
+                      : "Join us — it takes less than a minute."}
                   </div>
 
                   <div className="nh-tabs">
-                    <button className={`nh-tab${mode === "login" ? " active" : ""}`} onClick={() => { setMode("login"); setError(""); }}>LOGIN</button>
-                    <button className={`nh-tab${mode === "signup" ? " active" : ""}`} onClick={() => { setMode("signup"); setError(""); }}>SIGN UP</button>
                     <button
                       className={`nh-tab${mode === "login" ? " active" : ""}`}
                       onClick={() => {
@@ -1204,69 +890,9 @@ export default function NabhiHeader({ onCartOpen }) {
                     </button>
                   </div>
 
-                  {/* ── Google Sign-In button ── */}
-                  <div className="nh-google-btn-wrap">
-                    {(!googleReady || !googleClientId) && (
-                      <div className="nh-google-btn-placeholder">
-                        {/* Google G icon */}
-                        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-                          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.99.66-2.25 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                          <path fill="#FBBC05" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.83z"/>
-                          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.83C6.71 7.31 9.14 5.38 12 5.38z"/>
-                        <svg
-                          viewBox="0 0 24 24"
-                          width="18"
-                          height="18"
-                          aria-hidden="true"
-                        >
-                          <path
-                            fill="#4285F4"
-                            d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                          />
-                          <path
-                            fill="#34A853"
-                            d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.99.66-2.25 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                          />
-                          <path
-                            fill="#FBBC05"
-                            d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.83z"
-                          />
-                          <path
-                            fill="#EA4335"
-                            d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.83C6.71 7.31 9.14 5.38 12 5.38z"
-                          />
-                        </svg>
-                        <span className="text-sm text-gray-400">
-                          {!googleClientId ? "Google sign-in not configured" : "Loading Google…"}
-                        </span>
-                        <span>
-                          {!googleClientId
-                            ? "Google sign-in not configured"
-                            : "Loading Google…"}
-                        </span>
-                      </div>
-                    )}
-                    {/* GSI renders its own button here — don't hide the div or dimensions break */}
-                    <div
-                      ref={googleBtnRef}
-                      style={{
-                        width: "100%",
-                        display:
-                          googleReady && googleClientId ? "flex" : "none",
-                        justifyContent: "center",
-                      }}
-                    />
-                  </div>
+                  
 
-                  {googleSubmitting && (
-                    <div className="flex items-center justify-center gap-2 mb-3 text-sm text-gray-500">
-                      <span className="nh-spinner" style={{ borderTopColor: "#184b24", borderColor: "rgba(24,75,36,.2)" }} />
-                      Signing in with Google…
-                    </div>
-                  )}
-
-                  <div className="nh-divider"><span>or continue with email</span></div>
+                 
 
                   {mode === "signup" && (
                     <div className="nh-field">
@@ -1286,8 +912,6 @@ export default function NabhiHeader({ onCartOpen }) {
                     <label className="nh-label">Email</label>
                     <input
                       className={`nh-input${error && !email ? " error" : ""}`}
-                      type="email" placeholder="you@example.com" value={email}
-                      onChange={(e) => { setEmail(e.target.value); setError(""); }}
                       type="email"
                       placeholder="you@example.com"
                       value={email}
@@ -1305,9 +929,10 @@ export default function NabhiHeader({ onCartOpen }) {
                       <input
                         className={`nh-input nh-input-pass${error && !password ? " error" : ""}`}
                         type={showPass ? "text" : "password"}
-                        placeholder={mode === "signup" ? "Min. 6 characters" : "············"}
                         placeholder={
-                          mode === "signup" ? "Min. 6 characters" : "Password"
+                          mode === "signup"
+                            ? "Min. 6 characters"
+                            : "············"
                         }
                         value={password}
                         onChange={(e) => {
@@ -1339,8 +964,6 @@ export default function NabhiHeader({ onCartOpen }) {
                         <input
                           className={`nh-input nh-input-pass${error && confirmPass !== password ? " error" : ""}`}
                           type={showConfirmPass ? "text" : "password"}
-                          placeholder="Repeat password" value={confirmPass}
-                          onChange={(e) => { setConfirmPass(e.target.value); setError(""); }}
                           placeholder="Repeat password"
                           value={confirmPass}
                           onChange={(e) => {
@@ -1384,15 +1007,92 @@ export default function NabhiHeader({ onCartOpen }) {
                     disabled={submitting}
                   >
                     {submitting ? (
-                      <><span className="nh-spinner" /> Please wait…</>
+                      <>
+                        <span className="nh-spinner" /> Please wait…
+                      </>
                     ) : (
-                      <>{mode === "login" ? "Log In" : "Create Account"} <span style={{ fontSize: 16, transition: "transform .15s" }}>→</span></>
+                      <>
+                        {mode === "login" ? "Log In" : "Create Account"}{" "}
+                        <span
+                          style={{ fontSize: 16, transition: "transform .15s" }}
+                        >
+                          →
+                        </span>
+                      </>
                     )}
                   </button>
 
+                   <div className="nh-divider">
+                    <span>or continue with email</span>
+                  </div>
+
+
+
+                  {/* ── Google Sign-In button ── */}
+                  <div className="nh-google-btn-wrap">
+                    {(!googleReady || !googleClientId) && (
+                      <div className="nh-google-btn-placeholder">
+                        {/* Google G icon */}
+                        <svg
+                          viewBox="0 0 24 24"
+                          width="18"
+                          height="18"
+                          aria-hidden="true"
+                        >
+                          <path
+                            fill="#4285F4"
+                            d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                          />
+                          <path
+                            fill="#34A853"
+                            d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.99.66-2.25 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                          />
+                          <path
+                            fill="#FBBC05"
+                            d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.83z"
+                          />
+                          <path
+                            fill="#EA4335"
+                            d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.83C6.71 7.31 9.14 5.38 12 5.38z"
+                          />
+                        </svg>
+                        <span className="text-sm text-gray-400">
+                          {!googleClientId
+                            ? "Google sign-in not configured"
+                            : "Loading Google…"}
+                        </span>
+                      </div>
+                    )}
+                    {/* GSI renders its own button here — don't hide the div or dimensions break */}
+                    <div
+                      ref={googleBtnRef}
+                      style={{
+                        width: "100%",
+                        display:
+                          googleReady && googleClientId ? "flex" : "none",
+                        justifyContent: "center",
+                      }}
+                    />
+                  </div>
+
+                  {googleSubmitting && (
+                    <div className="flex items-center justify-center gap-2 mb-3 text-sm text-gray-500">
+                      <span
+                        className="nh-spinner"
+                        style={{
+                          borderTopColor: "var(--new-purple-color)",
+                          borderColor: "rgba(24,75,36,.2)",
+                        }}
+                      />
+                      Signing in with Google…
+                    </div>
+                  )}
+
+
+
+
                   <div className="nh-switch-row">
                     {mode === "login" ? (
-                      <>Don't have an account?{" "}<button onClick={() => { setMode("signup"); setError(""); }}>Create One</button></>
                       <>
                         Don't have an account?{" "}
                         <button
@@ -1405,7 +1105,6 @@ export default function NabhiHeader({ onCartOpen }) {
                         </button>
                       </>
                     ) : (
-                      <>Already have an account?{" "}<button onClick={() => { setMode("login"); setError(""); }}>Log In</button></>
                       <>
                         Already have an account?{" "}
                         <button
@@ -1421,8 +1120,6 @@ export default function NabhiHeader({ onCartOpen }) {
                   </div>
 
                   <div className="nh-terms" style={{ marginTop: 14 }}>
-                    By continuing you accept our <a href="#">Privacy Policy and T&Cs.</a>
-                  <div className="nh-terms">
                     By continuing you accept our{" "}
                     <a href="#">Privacy Policy and T&Cs.</a>
                   </div>
@@ -1437,7 +1134,14 @@ export default function NabhiHeader({ onCartOpen }) {
       {menuOpen && (
         <div className="nh-mob-drawer">
           <div className="nh-mob-head">
-            <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 18, fontWeight: 700, color: "#1a3d1e" }}>
+            <span
+  style={{
+    fontFamily: "var(--font-new-2)",
+    fontSize: 18,
+    fontWeight: 700,
+    color: "#111",
+  }}
+>
               Vedraha
             </span>
             <button
@@ -1448,13 +1152,28 @@ export default function NabhiHeader({ onCartOpen }) {
             </button>
           </div>
 
-          <div className="nh-mob-link" style={{ flexDirection: "column", alignItems: "flex-start", gap: 0 }}>
+          <div
+            className="nh-mob-link"
+            style={{
+              flexDirection: "column",
+              alignItems: "flex-start",
+              gap: 0,
+            }}
+          >
             <span className="w-full flex justify-between">
               CATALOG <span style={{ color: "#94a3b8", fontSize: 18 }}>›</span>
             </span>
             <div className="nh-mob-catalog-sub">
               {CATALOG_LINKS.map((item) => (
-                <a key={item.label} href={item.path} onClick={(e) => { e.preventDefault(); navigate(item.path); setMenuOpen(false); }}>
+                <a
+                  key={item.label}
+                  href={item.path}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate(item.path);
+                    setMenuOpen(false);
+                  }}
+                >
                   {item.label}
                 </a>
               ))}
@@ -1462,24 +1181,47 @@ export default function NabhiHeader({ onCartOpen }) {
           </div>
 
           {navLinks.map((l) => (
-            <div key={l.label} className="nh-mob-link" onClick={() => { navigate(l.path); setMenuOpen(false); }}>
+            <div
+              key={l.label}
+              className="nh-mob-link"
+              onClick={() => {
+                navigate(l.path);
+                setMenuOpen(false);
+              }}
+            >
               <span>{l.label.toUpperCase()}</span>
               <span style={{ color: "#94a3b8", fontSize: 18 }}>›</span>
             </div>
           ))}
 
-          <div className="nh-mob-link" onClick={() => { navigate("/my-orders-en"); setMenuOpen(false); }}>
+          <div
+            className="nh-mob-link"
+            onClick={() => {
+              navigate("/my-orders-en");
+              setMenuOpen(false);
+            }}
+          >
             <span>MY ORDERS</span>
             <span style={{ color: "#94a3b8", fontSize: 18 }}>›</span>
           </div>
 
           {loggedInUser ? (
-            <div className="nh-mob-link" style={{ color: "#c0392b" }} onClick={handleLogout}>
+            <div
+              className="nh-mob-link"
+              style={{ color: "#c0392b" }}
+              onClick={handleLogout}
+            >
               <span>LOGOUT</span>
               <span style={{ color: "#94a3b8", fontSize: 18 }}>›</span>
             </div>
           ) : (
-            <div className="nh-mob-link" onClick={() => { openModal("login"); setMenuOpen(false); }}>
+            <div
+              className="nh-mob-link"
+              onClick={() => {
+                openModal("login");
+                setMenuOpen(false);
+              }}
+            >
               <span>LOGIN / SIGN UP</span>
               <span style={{ color: "#94a3b8", fontSize: 18 }}>›</span>
             </div>
