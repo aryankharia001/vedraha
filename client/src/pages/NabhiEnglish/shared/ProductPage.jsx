@@ -397,7 +397,7 @@ const stickyTotal = selectedPrice * quantity;
   // It fires ViewContent once the cookies are guaranteed to be written.
 
   useEffect(() => {
-    const h = () => setShowStickyBar(window.scrollY > 300);
+    const h = () => setShowStickyBar(window.scrollY > 700);
     window.addEventListener("scroll", h, { passive: true });
     return () => window.removeEventListener("scroll", h);
   }, []);

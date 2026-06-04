@@ -14,7 +14,7 @@ export default function PriceWithTimer({ currentVariant, selectedPrice, themeCol
     <div className="my-2 mb-[18px]">
       <div className="flex items-center gap-3 flex-wrap">
         <span
-          className="text-[30px] text-[#B89454] font-base"
+          className="text-[30px] text-[black] font-base"
           style={{ fontFamily: "'DM Sans', sans-serif" }}
         >
           ₹{selectedPrice.toLocaleString("en-IN")}

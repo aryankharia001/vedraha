@@ -38,12 +38,12 @@ export default function ProductGallery({ images = [], themeColor = "#2d5a27", on
 
   return (
     <div
-      className="md:sticky md:top-20 md:self-start"
+      className="main-container md:sticky md:top-20 md:self-start md:relative"
       onMouseEnter={() => handlePause(true)}
       onMouseLeave={() => handlePause(false)}
     >
       {/* Main viewer */}
-      <div className="bg-white rounded-2xl overflow-hidden border border-gray-200 relative aspect-square">
+      <div className="bg-white rounded-2xl overflow-hidden border border-gray-200 relative aspect-[4/4.8]">
         {images.map((img, i) => {
           const isVideo = typeof img === "object" && img.type === "video";
           const mediaStyle = {
@@ -117,7 +117,7 @@ export default function ProductGallery({ images = [], themeColor = "#2d5a27", on
       </div>
 
       {/* Thumbnails */}
-      <div className="flex gap-2 mt-2.5 overflow-x-auto pb-1 scrollbar-none">
+      <div className="flex md:flex-col md:absolute md:z-50 inset-0 md:left-[-15%] md:top-[50%] md:translate-y-[-50%] gap-2 mt-2.5 overflow-x-auto pb-1 scrollbar-none md:h-fit">
         {images.map((img, i) => {
           const isVideo = typeof img === "object" && img.type === "video";
           const borderStyle = { border: activeImage === i ? `2.5px solid ${themeColor}` : "2px solid #ebe9e2" };
