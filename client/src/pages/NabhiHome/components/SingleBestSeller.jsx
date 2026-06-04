@@ -3,35 +3,10 @@ import bgImg from "../../../../public/best-seller/best-seller.png";
 
 const benefits = [
   {
-    label: "Improves",
-    sublabel: "Gut Health",
-    icon: (
-      <svg viewBox="0 0 48 48" aria-hidden="true" className="h-8 w-8">
-        {/* Customized Gut/Stomach Core Balance Graphic */}
-        <path
-          d="M24 10c-5.5 0-10 4.5-10 10 0 3.2 1.5 6 3.9 7.8-.5 1.2-.9 2.5-.9 3.9 0 4.6 3.4 8.3 7.8 8.9V42h4v-1.4c4.4-.6 7.8-4.3 7.8-8.9 0-1.4-.4-2.7-.9-3.9 2.4-1.8 3.9-4.6 3.9-7.8 0-5.5-4.5-10-10-10Z"
-          fill="none"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2.2"
-        />
-        <path
-          d="M20 20c2 0 3 2 4 2s2-2 4-2"
-          fill="none"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeWidth="2"
-        />
-      </svg>
-    ),
-  },
-  {
     label: "Reduces Bloating",
     sublabel: "& Gas",
     icon: (
       <svg viewBox="0 0 48 48" aria-hidden="true" className="h-8 w-8">
-        {/* Soothing Release/Deflate Path Layer */}
         <path
           d="M24 38c-2.4-6.7-2.4-13.5 0-20 2.4 6.5 2.4 13.3 0 20Z"
           fill="none"
@@ -54,7 +29,6 @@ const benefits = [
     sublabel: "Naturally",
     icon: (
       <svg viewBox="0 0 48 48" aria-hidden="true" className="h-8 w-8">
-        {/* Detox Flow Pipeline Design */}
         <path
           d="M24 8v24M16 22l8 8 8-8"
           fill="none"
@@ -121,7 +95,6 @@ const benefits = [
 ];
 
 export default function SingleBestSeller({
-  imageSrc,
   imageAlt = "Traditional Ayurvedic Nabhi oil application for digestion wellness",
 }) {
   return (
@@ -129,7 +102,7 @@ export default function SingleBestSeller({
       <div className="mx-auto grid max-w-[1240px] grid-cols-1 items-stretch gap-8 px-4 md:grid-cols-2 md:gap-12">
 
         {/* ── Image CONTAINER ── */}
-        <div className="overflow-hidden rounded-[10px] w-full h-[400px] md:h-[600px]">
+        <div className="overflow-hidden rounded-[10px] w-full h-[320px] sm:h-[400px] md:h-[600px]">
           <img
             src={bgImg}
             alt={imageAlt}
@@ -138,82 +111,99 @@ export default function SingleBestSeller({
         </div>
 
         {/* ── Content Container ── */}
+        {/* On mobile: standard column ordering applies. On desktop (md): original order overrides are enforced. */}
         <div
           className="flex flex-col justify-center gap-5 py-2 md:py-6"
           style={{ fontFamily: "var(--font-new-1)", color: "var(--new-para-text)" }}
         >
-          {/* Eyebrow */}
-          <p className="text-[11px] font-extrabold uppercase tracking-[0.28em] text-[var(--new-heading-text)]">
-            Best Seller Item
-          </p>
+          {/* 1. Header Text Info Block */}
+          <div className="flex flex-col gap-5 order-1 md:order-1">
+            {/* Eyebrow */}
+            <p className="text-[11px] font-extrabold uppercase tracking-[0.28em] text-[var(--new-heading-text)]">
+              Best Seller Item
+            </p>
 
-          {/* Heading */}
-          <h2
-            className="text-[28px] font-semibold leading-tight text-[var(--color-black)] md:text-[36px]"
-            style={{ fontFamily: "var(--font-new-1)" }}
-          >
-            <span className="text-[var(--new-purple-color)]">Digestion & </span>
-            <em
-              className="font-medium italic text-[var(--new-purple-color)] text-[30px] md:text-[38px]"
-              style={{ fontFamily: "var(--font-new-2)" }}
+            {/* Heading */}
+            <h2
+              className="text-[28px] font-semibold leading-tight text-[var(--color-black)] md:text-[36px]"
+              style={{ fontFamily: "var(--font-new-1)" }}
             >
-              Detox
-            </em>{" "}
-            Nabhi Oil
-          </h2>
-
-          {/* Description */}
-          <p className="text-[15px] font-medium leading-relaxed text-[var(--new-para-text)] max-w-[440px]">
-            Revives your core metabolic fire (Agni) to improve breakdown performance, eliminate stubborn gas accumulation, and naturally support complete daily detoxification through the navel.
-          </p>
-
-          {/* Benefits grid */}
-          <div className="grid grid-cols-2 gap-x-5 gap-y-7 sm:grid-cols-5 mt-1">
-            {benefits.map((benefit) => (
-              <div
-                key={`${benefit.label}-${benefit.sublabel}`}
-                className="flex min-w-0 flex-col items-center text-center"
+              <span className="text-[var(--new-purple-color)]">Digestion & </span>
+              <em
+                className="font-medium italic text-[var(--new-purple-color)] text-[30px] md:text-[38px]"
+                style={{ fontFamily: "var(--font-new-2)" }}
               >
-                <div className="grid h-[58px] w-[58px] place-items-center rounded-full border border-[color-mix(in_srgb,var(--new-purple-color)_22%,transparent)] text-[var(--new-purple-color)]">
-                  {benefit.icon}
-                </div>
-                <p className="mt-3 text-[12px] font-bold leading-[1.3] text-[var(--new-para-text)]">
-                  {benefit.label}
-                  {benefit.sublabel ? (
-                    <>
-                      <br />
-                      {benefit.sublabel}
-                    </>
-                  ) : null}
-                </p>
+                Detox
+              </em>{" "}
+              Nabhi Oil
+            </h2> 
+
+            {/* Description */}
+            <p className="text-[15px] font-medium leading-relaxed text-[var(--new-para-text)] max-w-[440px]">
+              Revives your core metabolic fire (Agni) to improve breakdown performance, eliminate stubborn gas accumulation, and naturally support complete daily detoxification through the navel.
+            </p>
+          </div>
+
+          {/* 2. Price + CTA Block */}
+          {/* Order 2 on mobile (above benefits), but switches back to Order 4 on desktop layout views */}
+          <div className="flex flex-col gap-5 order-2 md:order-4 mt-2 md:mt-0">
+            {/* Desktop Only Divider: Shows only when layout drops down to the bottom position */}
+            <div className="hidden md:block h-px w-full bg-[color-mix(in_srgb,var(--new-neutral-color)_30%,transparent)] mb-2" />
+            
+            <div className="flex flex-wrap items-center gap-5">
+              <div className="flex items-baseline gap-3">
+                <span className="text-[24px] font-extrabold text-[var(--new-accent-color)]">
+                  ₹699
+                </span>
+                <span className="text-[18px] font-extrabold text-[var(--new-neutral-color)] line-through">
+                  ₹999
+                </span>
+                <span className="text-[12px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-full">
+                  30% OFF
+                </span>
               </div>
-            ))}
-          </div>
 
-          {/* Divider */}
-          <div className="h-px w-full bg-[color-mix(in_srgb,var(--new-neutral-color)_30%,transparent)]" />
-
-          {/* Price + CTA */}
-          <div className="flex flex-wrap items-center gap-5">
-            <div className="flex items-baseline gap-3">
-              <span className="text-[24px] font-extrabold text-[var(--new-accent-color)]">
-                ₹699
-              </span>
-              <span className="text-[18px] font-extrabold text-[var(--new-neutral-color)] line-through">
-                ₹999
-              </span>
-              <span className="text-[12px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-full">
-                30% OFF
-              </span>
+              <button
+                type="button"
+                className="h-[46px] w-full sm:w-auto rounded-[8px] bg-[var(--new-primary-color)] px-7 text-[13px] font-extrabold uppercase tracking-[0.05em] text-[var(--new-bg-white-color)] transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-[var(--new-purple-color)] focus:ring-offset-2 focus:ring-offset-[var(--new-bg-color)]"
+              >
+                Shop Now
+              </button>
             </div>
-
-            <button
-              type="button"
-              className="h-[46px] rounded-[8px] bg-[var(--new-primary-color)] px-7 text-[13px] font-extrabold uppercase tracking-[0.05em] text-[var(--new-bg-white-color)] transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-[var(--new-purple-color)] focus:ring-offset-2 focus:ring-offset-[var(--new-bg-color)]"
-            >
-              Shop Now
-            </button>
           </div>
+
+          {/* Mobile Only Divider Line */}
+          <div className="block md:hidden h-px w-full bg-[color-mix(in_srgb,var(--new-neutral-color)_30%,transparent)] order-3" />
+
+          {/* 3. Benefits Grid Container */}
+          {/* Order 4 on mobile (pushed to bottom), but returns to Order 2 on desktop views */}
+          <div className="order-4 md:order-2">
+            <div className="grid grid-cols-2 gap-x-5 gap-y-7 sm:grid-cols-4 mt-1">
+              {benefits.map((benefit) => (
+                <div
+                  key={`${benefit.label}-${benefit.sublabel}`}
+                  className="flex min-w-0 flex-col items-center text-center"
+                >
+                  <div className="grid h-[58px] w-[58px] place-items-center rounded-full border border-[color-mix(in_srgb,var(--new-purple-color)_22%,transparent)] text-[var(--new-purple-color)]">
+                    {benefit.icon}
+                  </div>
+                  <p className="mt-3 text-[12px] font-bold leading-[1.3] text-[var(--new-para-text)]">
+                    {benefit.label}
+                    {benefit.sublabel ? (
+                      <>
+                        <br />
+                        {benefit.sublabel}
+                      </>
+                    ) : null}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 4. Desktop Only Central Space Divider (Hidden when items swap positions on mobile layout) */}
+          <div className="hidden md:block lg:hidden h-px w-full bg-[color-mix(in_srgb,var(--new-neutral-color)_30%,transparent)] order-3" />
+
         </div>
       </div>
     </section>

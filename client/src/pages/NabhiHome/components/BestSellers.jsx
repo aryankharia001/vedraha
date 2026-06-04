@@ -28,7 +28,7 @@ export const products = [
     price: 699,
     originalPrice: 999,
     image: product1,
-    route: "/products/nabhi-sleep-en",
+    route: "/products/nabhi-sleep-en", // MATCHED
   },
   {
     id: "digestive-care-nabhi-oil",
@@ -37,7 +37,7 @@ export const products = [
     price: 699,
     originalPrice: 999,
     image: product2,
-    route: "/products/nabhi-amrit-en",
+    route: "/products/nabhi-amrit-en", // NOTE: Ensure you add this route declaration to your App Routes if missing
   },
   {
     id: "joint-relief-nabhi-oil",
@@ -46,35 +46,35 @@ export const products = [
     price: 699,
     originalPrice: 999,
     image: product3,
-    route: "/products/nabhi-joint-en",
+    route: "/products/nabhi-joint-en", // MATCHED
   },
   {
-  id: "eyecare-nabhi-oil",
-  name: "Vision & Eyecare",
-  description: "Soothes eye strain, dryness & nourishes naturally",
-  price: 699,
-  originalPrice: 999,
-  image: product4, // Or your respective product variable (e.g., product_eyecare)
-  route: "/products/eyecare-nabhi-oil",
-},
+    id: "eyecare-nabhi-oil",
+    name: "Vision & Eyecare",
+    description: "Soothes eye strain, dryness & nourishes naturally",
+    price: 699,
+    originalPrice: 999,
+    image: product4, 
+    route: "/products/nabhi-eye-en", // FIXED: Matched to <NabhiEyePageEng />
+  },
   {
-  id: "haircare-nabhi-oil",
-  name: "Hair Care",
-  description: "Promotes hair growth, reduces fall & nourishes roots",
-  price: 699,
-  originalPrice: 999,
-  image: product5,
-  route: "/products/nabhi-hair-en",
-},
+    id: "haircare-nabhi-oil",
+    name: "Hair Care",
+    description: "Promotes hair growth, reduces fall & nourishes roots",
+    price: 699,
+    originalPrice: 999,
+    image: product5,
+    route: "/products/nabhi-hair-en", // MATCHED
+  },
   {
-  id: "shilajit-nabhi-oil",
-  name: "Nabhi Shilajit",
-  description: "Boosts strength, stamina & vital energy naturally",
-  price: 699,
-  originalPrice: 999,
-  image: product5, // Or your respective shilajit asset variable if available
-  route: "/products/nabhi-shilajit",
-},
+    id: "shilajit-nabhi-oil",
+    name: "Nabhi Shilajit",
+    description: "Boosts strength, stamina & vital energy naturally",
+    price: 699,
+    originalPrice: 999,
+    image: product5, 
+    route: "/products/nabhi-shilajit-en", // FIXED: Appended missing "-en" suffix to match application router
+  },
 ];
 
 // ═══════════════════════════════════════════════════════════════

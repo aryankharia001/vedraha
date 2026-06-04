@@ -169,15 +169,23 @@ const styles = `
 // ─── LOGO ─────────────────────────────────────────────────────────────────────
 const Logo = () => (
   <a href="/" className="nh-logo" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-    <img
-      src="https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=nabhiLogo.webp&version_id=null"
-      alt="Nabhi Amrit"
-      style={{ width: '55px', height: 'auto' }}
-    />
-    <span style={{ fontSize: '1.15rem', fontWeight: '700', color: 'var(--color-heading)', fontFamily: 'var(--font-display)', letterSpacing: '-0.01em', marginLeft: '8px' }}>
-      Vedraha<span style={{ color: 'var(--color-gold)' }}>.</span>
-    </span>
-  </a>
+  <img
+    src="https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=nabhiLogo.webp&version_id=null"
+    alt="Nabhi Amrit"
+    style={{ 
+      width: '55px', 
+      height: 'auto',
+      filter: 'brightness(0)' // HIGHLIGHT: Forces the white image to render as solid black
+    }}
+  />
+  <span style={{ fontSize: '20px', fontWeight: '700', color: 'var(--color-black)', fontFamily: 'var(--font-new-1)', letterSpacing: '-0.01em', marginLeft: '8px' }}>
+    Ved<span style={{
+      fontFamily: "'Times New Roman', serif",
+      fontSize: "22px",
+      fontWeight: "400",
+    }}>Raha.</span>
+  </span>
+</a>
 );
 
 // ─── SOCIAL BUTTON ────────────────────────────────────────────────────────────

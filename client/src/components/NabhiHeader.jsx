@@ -28,12 +28,15 @@ import { useCart } from "../components/CartContext";
 import loginImg from "../../public/best-seller/best-seller.png"
 
 // ── Product sub-pages shown in the Catalog dropdown ──────────────────────────
-const CATALOG_LINKS = [
+export const CATALOG_LINKS = [
   { label: "All Products", path: "/products" },
-  { label: "Nabhi Oils", path: "/products/nabhi-oils" },
-  { label: "Wellness Kits", path: "/products/wellness-kits" },
-  { label: "Herbal Blends", path: "/products/herbal-blends" },
-  { label: "Gift Sets", path: "/products/gift-sets" },
+  { label: "Deep Sleep Oil", path: "/products/nabhi-sleep-en" },
+  { label: "Digestive Care Oil", path: "/products/nabhi-amrit-en" },
+  { label: "Joint Relief Oil", path: "/products/nabhi-joint-en" },
+  { label: "Vision & Eyecare Oil", path: "/products/nabhi-eye-en" },
+  { label: "Hair Care Oil", path: "/products/nabhi-hair-en" },
+  { label: "Nabhi Shilajit", path: "/products/nabhi-shilajit-en" },
+  // { label: "Menstrual Care Oil", path: "/products/nabhi-menstrual-en" },
 ];
 
 export default function NabhiHeader({ onCartOpen }) {
@@ -604,7 +607,7 @@ export default function NabhiHeader({ onCartOpen }) {
                   fontWeight: "400",
                 }}
               >
-                Raha
+                Raha.
               </span>
             </span>
           </a>
