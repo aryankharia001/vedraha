@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { TbTruckDelivery } from "react-icons/tb";
 import { FaMoneyBillWave } from "react-icons/fa";
 import { IoHeadset } from "react-icons/io5";
+import BestSellers from "../pages/NabhiHome/components/BestSellers";
 
 // Individual Product Card
 const ProductCard = ({ image, title, price, originalPrice, discount, badge, rating, url }) => {
@@ -85,73 +86,74 @@ const ProductCard = ({ image, title, price, originalPrice, discount, badge, rati
 };
 
 // Main Related Products Component
-const RelatedProducts = ({ products }) => {
+const RelatedProducts = ({ products,themeColor }) => {
   return (
-    <div className="px-4 py-8 cursor-pointer">
-      <h2 className="text-2xl font-medium mb-6 text-gray-900" style={{ fontFamily: "'DM Sans', sans-serif" }}>You may also like</h2>
+//     <div className="px-4 py-8 cursor-pointer">
+//       <h2 className="text-2xl font-medium mb-6 text-gray-900" style={{ fontFamily: "'DM Sans', sans-serif" }}>You may also like</h2>
 
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
-        {products.map((product, index) => (
-          <ProductCard key={index} {...product} />
-        ))}
-      </div>
+//       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
+//         {products.map((product, index) => (
+//           <ProductCard key={index} {...product} />
+//         ))}
+//       </div>
 
-      {/* Three Icons Below Product Grid */}
-<div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-10 lg:gap-16 mt-6 pt-6 border-t border-gray-200">
+//       {/* Three Icons Below Product Grid */}
+// <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-10 lg:gap-16 mt-6 pt-6 border-t border-gray-200">
 
-  {/* Free Shipping */}
-  <div className="flex items-center gap-3 w-full sm:w-auto">
-    <svg className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 flex-shrink-0" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="44" height="44" rx="8" fill="#f5f0e0"/>
-      <path d="M10 17L22 13L34 17V29L22 33L10 29Z" fill="#e8e0c0" stroke="#4a5e1a" strokeWidth="1.8" strokeLinejoin="round"/>
-      <path d="M10 17L22 21L34 17" stroke="#4a5e1a" strokeWidth="1.8" strokeLinejoin="round"/>
-      <path d="M22 21V33" stroke="#4a5e1a" strokeWidth="1.8"/>
-      <path d="M16 14.5L28 18.5" stroke="#4a5e1a" strokeWidth="1.8" strokeLinecap="round"/>
-    </svg>
-    <div>
-      <p className="text-sm sm:text-base lg:text-lg font-bold text-gray-900" style={{ fontFamily: "'DM Sans', sans-serif" }}>Free Shipping</p>
-      <p className="text-xs sm:text-sm text-gray-500" style={{ fontFamily: "'DM Sans', sans-serif" }}>Free shipping for order above $50</p>
-    </div>
-  </div>
+//   {/* Free Shipping */}
+//   <div className="flex items-center gap-3 w-full sm:w-auto">
+//     <svg className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 flex-shrink-0" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+//       <rect width="44" height="44" rx="8" fill="#f5f0e0"/>
+//       <path d="M10 17L22 13L34 17V29L22 33L10 29Z" fill="#e8e0c0" stroke="#4a5e1a" strokeWidth="1.8" strokeLinejoin="round"/>
+//       <path d="M10 17L22 21L34 17" stroke="#4a5e1a" strokeWidth="1.8" strokeLinejoin="round"/>
+//       <path d="M22 21V33" stroke="#4a5e1a" strokeWidth="1.8"/>
+//       <path d="M16 14.5L28 18.5" stroke="#4a5e1a" strokeWidth="1.8" strokeLinecap="round"/>
+//     </svg>
+//     <div>
+//       <p className="text-sm sm:text-base lg:text-lg font-bold text-gray-900" style={{ fontFamily: "'DM Sans', sans-serif" }}>Free Shipping</p>
+//       <p className="text-xs sm:text-sm text-gray-500" style={{ fontFamily: "'DM Sans', sans-serif" }}>Free shipping for order above $50</p>
+//     </div>
+//   </div>
 
-  {/* Divider — horizontal on mobile, vertical on desktop */}
-  <div className="w-full h-px sm:w-px sm:h-10 bg-gray-200 flex-shrink-0" />
+//   {/* Divider — horizontal on mobile, vertical on desktop */}
+//   <div className="w-full h-px sm:w-px sm:h-10 bg-gray-200 flex-shrink-0" />
 
-  {/* Flexible Payment */}
-  <div className="flex items-center gap-3 w-full sm:w-auto">
-    <svg className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 flex-shrink-0" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="44" height="44" rx="8" fill="#f5f0e0"/>
-      <rect x="8" y="14" width="28" height="20" rx="4" fill="#e8e0c0" stroke="#4a5e1a" strokeWidth="1.8"/>
-      <path d="M8 20H36" stroke="#4a5e1a" strokeWidth="1.8"/>
-      <circle cx="29" cy="27" r="2.5" fill="#4a5e1a"/>
-      <path d="M24 14V11C24 10 25 9 26 9H30C31 9 32 10 32 11V14" stroke="#4a5e1a" strokeWidth="1.8" strokeLinecap="round"/>
-    </svg>
-    <div>
-      <p className="text-sm sm:text-base lg:text-lg font-bold text-gray-900" style={{ fontFamily: "'DM Sans', sans-serif" }}>Flexible Payment</p>
-      <p className="text-xs sm:text-sm text-gray-500" style={{ fontFamily: "'DM Sans', sans-serif" }}>Multiple secure payment options</p>
-    </div>
-  </div>
+//   {/* Flexible Payment */}
+//   <div className="flex items-center gap-3 w-full sm:w-auto">
+//     <svg className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 flex-shrink-0" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+//       <rect width="44" height="44" rx="8" fill="#f5f0e0"/>
+//       <rect x="8" y="14" width="28" height="20" rx="4" fill="#e8e0c0" stroke="#4a5e1a" strokeWidth="1.8"/>
+//       <path d="M8 20H36" stroke="#4a5e1a" strokeWidth="1.8"/>
+//       <circle cx="29" cy="27" r="2.5" fill="#4a5e1a"/>
+//       <path d="M24 14V11C24 10 25 9 26 9H30C31 9 32 10 32 11V14" stroke="#4a5e1a" strokeWidth="1.8" strokeLinecap="round"/>
+//     </svg>
+//     <div>
+//       <p className="text-sm sm:text-base lg:text-lg font-bold text-gray-900" style={{ fontFamily: "'DM Sans', sans-serif" }}>Flexible Payment</p>
+//       <p className="text-xs sm:text-sm text-gray-500" style={{ fontFamily: "'DM Sans', sans-serif" }}>Multiple secure payment options</p>
+//     </div>
+//   </div>
 
-  {/* Divider */}
-  <div className="w-full h-px sm:w-px sm:h-10 bg-gray-200 flex-shrink-0" />
+//   {/* Divider */}
+//   <div className="w-full h-px sm:w-px sm:h-10 bg-gray-200 flex-shrink-0" />
 
-  {/* 24×7 Support */}
-  <div className="flex items-center gap-3 w-full sm:w-auto">
-    <svg className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 flex-shrink-0" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="44" height="44" rx="8" fill="#f5f0e0"/>
-      <path d="M12 24C12 17.373 16.925 12 22 12C27.075 12 32 17.373 32 24" stroke="#4a5e1a" strokeWidth="1.8" strokeLinecap="round"/>
-      <rect x="9" y="23" width="6" height="9" rx="2" fill="#e8e0c0" stroke="#4a5e1a" strokeWidth="1.8"/>
-      <rect x="29" y="23" width="6" height="9" rx="2" fill="#e8e0c0" stroke="#4a5e1a" strokeWidth="1.8"/>
-      <path d="M35 30C35 33.5 33 35 30 35H26" stroke="#4a5e1a" strokeWidth="1.8" strokeLinecap="round"/>
-    </svg>
-    <div>
-      <p className="text-sm sm:text-base lg:text-lg font-bold text-gray-900" style={{ fontFamily: "'DM Sans', sans-serif" }}>24×7 Support</p>
-      <p className="text-xs sm:text-sm text-gray-500" style={{ fontFamily: "'DM Sans', sans-serif" }}>We support online all days.</p>
-    </div>
-  </div>
+//   {/* 24×7 Support */}
+//   <div className="flex items-center gap-3 w-full sm:w-auto">
+//     <svg className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 flex-shrink-0" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+//       <rect width="44" height="44" rx="8" fill="#f5f0e0"/>
+//       <path d="M12 24C12 17.373 16.925 12 22 12C27.075 12 32 17.373 32 24" stroke="#4a5e1a" strokeWidth="1.8" strokeLinecap="round"/>
+//       <rect x="9" y="23" width="6" height="9" rx="2" fill="#e8e0c0" stroke="#4a5e1a" strokeWidth="1.8"/>
+//       <rect x="29" y="23" width="6" height="9" rx="2" fill="#e8e0c0" stroke="#4a5e1a" strokeWidth="1.8"/>
+//       <path d="M35 30C35 33.5 33 35 30 35H26" stroke="#4a5e1a" strokeWidth="1.8" strokeLinecap="round"/>
+//     </svg>
+//     <div>
+//       <p className="text-sm sm:text-base lg:text-lg font-bold text-gray-900" style={{ fontFamily: "'DM Sans', sans-serif" }}>24×7 Support</p>
+//       <p className="text-xs sm:text-sm text-gray-500" style={{ fontFamily: "'DM Sans', sans-serif" }}>We support online all days.</p>
+//     </div>
+//   </div>
 
-</div>
-    </div>
+// </div>
+//     </div>
+        <BestSellers themeColor={themeColor}/>
   );
 };
 

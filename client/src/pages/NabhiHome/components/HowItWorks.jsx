@@ -19,7 +19,7 @@ const PROCESS_STEPS = [
   },
   {
     stepNumber: "02",
-    title: "Message", // Matching the typo "Message" verbatim from image_8eaf57.jpg
+    title: "Message", 
     description: "Gently massage on the Nabhi (belly button)",
     imageUrl: step2,
   },
@@ -43,40 +43,21 @@ const PROCESS_STEPS = [
   },
 ];
 
-// const HIGHLIGHT_FEATURES = [
-//   {
-//     title: "Fast Absorption",
-//     description: "Deep action from within",
-//     imageUrl: "https://your-cdn.com/assets/absorption-feat.png",
-//   },
-//   {
-//     title: "Ancient Ayurvedic",
-//     description: "Time-tested wisdom",
-//     imageUrl: "https://your-cdn.com/assets/ayurvedic-feat.png",
-//   },
-//   {
-//     title: "Safe & Natural",
-//     description: "Gentle, effective & non-habit forming",
-//     imageUrl: "https://your-cdn.com/assets/safe-feat.png",
-//   },
-//   {
-//     title: "For Whole Family",
-//     description: "Suitable for men, women & all ages",
-//     imageUrl: "https://your-cdn.com/assets/family-feat.png",
-//   },
-// ];
-
 // ═══════════════════════════════════════════════════════════════
 //  MAIN COMPONENT
 // ═══════════════════════════════════════════════════════════════
 
-export default function HowItWorks() {
+export default function HowItWorks({ themeColor }) {
+  // HIGHLIGHT: Fallback checks to preserve original styling variables if prop isn't passed
+  const activeColor = themeColor || "var(--new-purple-color)";
+  const badgeColor = themeColor || "var(--new-primary-color)";
+
   return (
     <section
       className="relative w-full overflow-hidden px-4 py-12 sm:px-6 md:py-16 lg:px-8"
       style={{ backgroundColor: "var(--new-bg-white-color)" }}
     >
-      {/* Decorative Floral Background (Top Right Corner as shown in image_8eaf57.jpg) */}
+      {/* Decorative Floral Background (Top Right Corner) */}
       <div
         className="pointer-events-none absolute top-0 right-0 h-[220px] w-[220px] bg-contain bg-right-top bg-no-repeat opacity-40 mix-blend-multiply sm:h-[300px] sm:w-[300px] md:opacity-75 lg:h-[380px] lg:w-[380px]"
         style={{
@@ -91,6 +72,7 @@ export default function HowItWorks() {
           subtitle="How It Works"
           heading="The Power of Nabhi"
           headingHighlight="Therapy"
+          themeColor={activeColor}
         />
 
         {/* 5-Step Process Horizontal Timeline */}
@@ -101,23 +83,27 @@ export default function HowItWorks() {
               className="relative flex flex-col items-center px-2"
             >
               {/* Circular Icon Wrapper with Step Tag */}
-              <div className="relative mb-4 flex h-24 w-24 items-center justify-center rounded-full border border-[var(--new-purple-color)] border-opacity-30 bg-[#fdfdfd] p-5 shadow-sm transition-transform duration-300 hover:scale-105 sm:h-28 sm:w-28">
-                {/* Image Icon replacing SVGs */}
+              <div 
+                className="relative mb-4 flex h-24 w-24 items-center justify-center rounded-full border bg-[#fdfdfd] p-5 shadow-sm transition-transform duration-300 hover:scale-105 sm:h-28 sm:w-28"
+                style={{ 
+                  // HIGHLIGHT: Uses inline styles if hex prop exists, otherwise native Tailwind border-opacity handles CSS variables smoothly
+                  borderColor: themeColor ? `${themeColor}` : "rgba(var(--new-purple-color-rgb, 93, 39, 170), 0.3)"
+                }}
+              >
                 <img
                   src={step.imageUrl}
                   alt={`${step.title} Icon`}
-                  className="h-full w-full object-contain tint-purple"
+                  className="h-full w-full object-contain"
                   onError={(e) => {
-                    // Fallback visual indicator if image paths aren't linked yet
                     e.target.style.display = "none";
-                    e.target.parentNode.classList.add("bg-[#35105f]/5");
+                    e.target.parentNode.style.backgroundColor = themeColor ? `${themeColor}` : "rgba(93, 39, 170, 0.05)";
                   }}
                 />
 
                 {/* Number Badge */}
                 <span
                   className="absolute top-1 right-1 flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold text-white shadow-sm"
-                  style={{ backgroundColor: "var(--new-primary-color)" }}
+                  style={{ backgroundColor: badgeColor }}
                 >
                   {step.stepNumber}
                 </span>
@@ -126,7 +112,8 @@ export default function HowItWorks() {
               {/* Connecting Step Arrow (Hidden on mobile stack, visible between items on desktop view) */}
               {idx < PROCESS_STEPS.length - 1 && (
                 <div
-                  className="absolute top-12 left-[calc(50%+4rem)] hidden w-[calc(100%-8rem)] items-center justify-center text-[var(--new-purple-color)] opacity-40 md:flex"
+                  className="absolute top-12 left-[calc(50%+4rem)] hidden w-[calc(100%-8rem)] items-center justify-center opacity-40 md:flex"
+                  style={{ color: activeColor }}
                   aria-hidden="true"
                 >
                   <svg
@@ -162,8 +149,6 @@ export default function HowItWorks() {
             </div>
           ))}
         </div>
-
-        {/* Bottom Feature Highlights Bar */}
         
       </div>
     </section>

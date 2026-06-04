@@ -9,6 +9,16 @@
 import React, { useState } from "react";
 import { UpiStack } from "./ui";
 
+///new imports from NabhiHome
+import HowItWorks from "../../NabhiHome/components/HowItWorks";
+import MarqueeBar from "../../NabhiHome/components/MarqueeBar";
+import BestSellers from "../../NabhiHome/components/BestSellers";
+import Ingredients from "../../NabhiHome/components/Ingredients";
+
+
+
+
+
 // ─── Reusable Buy Button ──────────────────────────────────────────────────────
 function BuyNowBtn({ onClick, upiIcons }) {
   return (
@@ -242,14 +252,18 @@ export default function BelowFoldSections({
 }) {
   return (
     <>
-      <HowToUseSection isMobile={isMobile} images={howToUseImages} themeColor={themeColor} />
-      <BloatFreeSection data={bloatSection} onBuyNow={onBuyNow} upiIcons={upiIcons} />
-      <OilBenefitsSection isMobile={isMobile} images={benefitsCarouselImages} />
-      <BalanceVideoSection data={balanceSection} onBuyNow={onBuyNow} upiIcons={upiIcons} />
-      <HeroBannerSection data={heroBannerSection} />
-      <RitualFeaturesSection data={ritualSection} />
-      <GreenMarqueeSection items={greenMarqueeItems} themeColor={themeColor} />
-      <WhyUsSection data={whyUsSection} />
+      {/* new imports from home */}
+      <HowItWorks themeColor={themeColor}/>
+      <MarqueeBar themeColor={themeColor}/>
+      <Ingredients themeColor={themeColor}/>
+      {/* <HowToUseSection isMobile={isMobile} images={howToUseImages} themeColor={themeColor} /> */}
+      {/* <BloatFreeSection data={bloatSection} onBuyNow={onBuyNow} upiIcons={upiIcons} /> */}
+      {/* <OilBenefitsSection isMobile={isMobile} images={benefitsCarouselImages} /> */}
+      {/* <BalanceVideoSection data={balanceSection} onBuyNow={onBuyNow} upiIcons={upiIcons} /> */}
+      {/* <HeroBannerSection data={heroBannerSection} /> */}
+      {/* <RitualFeaturesSection data={ritualSection} /> */}
+      {/* <GreenMarqueeSection items={greenMarqueeItems} themeColor={themeColor} /> */}
+      {/* <WhyUsSection data={whyUsSection} /> */}
     </>
   );
 }

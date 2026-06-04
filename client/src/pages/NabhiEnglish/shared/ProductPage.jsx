@@ -314,6 +314,7 @@ export default function ProductPage({ config, relatedProducts = [] }) {
     greenMarqueeItems,
     reviews,
     reviewPhotos,
+    homeHowItWorks,
   } = config;
 
   const themeColor = product.themeColor ?? "#2d5a27";
@@ -1007,7 +1008,7 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
       </Suspense>
 
       {relatedProducts.length > 0 && (
-        <RelatedProductsComponent products={relatedProducts} />
+        <RelatedProductsComponent products={relatedProducts} themeColor={themeColor}/>
       )}
 
       {/* <Footer product={product} /> */}

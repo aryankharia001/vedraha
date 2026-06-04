@@ -1,7 +1,11 @@
 import React from "react";
 
 export default function SectionHeader(props) {
-  const { subtitle, heading, headingHighlight, headingSuffix } = props;
+  // HIGHLIGHT: Destructured themeColor alongside your existing props
+  const { subtitle, heading, headingHighlight, headingSuffix, themeColor } = props;
+
+  // HIGHLIGHT: Fallback check to preserve the original purple if themeColor isn't provided
+  const highlightColor = themeColor || "var(--new-purple-color)";
 
   return (
     <div className="mb-12 flex flex-col items-center justify-center text-center">
@@ -9,7 +13,7 @@ export default function SectionHeader(props) {
       {subtitle && (
         <p
           className="mb-2 text-[11px] font-extrabold uppercase tracking-[0.28em] text-[var(--new-heading-text)] sm:text-[12px]"
-          style={{ fontFamily: "var(--font-new-1)",fontWeight:"900" }}
+          style={{ fontFamily: "var(--font-new-1)", fontWeight: "900" }}
         >
           {subtitle}
         </p>
@@ -23,8 +27,11 @@ export default function SectionHeader(props) {
         {heading}{" "}
         {headingHighlight && (
           <span
-            className="font-medium text-[var(--new-purple-color)] text-[26px] sm:text-[30px] md:text-[36px] italic"
-            style={{ fontFamily: "var(--font-new-2)"}}
+            className="font-medium text-[26px] sm:text-[30px] md:text-[36px] italic"
+            style={{ 
+              fontFamily: "var(--font-new-2)",
+              color: highlightColor // HIGHLIGHT: Replaced static text color variable with dynamic theme evaluation
+            }}
           >
             {headingHighlight}
           </span>
