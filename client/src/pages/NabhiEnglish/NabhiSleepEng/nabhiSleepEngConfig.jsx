@@ -21,7 +21,7 @@ const product = {
   whatsappMessage:"Hi, I'm interested in Sleep Relief Oil",
   fbPixelId:      "1622075442328928",
   cartStorageKey: "exclusiveCart",
-  themeColor:     "#2e5b33",
+  themeColor:     "#4A2E80",
 };
 
 // ─── Variants ─────────────────────────────────────────────────────────────────

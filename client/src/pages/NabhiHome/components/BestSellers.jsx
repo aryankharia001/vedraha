@@ -5,7 +5,7 @@ import product1 from "../../../../public/product-2.png";
 import product2 from "../../../../public/product-3.png";
 import product3 from "../../../../public/product-4.png";
 import product5 from "../../../../public/product-5.png";
-// import product6 from "../../../../public/product-6.png";
+import product6 from "../../../../public/product-6.png";
 
 // ═══════════════════════════════════════════════════════════════
 //  DATA
@@ -72,7 +72,7 @@ export const products = [
     description: "Boosts strength, stamina & vital energy naturally",
     price: 699,
     originalPrice: 999,
-    image: product5, 
+    image: product6, 
     route: "/products/nabhi-shilajit-en", // FIXED: Appended missing "-en" suffix to match application router
   },
 ];

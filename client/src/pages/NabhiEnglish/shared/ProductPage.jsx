@@ -107,14 +107,14 @@ function StickyCTA({
         <div className="flex items-center gap-1.5 flex-wrap">
           <span
             className="text-2xl font-black"
-            style={{ color: themeColor, fontFamily: "'DM Sans', sans-serif" }}
+            style={{ color: themeColor, fontFamily: "var(--font-new-1)" }}
           >
             ₹{stickyTotal.toLocaleString("en-IN")}
           </span>
           {currentVariant?.mrp && (
             <span
               className="text-xs text-gray-300 line-through"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-new-1)" }}
             >
               ₹{(currentVariant.mrp * quantity).toLocaleString("en-IN")}
             </span>
@@ -196,7 +196,7 @@ function Footer({ product }) {
               </div>
               <span
                 className="text-white text-xl font-bold"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
+                style={{ fontFamily: "var(--font-new-1)" }}
               >
                 {product.name}
               </span>
@@ -208,7 +208,7 @@ function Footer({ product }) {
           <div>
             <div
               className="text-white text-base font-bold mb-5"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-new-1)" }}
             >
               Quick Links
             </div>
@@ -230,7 +230,7 @@ function Footer({ product }) {
           <div>
             <div
               className="text-white text-base font-bold mb-5"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-new-1)" }}
             >
               Policies
             </div>
@@ -252,7 +252,7 @@ function Footer({ product }) {
           <div>
             <div
               className="text-white text-base font-bold mb-5"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-new-1)" }}
             >
               Contact
             </div>
@@ -651,7 +651,7 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
             {/* Category subtitle */}
             <p
               className="text-xs text-gray-500 tracking-[0.14em] uppercase m-0 mb-2 font-medium"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-new-2)" }}
             >
               {/* {product.subtitle} */}VEDRAHA
             </p>
@@ -659,7 +659,7 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
             {/* Product Name */}
             <h1
               className="text-2xl md:text-3xl font-medium m-0 mb-2.5 leading-tight tracking-tight text-gray-800"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-new-1)" }}
             >
               {product.h1}
             </h1>
@@ -669,7 +669,7 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
               <span className="inline-block w-2 h-2 rounded-full bg-green-500"></span>
               <span
                 className="text-xs font-semibold text-green-600"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
+                style={{ fontFamily: "var(--font-new-1)" }}
               >
                 In Stock
               </span>
@@ -692,7 +692,7 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
               </div>
               <span
                 className="text-sm text-gray-500 font-medium"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
+                style={{ fontFamily: "var(--font-new-1)" }}
               >
                 {product.reviewSummary}
               </span>
@@ -709,7 +709,7 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
             {/* Select Pack */}
             <div
               className="text-xs font-bold uppercase tracking-widest mb-3.5 text-gray-500"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-new-1)" }}
             >
               Select Pack
             </div>
@@ -756,7 +756,7 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
                     className="text-base font-bold"
                     style={{
                       color: selectedVariant === v.id ? "#fff" : "#1a1a1a",
-                      fontFamily: "'DM Sans', sans-serif",
+                      fontFamily: "var(--font-new-1)",
                     }}
                   >
                     {v.price}
@@ -769,7 +769,7 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
                           selectedVariant === v.id
                             ? "rgba(255,255,255,0.65)"
                             : "#aaa",
-                        fontFamily: "'DM Sans', sans-serif",
+                        fontFamily: "var(--font-new-1)",
                       }}
                     >
                       ₹{v.mrp.toLocaleString("en-IN")}
@@ -783,11 +783,11 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
             <div className="flex items-center gap-4 mb-5">
               <div
                 className="text-xs font-bold uppercase tracking-widest mb-0 text-gray-500"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
+                style={{ fontFamily: "var(--font-new-1)" }}
               >
                 Quantity
               </div>
-              <div className="flex items-center border border-gray-300 rounded-xl overflow-hidden bg-white w-fit">
+              <div className="flex items-center border border-gray-300 overflow-hidden bg-white w-fit">
                 <button
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                   className="w-10 h-10 border-0 bg-transparent cursor-pointer text-xl font-medium flex items-center justify-center text-gray-400 hover:text-gray-700 transition-colors"
@@ -797,7 +797,7 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
 
                 <div
                   className="w-12 text-center text-base font-bold text-gray-900 border-l border-r border-gray-200 h-10 flex items-center justify-center"
-                  style={{ fontFamily: "'DM Sans', sans-serif" }}
+                  style={{ fontFamily: "var(--font-new-1)" }}
                 >
                   {quantity}
                 </div>
@@ -813,15 +813,15 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
               {/* Add To Cart Button */}
               <button
                 onClick={handleAddToCart}
-                className="flex-1 p-0 border-0 rounded-xl cursor-pointer bg-transparent outline-none flex items-center justify-center gap-2"
+                className="flex-1 p-0 border-0 rounded-xl cursor-pointer bg-transparent outline-none flex items-center justify-start gap-2"
                 style={{
                   WebkitTapHighlightColor: "transparent",
-                  fontFamily: "'DM Sans', sans-serif",
+                  fontFamily: "var(--font-new-1)",
                 }}
               >
                 <div
-                  className="w-full rounded-xl flex items-center justify-center gap-2"
-                  style={{ background: themeColor, height: "48px" }}
+                  className="w-fit flex items-center justify-center gap-2 px-6 h-10"
+                  style={{ background: themeColor,outline:`1px solid ${themeColor}`}}
                 >
                   <ShoppingBag size={18} color="#ffffff" />
                   <span className="text-sm font-bold text-white tracking-wide">
@@ -844,11 +844,11 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
                 className="flex-1 p-0 border-0 rounded-xl cursor-pointer bg-transparent outline-none flex items-center justify-center gap-2"
                 style={{
                   WebkitTapHighlightColor: "transparent",
-                  fontFamily: "'DM Sans', sans-serif",
+                  fontFamily: "var(--font-new-1)",
                 }}
               >
                 <div
-                  className="w-full rounded-xl flex items-center justify-center gap-2"
+                  className="w-full flex items-center justify-center gap-2"
                   style={{ background: themeColor, height: "48px" }}
                 >
                   <span className="text-sm font-bold text-white tracking-wide">
@@ -868,12 +868,12 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
                 className="flex-1 p-0 border-0 rounded-xl cursor-pointer bg-transparent outline-none flex items-center justify-center"
                 style={{
                   WebkitTapHighlightColor: "transparent",
-                  fontFamily: "'DM Sans', sans-serif",
+                  fontFamily: "var(--font-new-1)",
                 }}
               >
                 <div
-                  className="w-full rounded-xl flex items-center justify-center gap-2"
-                  style={{ background: "rgb(184, 148, 84)", height: "48px" }}
+                  className="w-full flex items-center justify-center gap-2"
+                  style={{ background: "black", height: "48px" }}
                 >
                   <UpiStack icons={upiIcons} size="sm" />
                   <span className="text-sm font-bold text-white tracking-wide">
@@ -887,14 +887,14 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
             <div className="flex gap-4 mt-4 flex-wrap">
               <div
                 className="text-xs text-gray-400"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
+                style={{ fontFamily: "var(--font-new-1)" }}
               >
                 <span className="font-semibold">SKU:</span>{" "}
                 {product.id.toUpperCase().replace(/-/g, "").slice(0, 12)}
               </div>
               <div
                 className="text-xs text-gray-400"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
+                style={{ fontFamily: "var(--font-new-1)" }}
               >
                 <span className="font-semibold">Tags:</span> {product.tagline}
               </div>
@@ -904,7 +904,7 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
             <div className="flex items-center gap-2 mt-4">
               <span
                 className="text-xs font-semibold text-gray-500"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
+                style={{ fontFamily: "var(--font-new-1)" }}
               >
                 Share:
               </span>
