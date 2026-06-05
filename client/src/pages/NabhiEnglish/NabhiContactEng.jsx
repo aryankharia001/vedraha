@@ -86,7 +86,7 @@ export default function NabhiContactEng() {
 
       {/* ══════════════════════ CONTACT SECTION ══════════════════════ */}
       <section
-        className="max-w-6xl mx-auto mt-20 px-6 py-16 rounded-3xl"
+        className="max-w-6xl mx-auto mt-22 px-6 py-16 rounded-3xl"
         style={{ background: "var(--new-bg-color)" }}
       >
         {/* Header */}
