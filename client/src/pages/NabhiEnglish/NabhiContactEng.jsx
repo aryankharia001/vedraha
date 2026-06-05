@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { backendurl } from "../../App";
 
 const brand = {
-  name:           "Home With Care · Ved Sanjeevani",
-  email:          "akravipvtltd@gmail.com",
+  name:           "Home With Care · Vedraha",
+  email:          "vedraha@gmail.com",
   phone:          "+91 97171 43189",
   whatsappNumber: "919717143189",
 };
@@ -118,7 +118,7 @@ export default function NabhiContactEng() {
               {[
                 { label: "Email",   val: brand.email },
                 { label: "Phone",   val: brand.phone },
-                { label: "Address", val: "Home With Care\nVed Sanjeevani" },
+                { label: "Address", val: "Home With Care\nVedraha" },
               ].map(({ label, val }) => (
                 <div key={label}>
                   <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "var(--new-neutral-color)" }}>{label}</p>
@@ -349,7 +349,7 @@ export default function NabhiContactEng() {
               <em style={{ fontStyle: "italic", color: "var(--new-accent-color)" }}>Holistic Wellness</em> at Home?
             </h2>
             <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
-              Explore our trusted Ayurvedic care services. Start your wellness journey with Home With Care · Ved Sanjeevani today!
+              Explore our trusted Ayurvedic care services. Start your wellness journey with Home With Care · Vedraha today!
             </p>
           </div>
 
@@ -360,7 +360,7 @@ export default function NabhiContactEng() {
               <div className="flex items-center justify-between mb-6">
                 <div>
                   <p className="text-xs text-white opacity-60 mb-0.5">Home With Care</p>
-                  <p className="text-sm font-semibold text-white">Ved Sanjeevani</p>
+                  <p className="text-sm font-semibold text-white">Vedraha</p>
                 </div>
                 <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
                   <circle cx="16" cy="16" r="16" fill="rgba(255,255,255,0.15)"/>
