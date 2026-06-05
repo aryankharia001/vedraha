@@ -91,12 +91,25 @@ export default function NabhiContactEng() {
       >
         {/* Header */}
         <div className="text-center mb-12">
-          <h1
-            className="text-4xl md:text-5xl mb-3"
-            style={{ fontFamily: "var(--font-new-2)", color: "var(--new-heading-text)" }}
+          <h1 className="text-4xl md:text-5xl mb-3">
+          <span
+            style={{
+              fontFamily: "var(--font-new-1)",
+              color: "var(--new-heading-text)",
+            }}
           >
-            Contact <em style={{ fontStyle: "italic", color: "var(--new-purple-color)" }}>Us</em>
-          </h1>
+            Contact
+          </span>{" "}
+          <em
+            style={{
+              fontFamily: "var(--font-new-2)",
+              fontStyle: "italic",
+              color: "var(--new-purple-color)",
+            }}
+          >
+            Us
+          </em>
+        </h1>
           <p className="text-sm max-w-md mx-auto" style={{ color: "var(--new-neutral-color)" }}>
             We're here to help. Whether you have questions, feedback, or need support, our team is ready to assist you.
           </p>

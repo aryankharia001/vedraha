@@ -67,7 +67,7 @@ const products = [
 export default function NabhiAboutEng() {
   return (
     <div className="font-sans text-gray-900 bg-white min-h-screen">
-        <NabhiHeader/>
+        {/* <NabhiHeader/> */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800;900&display=swap');
         body { font-family: 'DM Sans', sans-serif; }
