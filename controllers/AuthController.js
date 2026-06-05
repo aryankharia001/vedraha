@@ -93,10 +93,54 @@ export const login = async (req, res) => {
         email: user.email,
         name: user.name,
         notifyOffers: user.notifyOffers,
+        isAdmin: !!user.isAdmin,
       },
     });
   } catch (err) {
     console.error("Login error:", err);
+    return res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+// ── POST /api/auth/admin-login ─────────────────────────────────────────────
+// Same as /login but returns 403 if the user is not flagged as admin.
+// The frontend uses this to gate the contact-messages dashboard.
+export const adminLogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ success: false, message: "Email and password are required" });
+    }
+
+    const user = await NabhiUser.findOne({ email: email.toLowerCase().trim() }).select("+password");
+    if (!user) {
+      return res.status(401).json({ success: false, message: "Invalid email or password" });
+    }
+    if (!user.isAdmin) {
+      return res.status(403).json({ success: false, message: "Admin access required" });
+    }
+
+    const isMatch = await user.matchPassword(password);
+    if (!isMatch) {
+      return res.status(401).json({ success: false, message: "Invalid email or password" });
+    }
+
+    const token = generateToken(user._id);
+
+    return res.status(200).json({
+      success: true,
+      message: "Admin logged in",
+      token,
+      user: {
+        _id: user._id,
+        email: user.email,
+        name: user.name,
+        isAdmin: true,
+      },
+    });
+  } catch (err) {
+    console.error("Admin login error:", err);
     return res.status(500).json({ success: false, message: "Server error" });
   }
 };

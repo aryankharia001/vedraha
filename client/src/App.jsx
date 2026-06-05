@@ -55,6 +55,7 @@ import MyOrders        from './pages/Nabhi Oil/MyOrders'
 import MyOrdersEnglish from './pages/Nabhi Oil/MyOrdersEnglish'
 
 import CreateExclusiveProduct from './pages/admin/CreateExclusiveProduct'
+import AdminContactMessages from './pages/admin/AdminContactMessages'
 
 // ── English Product Pages ─────────────────────────────────────────────────────
 import NabhiJointPageEng     from './pages/NabhiEnglish/NabhiJointEng/NabhiJointPageEng'
@@ -284,6 +285,7 @@ function AppContent() {
         <Route path="/my-orders-en"                    element={<MyOrdersEnglish />} />
         <Route path="/order-en/:orderId"                    element={<OrderDetailsEnglish />} />
         <Route path="/admin"                    element={<CreateExclusiveProduct />} />
+        <Route path="/admin/contact-messages"   element={<AdminContactMessages />} />
 
         {/* ── Telugu ───────────────────────────────────────────────────── */}
         <Route path="/tlg"                             element={<HomeTelugu />} />

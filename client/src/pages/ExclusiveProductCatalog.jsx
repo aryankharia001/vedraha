@@ -120,7 +120,7 @@ function ProductCard({ product, redirectUrl }) {
       </div>
       <div className="pcard__body">
          <div className="pcard__meta-row">
-          <span className="pcard__category">{(product.path || "Nabhi Product").replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}</span>
+          <span className="pcard__category"></span>
           <div style={{ display: "flex", alignItems: "center", gap: 4, flexShrink: 0 }}>
             <StarRating rating={product.rating || 4.5} size={12}/>
             <span className="pcard__rating-num">{(product.rating || 4.5).toFixed(1)}</span>

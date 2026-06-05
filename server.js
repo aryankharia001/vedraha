@@ -8,6 +8,8 @@ import additionalRoutes from './routes/additionalRoutes.js'
 import NabhiRoutes from './routes/AuthRoutes.js'
 import connectDB from './config/db.js'
 import exclusiveRoutes from './routes/ExclusiveProductRoutes.js'
+import reviewRoutes from './routes/ReviewRoutes.js'
+import contactRoutes from './routes/ContactRoutes.js'
 import fileUpload from 'express-fileupload'    
 
 dotenv.config()
@@ -30,6 +32,8 @@ app.use(fileUpload({                                  // ← add this
 app.use('/api/ad', additionalRoutes)
 app.use('/api/auth', NabhiRoutes)
 app.use('/api/exclusiveproducts', exclusiveRoutes)
+app.use('/api/reviews', reviewRoutes)
+app.use('/api/contact', contactRoutes)
 
 // FRONTEND SERVING
 
