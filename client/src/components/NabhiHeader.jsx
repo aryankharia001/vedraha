@@ -308,14 +308,15 @@ export default function NabhiHeader({ onCartOpen }) {
         }
         .nh-inner {
           pointer-events: all;
-          max-width: 890px; margin: 0 auto;
+          max-width: 1060px; margin: 0 auto;
           height: 62px;
           display: flex; align-items: center; justify-content: space-between; gap: 16px;
           padding: 0 12px;
           background: var(--color-black);
           backdrop-filter: blur(18px) saturate(160%);
           -webkit-backdrop-filter: blur(18px) saturate(160%);
-          border-radius: var(--radius-pill, 9999px);
+          // border-radius: var(--radius-pill, 9999px);
+          border-radius: 10px;
           border: 1px solid rgba(255, 255, 255, 0.15);
           // box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25), 0 1px 4px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
@@ -341,10 +342,13 @@ export default function NabhiHeader({ onCartOpen }) {
         /* ── Desktop nav ─────────────────────────────────────────────────── */
         .nh-nav { display: flex; align-items: center; gap: 4px; }
         .nh-nav-link {
-          font-size: 13px; font-weight: 500 !important; letter-spacing: 0.07em;
+          font-size: 13px; 
+          font-weight: var(--nav-link-font-weight); 
+          letter-spacing: 0.07em;
           text-transform: capitalize; color: var(--color-white, #ffffff);
           text-decoration: none; padding: 7px 12px; 
-          border-radius: var(--radius-pill, 9999px);
+          // border-radius: var(--radius-pill, 9999px);
+          border-radius: 10px;
           transition: background .18s, color .18s; white-space: nowrap;
         }
         .nh-nav-link:hover { background: var(--color-white, #ffffff); color: var(--color-body, #202124); }
@@ -355,7 +359,7 @@ export default function NabhiHeader({ onCartOpen }) {
           display: flex; align-items: center; gap: 4px;
           font-size: 13px; font-weight: 500; letter-spacing: 0.07em;
           text-transform: capitalize; color: var(--color-white, #ffffff);
-          padding: 7px 12px; border-radius: var(--radius-pill, 9999px);
+          padding: 7px 12px; border-radius: 10px;
           border: none; background: none; cursor: pointer;
           transition: background .18s, color .18s; white-space: nowrap;
         }
@@ -366,7 +370,7 @@ export default function NabhiHeader({ onCartOpen }) {
           position: absolute; top: calc(100% + 10px); left: 50%;
           transform: translateX(-50%) translateY(-6px); min-width: 200px;
           background: var(--color-white, #ffffff);
-          border-radius: 16px; border: 1px solid rgba(0,0,0,.08);
+          border-radius: 10px;
           box-shadow: inset 0 2px 4px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.12), 0 2px 8px rgba(0,0,0,.08);
           overflow: hidden; z-index: 700; opacity: 0; pointer-events: none;
           transition: opacity .22s ease, transform .22s cubic-bezier(0.4,0,0.2,1);
@@ -380,7 +384,7 @@ export default function NabhiHeader({ onCartOpen }) {
         }
         .nh-catalog-drop-item:last-child { border-bottom: none; }
         .nh-catalog-drop-item:first-child { font-weight: 700; }
-        .nh-catalog-drop-item:hover { background: rgba(0,0,0,0.6); color: #fff; }
+        .nh-catalog-drop-item:hover { background: black; color: #fff; }
 
         /* ── Actions ─────────────────────────────────────────────────────── */
         .nh-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
@@ -390,10 +394,10 @@ export default function NabhiHeader({ onCartOpen }) {
           display: flex; align-items: center; justify-content: center;
           cursor: pointer; color: #fff; transition: background .18s, border-color .18s, color .18s;
         }
-        .nh-icon-btn:hover { background: #fff; border-color: #fff; color: #000; }
+        // .nh-icon-btn:hover { background: #fff; border-color: #fff; color: #000; }
         .nh-cart-badge {
           position: absolute; top: -4px; right: -4px; min-width: 18px; height: 18px;
-          border-radius: 9999px; background: var(--color-gold, #C08A3E); color: #fff;
+          border-radius: 9999px; background: var(--new-purple-color, #5d27aa); color: #fff;
           font-size: 10px; font-weight: 700; display: flex; align-items: center;
           justify-content: center; padding: 0 4px; border: 2px solid rgba(0,0,0,.5);
         }
@@ -587,7 +591,8 @@ export default function NabhiHeader({ onCartOpen }) {
         <div className="nh-inner">
           {/* Logo */}
           <a
-            className="nh-logo"
+            className="nh-logo font-light"
+            style={{fontWeight:"300"}}
             href="/"
             onClick={(e) => {
               e.preventDefault();
@@ -598,7 +603,7 @@ export default function NabhiHeader({ onCartOpen }) {
               src="https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=nabhiLogo.webp&version_id=null"
               alt="Nabhi Amrit"
             />
-            <span className="nh-logo-name" style={{ fontWeight: "400" }}>
+            {/* <span className="nh-logo-name" style={{ fontWeight: "400" }}>
               Ved
               <span
                 style={{
@@ -609,7 +614,7 @@ export default function NabhiHeader({ onCartOpen }) {
               >
                 Raha.
               </span>
-            </span>
+            </span> */}
           </a>
 
           {/* Desktop nav links */}

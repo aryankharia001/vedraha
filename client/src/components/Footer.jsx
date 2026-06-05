@@ -282,9 +282,9 @@ export default function Footer() {
               ))}
             </div>
           </div>
-          <div className='absolute left-0 lg:right-0 bottom-0' style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+          {/* <div className='absolute left-0 lg:right-0 bottom-0' style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
             <img src={paymentImg} alt="Accepted payment methods" style={{ height: '110px', width: 'auto', objectFit: 'contain', objectPosition: 'right center', display: 'block' }} />
-          </div>
+          </div> */}
         </div>
         {/* <div style={{ borderTop: '1px solid var(--color-placeholder)', margin: '0 2.5rem' }} /> */}
         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'left', justifyContent: 'start', gap: '16px', padding: '1.125rem 2.5rem' }}>
