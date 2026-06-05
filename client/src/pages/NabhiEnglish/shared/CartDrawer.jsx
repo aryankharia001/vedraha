@@ -274,7 +274,7 @@ export default function CartDrawer({ onBuyNow }) {
           flexDirection: "column",
           boxShadow: "-4px 0 40px rgba(0,0,0,0.14)",
           transform: isOpen ? "translateX(0)" : "translateX(500px)",
-          transition: "transform 1.0s cubic-bezier(0.2,1,1,1)",
+          transition: "transform 0.4s cubic-bezier(0.2,1,1,1)",
           fontFamily: "var(--font-new-1)",
           overflow: "hidden",
           borderRadius: "15px"
