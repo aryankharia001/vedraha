@@ -84,6 +84,7 @@ export default function FAQSection({ themeColor, bgMode = "default" }) {
                   key={faq.id}
                   className="rounded-2xl overflow-hidden transition-all duration-300"
                   style={{
+                    fontFamily:"var(--font-new-1)",
                     backgroundColor: isOpen
                       ? primaryThemeColor // HIGHLIGHT: Replaced static variable with the evaluated dynamic primary color
                       : "var(--color-white, #ffffff)",
@@ -137,7 +138,7 @@ export default function FAQSection({ themeColor, bgMode = "default" }) {
           {/* Right Column: CTA Sidebar Panel Info Box */}
           <div
             className="rounded-3xl p-8 text-center flex flex-col items-center justify-center min-h-[340px] text-white w-full shadow-md"
-            style={{ backgroundColor: purpleThemeColor }} // HIGHLIGHT: Updated sidebar box background with dynamic purple color evaluation
+            style={{ backgroundColor: purpleThemeColor,fontFamily:"var(--font-new-1)" }} // HIGHLIGHT: Updated sidebar box background with dynamic purple color evaluation
           >
             {/* Conversational Chat Icon Block */}
             <div

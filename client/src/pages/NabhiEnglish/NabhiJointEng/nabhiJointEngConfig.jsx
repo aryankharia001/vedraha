@@ -21,7 +21,7 @@ const product = {
   whatsappMessage:"Hi, I'm interested in Joint Pain Nabhi Oil",
   fbPixelId:      "1622075442328928",
   cartStorageKey: "exclusiveCart",
-  themeColor:     "#2d5a27",
+  themeColor:     "#a81313",
 };
 
 // ─── Variants ─────────────────────────────────────────────────────────────────

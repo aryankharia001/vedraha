@@ -312,7 +312,7 @@ export default function NabhiHeader({ onCartOpen }) {
           height: 62px;
           display: flex; align-items: center; justify-content: space-between; gap: 16px;
           padding: 0 12px;
-          background: rgba(0, 0, 0, 0.6);
+          background: var(--color-black);
           backdrop-filter: blur(18px) saturate(160%);
           -webkit-backdrop-filter: blur(18px) saturate(160%);
           border-radius: var(--radius-pill, 9999px);
@@ -341,7 +341,7 @@ export default function NabhiHeader({ onCartOpen }) {
         /* ── Desktop nav ─────────────────────────────────────────────────── */
         .nh-nav { display: flex; align-items: center; gap: 4px; }
         .nh-nav-link {
-          font-size: 13px; font-weight: 100 !important; letter-spacing: 0.07em;
+          font-size: 13px; font-weight: 500 !important; letter-spacing: 0.07em;
           text-transform: capitalize; color: var(--color-white, #ffffff);
           text-decoration: none; padding: 7px 12px; 
           border-radius: var(--radius-pill, 9999px);
@@ -353,7 +353,7 @@ export default function NabhiHeader({ onCartOpen }) {
         .nh-catalog-wrap { position: relative; }
         .nh-catalog-btn {
           display: flex; align-items: center; gap: 4px;
-          font-size: 13px; font-weight: 600; letter-spacing: 0.07em;
+          font-size: 13px; font-weight: 500; letter-spacing: 0.07em;
           text-transform: capitalize; color: var(--color-white, #ffffff);
           padding: 7px 12px; border-radius: var(--radius-pill, 9999px);
           border: none; background: none; cursor: pointer;
