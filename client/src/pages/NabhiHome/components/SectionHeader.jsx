@@ -1,19 +1,24 @@
 import React from "react";
 
 export default function SectionHeader(props) {
-  // HIGHLIGHT: Destructured themeColor alongside your existing props
+  // Destructured themeColor alongside your existing props
   const { subtitle, heading, headingHighlight, headingSuffix, themeColor } = props;
 
-  // HIGHLIGHT: Fallback check to preserve the original purple if themeColor isn't provided
+  // HIGHLIGHT: Fallback checks to preserve original styles if themeColor isn't provided
   const highlightColor = themeColor || "var(--new-purple-color)";
+  const subtitleColor = themeColor || "var(--new-heading-text)";
 
   return (
     <div className="mb-12 flex flex-col items-center justify-center text-center">
       {/* Subtitle */}
       {subtitle && (
         <p
-          className="mb-2 text-[11px] font-extrabold uppercase tracking-[0.28em] text-[var(--new-heading-text)] sm:text-[12px]"
-          style={{ fontFamily: "var(--font-new-1)", fontWeight: "900" }}
+          className="mb-2 text-[11px] font-extrabold uppercase tracking-[0.28em] sm:text-[12px]"
+          style={{ 
+            fontFamily: "var(--font-new-1)", 
+            fontWeight: "900",
+            color: subtitleColor // HIGHLIGHT: Made subtitle color dynamic here
+          }}
         >
           {subtitle}
         </p>
@@ -30,7 +35,7 @@ export default function SectionHeader(props) {
             className="font-medium text-[26px] sm:text-[30px] md:text-[36px] italic"
             style={{ 
               fontFamily: "var(--font-new-2)",
-              color: highlightColor // HIGHLIGHT: Replaced static text color variable with dynamic theme evaluation
+              color: highlightColor // Replaced static text color variable with dynamic theme evaluation
             }}
           >
             {headingHighlight}

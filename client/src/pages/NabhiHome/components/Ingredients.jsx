@@ -50,9 +50,8 @@ const INGREDIENTS = [
 // ═══════════════════════════════════════════════════════════════
 
 export default function Ingredients({ themeColor }) {
-  // HIGHLIGHT: Safe fallbacks evaluation for typography and card outlines
   const activeTextColor = themeColor || "var(--new-purple-color)";
-  const activeBorderColor = themeColor ? `${themeColor}66` : "rgba(123, 43, 236, 0.4)"; // 0.4 opacity hex mapping fallback
+  const activeBorderColor = themeColor ? `${themeColor}66` : "rgba(123, 43, 236, 0.4)";
 
   return (
     <section
@@ -75,40 +74,42 @@ export default function Ingredients({ themeColor }) {
             background:
               "linear-gradient(to top, #f2eafa5b 0%, #f2eafa5b 5%, transparent 20%, transparent 100%)",
           }}
-        >
-          </div>
+        />
       </div>
 
       {/* ── Content area ── */}
       <div className="relative z-10 mx-auto max-w-[1240px] px-4 py-12 sm:px-6 md:py-16 lg:px-8">
-        {/* Header — centred */}
-        {/* HIGHLIGHT: Forwarded themeColor into your SectionHeader child component */}
-        <SectionHeader
-          subtitle="The Goodness Within"
-          heading="Pure Herbs. Real"
-          headingHighlight="Results."
-          themeColor={themeColor}
-        />
 
-        {/* Subheading */}
-        <p
-          className="mx-auto -mt-8 mb-10 max-w-xl text-center text-[13px] font-medium leading-relaxed text-[var(--new-para-text)] opacity-90 sm:text-[14px]"
-          style={{ fontFamily: "var(--font-new-1)" }}
-        >
-          We use the finest Ayurvedic herbs and cold-pressed oils to ensure
-          maximum potency and effectiveness.
-        </p>
+        {/* ── Centred header block ── */}
+        
 
         {/* ── Ingredient cards — right-aligned on desktop ── */}
         <div className="flex justify-end">
           <div className="w-full lg:w-[68%]">
-            {/* Cards grid */}
+
+<div className="mx-auto max-w-xl text-center">
+          <SectionHeader
+            subtitle="The Goodness Within"
+            heading="Pure Herbs. Real"
+            headingHighlight="Results."
+            themeColor={themeColor}
+          />
+
+          <p
+            className="-mt-8 mb-10 text-[13px] font-medium leading-relaxed text-[var(--new-para-text)] opacity-90 sm:text-[14px]"
+            style={{ fontFamily: "var(--font-new-1)" }}
+          >
+            We use the finest Ayurvedic herbs and cold-pressed oils to ensure
+            maximum potency and effectiveness.
+          </p>
+        </div>
+
             <div className="grid grid-cols-2 gap-2.5 min-[480px]:grid-cols-3 sm:gap-3 md:grid-cols-4 lg:grid-cols-6 lg:gap-2">
               {INGREDIENTS.map((herb) => (
                 <div
                   key={herb.name}
                   className="group flex flex-col overflow-hidden rounded-[8px] bg-white shadow-[0_4px_14px_rgba(33,18,76,0.10)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(33,18,76,0.15)] min-h-[200px]"
-                  style={{ borderColor: "rgba(123,43,236,0.4)", borderWidth: "1px", borderStyle: "solid" }} // HIGHLIGHT: Replaced static tailwind border configurations with custom styles
+                  style={{ borderStyle: "solid" }}
                 >
                   {/* Image — square top half */}
                   <div className="aspect-square w-full overflow-hidden bg-slate-50/60 p-2.5">
@@ -121,12 +122,11 @@ export default function Ingredients({ themeColor }) {
 
                   {/* Text — bottom half */}
                   <div className="flex flex-col items-center justify-start gap-1.5 px-2 py-3 pb-3 text-center">
-                    {/* HIGHLIGHT: Styled title color inline with activeTextColor to match application states */}
                     <h3
                       className="text-[13px] font-extrabold leading-tight lg:text-[12.5px] xl:text-[13.5px]"
-                      style={{ 
+                      style={{
                         fontFamily: "var(--font-new-1)",
-                        color: "var(--new-purple-color)"
+                        color: "var(--color-black)",
                       }}
                     >
                       {herb.name}

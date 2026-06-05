@@ -41,32 +41,40 @@ const faqData = [
   },
 ];
 
-// Fully dynamic data schema for the feature highlight banners at the bottom
-
-export default function FAQSection() {
+export default function FAQSection({ themeColor, bgMode = "default" }) {
   const [openId, setOpenId] = useState("discounts");
 
   const toggleFAQ = (id) => {
     setOpenId(openId === id ? null : id);
   };
 
+  // HIGHLIGHT: Dynamic evaluation of the color tokens based on incoming themeColor prop
+  const activeBgColor = `${themeColor}22` || "var(--new-bg-color, #f2eafa)";
+  const primaryThemeColor = themeColor || "var(--new-primary-color, #184b24)";
+  const purpleThemeColor = themeColor || "var(--new-purple-color, #7b2bec)";
+
   return (
     <section
       className="w-full"
       style={{
-        backgroundColor: "var(--new-bg-color, #f2eafa)",
+        backgroundColor: activeBgColor,
       }}
     >
       <div className="max-w-[1240px] mx-auto px-6 py-16 select-none">
+        
         {/* --- Section Title Header --- */}
-        <SectionHeader
-                        subtitle="Faqs"
-                        heading="Frequently"
-                        headingHighlight="Asked Questions"
-                      />
+        <div className="w-full flex flex-col items-center justify-center text-center mb-4">
+          <SectionHeader
+            subtitle="Faqs"
+            heading="Frequently"
+            headingHighlight="Asked Questions"
+            themeColor={themeColor}
+          />
+        </div>
 
         {/* --- Core Content Grid: Accordion & CTA Sidebar Box --- */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8 items-start">
+          
           {/* Left Column: List Layout of Accordions */}
           <div className="space-y-4 w-full">
             {faqData.map((faq) => {
@@ -77,7 +85,7 @@ export default function FAQSection() {
                   className="rounded-2xl overflow-hidden transition-all duration-300"
                   style={{
                     backgroundColor: isOpen
-                      ? "var(--color-primary, #184b24)"
+                      ? primaryThemeColor // HIGHLIGHT: Replaced static variable with the evaluated dynamic primary color
                       : "var(--color-white, #ffffff)",
                     boxShadow: isOpen
                       ? "var(--shadow-card, 0 4px 20px rgba(0,0,0,0.06))"
@@ -129,7 +137,7 @@ export default function FAQSection() {
           {/* Right Column: CTA Sidebar Panel Info Box */}
           <div
             className="rounded-3xl p-8 text-center flex flex-col items-center justify-center min-h-[340px] text-white w-full shadow-md"
-            style={{ backgroundColor: "var(--color-primary, #11391a)" }}
+            style={{ backgroundColor: purpleThemeColor }} // HIGHLIGHT: Updated sidebar box background with dynamic purple color evaluation
           >
             {/* Conversational Chat Icon Block */}
             <div
@@ -159,7 +167,7 @@ export default function FAQSection() {
               You have different questions?
             </h3>
 
-            <p className="text-xs text-slate-300 leading-relaxed mb-8 max-w-[220px]">
+            <p className="text-xs text-[rgba(255, 255, 255, 0.85)] leading-relaxed mb-8 max-w-[220px]">
               Our team will answer all your questions. We ensure a quick
               response.
             </p>

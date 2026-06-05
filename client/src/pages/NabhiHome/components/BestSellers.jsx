@@ -86,6 +86,7 @@ const ProductCard = ({ product, buttonBgColor }) => (
   <Link
     to={product.route || "#"}
     className="group flex flex-col justify-between overflow-hidden border border-[#eeeaf6] bg-white text-center no-underline shadow-[0_4px_12px_rgba(37,25,70,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(37,25,70,0.15)] rounded-[7px]"
+    style={{ fontFamily: "var(--font-new-1)" }}
   >
     <div className="relative aspect-square w-full overflow-hidden bg-slate-50 min-[480px]:aspect-[4/3] sm:aspect-square">
       <img
@@ -98,11 +99,13 @@ const ProductCard = ({ product, buttonBgColor }) => (
 
     <div className="flex flex-1 flex-col justify-between p-3.5 sm:p-4">
       <div className="mb-3">
-        <h3 className="text-[16px] font-extrabold leading-tight text-[var(--new-heading-text)] min-[480px]:text-[17px] xl:text-[15px] min-[1400px]:text-[17px]">
+        <h3 className="text-[16px] font-extrabold leading-tight text-[var(--new-heading-text)] min-[480px]:text-[17px] xl:text-[15px] min-[1400px]:text-[17px]"
+        style={{ fontFamily: "var(--font-new-1)" }}>
           {product.name} Nabhi Oil
         </h3>
 
-        <p className="mt-1.5 line-clamp-2 text-[13px] font-medium leading-normal text-[var(--new-para-text)] xl:text-[12px] min-[1400px]:text-[13px]">
+        <p className="mt-1.5 line-clamp-2 text-[13px] font-medium leading-normal text-[var(--new-para-text)] xl:text-[12px] min-[1400px]:text-[13px]"
+        style={{ fontFamily: "var(--font-new-1)" }}>
           {product.description}
         </p>
       </div>
@@ -117,11 +120,12 @@ const ProductCard = ({ product, buttonBgColor }) => (
           </span>
         </div>
 
+        {/* HIGHLIGHT: Styled button background inline with active buttonBgColor prop logic */}
         <span
           className="mt-3 inline-flex w-full items-center justify-center py-2 text-[12px] font-extrabold capitalise tracking-wider text-white shadow-[0_3px_7px_rgba(53,16,95,0.2)] transition-opacity group-hover:opacity-90 xl:text-[11px] min-[1400px]:text-[12px] rounded"
           style={{ 
             fontFamily: "var(--font-new-1)",
-            backgroundColor: "var(--new-primary-color)"
+            backgroundColor: buttonBgColor 
           }}
         >
           Shop Now
@@ -139,25 +143,32 @@ const BestSellers = ({
   content = bestSellersContent,
   productList = products,
   themeColor, 
+  bgMode = "default", // HIGHLIGHT: Accepts "white" or "default"
 }) => {
   const displayProducts = productList.slice(0, 7);
 
   // Fallback tokens mapped cleanly
   const highlightTextColor = themeColor || "var(--new-purple-color)";
   const primaryButtonColor = themeColor || "var(--new-primary-color)";
+  
+  // HIGHLIGHT: If bgMode is exactly "white", it uses the white variable, otherwise it defaults to standard bg color
+  const sectionBgColor = bgMode === "white" ? "var(--new-bg-white-color)" : "var(--new-bg-color)";
 
   return (
-    <section className="relative overflow-hidden bg-[var(--new-bg-color)] py-12 md:py-16">
+    <section 
+      className="relative overflow-hidden py-12 md:py-16"
+      style={{ backgroundColor: sectionBgColor }}
+    >
 
       <div className="relative z-10 mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="mx-auto mb-10 max-w-2xl text-center md:mb-12">
-          {/* FIXED: Removed Tailwind color class and nested under inline style */}
           <p 
             className="mb-2 text-[11px] font-extrabold uppercase tracking-[0.28em] sm:text-[12px]"
-            style={{ color: "var(--new-heading-text)",
+            style={{ 
               color: primaryButtonColor,
-             }}
+              fontFamily: "var(--font-new-1)"
+            }}
           >
             {content.subtitle}
           </p>
@@ -167,7 +178,6 @@ const BestSellers = ({
             style={{ fontFamily: "var(--font-new-1)" }}
           >
             {content.heading}{" "}
-            {/* FIXED: Removed Tailwind styling cleanly to manage exclusively via style block */}
             <span
               className="font-medium text-[26px] sm:text-[30px] md:text-[36px]"
               style={{
@@ -192,7 +202,7 @@ const BestSellers = ({
               <ProductCard 
                 key={product.id} 
                 product={product} 
-                // buttonBgColor={primaryButtonColor} 
+                buttonBgColor={primaryButtonColor} // HIGHLIGHT: Forwarded active themeColor into custom card children
               />
             ))}
           </div>

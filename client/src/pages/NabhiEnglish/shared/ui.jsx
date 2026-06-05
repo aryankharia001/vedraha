@@ -33,7 +33,7 @@ export function PriceWithTimer({ currentVariant, selectedPrice }) {
       <div className="flex items-center gap-2 flex-wrap">
         <span
           className="text-[40px] font-black text-[#2d5a27]"
-          style={{ fontFamily: "'DM Sans', sans-serif" }}
+          style={{ fontFamily: "var(--font-new-1)" }}
         >
           ₹{selectedPrice.toLocaleString("en-IN")}
         </span>
@@ -41,7 +41,7 @@ export function PriceWithTimer({ currentVariant, selectedPrice }) {
           <>
             <span
               className="text-base text-gray-400 line-through font-medium"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-new-1)" }}
             >
               ₹{mrp.toLocaleString("en-IN")}
             </span>
@@ -84,11 +84,12 @@ export function StarRating({ rating, size = 14 }) {
 export function Accordion({ title, content }) {
   const [open, setOpen] = useState(title === "Why Nabhi Amrit?");
   return (
-    <div className="border-t border-gray-200">
+    <div className="border-t border-gray-200"
+    style={{ fontFamily: "var(--font-new-1)" }}>
       <button
         onClick={() => setOpen(!open)}
         className="w-full bg-transparent border-0 py-4 flex justify-between items-center cursor-pointer font-bold text-base text-gray-900 text-left gap-2"
-        style={{ fontFamily: "'DM Sans', sans-serif" }}
+        
       >
         <span>{title}</span>
         <BsChevronDown
@@ -131,7 +132,7 @@ export function FormField({ label, fieldKey, icon, placeholder, type, maxLength,
             ? "border-2 border-red-500 bg-red-50"
             : "border border-gray-200 bg-gray-50 focus:border-green-700 focus:bg-white focus:shadow-md"
         }`}
-        style={{ fontFamily: "'DM Sans', sans-serif" }}
+        style={{ fontFamily: "var(--font-new-1)" }}
       />
       {error && <div className="text-red-600 text-xs mt-1">{error}</div>}
     </div>

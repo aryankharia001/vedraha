@@ -14,6 +14,7 @@ import HowItWorks from "../../NabhiHome/components/HowItWorks";
 import MarqueeBar from "../../NabhiHome/components/MarqueeBar";
 import BestSellers from "../../NabhiHome/components/BestSellers";
 import Ingredients from "../../NabhiHome/components/Ingredients";
+import FAQSection from "../../NabhiHome/components/FAQSection";
 
 
 

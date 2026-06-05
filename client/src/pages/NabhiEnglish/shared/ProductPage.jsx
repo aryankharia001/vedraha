@@ -29,6 +29,7 @@ import {
   trackInitiateCheckout,
   trackViewContent,
 } from "../../../utils/metaCapi";
+import FAQSection from "../../NabhiHome/components/FAQSection";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 const getCookie = (name) => {
@@ -106,11 +107,12 @@ function StickyCTA({
         transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)",
       }}
     >
-      <div className="flex flex-col gap-0.5">
+      <div className="flex flex-col gap-0.5"
+      style={{ fontFamily: "var(--font-new-1)" }}>
         <div className="flex items-center gap-1.5 flex-wrap">
           <span
             className="text-2xl font-black"
-            style={{ color: themeColor, fontFamily: "var(--font-new-1)" }}
+            style={{ color: "black", fontFamily: "var(--font-new-1)" }}
           >
             ₹{stickyTotal.toLocaleString("en-IN")}
           </span>
@@ -124,13 +126,14 @@ function StickyCTA({
           )}
           <span
             className="text-[10px] font-extrabold px-1.5 py-0.5 rounded-full"
-            style={{ background: "#e8f5e2", color: themeColor }}
+            style={{ color: themeColor,backgroundColor: themeColor ? `${themeColor}22` : "#22c55e22", }}
           >
             {discountPct}% OFF
           </span>
         </div>
         <div className="flex items-center gap-1">
-          <span className="text-xs text-red-500 font-bold">🔥 Buy Fast!</span>
+          <span className="text-xs font-bold"
+          style={{color:`${themeColor}`}}>Buy Fast!</span>
           <span className="text-[10px] text-gray-400">Limited Stock</span>
         </div>
       </div>
@@ -139,8 +142,9 @@ function StickyCTA({
         className="p-0 border-0 rounded-xl cursor-pointer bg-transparent outline-none flex-shrink-0"
         style={{ WebkitTapHighlightColor: "transparent" }}
       >
-        <div className="bg-[#B89454] rounded-xl">
-          <div className="bg-[#B89454] rounded-[10px] h-12 px-8 flex items-center justify-center gap-2">
+        <div className="" style={{backgroundColor:"black"}}>
+          <div className="h-12 px-20 flex items-center justify-center gap-2"
+          style={{backgroundColor:"black",fontFamily:"var(--font-new-1)"}}>
             <span className="text-sm font-extrabold text-white whitespace-nowrap">
               Buy Now
             </span>
@@ -731,7 +735,8 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
                 }}
               >
                 {v.badge && (
-                  <span className="absolute -top-2.5 -right-1.5 bg-[#c8a84b] text-white text-[10px] px-2 py-0.5 rounded font-bold tracking-wider">
+                  <span className="absolute -top-2.5 -right-1.5 text-white text-[10px] px-2 py-0.5 rounded font-bold tracking-wider"
+                  style={{backgroundColor:`${themeColor}`}}>
                     {v.badge}
                   </span>
                 )}
@@ -966,7 +971,7 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
                   className="text-xs font-semibold px-3 py-1.5 rounded-full flex items-center gap-1.5 border"
                   style={{
                     color: themeColor,
-                    background: "#f0f7ee",
+                    backgroundColor: themeColor ? `${themeColor}22` : "#22c55e22",
                     borderColor: "#d4e8d0",
                   }}
                 >
@@ -1006,15 +1011,19 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
             photos={reviews.photos}
             photoReviewers={reviews.photoReviewers}
             themeColor={themeColor}
+            productId={product.id}
           />
         )}
         {/* DB-driven, fully functional reviews section */}
-        {product?.id && (
+        {/* {product?.id && (
           <ProductReviewSection
             productId={product.id}
             themeColor={themeColor}
           />
-        )}
+        )} */}
+
+        <FAQSection themeColor={themeColor}/>
+
       </Suspense>
 
       {relatedProducts.length > 0 && (

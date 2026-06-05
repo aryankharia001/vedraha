@@ -87,7 +87,7 @@ export default function HowItWorks({ themeColor }) {
                 className="relative mb-4 flex h-24 w-24 items-center justify-center rounded-full border bg-[#fdfdfd] p-5 shadow-sm transition-transform duration-300 hover:scale-105 sm:h-28 sm:w-28"
                 style={{ 
                   // HIGHLIGHT: Uses inline styles if hex prop exists, otherwise native Tailwind border-opacity handles CSS variables smoothly
-                  borderColor: themeColor ? `${themeColor}` : "rgba(var(--new-purple-color-rgb, 93, 39, 170), 0.3)"
+                  borderColor: "black"
                 }}
               >
                 <img
@@ -103,7 +103,7 @@ export default function HowItWorks({ themeColor }) {
                 {/* Number Badge */}
                 <span
                   className="absolute top-1 right-1 flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold text-white shadow-sm"
-                  style={{ backgroundColor: badgeColor }}
+                  style={{ backgroundColor: "black" }}
                 >
                   {step.stepNumber}
                 </span>
@@ -112,8 +112,8 @@ export default function HowItWorks({ themeColor }) {
               {/* Connecting Step Arrow (Hidden on mobile stack, visible between items on desktop view) */}
               {idx < PROCESS_STEPS.length - 1 && (
                 <div
-                  className="absolute top-12 left-[calc(50%+4rem)] hidden w-[calc(100%-8rem)] items-center justify-center opacity-40 md:flex"
-                  style={{ color: activeColor }}
+                  className="absolute top-12 left-[calc(50%+4rem)] hidden w-[calc(100%-8rem)] items-center justify-center opacity-80 md:flex"
+                  style={{ color: "black" }}
                   aria-hidden="true"
                 >
                   <svg
@@ -135,7 +135,7 @@ export default function HowItWorks({ themeColor }) {
 
               {/* Content Text block */}
               <h3
-                className="mb-1.5 text-[15px] font-extrabold text-[var(--new-heading-text)]"
+                className="mb-1.5 text-[15px] font-extrabold text-black"
                 style={{ fontFamily: "var(--font-new-1)" }}
               >
                 {step.title}

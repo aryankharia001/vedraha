@@ -255,7 +255,7 @@ const ColHeading = ({ children }) => (
 export default function Footer() {
   return (
     <footer style={{width:"100%",backgroundColor:"var(--new-bg-white-color)",fontFamily: 'var(--font-body)', padding: '0 1.5rem 1.5rem'} }>
-      <div style={{ maxWidth: '1240px', margin: '0 auto', backgroundColor: 'var(--color-white)', borderRadius: 'var(--radius-2xl)', border: '1px solid var(--color-placeholder)', boxShadow: 'var(--shadow-card)', overflow: 'hidden' }}>
+      <div style={{ maxWidth: '1240px', margin: '0 auto', backgroundColor: 'var(--color-white)', borderRadius: 'var(--radius-2xl)', border: '1px solid var(--color-placeholder)', overflow: 'hidden' }}>
         <div className='gap-[2rem] md:gap-[2.5rem]' style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(155px, 1fr))', padding: '2.5rem 2.5rem', position: 'relative' }}>
           <div className='translate-y-[-18px]' style={{ display: 'flex', flexDirection: 'column', gap: '1rem', minWidth: '180px', maxWidth: '240px' }}>
             <Logo />

@@ -43,9 +43,12 @@ const MARQUEE_ITEMS = [
   }
 ];
 
-export default function MarqueeBar() {
+export default function MarqueeBar({ themeColor }) {
   // Robust loop to prevent visual clipping gaps during high-resolution infinite passes
   const marqueeLoop = [...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS];
+
+  // HIGHLIGHT: Dynamic evaluation of background color based on the themeColor prop
+  const activeMarqueeBg = themeColor || "var(--new-primary-color)";
 
   return (
     <div className="w-full overflow-hidden select-none">
@@ -66,7 +69,7 @@ export default function MarqueeBar() {
       `}</style>
 
       <div
-        style={{ background: "var(--new-primary-color)" }}
+        style={{ background: "black" }}
         className="relative w-full overflow-hidden py-3 text-white"
       >
         <div className="beauty-marquee-track relative z-10 flex items-center">
@@ -78,10 +81,11 @@ export default function MarqueeBar() {
               {/* Item Content Wrapper */}
               <div
                 className="flex items-center gap-2 text-xs font-medium tracking-wide"
-                style={{ color: "rgba(255,255,255,0.95)" }}
+                style={{ color: "#ffffff" }}
               >
+                {/* HIGHLIGHT: Changed icon text coloring to pure solid white */}
                 <span
-                  style={{ color: "#d9a05b" }}
+                  style={{ color: "#ffffff" }}
                   className="flex items-center shrink-0"
                 >
                   {item.icon}
@@ -90,9 +94,10 @@ export default function MarqueeBar() {
               </div>
 
               {/* Vertical Separator Pipeline */}
+              {/* HIGHLIGHT: Set pipeline color seamlessly to absolute solid white */}
               <span
-                className="mx-6 text-[10px] font-light opacity-40"
-                style={{ color: "rgba(255,255,255,0.25)" }}
+                className="mx-6 text-[10px] font-bold"
+                style={{ color: "#ffffff" }}
               >
                 |
               </span>

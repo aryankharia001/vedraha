@@ -153,7 +153,7 @@ const RelatedProducts = ({ products,themeColor }) => {
 
 // </div>
 //     </div>
-        <BestSellers themeColor={themeColor}/>
+        <BestSellers themeColor={themeColor} bgMode="white"/>
   );
 };
 
