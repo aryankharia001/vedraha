@@ -542,7 +542,7 @@ function RatingSummary({ summary, summaryLoading, staticCounts, staticTotal, the
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 mb-5">
       <div className="flex items-center gap-3 mb-4">
-        <span className="text-4xl font-bold" style={{ fontFamily: "var(--font-new-1)", color: themeColor }}>
+        <span className="text-4xl font-bold" style={{ fontFamily: "var(--font-new-1)", color: "black" }}>
           {total > 0 ? avg.toFixed(1) : "—"}
         </span>
         <div>
@@ -810,7 +810,7 @@ export default function ReviewsSection({
               <button
                 onClick={() => setShowForm(true)}
                 className="w-full py-2.5 rounded-xl text-white text-sm font-semibold cursor-pointer border-0 transition-opacity hover:opacity-90"
-                style={{ background: themeColor, fontFamily: "var(--font-new-1)" }}
+                style={{ background: "black", fontFamily: "var(--font-new-1)" }}
               >
                 Submit Reviews
               </button>

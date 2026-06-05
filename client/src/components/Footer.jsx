@@ -175,12 +175,12 @@ const Logo = () => (
     style={{ 
       width: '55px', 
       height: 'auto',
-      filter: 'brightness(0)' // HIGHLIGHT: Forces the white image to render as solid black
+      // filter: 'brightness(0)' 
     }}
   />
-  <span style={{ fontSize: '20px', fontWeight: '700', color: 'var(--color-black)', fontFamily: 'var(--font-new-1)', letterSpacing: '-0.01em', marginLeft: '8px' }}>
+  <span style={{ fontSize: '20px', fontWeight: '700', color: 'var(--color-white)', fontFamily: 'var(--font-new-1)', letterSpacing: '-0.01em', marginLeft: '8px' }}>
     Ved<span style={{
-      fontFamily: "'Times New Roman', serif",
+      fontFamily: "var(--font-new-2)",
       fontSize: "22px",
       fontWeight: "400",
     }}>Raha.</span>
@@ -241,10 +241,10 @@ const FooterLink = ({ label }) => {
 // ─── COLUMN HEADING ───────────────────────────────────────────────────────────
 const ColHeading = ({ children }) => (
   <h4 style={{
-    color: 'var(--color-heading)',
+    color: 'var(--color-white)',
     fontSize: '0.9375rem',
     fontWeight: '700',
-    fontFamily: 'var(--font-body)',
+    fontFamily: 'var(--font-new-1)',
     margin: '0 0 1rem 0',
   }}>
     {children}
@@ -255,7 +255,7 @@ const ColHeading = ({ children }) => (
 export default function Footer() {
   return (
     <footer style={{width:"100%",backgroundColor:"var(--new-bg-white-color)",fontFamily: 'var(--font-body)', padding: '0 1.5rem 1.5rem'} }>
-      <div style={{ maxWidth: '1240px', margin: '0 auto', backgroundColor: 'var(--color-white)', borderRadius: 'var(--radius-2xl)', border: '1px solid var(--color-placeholder)', overflow: 'hidden' }}>
+      <div style={{ maxWidth: '1240px', margin: '0 auto', backgroundColor: 'var(--color-black)', borderRadius: 'var(--radius-2xl)', border: '1px solid var(--color-placeholder)', overflow: 'hidden' }}>
         <div className='gap-[2rem] md:gap-[2.5rem]' style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(155px, 1fr))', padding: '2.5rem 2.5rem', position: 'relative' }}>
           <div className='translate-y-[-18px]' style={{ display: 'flex', flexDirection: 'column', gap: '1rem', minWidth: '180px', maxWidth: '240px' }}>
             <Logo />
@@ -268,14 +268,14 @@ export default function Footer() {
           </div>
           {footerLinks.map(col => (
             <div key={col.heading} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <h4 style={{ color: 'var(--color-heading)', fontSize: '0.9375rem', fontWeight: '700', fontFamily: 'var(--font-body)', margin: 0 }}>{col.heading}</h4>
+              <h4 style={{ color: 'var(--color-white)', fontSize: '0.9375rem', fontWeight: '700', fontFamily: 'var(--font-body)', margin: 0 }}>{col.heading}</h4>
               <ul style={{ display: 'flex', flexDirection: 'column', gap: '10px', listStyle: 'none', margin: 0, padding: 0 }}>
                 {col.links.map(link => <FooterLink key={link} label={link} />)}
               </ul>
             </div>
           ))}
           <div className='mb-20 lg:mb-0' style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <h4 style={{ color: 'var(--color-heading)', fontSize: '0.9375rem', fontWeight: '700', fontFamily: 'var(--font-body)', margin: 0 }}>{contactInfo.heading}</h4>
+            <h4 style={{ color: 'var(--color-white)', fontSize: '0.9375rem', fontWeight: '700', fontFamily: 'var(--font-body)', margin: 0 }}>{contactInfo.heading}</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {[contactInfo.phone, contactInfo.email, contactInfo.address].map((item, i) => (
                 <p key={i} style={{ color: 'var(--color-muted)', fontSize: '0.8125rem', lineHeight: '1.6', margin: 0, fontFamily: 'var(--font-body)' }}>{item}</p>
@@ -286,8 +286,8 @@ export default function Footer() {
             <img src={paymentImg} alt="Accepted payment methods" style={{ height: '110px', width: 'auto', objectFit: 'contain', objectPosition: 'right center', display: 'block' }} />
           </div>
         </div>
-        <div style={{ borderTop: '1px solid var(--color-placeholder)', margin: '0 2.5rem' }} />
-        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '16px', padding: '1.125rem 2.5rem' }}>
+        {/* <div style={{ borderTop: '1px solid var(--color-placeholder)', margin: '0 2.5rem' }} /> */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'left', justifyContent: 'start', gap: '16px', padding: '1.125rem 2.5rem' }}>
           <p style={{ color: 'var(--color-muted)', fontSize: '0.8125rem', margin: 0, fontFamily: 'var(--font-body)', flexShrink: 0 }}>
             Copyright © 2026 <a href="#" style={{ color: 'var(--color-gold)', fontWeight: '600', textDecoration: 'none', transition: 'var(--transition-fast)' }} onMouseEnter={e => { e.currentTarget.style.color = 'var(--color-primary)'; }} onMouseLeave={e => { e.currentTarget.style.color = 'var(--color-gold)'; }}>Vedraha</a>. All Rights Reserved.
           </p>
