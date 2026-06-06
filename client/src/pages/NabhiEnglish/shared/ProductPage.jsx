@@ -18,8 +18,8 @@ import { useCart } from "../../../components/CartContext";
 const CodModal = lazy(() => import("./CodModal"));
 const ReviewsSection = lazy(() => import("./ReviewsSection"));
 const BelowFoldSections = lazy(() => import("./BelowFoldSections"));
-const ProductReviewSection = lazy(() =>
-  import("../../../components/ProductReviewSection")
+const ProductReviewSection = lazy(
+  () => import("../../../components/ProductReviewSection"),
 );
 
 import RelatedProductsComponent from "../../../components/Relatedproducts";
@@ -107,8 +107,10 @@ function StickyCTA({
         transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)",
       }}
     >
-      <div className="flex flex-col gap-0.5"
-      style={{ fontFamily: "var(--font-new-1)" }}>
+      <div
+        className="flex flex-col gap-0.5"
+        style={{ fontFamily: "var(--font-new-1)" }}
+      >
         <div className="flex items-center gap-1.5 flex-wrap">
           <span
             className="text-2xl font-black"
@@ -126,14 +128,21 @@ function StickyCTA({
           )}
           <span
             className="text-[10px] font-extrabold px-1.5 py-0.5 rounded-full"
-            style={{ color: themeColor,backgroundColor: themeColor ? `${themeColor}22` : "#22c55e22", }}
+            style={{
+              color: themeColor,
+              backgroundColor: themeColor ? `${themeColor}22` : "#22c55e22",
+            }}
           >
             {discountPct}% OFF
           </span>
         </div>
         <div className="flex items-center gap-1">
-          <span className="text-xs font-bold"
-          style={{color:`${themeColor}`}}>Buy Fast!</span>
+          <span
+            className="text-xs font-bold"
+            style={{ color: `${themeColor}` }}
+          >
+            Buy Fast!
+          </span>
           <span className="text-[10px] text-gray-400">Limited Stock</span>
         </div>
       </div>
@@ -142,9 +151,14 @@ function StickyCTA({
         className="p-0 border-0 rounded-xl cursor-pointer bg-transparent outline-none flex-shrink-0"
         style={{ WebkitTapHighlightColor: "transparent" }}
       >
-        <div className="" style={{backgroundColor:"black"}}>
-          <div className="h-12 px-20 flex items-center justify-center gap-2"
-          style={{backgroundColor:"black",fontFamily:"var(--font-new-1)"}}>
+        <div className="" style={{ backgroundColor: "black" }}>
+          <div
+            className="h-12 px-20 flex items-center justify-center gap-2"
+            style={{
+              backgroundColor: "black",
+              fontFamily: "var(--font-new-1)",
+            }}
+          >
             <span className="text-sm font-extrabold text-white whitespace-nowrap">
               Buy Now
             </span>
@@ -335,23 +349,23 @@ export default function ProductPage({ config, relatedProducts = [] }) {
   const [codSubmitting, setCodSubmitting] = useState(false);
   const [codSubmitted, setCodSubmitted] = useState(false);
   const [gatewayLoading, setGatewayLoading] = useState(false);
-  
-// ── Cart comes from context now ──────────────────────────────────────────
-const {
-  cartItems,
-  cartOpen,
-  cartTotalQty,
-  openCart,
-  closeCart,
-  addToCart,
-  updateQty,
-  removeItem,
-} = useCart();
 
-// ─── Derived ────────────────────────────────────────────────────────────────
-const currentVariant = variants.find((v) => v.id === selectedVariant);
-const selectedPrice = currentVariant?.priceNum ?? 0;
-const stickyTotal = selectedPrice * quantity;
+  // ── Cart comes from context now ──────────────────────────────────────────
+  const {
+    cartItems,
+    cartOpen,
+    cartTotalQty,
+    openCart,
+    closeCart,
+    addToCart,
+    updateQty,
+    removeItem,
+  } = useCart();
+
+  // ─── Derived ────────────────────────────────────────────────────────────────
+  const currentVariant = variants.find((v) => v.id === selectedVariant);
+  const selectedPrice = currentVariant?.priceNum ?? 0;
+  const stickyTotal = selectedPrice * quantity;
 
   useEffect(() => {
     trackViewContent(product.id, product.name, selectedPrice);
@@ -443,13 +457,12 @@ const stickyTotal = selectedPrice * quantity;
   //   setCartOpen(true);
   // };
 
-
   const handleAddToCart = () => {
-  const v = variants.find((vv) => vv.id === selectedVariant);
-  trackAddToCart(product.id, product.name, selectedPrice, quantity);
-  addToCart(product, v, quantity);
-  openCart();
-};
+    const v = variants.find((vv) => vv.id === selectedVariant);
+    trackAddToCart(product.id, product.name, selectedPrice, quantity);
+    addToCart(product, v, quantity);
+    openCart();
+  };
 
   const openShiprocketGateway = async (clickEvent, checkoutItems) => {
     if (!window.HeadlessCheckout?.addToCart) {
@@ -486,7 +499,7 @@ const stickyTotal = selectedPrice * quantity;
       setGatewayLoading(false);
     }
   };
-    
+
   const handleBuyNowDirect = (e) => {
     // trackFacebookEvent("InitiateCheckout");
     const v = variants.find((vv) => vv.id === selectedVariant);
@@ -567,16 +580,14 @@ const stickyTotal = selectedPrice * quantity;
   //   setCartItems((prev) => prev.filter((i) => i.cartId !== cartId));
 
   // ─── Render ─────────────────────────────────────────────────────────────────
-  
-  
 
   const handleUpdateQty = (cartId, newQty) => {
-  if (newQty < 1) removeItem(cartId);
-  else updateQty(cartId, newQty);
-};
+    if (newQty < 1) removeItem(cartId);
+    else updateQty(cartId, newQty);
+  };
 
-const handleRemoveItem = (cartId) => removeItem(cartId);
-  
+  const handleRemoveItem = (cartId) => removeItem(cartId);
+
   return (
     <div className="font-sans text-gray-900 bg-white min-h-screen">
       <style>{`
@@ -669,7 +680,12 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
               className="text-2xl md:text-3xl font-medium m-0 mb-2.5 leading-tight tracking-tight text-gray-800"
               style={{ fontFamily: "var(--font-new-1)" }}
             >
-              {product.h1}
+              Navel Oil for{" "}
+              <span
+                style={{ color: themeColor, fontFamily: "var(--font-new-2)" }}
+              >
+                {product.h1}
+              </span>
             </h1>
 
             {/* Stock Badge */}
@@ -735,8 +751,10 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
                 }}
               >
                 {v.badge && (
-                  <span className="absolute -top-2.5 -right-1.5 text-white text-[10px] px-2 py-0.5 rounded font-bold tracking-wider"
-                  style={{backgroundColor:`${themeColor}`}}>
+                  <span
+                    className="absolute -top-2.5 -right-1.5 text-white text-[10px] px-2 py-0.5 rounded font-bold tracking-wider"
+                    style={{ backgroundColor: `${themeColor}` }}
+                  >
                     {v.badge}
                   </span>
                 )}
@@ -830,7 +848,10 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
               >
                 <div
                   className="w-fit flex items-center justify-center gap-2 px-6 h-10"
-                  style={{ background: themeColor,outline:`1px solid ${themeColor}`}}
+                  style={{
+                    background: themeColor,
+                    outline: `1px solid ${themeColor}`,
+                  }}
                 >
                   <ShoppingBag size={18} color="#ffffff" />
                   <span className="text-sm font-bold text-white tracking-wide">
@@ -971,7 +992,9 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
                   className="text-xs font-semibold px-3 py-1.5 rounded-full flex items-center gap-1.5 border"
                   style={{
                     color: themeColor,
-                    backgroundColor: themeColor ? `${themeColor}22` : "#22c55e22",
+                    backgroundColor: themeColor
+                      ? `${themeColor}22`
+                      : "#22c55e22",
                     borderColor: "#d4e8d0",
                   }}
                 >
@@ -1022,12 +1045,14 @@ const handleRemoveItem = (cartId) => removeItem(cartId);
           />
         )} */}
 
-        <FAQSection themeColor={themeColor}/>
-
+        <FAQSection themeColor={themeColor} />
       </Suspense>
 
       {relatedProducts.length > 0 && (
-        <RelatedProductsComponent products={relatedProducts} themeColor={themeColor}/>
+        <RelatedProductsComponent
+          products={relatedProducts}
+          themeColor={themeColor}
+        />
       )}
 
       {/* <Footer product={product} /> */}

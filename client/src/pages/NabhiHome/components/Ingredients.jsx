@@ -51,12 +51,15 @@ const INGREDIENTS = [
 
 export default function Ingredients({ themeColor }) {
   const activeTextColor = themeColor || "var(--new-purple-color)";
-  const activeBorderColor = themeColor ? `${themeColor}66` : "rgba(123, 43, 236, 0.4)";
+  const activeBorderColor = themeColor
+    ? `${themeColor}66`
+    : "rgba(123, 43, 236, 0.4)";
+  const activeBgColor = themeColor ? `${themeColor}22` : "var(--new-bg-color)";
 
   return (
     <section
       className="relative w-full overflow-hidden"
-      style={{ backgroundColor: "var(--new-bg-color)" }}
+      style={{ backgroundColor: activeBgColor }}
     >
       {/* ── Full-height background image anchored left ── */}
       <div
@@ -79,30 +82,27 @@ export default function Ingredients({ themeColor }) {
 
       {/* ── Content area ── */}
       <div className="relative z-10 mx-auto max-w-[1240px] px-4 py-12 sm:px-6 md:py-16 lg:px-8">
-
         {/* ── Centred header block ── */}
-        
 
         {/* ── Ingredient cards — right-aligned on desktop ── */}
         <div className="flex justify-end">
           <div className="w-full lg:w-[68%]">
+            <div className="mx-auto max-w-xl text-center">
+              <SectionHeader
+                subtitle="The Goodness Within"
+                heading="Pure Herbs. Real"
+                headingHighlight="Results."
+                themeColor={themeColor}
+              />
 
-<div className="mx-auto max-w-xl text-center">
-          <SectionHeader
-            subtitle="The Goodness Within"
-            heading="Pure Herbs. Real"
-            headingHighlight="Results."
-            themeColor={themeColor}
-          />
-
-          <p
-            className="-mt-8 mb-10 text-[13px] font-medium leading-relaxed text-[var(--new-para-text)] opacity-90 sm:text-[14px]"
-            style={{ fontFamily: "var(--font-new-1)" }}
-          >
-            We use the finest Ayurvedic herbs and cold-pressed oils to ensure
-            maximum potency and effectiveness.
-          </p>
-        </div>
+              <p
+                className="-mt-8 mb-10 text-[13px] font-medium leading-relaxed text-[var(--new-para-text)] opacity-90 sm:text-[14px]"
+                style={{ fontFamily: "var(--font-new-1)" }}
+              >
+                We use the finest Ayurvedic herbs and cold-pressed oils to
+                ensure maximum potency and effectiveness.
+              </p>
+            </div>
 
             <div className="grid grid-cols-2 gap-2.5 min-[480px]:grid-cols-3 sm:gap-3 md:grid-cols-4 lg:grid-cols-6 lg:gap-2">
               {INGREDIENTS.map((herb) => (
