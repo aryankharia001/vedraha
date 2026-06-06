@@ -49,8 +49,11 @@ export default function FAQSection({ themeColor, bgMode = "default" }) {
   };
 
   // HIGHLIGHT: Dynamic evaluation of the color tokens based on incoming themeColor prop
-  const activeBgColor = `${themeColor}22` || "var(--new-bg-color, #f2eafa)";
-  const primaryThemeColor = themeColor || "var(--new-primary-color, #184b24)";
+  // Evaluate if themeColor exists first, otherwise use the CSS variable
+  const activeBgColor = themeColor
+    ? `${themeColor}22`
+    : "var(--new-bg-color, #f2eafa)";
+  const primaryThemeColor = themeColor || "var(--new-purple-color, #7b2bec)";
   const purpleThemeColor = themeColor || "var(--new-purple-color, #7b2bec)";
 
   return (
@@ -61,7 +64,6 @@ export default function FAQSection({ themeColor, bgMode = "default" }) {
       }}
     >
       <div className="max-w-[1240px] mx-auto px-6 py-16 select-none">
-        
         {/* --- Section Title Header --- */}
         <div className="w-full flex flex-col items-center justify-center text-center mb-4">
           <SectionHeader
@@ -74,7 +76,6 @@ export default function FAQSection({ themeColor, bgMode = "default" }) {
 
         {/* --- Core Content Grid: Accordion & CTA Sidebar Box --- */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8 items-start">
-          
           {/* Left Column: List Layout of Accordions */}
           <div className="space-y-4 w-full">
             {faqData.map((faq) => {
@@ -84,7 +85,7 @@ export default function FAQSection({ themeColor, bgMode = "default" }) {
                   key={faq.id}
                   className="rounded-2xl overflow-hidden transition-all duration-300"
                   style={{
-                    fontFamily:"var(--font-new-1)",
+                    fontFamily: "var(--font-new-1)",
                     backgroundColor: isOpen
                       ? primaryThemeColor // HIGHLIGHT: Replaced static variable with the evaluated dynamic primary color
                       : "var(--color-white, #ffffff)",
@@ -138,7 +139,10 @@ export default function FAQSection({ themeColor, bgMode = "default" }) {
           {/* Right Column: CTA Sidebar Panel Info Box */}
           <div
             className="rounded-3xl p-8 text-center flex flex-col items-center justify-center min-h-[340px] text-white w-full shadow-md"
-            style={{ backgroundColor: purpleThemeColor,fontFamily:"var(--font-new-1)" }} // HIGHLIGHT: Updated sidebar box background with dynamic purple color evaluation
+            style={{
+              backgroundColor: purpleThemeColor,
+              fontFamily: "var(--font-new-1)",
+            }} // HIGHLIGHT: Updated sidebar box background with dynamic purple color evaluation
           >
             {/* Conversational Chat Icon Block */}
             <div
