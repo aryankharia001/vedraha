@@ -59,21 +59,21 @@ const AdminSidebar = () => {
               Products
             </Link>
             
-            <Link
+            {/* <Link
               to="/admin/user-list"
               className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${isActive('/admin/user-list')}`}
             >
               <i className="fas fa-users mr-3"></i>
               Users
-            </Link>
+            </Link> */}
             
-            <Link
+            {/* <Link
               to="/admin/profile"
               className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${isActive('/admin/profile')}`}
             >
               <i className="fas fa-user-circle mr-3"></i>
               Profile
-            </Link>
+            </Link> */}
             
             <button
               onClick={logoutHandler}
