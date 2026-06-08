@@ -35,13 +35,13 @@ const AdminSidebar = () => {
           )}
           
           <nav className="space-y-1">
-            <Link
+            {/* <Link
               to="/admin/dashboard"
               className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${isActive('/admin/dashboard')}`}
             >
               <i className="fas fa-tachometer-alt mr-3"></i>
               Dashboard
-            </Link>
+            </Link> */}
 
             <Link
               to="/admin/collections"
