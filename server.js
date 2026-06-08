@@ -11,6 +11,8 @@ import exclusiveRoutes from './routes/ExclusiveProductRoutes.js'
 import reviewRoutes from './routes/ReviewRoutes.js'
 import contactRoutes from './routes/ContactRoutes.js'
 import fileUpload from 'express-fileupload'    
+import productRoutes from './routes/productRoutes.js'
+import collectionRoutes from './routes/collectionRoutes.js'
 
 dotenv.config()
 
@@ -18,7 +20,14 @@ const app = express()
 
 connectDB()
 
-app.use(cors({ origin: '*' }))
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://yourdomain.com'
+  ],
+  credentials: true
+}));
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
@@ -34,6 +43,8 @@ app.use('/api/auth', NabhiRoutes)
 app.use('/api/exclusiveproducts', exclusiveRoutes)
 app.use('/api/reviews', reviewRoutes)
 app.use('/api/contact', contactRoutes)
+app.use('/api/products', productRoutes)
+app.use('/api/collections', collectionRoutes);
 
 // FRONTEND SERVING
 

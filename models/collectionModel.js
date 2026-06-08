@@ -36,8 +36,6 @@ collectionSchema.pre('save', function(next) {
       parseInt(this._id.toString().substring(0, 15), 16)
     );
   }
-
-  next();
 });
 
 const Collection = mongoose.model('Collection', collectionSchema);

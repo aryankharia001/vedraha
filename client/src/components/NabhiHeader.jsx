@@ -27,17 +27,28 @@ import { backendurl } from "../App";
 import { useCart } from "../components/CartContext";
 import loginImg from "../../public/best-seller/best-seller.png"
 
+import product1 from "../../public/product-1.png"
+import product2 from "../../public/product-2.png"
+import product3 from "../../public/product-3.png"
+import product4 from "../../public/product-4.png"
+import product5 from "../../public/product-5.png"
+import product6 from "../../public/product-6.png"
+
 // ── Product sub-pages shown in the Catalog dropdown ──────────────────────────
 export const CATALOG_LINKS = [
-  { label: "All Products", path: "/products" },
-  { label: "Deep Sleep Oil", path: "/products/nabhi-sleep-en" },
-  { label: "Digestive Care Oil", path: "/products/nabhi-amrit-en" },
-  { label: "Joint Relief Oil", path: "/products/nabhi-joint-en" },
-  { label: "Vision & Eyecare Oil", path: "/products/nabhi-eye-en" },
-  { label: "Hair Care Oil", path: "/products/nabhi-hair-en" },
-  { label: "Nabhi Shilajit", path: "/products/nabhi-shilajit-en" },
-  // { label: "Menstrual Care Oil", path: "/products/nabhi-menstrual-en" },
+  { label: "All Products",          path: "/products",                    description: "Browse our complete range of Ayurvedic navel oils." },
+  { label: "Deep Sleep Oil",        path: "/products/nabhi-sleep-en",     image: product1, description: "Calming herbal blend for deeper, more restful sleep." },
+  { label: "Digestive Care Oil",    path: "/products/nabhi-amrit-en",     image: product2, description: "Supports gut health and relieves bloating naturally." },
+  { label: "Joint Relief Oil",      path: "/products/nabhi-joint-en",     image: product3, description: "Soothes joint pain and improves mobility with Ayurvedic herbs." },
+  { label: "Vision & Eyecare Oil",  path: "/products/nabhi-eye-en",       image: product4, description: "Nourishes eye health and reduces strain through the navel." },
+  { label: "Hair Care Oil",         path: "/products/nabhi-hair-en",      image: product5, description: "Strengthens hair roots and promotes growth from within." },
+  { label: "Nabhi Shilajit",        path: "/products/nabhi-shilajit-en",  image: product6, description: "Pure Himalayan Shilajit for energy, vitality and stamina." },
 ];
+
+// const CATALOG_LINKS = [
+//   { label: "Navel Oil – Immunity Boost", path: "/products/immunity", image: "/images/immunity.webp", description: "Ancient Ayurvedic oil blend to strengthen immunity and support gut health." },
+//   { label: "Navel Oil – Skin & Glow",    path: "/products/skin",     image: "/images/skin.webp",     description: "Cold-pressed oils for radiant skin and improved complexion." },
+// ];
 
 export default function NabhiHeader({ onCartOpen }) {
   const { cartTotalQty: cartCount } = useCart();
@@ -354,37 +365,54 @@ export default function NabhiHeader({ onCartOpen }) {
         .nh-nav-link:hover { background: var(--color-white, #ffffff); color: var(--color-body, #202124); }
 
         /* ── Catalog dropdown ────────────────────────────────────────────── */
-        .nh-catalog-wrap { position: relative; }
-        .nh-catalog-btn {
-          display: flex; align-items: center; gap: 4px;
-          font-size: 13px; font-weight: 500; letter-spacing: 0.07em;
-          text-transform: capitalize; color: var(--color-white, #ffffff);
-          padding: 7px 12px; border-radius: 10px;
-          border: none; background: none; cursor: pointer;
-          transition: background .18s, color .18s; white-space: nowrap;
-        }
-        .nh-catalog-btn:hover, .nh-catalog-btn.open { background: var(--color-white, #ffffff); color: #000; }
-        .nh-catalog-chevron { transition: transform .25s cubic-bezier(0.4,0,0.2,1); display: flex; align-items: center; color: currentColor; }
-        .nh-catalog-chevron.open { transform: rotate(180deg); }
-        .nh-catalog-drop {
-          position: absolute; top: calc(100% + 10px); left: 50%;
-          transform: translateX(-50%) translateY(-6px); min-width: 200px;
-          background: var(--color-white, #ffffff);
-          border-radius: 10px;
-          box-shadow: inset 0 2px 4px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.12), 0 2px 8px rgba(0,0,0,.08);
-          overflow: hidden; z-index: 700; opacity: 0; pointer-events: none;
-          transition: opacity .22s ease, transform .22s cubic-bezier(0.4,0,0.2,1);
-          backdrop-filter: blur(12px);
-        }
-        .nh-catalog-drop.open { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
-        .nh-catalog-drop-item {
-          display: block; padding: 11px 18px; font-size: 13px; font-weight: 500;
-          color: var(--color-body, #202124); text-decoration: none; cursor: pointer;
-          transition: background .15s, color .15s; border-bottom: 1px solid rgba(0,0,0,.05);
-        }
-        .nh-catalog-drop-item:last-child { border-bottom: none; }
-        .nh-catalog-drop-item:first-child { font-weight: 700; }
-        .nh-catalog-drop-item:hover { background: black; color: #fff; }
+.nh-catalog-wrap { position: relative; }
+.nh-catalog-btn {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 13px; font-weight: 500; letter-spacing: 0.07em;
+  text-transform: capitalize; color: var(--color-white, #ffffff);
+  padding: 7px 12px; border-radius: 10px;
+  border: none; background: none; cursor: pointer;
+  transition: background .18s, color .18s; white-space: nowrap;
+}
+.nh-catalog-btn:hover, .nh-catalog-btn.open { background: var(--color-white, #ffffff); color: #000; }
+.nh-catalog-chevron { transition: transform .25s cubic-bezier(0.4,0,0.2,1); display: flex; align-items: center; color: currentColor; }
+.nh-catalog-chevron.open { transform: rotate(180deg); }
+
+/* mega drop replaces old .nh-catalog-drop */
+.nh-catalog-drop {
+  position: absolute; top: calc(100% + 10px); left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  width: 680px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow:0 4px 16px rgba(0,0,0,.1);
+  overflow: hidden; z-index: 700; opacity: 0; pointer-events: none;
+  transition: opacity .22s ease, transform .22s cubic-bezier(0.4,0,0.2,1);
+}
+.nh-catalog-drop.open { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
+
+.nh-mega-inner { display: flex; }
+.nh-mega-products { flex: 1; padding: 20px; border-right: 0.5px solid rgba(0,0,0,0.08); }
+.nh-mega-section-label { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #aaa; margin-bottom: 12px; padding-left: 4px; }
+.nh-mega-product-item { display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 10px; cursor: pointer; text-decoration: none; margin-bottom: 4px; }
+.nh-mega-product-item:last-child { margin-bottom: 0; }
+.nh-mega-product-item:hover { background: var(--color-black); }
+.nh-mega-product-item:hover .nh-mega-product-name { color: var(--color-white); }
+// .nh-mega-product-item:hover .nh-mega-arrow { color: var(--color-white); transform: translateX(2px); }
+.nh-mega-product-img { width: 44px; height: 44px; border-radius: 8px; flex-shrink: 0; background: #f0f0ee; display: flex; align-items: center; justify-content: center; font-size: 20px; overflow: hidden; }
+.nh-mega-product-img img { width: 100%; height: 100%; object-fit: cover; }
+.nh-mega-product-name { font-size: 13px; font-weight: 600; color: #111; margin-bottom: 2px; }
+.nh-mega-product-desc { font-size: 11.5px; color: var(--new-para-text); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.nh-mega-arrow { font-size: 16px; color: var(--new-para-text); flex-shrink: 0; transition: color .15s, transform .15s; }
+.nh-mega-divider { width: 0.5px; background: rgba(0,0,0,0.08); flex-shrink: 0; }
+.nh-mega-links { width: 210px; flex-shrink: 0; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
+.nh-mega-link-group-title { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #aaa; margin-bottom: 8px; }
+.nh-mega-quick-link { display: flex; align-items: center; gap: 8px; padding: 7px 8px; border-radius: 8px; cursor: pointer; text-decoration: none; color: #333; font-size: 13px; font-weight: 500; transition: background .15s; margin-bottom: 2px; }
+.nh-mega-quick-link:hover { background: #f5f5f3; color: #000; }
+.nh-mega-footer { border-top: 0.5px solid rgba(0,0,0,0.08); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; background: #fafaf8; }
+.nh-mega-footer-text { font-size: 12px; color: #999; }
+.nh-mega-footer-cta { font-size: 12px; font-weight: 700; color: #2d5a27; background: none; border: none; cursor: pointer; transition: letter-spacing .15s; }
+.nh-mega-footer-cta:hover { letter-spacing: 0.03em; }
 
         /* ── Actions ─────────────────────────────────────────────────────── */
         .nh-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
@@ -633,42 +661,87 @@ export default function NabhiHeader({ onCartOpen }) {
               </a>
             ))}
 
-            {/* Catalog with dropdown */}
-            <div className="nh-catalog-wrap" ref={catalogRef}>
-              <button
-                className={`nh-catalog-btn${catalogOpen ? " open" : ""}`}
-                onClick={() => setCatalogOpen((p) => !p)}
-                aria-haspopup="true"
-                aria-expanded={catalogOpen}
-              >
-                Catalog
-                <span
-                  className={`nh-catalog-chevron${catalogOpen ? " open" : ""}`}
-                >
-                  <ChevronDown size={13} strokeWidth={2.5} />
-                </span>
-              </button>
-              <div
-                className={`nh-catalog-drop${catalogOpen ? " open" : ""}`}
-                role="menu"
-              >
-                {CATALOG_LINKS.map((item) => (
-                  <a
-                    key={item.label}
-                    className="nh-catalog-drop-item"
-                    href={item.path}
-                    role="menuitem"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setCatalogOpen(false);
-                      navigate(item.path);
-                    }}
-                  >
-                    {item.label}
-                  </a>
-                ))}
-              </div>
+            {/* Catalog with mega dropdown */}
+<div className="nh-catalog-wrap" ref={catalogRef}>
+  <button
+    className={`nh-catalog-btn${catalogOpen ? " open" : ""}`}
+    onClick={() => setCatalogOpen((p) => !p)}
+    aria-haspopup="true"
+    aria-expanded={catalogOpen}
+  >
+    Catalog
+    <span className={`nh-catalog-chevron${catalogOpen ? " open" : ""}`}>
+      <ChevronDown size={13} strokeWidth={2.5} />
+    </span>
+  </button>
+
+  <div className={`nh-catalog-drop${catalogOpen ? " open" : ""}`} role="menu">
+    <div className="nh-mega-inner">
+
+      {/* LEFT — product list */}
+      <div className="nh-mega-products">
+        <div className="nh-mega-section-label">Our Products</div>
+        {CATALOG_LINKS.map((item) => (
+          <a
+            key={item.label}
+            className="nh-mega-product-item"
+            href={item.path}
+            role="menuitem"
+            onClick={(e) => {
+              e.preventDefault();
+              setCatalogOpen(false);
+              navigate(item.path);
+            }}
+          >
+            
+  {item.image
+    && 
+    <div className="nh-mega-product-img">
+    <img src={item.image} alt={item.label} />
+</div>
+  }
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div className="nh-mega-product-name">{item.label}</div>
+              {item.description && (
+                <div className="nh-mega-product-desc">{item.description}</div>
+              )}
             </div>
+            <span className="nh-mega-arrow">›</span>
+          </a>
+        ))}
+      </div>
+
+      <div className="nh-mega-divider" />
+
+      {/* RIGHT — quick links */}
+      <div className="nh-mega-links">
+        <div>
+          <div className="nh-mega-link-group-title">Learn</div>
+          <a className="nh-mega-quick-link" href="#" onClick={(e) => { e.preventDefault(); setCatalogOpen(false); }}>What is Nabhi Therapy?</a>
+          <a className="nh-mega-quick-link" href="#" onClick={(e) => { e.preventDefault(); setCatalogOpen(false); }}>Ayurveda & Science</a>
+          <a className="nh-mega-quick-link" href="#" onClick={(e) => { e.preventDefault(); setCatalogOpen(false); }}>How To Use Guide</a>
+        </div>
+        <div>
+          <div className="nh-mega-link-group-title">Company</div>
+          <a className="nh-mega-quick-link" href="#" onClick={(e) => { e.preventDefault(); setCatalogOpen(false); navigate("/products/nabhi-about-en"); }}>Our Story</a>
+          <a className="nh-mega-quick-link" href="#" onClick={(e) => { e.preventDefault(); setCatalogOpen(false); }}>Customer Reviews</a>
+          <a className="nh-mega-quick-link" href="#" onClick={(e) => { e.preventDefault(); setCatalogOpen(false); navigate("/products/nabhi-contact-en"); }}>Contact Us</a>
+        </div>
+      </div>
+    </div>
+
+    {/* Footer bar */}
+    <div className="nh-mega-footer">
+      <span className="nh-mega-footer-text">Free shipping on all orders above ₹499</span>
+      <button
+        className="nh-mega-footer-cta"
+        onClick={() => { setCatalogOpen(false); navigate("/products"); }}
+      >
+        View all products →
+      </button>
+    </div>
+  </div>
+</div>
           </nav>
 
           {/* Actions */}

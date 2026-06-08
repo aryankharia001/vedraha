@@ -98,6 +98,9 @@ import ExcSuccessPage       from './pages/ExcSuccessPage'
 import ExcSuccessPageHindi  from './pages/ExcSuccessPageHindi'
 import axios from 'axios'
 import OrderDetailsEnglish from './pages/Nabhi Oil/OrderDetailsEnglish'
+import ProductFormPage from './pages/admin/ProductFormPage'
+import ProductUpdatePage from './pages/admin/ProductUpdatePage'
+import ProductListPage from './pages/admin/ProductListPage'
 import AboutEnglish from './pages/NabhiEnglish/AboutEnglish'
 export const backendurl = import.meta.env.VITE_BACKEND_URL;
 
@@ -273,6 +276,9 @@ function AppContent() {
 
         {/* ── English ──────────────────────────────────────────────────── */}
         <Route path="/products"                        element={<ExclusiveProductCatalog />} />
+        <Route path="/admin/products/create"                        element={<ProductFormPage />} />
+        <Route path="/admin/products/update/:id"              element={<ProductUpdatePage />} />
+        <Route path="/admin/products/list"                        element={<ProductListPage />} />
         <Route path="/products/nabhi-joint-en"         element={<NabhiJointPageEng />} />
         <Route path="/products/nabhi-eye-en"           element={<NabhiEyePageEng />} />
         <Route path="/products/nabhi-hair-en"          element={<NabhiHairPageEng />} />
@@ -287,7 +293,6 @@ function AppContent() {
         <Route path="/order-en/:orderId"                    element={<OrderDetailsEnglish />} />
         <Route path="/admin"                    element={<CreateExclusiveProduct />} />
         <Route path="/admin/contact-messages"   element={<AdminContactMessages />} />
-        <Route path="/about-eng" element={<AboutEnglish/>}/>
 
         {/* ── Telugu ───────────────────────────────────────────────────── */}
         <Route path="/tlg"                             element={<HomeTelugu />} />
@@ -325,14 +330,24 @@ function AppContent() {
   );
 }
 
+import { ProductProvider } from './context/ProductContext';
+import { CollectionProvider } from './context/CollectionContext';
+import AdminListPage from './pages/admin/AdminListPage'
+import CollectionManagementPage from './pages/admin/CollectionManagementPage'
+import Dashboard from './components/Admin/Dashboard'
+
 // ─────────────────────────────────────────────────────────────────────────────
 function App() {
   return (
     <BrowserRouter>
-      {/* CartProvider wraps everything — one shared cart for the whole app */}
-      <CartProvider>
-        <AppContent />
-      </CartProvider>
+      {/* Providers wrap everything — one shared cart for the whole app */}
+      <CollectionProvider>
+        <ProductProvider>
+          <CartProvider>
+            <AppContent />
+          </CartProvider>
+        </ProductProvider>
+      </CollectionProvider>
     </BrowserRouter>
   )
 }
