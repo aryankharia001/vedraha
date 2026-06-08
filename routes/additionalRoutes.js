@@ -282,11 +282,11 @@ const getShiprocketCollections = asyncHandler(async (req, res) => {
 
 // Routes
 router.get('/products', (req, res) => {
-  // if (req.query.collection_id) {
-  //   getShiprocketProductsByCollection(req, res);
-  // } else {
+  if (req.query.collection_id) {
+    getShiprocketProductsByCollection(req, res);
+  } else {
     getShiprocketProducts(req, res);
-  // }
+  }
 });
 router.get('/collections', getShiprocketCollections);
 
