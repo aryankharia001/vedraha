@@ -98,6 +98,7 @@ import ExcSuccessPage       from './pages/ExcSuccessPage'
 import ExcSuccessPageHindi  from './pages/ExcSuccessPageHindi'
 import axios from 'axios'
 import OrderDetailsEnglish from './pages/Nabhi Oil/OrderDetailsEnglish'
+import AboutEnglish from './pages/NabhiEnglish/AboutEnglish'
 export const backendurl = import.meta.env.VITE_BACKEND_URL;
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -286,6 +287,7 @@ function AppContent() {
         <Route path="/order-en/:orderId"                    element={<OrderDetailsEnglish />} />
         <Route path="/admin"                    element={<CreateExclusiveProduct />} />
         <Route path="/admin/contact-messages"   element={<AdminContactMessages />} />
+        <Route path="/about-eng" element={<AboutEnglish/>}/>
 
         {/* ── Telugu ───────────────────────────────────────────────────── */}
         <Route path="/tlg"                             element={<HomeTelugu />} />
