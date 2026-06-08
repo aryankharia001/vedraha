@@ -1,43 +1,52 @@
+import product1 from "../../../public/product-4.png";
+import product2 from "../../../public/product-2.png";
+import product3 from "../../../public/product-1.png";
+import product4 from "../../../public/product-5.png";
+
 export const relatedProducts = [
   {
-    image: "https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=Gemini_Generated_Image_jejzeajejzeajejz.png.webp&version_id=null",
+    image: product1,
     title: "Joint Pain Remedy Nabhi Oil",
     price: 549,
     originalPrice: 599,
     discount: "8% off",
     badge: "Ayurvedic",
     rating: "4.9",
-    url: "/products/nabhi-joint"
+    categoryLabel: "Joint",
+    url: "/products/nabhi-joint-en"
   },
   {
-    image: "https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=Gemini_Generated_Image_tghk4ptghk4ptghk.png.webp&version_id=null",
+    image: product2,
     title: "Sleep Relief Nabhi Oil",
     price: 599,
     originalPrice: 799,
     discount: "25% off",
     badge: "Natural",
     rating: "4.8",
-    url: "/products/nabhi-sleep"
+    categoryLabel: "Sleep",
+    url: "/products/nabhi-sleep-en"
   },
   {
-    image: "https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=Gemini_Generated_Image_2ym21x2ym21x2ym2.png.webp&version_id=null",
+    image: product3,
     title: "Eye Care & Vision Support Nabhi Oil",
     price: 599,
     originalPrice: 899,
     discount: "33% off",
     badge: "Herbal",
     rating: "4.7",
-    url: "/products/nabhi-eye"
+    categoryLabel: "Eye",
+    url: "/products/nabhi-eye-en"
   },
   {
-    image: "https://console.minio.traffakpay.com/api/v1/buckets/akravi/objects/download?preview=true&prefix=Gemini_Generated_Image_xodoaxxodoaxxodo.png.webp&version_id=null",
+    image: product4,
     title: "Hair Growth & Strength Nabhi Oil",
     price: 599,
     originalPrice: 749,
     discount: "20% off",
     badge: "Organic",
     rating: "4.9",
-    url: "/products/nabhi-hair"
+    categoryLabel: "Hair",
+    url: "/products/nabhi-hair-en"
   },
 ];
 

@@ -86,7 +86,7 @@ export default function NabhiContactEng() {
 
       {/* ══════════════════════ CONTACT SECTION ══════════════════════ */}
       <section
-        className="max-w-6xl mx-auto mt-22 px-6 py-16 rounded-3xl"
+        className="max-w-[1060px] mx-auto mt-22 px-6 py-16 rounded-3xl"
         style={{ background: "var(--new-bg-color)" }}
       >
         {/* Header */}
@@ -122,9 +122,9 @@ export default function NabhiContactEng() {
           <div>
             <h2
               className="text-4xl md:text-5xl leading-tight mb-8"
-              style={{ fontFamily: "var(--font-new-2)", color: "var(--new-heading-text)" }}
+              style={{ fontFamily: "var(--font-new-1)", color: "var(--new-heading-text)" }}
             >
-              Get in <em style={{ fontStyle: "italic", color: "var(--new-purple-color)" }}>touch</em>
+              Get in <em style={{ fontStyle: "italic", color: "var(--new-purple-color)",fontFamily: "var(--font-new-2)" }}>touch</em>
             </h2>
 
             <div className="space-y-6">
