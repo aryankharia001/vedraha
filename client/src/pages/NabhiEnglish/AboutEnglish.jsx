@@ -34,7 +34,7 @@ export default function AboutEnglish() {
       <style>{inlineStyles}</style>
       <div className="vd-bg-root vd-font-serif min-h-screen text-[#1a1230] px-6 pt-[100px] pb-6">
         {/* Maximum inner canvas constraint restored to 1060px */}
-        <div className="max-w-[1060px] mx-auto flex flex-col gap-4">
+        <div className="max-w-[1240px] mx-auto flex flex-col gap-4">
 
           {/* ── HERO SECTION ── */}
           <div className="bg-white rounded-[14px] p-9 md:p-[52px_48px] border border-black/5">

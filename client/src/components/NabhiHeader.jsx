@@ -37,10 +37,10 @@ import product6 from "../../public/product-6.png"
 // ── Product sub-pages shown in the Catalog dropdown ──────────────────────────
 export const CATALOG_LINKS = [
   { label: "All Products",          path: "/products",                    description: "Browse our complete range of Ayurvedic navel oils." },
-  { label: "Deep Sleep Oil",        path: "/products/nabhi-sleep-en",     image: product1, description: "Calming herbal blend for deeper, more restful sleep." },
-  { label: "Digestive Care Oil",    path: "/products/nabhi-amrit-en",     image: product2, description: "Supports gut health and relieves bloating naturally." },
-  { label: "Joint Relief Oil",      path: "/products/nabhi-joint-en",     image: product3, description: "Soothes joint pain and improves mobility with Ayurvedic herbs." },
-  { label: "Vision & Eyecare Oil",  path: "/products/nabhi-eye-en",       image: product4, description: "Nourishes eye health and reduces strain through the navel." },
+  { label: "Deep Sleep Oil",        path: "/products/nabhi-sleep-en",     image: product2, description: "Calming herbal blend for deeper, more restful sleep." },
+  { label: "Digestive Care Oil",    path: "/products/nabhi-amrit-en",     image: product3, description: "Supports gut health and relieves bloating naturally." },
+  { label: "Joint Relief Oil",      path: "/products/nabhi-joint-en",     image: product4, description: "Soothes joint pain and improves mobility with Ayurvedic herbs." },
+  { label: "Vision & Eyecare Oil",  path: "/products/nabhi-eye-en",       image: product1, description: "Nourishes eye health and reduces strain through the navel." },
   { label: "Hair Care Oil",         path: "/products/nabhi-hair-en",      image: product5, description: "Strengthens hair roots and promotes growth from within." },
   { label: "Nabhi Shilajit",        path: "/products/nabhi-shilajit-en",  image: product6, description: "Pure Himalayan Shilajit for energy, vitality and stamina." },
 ];
@@ -411,7 +411,7 @@ export default function NabhiHeader({ onCartOpen }) {
 .nh-mega-quick-link:hover { background: #f5f5f3; color: #000; }
 .nh-mega-footer { border-top: 0.5px solid rgba(0,0,0,0.08); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; background: #fafaf8; }
 .nh-mega-footer-text { font-size: 12px; color: #999; }
-.nh-mega-footer-cta { font-size: 12px; font-weight: 700; color: #2d5a27; background: none; border: none; cursor: pointer; transition: letter-spacing .15s; }
+.nh-mega-footer-cta { font-size: 12px; font-weight: 700; color: var(--new-purple-color); background: none; border: none; cursor: pointer; transition: letter-spacing .15s; }
 .nh-mega-footer-cta:hover { letter-spacing: 0.03em; }
 
         /* ── Actions ─────────────────────────────────────────────────────── */

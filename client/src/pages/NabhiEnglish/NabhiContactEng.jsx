@@ -86,7 +86,7 @@ export default function NabhiContactEng() {
 
       {/* ══════════════════════ CONTACT SECTION ══════════════════════ */}
       <section
-        className="max-w-[1060px] mx-auto mt-22 px-6 py-16 rounded-3xl"
+        className="max-w-[1240px] mx-auto mt-22 px-6 py-16 rounded-3xl"
         style={{ background: "var(--new-bg-color)" }}
       >
         {/* Header */}
@@ -347,7 +347,7 @@ export default function NabhiContactEng() {
 
       {/* ══════════════════════ CTA BANNER SECTION ══════════════════════ */}
       <section
-        className="max-w-6xl mx-auto mt-8 mb-16 rounded-3xl overflow-hidden relative"
+        className="max-w-[1240px] mx-auto mt-8 mb-16 rounded-3xl overflow-hidden relative"
         style={{ background: "var(--new-primary-color)", minHeight: "260px" }}
       >
         <div className="absolute inset-0 pointer-events-none"
