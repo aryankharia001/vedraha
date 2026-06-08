@@ -91,6 +91,7 @@ const getShiprocketProducts = asyncHandler(async (req, res) => {
           title: 'Default',
           price: product.price.toString(),
           sku: product.sku || `SKU${product._id.toString().slice(-8).toUpperCase()}`,
+          quantity: 100,
           created_at: product.createdAt,
           updated_at: product.updatedAt,
           taxable: true,
@@ -190,6 +191,7 @@ const getShiprocketProductsByCollection = asyncHandler(async (req, res) => {
           title: 'Default',
           price: product.price.toString(),
           sku: product.sku || `SKU${product._id.toString().slice(-8).toUpperCase()}`,
+          quantity: 100,
           created_at: product.createdAt,
           updated_at: product.updatedAt,
           taxable: true,
@@ -280,11 +282,11 @@ const getShiprocketCollections = asyncHandler(async (req, res) => {
 
 // Routes
 router.get('/products', (req, res) => {
-  if (req.query.collection_id) {
-    getShiprocketProductsByCollection(req, res);
-  } else {
+  // if (req.query.collection_id) {
+  //   getShiprocketProductsByCollection(req, res);
+  // } else {
     getShiprocketProducts(req, res);
-  }
+  // }
 });
 router.get('/collections', getShiprocketCollections);
 
