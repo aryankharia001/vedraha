@@ -2,86 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom"; // Imported Link for routing
 import SectionHeader from "../pages/NabhiHome/components/SectionHeader";
 
-// import product1 from "../../public/product-1.png";
-// import product2 from "../../public/product-2.png";
-// import product3 from "../../public/product-3.png";
-// import product4 from "../../public/product-4.png";
-// import product5 from "../../public/product-5.png";
-// import product6 from "../../public/product-6.png";
-
-// ═══════════════════════════════════════════════════════════════
-//  DATA  (swap per language / CMS)
-// ═══════════════════════════════════════════════════════════════
-
-// export const products = [
-//   {
-//     id: "p1",
-//     category: "nabhi-menstrual",
-//     badge: "50% off",
-//     name: "Menstrual Relief Oil",
-//     categoryLabel: "Menstrual",
-//     rating: 4.9,
-//     price: 499,
-//     originalPrice: 999,
-//     image: product1,
-//     hasCountdown: true,
-//     countdown: { days: 5, hours: 12, minutes: 30, seconds: 25 },
-//     wishlist: false,
-//   },
-//   {
-//     id: "nabhi-sleep-en",
-//     category: "nabhi-sleep",
-//     badge: "35% off",
-//     name: "Deep Sleep Drops",
-//     categoryLabel: "Sleep",
-//     rating: 4.8,
-//     price: 699,
-//     originalPrice: 1099,
-//     image: product2,
-//     hasCountdown: false,
-//     wishlist: false,
-//   },
-//   {
-//     id: "p3",
-//     category: "nabhi-shilajit",
-//     badge: "20% off",
-//     name: "Shilajit Care Oil",
-//     categoryLabel: "Shilajit",
-//     rating: 4.7,
-//     price: 799,
-//     originalPrice: 999,
-//     image: product3,
-//     hasCountdown: false,
-//     wishlist: false,
-//   },
-//   {
-//     id: "p4",
-//     category: "nabhi-hair",
-//     badge: "30% off",
-//     name: "Hair Care Drops",
-//     categoryLabel: "Hair",
-//     rating: 4.6,
-//     price: 549,
-//     originalPrice: 799,
-//     image: product4,
-//     hasCountdown: false,
-//     wishlist: false,
-//   },
-//   {
-//     id: "p5",
-//     category: "nabhi-eye",
-//     badge: "15% off",
-//     name: "Eye Care Serum",
-//     categoryLabel: "Eye",
-//     rating: 4.5,
-//     price: 449,
-//     originalPrice: 529,
-//     image: product5,
-//     hasCountdown: false,
-//     wishlist: false,
-//   },
-// ];
-
 // ═══════════════════════════════════════════════════════════════
 //  ICONS
 // ═══════════════════════════════════════════════════════════════
@@ -118,10 +38,10 @@ const ProductCard = ({ product, themeColor }) => {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* ── Image ── */}
+      {/* ── Image Wrapper: Locked to perfectly square ── */}
       <div
-        className="relative overflow-hidden"
-        style={{ height: "220px", background: "var(--color-white)" }}
+        className="relative overflow-hidden w-full aspect-square"
+        style={{ background: "var(--color-white)" }}
       >
         <img
           src={product.image}
@@ -141,7 +61,6 @@ const ProductCard = ({ product, themeColor }) => {
             style={{
               background: activeColor,
               color: "var(--color-sale-text)",
-              boxShadow: "var(--shadow-badge)",
               letterSpacing: "0.03em",
             }}
           >
@@ -210,8 +129,6 @@ const ProductCard = ({ product, themeColor }) => {
 // ═══════════════════════════════════════════════════════════════
 
 const NewRelatedProduct = ({ themeColor, products }) => {
-  // const displayedProducts = productList.slice(0, 4);
-
   return (
     <section
       className="py-10"
