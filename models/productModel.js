@@ -221,8 +221,6 @@ productSchema.pre('save', async function(next) {
   this.vendor       = this.vendor       || this.brand;
   this.product_type = this.product_type || this.category;
   this.tags         = this.tags         || this.category;
-
-  next();
 });
 
 const Product = mongoose.model('Product', productSchema);
