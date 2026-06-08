@@ -2,15 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom"; // Using React Router Link for smooth SPA navigation
 import paymentImg from "./assets/allpayment.png";
 
-// Updated with route destinations for each individual link
+// Updated with route destinations for each individual link and authentic brand hover colors
 const footerLinks = [
   { 
     heading: "Company", 
     links: [
       { name: "About Us", href: "/products/nabhi-about-en" },
-      // { name: "Blogs", href: "/blogs" },
       { name: "Contact Us", href: "/products/nabhi-contact-en" },
-      // { name: "Career", href: "/careers" }
     ] 
   },
   {
@@ -18,7 +16,6 @@ const footerLinks = [
     links: [
       { name: "My Orders", href: "/my-orders-en" },
       { name: "Track Your Order", href: "/my-orders-en" },
-      // { name: "Return", href: "/returns" },
       { name: "FAQ", href: "/faq" }
     ],
   },
@@ -27,7 +24,6 @@ const footerLinks = [
     links: [
       { name: "Privacy Policy", href: "/privacy-policy" },
       { name: "User Terms & Conditions", href: "/refund-policy" },
-      // { name: "Return Policy", href: "/return-policy" }
     ],
   },
 ];
@@ -43,6 +39,7 @@ const socialLinks = [
   {
     label: "Facebook",
     href: "https://facebook.com/vedraha",
+    hoverBg: "#1877F2", // Official Facebook Blue
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -56,6 +53,7 @@ const socialLinks = [
   {
     label: "X (Twitter)",
     href: "https://x.com/vedraha",
+    hoverBg: "#000000",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -69,6 +67,7 @@ const socialLinks = [
   {
     label: "Pinterest",
     href: "https://pinterest.com/vedraha",
+    hoverBg: "#E60023",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -82,6 +81,7 @@ const socialLinks = [
   {
     label: "Instagram",
     href: "https://instagram.com/vedraha",
+    hoverBg: "linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -97,14 +97,17 @@ const socialLinks = [
   {
     label: "YouTube",
     href: "https://youtube.com/vedraha",
-    icon: (
+    hoverBg: "#FF0000",
+    // We pass a function rendering the dynamic inner play button color state
+    icon: (isHovered) => (
       <svg
         viewBox="0 0 24 24"
         fill="currentColor"
         style={{ width: "14px", height: "14px" }}
       >
         <path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z" />
-        <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white" />
+        {/* On hover, the inner arrow cuts out cleanly into the brand red color */}
+        <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill={isHovered ? "#FF0000" : "var(--color-black)"} />
       </svg>
     ),
   },
@@ -129,7 +132,7 @@ const Logo = () => (
 );
 
 // ─── SOCIAL BUTTON ────────────────────────────────────────────────────────────
-const SocialBtn = ({ label, href, icon }) => {
+const SocialBtn = ({ label, href, icon, hoverBg }) => {
   const [hovered, setHovered] = React.useState(false);
   return (
     <a
@@ -146,16 +149,17 @@ const SocialBtn = ({ label, href, icon }) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        border: `1px solid ${hovered ? "var(--color-primary)" : "var(--color-placeholder)"}`,
-        color: hovered ? "var(--color-primary)" : "var(--color-muted)",
-        backgroundColor: hovered ? "var(--color-primary-light)" : "transparent",
+        border: hovered ? `1px solid transparent` : "1px solid var(--color-placeholder)",
+        color: hovered ? "#FFFFFF" : "var(--color-muted)",
+        background: hovered ? hoverBg : "transparent",
         transition: "var(--transition-base)",
         transform: hovered ? "scale(1.1)" : "scale(1)",
         textDecoration: "none",
         flexShrink: 0,
       }}
     >
-      {icon}
+      {/* If icon is a function, evaluate it with the hover state, otherwise parse directly */}
+      {typeof icon === "function" ? icon(hovered) : icon}
     </a>
   );
 };

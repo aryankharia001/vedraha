@@ -29,14 +29,14 @@ const PROMOTIONS = ["On Sale", "Best Sellers", "Top Rated"];
 
 function StarRating({ rating = 0, size = 13 }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 2 }}>
+    <div style={{ display: "flex", alignItems: "center", gap: 2}}>
       {[1,2,3,4,5].map((s) => {
         const full = rating >= s, half = !full && rating >= s - 0.5;
         return (
           <svg key={s} width={size} height={size} viewBox="0 0 20 20">
-            {half && <defs><linearGradient id={`hg${s}`}><stop offset="50%" stopColor="#f59e0b"/><stop offset="50%" stopColor="#e5e7eb"/></linearGradient></defs>}
+            {half && <defs><linearGradient id={`hg${s}`}><stop offset="50%" stopColor="var(--new-purple-color)"/><stop offset="50%" stopColor="var(--new-para-text)"/></linearGradient></defs>}
             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-              fill={full ? "#f59e0b" : half ? `url(#hg${s})` : "#e5e7eb"}/>
+              fill={full ? "var(--new-purple-color)" : half ? `url(#hg${s})` : "var(--new-para-text)"}/>
           </svg>
         );
       })}
@@ -64,7 +64,7 @@ function SortDropdown({ sort, setSort }) {
     <div ref={ref} style={{ position: "relative", flexShrink: 0, minWidth: 200 }}>
       <button onClick={() => setOpen((p) => !p)} className="sort-btn">
         <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <span style={{ color: "#1a4731", display: "flex" }}>{SORT_ICONS[sort]}</span>
+          <span style={{ color: "var(--new-purple-color)", display: "flex" }}>{SORT_ICONS[sort]}</span>
           {current?.label}
         </span>
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2.5" style={{ transform: open ? "rotate(180deg)" : "none", transition: "transform 0.22s", flexShrink: 0 }}>
@@ -95,8 +95,6 @@ function SortDropdown({ sort, setSort }) {
 function ProductCard({ product, redirectUrl }) {
   const navigate = useNavigate();
   const [hovered, setHovered] = useState(false);
-  const [adding, setAdding] = useState(false);
-  const [added, setAdded] = useState(false);
 
   const discountPct = product.discountPercent || (product.price > 0 ? Math.round(((product.price - (product.discountedPrice ?? product.price)) / product.price) * 100) : 0);
   const salePrice = product.discountedPrice ?? product.price;
@@ -106,20 +104,20 @@ function ProductCard({ product, redirectUrl }) {
     <div className="pcard" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} onClick={() => navigate(redirectUrl)}>
       <div className="pcard__img-wrap">
         {discountPct > 0 && <span className="pcard__badge">{discountPct}% off</span>}
-        <div className={`pcard__actions${hovered ? " visible" : ""}`}>
+        {/* <div className={`pcard__actions${hovered ? " visible" : ""}`}>
           <button className="pcard__action-btn" onClick={(e) => e.stopPropagation()} title="Wishlist">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
           </button>
           <button className="pcard__action-btn" onClick={(e) => e.stopPropagation()} title="Quick view">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
           </button>
-        </div>
+        </div> */}
         <img src={product.image} alt={product.name} className="pcard__img"
           onError={(e) => { e.target.style.display = "none"; e.target.parentElement.insertAdjacentHTML("beforeend", `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#f5f0e8;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#c8b99a" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`); }}
         />
       </div>
       <div className="pcard__body">
-         <div className="pcard__meta-row">
+        <div className="pcard__meta-row">
           <span className="pcard__category"></span>
           <div style={{ display: "flex", alignItems: "center", gap: 4, flexShrink: 0 }}>
             <StarRating rating={product.rating || 4.5} size={12}/>
@@ -206,8 +204,8 @@ function FilterSidebar({ minPrice, maxPrice, priceMax, setMinPrice, setMaxPrice,
       )}
       <div className="filter-divider"/>
 
-      <SectionHead label="By Promotions" open={promoOpen} toggle={() => setPromoOpen((p) => !p)}/>
-      {promoOpen && <div className="filter-list">{PROMOTIONS.map((p) => <CheckItem key={p} label={p} checked={selectedPromotions.includes(p)} onToggle={() => toggleArr(selectedPromotions, setSelectedPromotions, p)}/>)}</div>}
+      {/* <SectionHead label="By Promotions" open={promoOpen} toggle={() => setPromoOpen((p) => !p)}/>
+      {promoOpen && <div className="filter-list">{PROMOTIONS.map((p) => <CheckItem key={p} label={p} checked={selectedPromotions.includes(p)} onToggle={() => toggleArr(selectedPromotions, setSelectedPromotions, p)}/>)}</div>} */}
     </aside>
   );
 }
@@ -216,12 +214,9 @@ function FilterTag({ label, onRemove }) {
   return <span className="filter-tag">{label}<span onClick={onRemove}>×</span></span>;
 }
 
-// ─── HEADER HEIGHT CONSTANTS ───────────
-const HEADER_H       = 86;
-const HEADER_H_MOB   = 72;
-const TOPBAR_H       = 56;
-const SIDEBAR_TOP    = HEADER_H + TOPBAR_H + 8;
-const SIDEBAR_TOP_M  = HEADER_H_MOB + TOPBAR_H + 8;
+const SIDEBAR_TOP  = 56 + 8;   // topbar height + gap
+const SIDEBAR_TOP_M = 56 + 8;
+const CATALOG_STICKY_OFFSET = 205; // px from viewport top where topbar pins
 
 export default function ExclusiveProductCatalog() {
   const [products, setProducts] = useState([]);
@@ -245,7 +240,11 @@ export default function ExclusiveProductCatalog() {
   const [filterClosing, setFilterClosing] = useState(false);
   const [gatewayLoading, setGatewayLoading] = useState(false);
 
+  // ── NEW: track whether user has scrolled past the threshold ──
+  const [isSticky, setIsSticky] = useState(false);
+
   const productsRef = useRef(null);
+  const catalogRef = useRef(null);
 
   const filterOpen = filterVisible;
   const closeFilter = () => {
@@ -259,8 +258,19 @@ export default function ExclusiveProductCatalog() {
   useEffect(() => { saveCart(cartItems); }, [cartItems]);
 
   useEffect(() => {
-     trackPageView();
-   }, []);
+    trackPageView();
+  }, []);
+
+  // ── Sticky: pins when catalog shell reaches 100px from viewport top ──
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!catalogRef.current) return;
+      const rect = catalogRef.current.getBoundingClientRect();
+      setIsSticky(rect.top <= CATALOG_STICKY_OFFSET);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const handler = () => { if (window.innerWidth >= 768 && filterVisible) closeFilter(); };
@@ -357,7 +367,7 @@ export default function ExclusiveProductCatalog() {
   const filterProps = { minPrice, maxPrice, priceMax, setMinPrice, setMaxPrice, selectedCategories, setSelectedCategories, selectedPromotions, setSelectedPromotions, selectedRating, setSelectedRating };
 
   return (
-    <div className="exclusive-catalog">
+    <div className="exclusive-catalog" ref={catalogRef}>
       {gatewayLoading && (
         <div className="gateway-overlay">
           <span className="gateway-spinner"/>
@@ -370,56 +380,66 @@ export default function ExclusiveProductCatalog() {
         <div className={`filter-drawer${filterClosing ? " closing" : ""}`}>
           <FilterSidebar {...filterProps} onClose={closeFilter}/>
           <div style={{ padding: "16px 20px", borderTop: "1px solid #eee", display: "flex", gap: 10 }}>
-            <button onClick={() => { clearAllFilters(); closeFilter(); }} style={{ flex: 1, padding: "11px", border: "1px solid #e5e7eb", borderRadius: 10, background: "#fff", fontFamily: "'DM Sans',sans-serif", fontSize: 14, fontWeight: 600, cursor: "pointer", color: "#374151" }}>Clear All</button>
-            <button onClick={closeFilter} style={{ flex: 1, padding: "11px", border: "none", borderRadius: 10, background: "#1a4731", fontFamily: "'DM Sans',sans-serif", fontSize: 14, fontWeight: 700, cursor: "pointer", color: "#fff" }}>Apply Filters</button>
+            <button onClick={() => { clearAllFilters(); closeFilter(); }} style={{ flex: 1, padding: "11px", border: "1px solid var(--new-purple-color)", borderRadius: 10, background: "#fff", fontFamily: "'DM Sans',sans-serif", fontSize: 14, fontWeight: 600, cursor: "pointer", color: "#374151" }}>Clear All</button>
+            <button onClick={closeFilter} style={{ flex: 1, padding: "11px", border: "none", borderRadius: 10, background: "var(--new-purple-color)", fontFamily: "'DM Sans',sans-serif", fontSize: 14, fontWeight: 700, cursor: "pointer", color: "#fff" }}>Apply Filters</button>
           </div>
         </div>
       )}
 
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&display=swap');
         *,*::before,*::after{box-sizing:border-box}
 
+        body{background-color:var(--new-bg-white-color);}
+
         .exclusive-catalog{
-          font-family:'DM Sans',sans-serif;
-          background:#fff;
+          font-family:var(--font-new-1);
+          background:var(--new-bg-white-color);
           min-height:100vh;
-          color:#222;
-          padding-top:${HEADER_H}px;
+          color:var(--color-black);
+          margin-top:75px;
         }
 
-        .shop-hero{position:relative;background:#f3f3f2;min-height:120px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+        .shop-hero{position:relative;background:var(--new-bg-color);min-height:120px;display:flex;align-items:center;justify-content:center;overflow:hidden}
         .shop-hero::before,.shop-hero::after{content:"";position:absolute;width:110px;height:54px;opacity:.55;background-image:radial-gradient(#cfd6cf 2px,transparent 2.5px);background-size:14px 14px}
         .shop-hero::before{left:14%;top:0}.shop-hero::after{right:13%;bottom:0}
         .shop-hero__content{text-align:center;position:relative;z-index:1}
-        .shop-hero__content h1{margin:0 0 8px;font-size:34px;font-weight:800;color:#252525}
-        .shop-hero__content p{margin:0;font-size:13px;color:#333}
-
+        .shop-hero__content h1{margin:0 0 8px;font-size:34px;font-weight:800;color:var(--new-purple-color)}
+        .shop-hero__content p{margin:0;font-size:13px;color:var(--color-black)}
+        
         .catalog-shell{
           max-width:1240px;
           margin:0 auto;
           padding:0 32px 60px;
-          background:#fff;
-          scroll-padding-top:${HEADER_H + 24}px;
+          background:var(--new-bg-white-color);
         }
 
+        /* ── TOPBAR: not sticky by default ── */
         .catalog-topbar{
           display:grid;
           grid-template-columns:230px minmax(0,1fr) auto;
           align-items:center;
           gap:26px;
-          position:sticky;
-          top:${HEADER_H}px;
+          position:relative;
+          top:0;
           z-index:30;
-          background:#fff;
+          background:var(--new-bg-white-color);
           padding:14px 0 12px;
           margin-left:-32px;
           margin-right:-32px;
           padding-left:32px;
           padding-right:32px;
-          box-shadow:0 2px 0 0 #f0f0f0;
+          box-shadow:none;
           margin-bottom:0;
+          transition:box-shadow 0.25s ease;
         }
+
+        /* ── TOPBAR: sticky only when catalog shell hits 100px from viewport top ── */
+        .catalog-shell.is-sticky{
+          position:sticky;
+          // top:${CATALOG_STICKY_OFFSET}px;
+          box-shadow:0 2px 0 0 #f0f0f0;
+        }
+
         .catalog-topbar__filter-title{font-size:18px;font-weight:800;color:#252525}
         .catalog-result-text{font-size:14px;color:#333}
         .catalog-sort-wrap{display:flex;align-items:center;justify-content:flex-end;gap:10px;white-space:nowrap}
@@ -437,9 +457,9 @@ export default function ExclusiveProductCatalog() {
           flex-shrink:0;
           padding:0 20px 28px 0;
           position:sticky;
-          top:${SIDEBAR_TOP}px;
+          // top:${CATALOG_STICKY_OFFSET + SIDEBAR_TOP}px;
           align-self:flex-start;
-          max-height:calc(100vh - ${SIDEBAR_TOP}px - 24px);
+          // max-height:calc(100vh - ${CATALOG_STICKY_OFFSET + SIDEBAR_TOP}px - 24px);
           overflow-y:auto;
           overscroll-behavior:contain;
           -webkit-overflow-scrolling:touch;
@@ -447,7 +467,7 @@ export default function ExclusiveProductCatalog() {
 
         .pcat-sidebar::-webkit-scrollbar{width:4px}
         .pcat-sidebar::-webkit-scrollbar-track{background:transparent}
-        .pcat-sidebar::-webkit-scrollbar-thumb{background:#1a4731;border-radius:999px;opacity:.6}
+        .pcat-sidebar::-webkit-scrollbar-thumb{background:var(--new-purple-color);border-radius:999px;opacity:.6}
         .pcat-sidebar:hover::-webkit-scrollbar-thumb{opacity:1}
 
         .filter-mobile-header{display:none;justify-content:space-between;align-items:center;padding-block:15px 4px}
@@ -458,19 +478,19 @@ export default function ExclusiveProductCatalog() {
         .filter-list{margin-bottom:6px}
         .filter-check-item{display:flex;align-items:center;gap:9px;cursor:pointer;padding:5px 0;user-select:none}
         .filter-check-box{width:15px;height:15px;border-radius:3px;flex-shrink:0;border:1px solid #e5e5e5;background:#fff;display:flex;align-items:center;justify-content:center}
-        .filter-check-box.checked{border-color:#1a4731;background:#1a4731}
+        .filter-check-box.checked{border-color:var(--new-purple-color);background:var(--new-purple-color)}
         .filter-check-label{font-size:13px;color:#555;line-height:1.4}
         .filter-price{margin-bottom:10px}
         .filter-price-label{font-size:12px;color:#6b7280;margin-bottom:10px}
         .filter-range-wrap{position:relative;height:28px;margin-bottom:10px}
         .filter-range-track,.filter-range-fill{position:absolute;top:50%;height:3px;border-radius:2px;transform:translateY(-50%)}
-        .filter-range-track{left:0;right:0;background:#e5e7eb}
-        .filter-range-fill{background:#1a4731}
+        .filter-range-track{left:0;right:0;background:var(--new-purple-color)}
+        .filter-range-fill{background:var(--new-purple-color)}
         .filter-number-row{display:flex;gap:8px}
-        .filter-number-row input{width:50%;padding:6px 8px;border:1px solid #e5e7eb;border-radius:7px;font-size:12px;font-family:'DM Sans',sans-serif;color:#374151;outline:none}
+        .filter-number-row input{width:50%;padding:6px 8px;border:1px solid var(--new-purple-color);border-radius:7px;font-size:12px;font-family:'DM Sans',sans-serif;color:#374151;outline:none}
         .filter-rating-item{display:flex;align-items:center;gap:8px;cursor:pointer;padding:5px 0}
         .filter-radio{width:16px;height:16px;border-radius:50%;flex-shrink:0;border:1.5px solid #d1d5db;background:#fff;display:flex;align-items:center;justify-content:center}
-        .filter-radio.checked{border-color:#1a4731;background:#1a4731}
+        .filter-radio.checked{border-color:var(--new-purple-color);background:var(--new-purple-color)}
         .filter-radio span{width:6px;height:6px;border-radius:50%;background:#fff}
         .filter-rating-text{font-size:12px;color:#6b7280}
 
@@ -478,7 +498,7 @@ export default function ExclusiveProductCatalog() {
           flex:1;
           min-width:0;
           padding-bottom:44px;
-          scroll-margin-top:${SIDEBAR_TOP + 8}px;
+          // scroll-margin-top:${SIDEBAR_TOP + 8}px;
         }
 
         .active-filter-row{
@@ -490,53 +510,53 @@ export default function ExclusiveProductCatalog() {
           padding-bottom:10px;
         }
         .active-filter-label{font-size:14px;font-weight:500;color:#252525;margin-right:4px}
-        .filter-tag{display:inline-flex;align-items:center;gap:8px;background:#1a4731;color:#fff;font-size:13px;font-weight:500;padding:7px 13px;border-radius:999px}
+        .filter-tag{display:inline-flex;align-items:center;gap:8px;background:var(--new-purple-color);color:#fff;font-size:13px;font-weight:500;padding:7px 13px;border-radius:999px}
         .filter-tag span{cursor:pointer;line-height:1;opacity:.9;font-size:14px;font-weight:700}
         .clear-filter-btn{font-size:13px;font-weight:600;color:#c2995d;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;padding:0 4px;text-decoration:underline}
 
         @keyframes dropdownOpen{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
-        .sort-btn{display:flex;align-items:center;gap:10px;padding:9px 16px;border-radius:999px;border:1px solid #e5e7eb;background:#fff;color:#111827;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;justify-content:space-between;transition:border-color .18s,box-shadow .18s}
-        .sort-btn:hover{border-color:#1a4731;box-shadow:0 0 0 3px rgba(26,71,49,.08)}
-        .sort-dropdown{position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border-radius:12px;border:1px solid #e5e7eb;box-shadow:0 12px 32px rgba(0,0,0,.13);z-index:200;overflow:hidden;animation:dropdownOpen .18s ease forwards}
+        .sort-btn{display:flex;align-items:center;gap:10px;padding:9px 16px;border-radius:999px;border:1px solid var(--new-purple-color);background:#fff;color:#111827;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;justify-content:space-between;transition:border-color .18s,box-shadow .18s}
+        .sort-btn:hover{border-color:var(--new-purple-color);box-shadow:0 0 0 3px rgba(26,71,49,.08)}
+        .sort-dropdown{position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border-radius:12px;border:1px solid var(--new-purple-color);box-shadow:0 12px 32px rgba(0,0,0,.13);z-index:200;overflow:hidden;animation:dropdownOpen .18s ease forwards}
         .sort-option{width:100%;text-align:left;padding:11px 16px;background:transparent;color:#374151;font-weight:400;font-size:14px;font-family:'DM Sans',sans-serif;border:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;transition:background .15s,color .15s}
         .sort-option:hover{background:#f5f5f4;color:#111827}
-        .sort-option.active{background:#f0faf4;color:#1a4731;font-weight:700}
+        .sort-option.active{background:#f0faf4;color:var(--new-purple-color);font-weight:700}
         .sort-option.active:hover{background:#e6f4ed}
-        .sort-option__check{width:16px;height:16px;border-radius:50%;background:#1a4731;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        .sort-option__check{width:16px;height:16px;border-radius:50%;background:var(--new-purple-color);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 
         .pcard-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
         .pcard{background:#fff;border-radius:14px;overflow:hidden;cursor:pointer;transition:box-shadow .22s,transform .22s;display:flex;flex-direction:column;border:1px solid #ececec;box-shadow:0 2px 8px rgba(0,0,0,.04)}
         .pcard:hover{box-shadow:0 12px 36px rgba(0,0,0,.13);transform:translateY(-3px)}
-        .pcard__img-wrap{position:relative;width:100%;aspect-ratio:4/3.2;background:#f5f0e8;overflow:hidden}
+        .pcard__img-wrap{position:relative;width:100%;aspect-ratio:1/1;background:#f5f0e8;overflow:hidden}
         .pcard__img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .38s}
         .pcard:hover .pcard__img{transform:scale(1.05)}
-        .pcard__badge{position:absolute;top:12px;left:12px;z-index:3;background:#1a4731;color:#fff;font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px}
+        .pcard__badge{position:absolute;top:12px;left:12px;z-index:3;background:var(--new-purple-color);color:#fff;font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px}
         .pcard__actions{position:absolute;top:10px;right:10px;z-index:4;display:flex;flex-direction:column;gap:7px;opacity:0;transform:translateX(8px);transition:opacity .22s,transform .22s;pointer-events:none}
         .pcard__actions.visible{opacity:1;transform:translateX(0);pointer-events:auto}
         .pcard__action-btn{width:32px;height:32px;border-radius:50%;background:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#374151;box-shadow:0 2px 8px rgba(0,0,0,.15);transition:background .15s,color .15s}
-        .pcard__action-btn:hover{background:#1a4731;color:#fff}
+        .pcard__action-btn:hover{background:var(--new-purple-color);color:#fff}
         .pcard__body{padding:12px 14px 16px;display:flex;flex-direction:column;gap:5px}
         .pcard__meta-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
         .pcard__category{min-width:0;font-size:11px;font-weight:500;color:#9ca3af;letter-spacing:.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
         .pcard__rating-num{font-size:12px;font-weight:700;color:#111827}
         .pcard__name{font-size:15px;font-weight:700;color:#111827;margin:0;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
         .pcard__price-row{display:flex;align-items:center;gap:8px;margin-top:2px;flex-wrap:wrap}
-        .pcard__sale-price{font-size:15px;font-weight:800;color:#1a6b3c}
-        .pcard__orig-price{font-size:13px;color:#9ca3af;text-decoration:line-through}
-        .pcard-skeleton{background:linear-gradient(90deg,#f3f4f6 25%,#e9eaec 50%,#f3f4f6 75%);background-size:200% 100%;animation:pcardShimmer 1.4s infinite;border-radius:14px;aspect-ratio:4/4.5}
+        .pcard__sale-price{font-size:15px;font-weight:800;color:var(--color-black)}
+        .pcard__orig-price{font-size:13px;color:var(--new-para-text);text-decoration:line-through}
+        .pcard-skeleton{background:linear-gradient(90deg,#f3f4f6 25%,#e9eaec 50%,#f3f4f6 75%);background-size:200% 100%;animation:pcardShimmer 1.4s infinite;border-radius:14px;aspect-ratio:1/1}
         @keyframes pcardShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
         @keyframes pcardSpin{to{transform:rotate(360deg)}}
 
         input[type=range]{-webkit-appearance:none;appearance:none;height:100%;background:transparent;outline:none;cursor:pointer;position:absolute;left:0;right:0;width:100%;margin:0;padding:0;touch-action:none}
-        input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;height:17px;border-radius:50%;background:#1a4731;border:2.5px solid #fff;box-shadow:0 1px 6px rgba(0,0,0,.22);cursor:pointer;margin-top:-7px}
+        input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;height:17px;border-radius:50%;background:var(--new-purple-color);border:2.5px solid #fff;box-shadow:0 1px 6px rgba(0,0,0,.22);cursor:pointer;margin-top:-7px}
         input[type=range]::-webkit-slider-runnable-track{height:3px;background:transparent}
-        input[type=range]::-moz-range-thumb{width:17px;height:17px;border-radius:50%;background:#1a4731;border:2.5px solid #fff;cursor:pointer}
+        input[type=range]::-moz-range-thumb{width:17px;height:17px;border-radius:50%;background:var(--new-purple-color);border:2.5px solid #fff;cursor:pointer}
         input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
         input[type=number]{-moz-appearance:textfield}
 
-        .pcat-page-btn{width:34px;height:34px;border-radius:8px;border:1.5px solid #e5e7eb;background:#fff;color:#374151;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
-        .pcat-page-btn:hover:not(:disabled){border-color:#1a4731;color:#1a4731}
-        .pcat-page-btn.active{background:#1a4731;color:#fff;border-color:#1a4731}
+        .pcat-page-btn{width:34px;height:34px;border-radius:8px;border:1.5px solid var(--new-purple-color);background:#fff;color:#374151;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+        .pcat-page-btn:hover:not(:disabled){border-color:var(--new-purple-color);color:var(--new-purple-color)}
+        .pcat-page-btn.active{background:var(--new-purple-color);color:#fff;border-color:var(--new-purple-color)}
         .pcat-page-btn:disabled{opacity:.38;cursor:not-allowed}
 
         .gateway-overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:#fff;font-size:16px;font-weight:600}
@@ -553,7 +573,7 @@ export default function ExclusiveProductCatalog() {
         .filter-drawer .pcat-sidebar{display:block !important;width:100% !important;height:auto;max-height:calc(88vh - 80px);overflow-y:auto;padding:0 20px 8px;flex-shrink:0;position:static !important}
         .filter-drawer .filter-mobile-header{display:flex}
 
-        .filter-mobile-btn{display:none;align-items:center;gap:7px;padding:9px 16px;border-radius:999px;border:1px solid #e5e7eb;background:#fff;color:#111827;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap}
+        .filter-mobile-btn{display:none;align-items:center;gap:7px;padding:9px 16px;border-radius:999px;border:1px solid var(--new-purple-color);background:#fff;color:#111827;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap}
 
         @media(max-width:980px){
           .catalog-topbar{grid-template-columns:1fr auto;gap:14px}
@@ -563,7 +583,6 @@ export default function ExclusiveProductCatalog() {
         }
 
         @media(max-width:768px){
-          .exclusive-catalog{padding-top:${HEADER_H_MOB}px}
           .shop-hero{min-height:100px}
           .shop-hero__content h1{font-size:26px}
           .catalog-shell{padding:0 16px 60px}
@@ -571,7 +590,6 @@ export default function ExclusiveProductCatalog() {
             grid-template-columns:auto 1fr auto;
             gap:10px;
             align-items:center;
-            top:${HEADER_H_MOB}px;
             margin-left:-16px;
             margin-right:-16px;
             padding-left:16px;
@@ -615,11 +633,12 @@ export default function ExclusiveProductCatalog() {
         </div>
       </section>
 
-      <main className="catalog-shell">
-        <div className="catalog-topbar">
+      <main className={`catalog-shell${isSticky ? " is-sticky" : ""}`}>
+        {/* ── is-sticky class added only after scrolling past 120px ── */}
+        <div className={`catalog-topbar`}>
           <button className="filter-mobile-btn" onClick={() => setFilterVisible(true)}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
-            Filter {activeFilterTags.length > 0 && <span style={{ background: "#1a4731", color: "#fff", borderRadius: "50%", width: 18, height: 18, fontSize: 11, fontWeight: 700, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>{activeFilterTags.length}</span>}
+            Filter {activeFilterTags.length > 0 && <span style={{ background: "var(--new-purple-color)", color: "#fff", borderRadius: "50%", width: 18, height: 18, fontSize: 11, fontWeight: 700, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>{activeFilterTags.length}</span>}
           </button>
 
           <div className="catalog-topbar__filter-title">Filter Options</div>
@@ -657,7 +676,7 @@ export default function ExclusiveProductCatalog() {
                 <div style={{ fontSize: 36, marginBottom: 12 }}>⚠️</div>
                 <div style={{ fontSize: 20, fontWeight: 700, color: "#111827", marginBottom: 8 }}>Something went wrong</div>
                 <div style={{ color: "#6b7280", fontSize: 14, marginBottom: 24 }}>{error}</div>
-                <button onClick={() => window.location.reload()} style={{ padding: "11px 28px", background: "#1a4731", color: "#fff", border: "none", borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: "pointer" }}>Retry</button>
+                <button onClick={() => window.location.reload()} style={{ padding: "11px 28px", background: "var(--new-purple-color)", color: "#fff", border: "none", borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: "pointer" }}>Retry</button>
               </div>
             )}
 
@@ -667,7 +686,7 @@ export default function ExclusiveProductCatalog() {
                 <div style={{ fontSize: 20, fontWeight: 700, color: "#111827", marginBottom: 8 }}>No products found</div>
                 <div style={{ color: "#6b7280", fontSize: 14, marginBottom: 24 }}>Try adjusting your filters</div>
                 {activeFilterTags.length > 0 && (
-                  <button onClick={clearAllFilters} style={{ padding: "11px 28px", background: "#1a4731", color: "#fff", border: "none", borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: "pointer" }}>Clear Filters</button>
+                  <button onClick={clearAllFilters} style={{ padding: "11px 28px", background: "var(--new-purple-color)", color: "#fff", border: "none", borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: "pointer" }}>Clear Filters</button>
                 )}
               </div>
             )}

@@ -125,8 +125,7 @@ export default function ConcernSection() {
         className="relative overflow-hidden py-8 pb-4 md:pb-4 md:py-10"
         style={{ backgroundColor: "var(--new-bg-color, #f2eafa)" }}
       >
-        {/* ── Corner botanical — top left ── */}
-        <svg
+        {/* <svg
           className="pointer-events-none absolute -left-14 -top-10 h-[280px] w-[280px] opacity-[0.18]"
           viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg"
         >
@@ -140,7 +139,6 @@ export default function ConcernSection() {
           <circle cx="100" cy="170" r="12" fill="#5d27aa" opacity="0.08"/>
         </svg>
 
-        {/* ── Corner botanical — bottom right ── */}
         <svg
           className="pointer-events-none absolute -bottom-10 -right-14 h-[260px] w-[260px] rotate-180 opacity-[0.14]"
           viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -151,7 +149,7 @@ export default function ConcernSection() {
           <ellipse cx="120" cy="140" rx="46" ry="22" transform="rotate(-20 120 140)" fill="#5d27aa" opacity="0.09"/>
           <circle cx="35" cy="195" r="16" fill="#df8804" opacity="0.08"/>
           <circle cx="90" cy="155" r="11" fill="#5d27aa" opacity="0.08"/>
-        </svg>
+        </svg> */}
 
         {/* ── Content Container ── */}
         <div className="relative z-10 mx-auto max-w-[1240px] px-4 sm:px-6 md:px-8">

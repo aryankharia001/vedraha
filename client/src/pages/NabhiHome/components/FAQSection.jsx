@@ -1,43 +1,45 @@
 import React, { useState } from "react";
 import SectionHeader from "./SectionHeader";
+import { Link } from "react-router-dom";
+
 
 // Fully dynamic data schema for the accordions
 const faqData = [
   {
     id: "prod-offer",
-    question: "What types of products do you offer?",
+    question: "What types of products does Vedraha offer?",
     answer:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.",
+      "Vedraha specializes in premium, 100% natural Ayurvedic Nabhi (naval) oils. Our targeted formulations are designed to support various wellness needs, including menstrual discomfort relief, deep sleep promotion, hair care, skin radiance, and overall vitality.",
+  },
+  {
+    id: "how-it-works",
+    question: "How does Nabhi (naval) oil therapy work?",
+    answer:
+      "According to Ayurveda, the Nabhi (naval) is the focal center of the body's nervous system. Applying organic botanical oils to the naval allows nutrients to be absorbed directly into the body's pathway, restoring dosha balances and stimulating deep, holistic healing.",
+  },
+  {
+    id: "usage-instructions",
+    question: "How do I apply Vedraha Nabhi oils?",
+    answer:
+      "Put 2–3 drops of the specific Vedraha oil directly into your belly button before bedtime. Gently massage in a circular, clockwise motion around the naval for a minute to aid absorption. Leave it overnight for best results.",
+  },
+  {
+    id: "safety-ingredients",
+    question: "Are your oils safe and completely chemical-free?",
+    answer:
+      "Yes, absolutely. All Vedraha products are crafted using 100% pure, therapeutic-grade Ayurvedic herbs and cold-pressed carrier oils. They are completely free from synthetic fragrances, parabens, silicones, and mineral oils.",
   },
   {
     id: "discounts",
     question: "Do you offer any discounts or promotions?",
     answer:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut labore...",
-  },
-  {
-    id: "feedback",
-    question: "How can I provide feedback about my experience?",
-    answer:
-      "We love hearing from our community! You can submit feedback directly through our contact forms, product review segments, or email our support staff directly.",
-  },
-  {
-    id: "payments",
-    question: "What payment methods do you accept?",
-    answer:
-      "We support all major credit cards, debit cards, PayPal, and flexible localized financing partners secure at your direct point of checkout.",
-  },
-  {
-    id: "support",
-    question: "Do you offer customer support?",
-    answer:
-      "Yes, our dedicated support channels operate around the clock via live chat widgets, ticket logs, or priority phone queues to keep your mind completely at ease.",
+      "Yes! We frequently run seasonal promotions and offer exclusive discounts on bundle purchases. Keep an eye out for our dynamic sale badges across the product page, or subscribe to our newsletter for exclusive community offers.",
   },
   {
     id: "tracking",
     question: "How do I track my order?",
     answer:
-      "Once shipped, an automated tracking sequence link will be dispatched directly to your designated checkout email address to monitor milestones live.",
+      "Once your order is processed, an automated tracking sequence link will be sent directly to your registered email address and phone number so you can monitor your wellness delivery milestones live.",
   },
 ];
 
@@ -177,13 +179,13 @@ export default function FAQSection({ themeColor, bgMode = "default" }) {
               response.
             </p>
 
-            <a
-              href="#contact"
+            <Link
+              to="/products/nabhi-contact-en"
               className="w-full max-w-[180px] bg-white font-bold text-xs py-3.5 px-4 rounded-full shadow-sm transition-all duration-200 hover:scale-[1.03] active:scale-[0.98] text-center"
               style={{ color: "var(--color-heading, #111827)" }}
             >
               Contact Us
-            </a>
+            </Link>
           </div>
         </div>
       </div>

@@ -286,7 +286,7 @@ function AppContent() {
         <Route path="/products/nabhi-shilajit-en"      element={<NabhiShilajitPageEng />} />
         <Route path="/products/nabhi-menstrual-en"     element={<NabhiMenstrualPageEng />} />
         <Route path="/products/nabhi-amrit-en"         element={<NabhiAmritPageEng />} />
-        <Route path="/products/nabhi-about-en"         element={<NabhiAboutEng />} />
+        <Route path="/products/nabhi-about-en"         element={<AboutEnglish />} />
         <Route path="/products/nabhi-contact-en"       element={<NabhiContactEng />} />
         <Route path="/success-en"                      element={<ExcSuccessPage />} />
         <Route path="/my-orders-en"                    element={<MyOrdersEnglish />} />
