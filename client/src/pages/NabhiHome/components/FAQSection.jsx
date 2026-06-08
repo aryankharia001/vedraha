@@ -60,6 +60,7 @@ export default function FAQSection({ themeColor, bgMode = "default" }) {
 
   return (
     <section
+    id="faqs"
       className="w-full"
       style={{
         backgroundColor: activeBgColor,

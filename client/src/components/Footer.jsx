@@ -9,6 +9,7 @@ const footerLinks = [
     links: [
       { name: "About Us", href: "/products/nabhi-about-en" },
       { name: "Contact Us", href: "/products/nabhi-contact-en" },
+      { name: "Shop", href: "/products" },
     ] 
   },
   {
@@ -16,7 +17,7 @@ const footerLinks = [
     links: [
       { name: "My Orders", href: "/my-orders-en" },
       { name: "Track Your Order", href: "/my-orders-en" },
-      { name: "FAQ", href: "/faq" }
+      // { name: "FAQ", href: "/#faqs" }
     ],
   },
   {
@@ -24,6 +25,7 @@ const footerLinks = [
     links: [
       { name: "Privacy Policy", href: "/privacy-policy" },
       { name: "User Terms & Conditions", href: "/refund-policy" },
+      { name: "Refund Policy", href: "/refund-policy" },
     ],
   },
 ];
