@@ -101,6 +101,7 @@ import OrderDetailsEnglish from './pages/Nabhi Oil/OrderDetailsEnglish'
 import ProductFormPage from './pages/admin/ProductFormPage'
 import ProductUpdatePage from './pages/admin/ProductUpdatePage'
 import ProductListPage from './pages/admin/ProductListPage'
+import AboutEnglish from './pages/NabhiEnglish/AboutEnglish'
 export const backendurl = import.meta.env.VITE_BACKEND_URL;
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -292,23 +293,7 @@ function AppContent() {
         <Route path="/order-en/:orderId"                    element={<OrderDetailsEnglish />} />
         <Route path="/admin"                    element={<CreateExclusiveProduct />} />
         <Route path="/admin/contact-messages"   element={<AdminContactMessages />} />
-        <Route path="/admin/adminList"   element={<CollectionManagementPage />} />
-        <Route
-          path="/admin/collections"
-          element={<CollectionManagementPage />}
-        />
-        <Route
-          path="/admin/dashboard"
-          element={<Dashboard />}
-        />
-        <Route
-          path="/admin/product-list"
-          element={<ProductListPage />}
-        />
-        <Route
-          path="/admin/product/create"
-          element={<ProductFormPage />}
-        />
+
         {/* ── Telugu ───────────────────────────────────────────────────── */}
         <Route path="/tlg"                             element={<HomeTelugu />} />
         <Route path="/products-tlg"                    element={<ExclusiveProductCatalogTelugu />} />
