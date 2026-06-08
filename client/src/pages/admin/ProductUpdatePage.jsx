@@ -158,9 +158,9 @@ export default function ProductUpdatePage() {
   const [specs, setSpecs] = useState({ weight: '', dimensions: '', material: '', color: '', size: '' });
 
   // ── Auth guard ────────────────────────────────────────────────────────────
-  useEffect(() => {
-    if (!userInfo || !userInfo.isAdmin) navigate('/login');
-  }, [userInfo, navigate]);
+  // useEffect(() => {
+  //   if (!userInfo || !userInfo.isAdmin) navigate('/login');
+  // }, [userInfo, navigate]);
 
   // ── Load collections ──────────────────────────────────────────────────────
   useEffect(() => { dispatch(listCollections()); }, [dispatch]);

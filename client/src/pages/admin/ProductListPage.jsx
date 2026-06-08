@@ -45,10 +45,10 @@ const ProductListPage = () => {
   useEffect(() => {
     dispatch({ type: LANDING_PRODUCT_CREATE_RESET });
 
-    if (!userInfo || !userInfo.isAdmin) {
-      navigate('/login');
-      return;
-    }
+    // if (!userInfo || !userInfo.isAdmin) {
+    //   navigate('/login');
+    //   return;
+    // }
 
     dispatch(listLandingProducts());
   }, [dispatch, navigate, userInfo, successDelete, successCreate]);

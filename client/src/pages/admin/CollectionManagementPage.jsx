@@ -67,13 +67,13 @@ const CollectionManagementPage = () => {
   const { userInfo } = userLogin;
 
   // Load collections on component mount
-  useEffect(() => {
-    if (!userInfo || !userInfo.isAdmin) {
-      navigate('/login');
-      return;
-    }
-    dispatch(listCollections());
-  }, [dispatch, navigate, userInfo]);
+  // useEffect(() => {
+  //   if (!userInfo || !userInfo.isAdmin) {
+  //     navigate('/login');
+  //     return;
+  //   }
+  //   dispatch(listCollections());
+  // }, [dispatch, navigate, userInfo]);
 
   // Handle successful operations
   useEffect(() => {

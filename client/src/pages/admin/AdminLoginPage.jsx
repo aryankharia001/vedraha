@@ -21,12 +21,12 @@ const AdminLoginPage = () => {
   
   const redirect = location.search ? location.search.split('=')[1] : '/admin/dashboard';
   
-  useEffect(() => {
-    // If already logged in and is admin, redirect
-    if (userInfo && userInfo.isAdmin) {
-      navigate(redirect);
-    }
-  }, [navigate, userInfo, redirect]);
+  // useEffect(() => {
+  //   // If already logged in and is admin, redirect
+  //   if (userInfo && userInfo.isAdmin) {
+  //     navigate(redirect);
+  //   }
+  // }, [navigate, userInfo, redirect]);
   
   const submitHandler = (e) => {
     e.preventDefault();

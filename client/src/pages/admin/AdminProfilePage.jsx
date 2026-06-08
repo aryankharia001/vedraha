@@ -28,27 +28,27 @@ const AdminProfilePage = () => {
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { success } = userUpdateProfile;
 
-  useEffect(() => {
-    // Validate admin permissions
-    if (!userInfo || !userInfo.isAdmin) {
-      window.location.href = '/admin/login';
-      return;
-    }
+  // useEffect(() => {
+  //   // Validate admin permissions
+  //   if (!userInfo || !userInfo.isAdmin) {
+  //     window.location.href = '/admin/login';
+  //     return;
+  //   }
 
-    // Show success message and reset form state
-    if (success) {
-      dispatch({ type: USER_UPDATE_PROFILE_RESET });
-      toast.success('Profile updated successfully');
-    }
+  //   // Show success message and reset form state
+  //   if (success) {
+  //     dispatch({ type: USER_UPDATE_PROFILE_RESET });
+  //     toast.success('Profile updated successfully');
+  //   }
 
-    // Fetch user details or populate form with existing data
-    if (!user || !user.name || success) {
-      dispatch(getUserDetails('profile'));
-    } else {
-      setName(user.name);
-      setEmail(user.email);
-    }
-  }, [dispatch, userInfo, user, success]);
+  //   // Fetch user details or populate form with existing data
+  //   if (!user || !user.name || success) {
+  //     dispatch(getUserDetails('profile'));
+  //   } else {
+  //     setName(user.name);
+  //     setEmail(user.email);
+  //   }
+  // }, [dispatch, userInfo, user, success]);
 
   const submitHandler = (e) => {
     e.preventDefault();
