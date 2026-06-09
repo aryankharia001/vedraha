@@ -678,7 +678,7 @@ export default function ProductPage({ config, relatedProducts = [] }) {
             {/* Product Name */}
             <h1
               className="text-2xl md:text-3xl font-medium m-0 mb-2.5 leading-tight tracking-tight text-gray-800"
-              style={{ fontFamily: "var(--font-new-1)"}}
+              style={{ fontFamily: "var(--font-new-1)" }}
             >
               Navel Oil for{" "}
               <span
@@ -806,112 +806,120 @@ export default function ProductPage({ config, relatedProducts = [] }) {
               </div>
             ))}
 
-            {/* Quantity Selector - Grey bordered rounded box */}
-            <div className="flex items-center gap-4 mb-5">
-              <div
-                className="text-xs font-bold uppercase tracking-widest mb-0 text-gray-500"
-                style={{ fontFamily: "var(--font-new-1)" }}
-              >
-                Quantity
-              </div>
-              <div className="flex items-center border border-gray-300 overflow-hidden bg-white w-fit">
-                <button
-                  onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                  className="w-10 h-10 border-0 bg-transparent cursor-pointer text-xl font-medium flex items-center justify-center text-gray-400 hover:text-gray-700 transition-colors"
-                >
-                  −
-                </button>
+            {/* Quantity Selector & Add To Cart Row */}
+<div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-5">
+  
+  {/* Quantity Controls Group */}
+  <div className="flex items-center gap-3 h-12 flex-shrink-0">
+    <div
+      className="text-xs font-bold uppercase tracking-widest text-gray-500 flex-shrink-0 leading-none"
+      style={{ fontFamily: "var(--font-new-1)" }}
+    >
+      Quantity
+    </div>
+    <div className="flex items-center border border-gray-300 overflow-hidden bg-white w-fit flex-shrink-0 h-12 box-border rounded-none">
+      <button
+        type="button"
+        onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+        className="w-12 h-full border-0 bg-transparent cursor-pointer text-xl font-medium flex items-center justify-center text-gray-400 hover:text-gray-700 transition-colors m-0 p-0 select-none"
+      >
+        −
+      </button>
 
-                <div
-                  className="w-12 text-center text-base font-bold text-gray-900 border-l border-r border-gray-200 h-10 flex items-center justify-center"
-                  style={{ fontFamily: "var(--font-new-1)" }}
-                >
-                  {quantity}
-                </div>
+      <div
+        className="w-12 text-center text-base font-bold text-gray-900 border-l border-r border-gray-200 h-full flex items-center justify-center font-numeric leading-none"
+        style={{ fontFamily: "var(--font-new-1)" }}
+      >
+        {quantity}
+      </div>
 
-                <button
-                  onClick={() => setQuantity((q) => Math.min(10, q + 1))}
-                  className="w-10 h-10 border-0 bg-transparent cursor-pointer text-xl font-medium flex items-center justify-center text-gray-600 hover:text-gray-900 transition-colors"
-                >
-                  +
-                </button>
-              </div>
+      <button
+        type="button"
+        onClick={() => setQuantity((q) => Math.min(10, q + 1))}
+        className="w-12 h-full border-0 bg-transparent cursor-pointer text-xl font-medium flex items-center justify-center text-gray-600 hover:text-gray-900 transition-colors m-0 p-0 select-none"
+      >
+        +
+      </button>
+    </div>
+  </div>
 
-              {/* Add To Cart Button */}
-              <button
-                onClick={handleAddToCart}
-                className="w-full md:w-max min-w-[160px] h-11 px-6 cursor-pointer outline-none flex items-center justify-center gap-2 border transition-all active:scale-[0.98]"
-                style={{
-                  WebkitTapHighlightColor: "transparent",
-                  fontFamily: "var(--font-new-1)",
-                  background: themeColor,
-                  borderColor: themeColor,
-                }}
-              >
-                <ShoppingBag
-                  size={18}
-                  color="#ffffff"
-                  className="flex-shrink-0"
-                />
+  {/* Add To Cart Button */}
+  <button
+    onClick={handleAddToCart}
+    className="w-full sm:flex-1 h-12 p-0 border-0 cursor-pointer bg-transparent outline-none flex items-center justify-start gap-2 rounded-none"
+    style={{
+      WebkitTapHighlightColor: "transparent",
+      fontFamily: "var(--font-new-1)",
+    }}
+  >
+    <div
+      className="w-full h-full flex items-center justify-center gap-2 px-6 rounded-none"
+      style={{
+        background: themeColor,
+        outline: `1px solid ${themeColor}`,
+      }}
+    >
+      <ShoppingBag size={18} color="#ffffff" className="flex-shrink-0" />
+      <span className="text-sm font-bold text-white tracking-wide whitespace-nowrap leading-none">
+        Add To Cart
+      </span>
+      {cartTotalQty > 0 && (
+        <span className="bg-white/25 px-2 py-0.5 text-xs font-bold text-white leading-none rounded-none">
+          {cartTotalQty}
+        </span>
+      )}
+    </div>
+  </button>
+</div>
 
-                <span className="text-sm font-bold text-white tracking-wide whitespace-nowrap">
-                  Add To Cart
-                </span>
+{/* Action Buttons - Cash on Delivery & Buy Now */}
+<div className="flex flex-col md:flex-row gap-2.5 mt-5">
+  
+  {/* Cash on Delivery Button */}
+  <button
+    onClick={handleBuyNowDirect}
+    className="flex-1 h-12 p-0 border-0 cursor-pointer bg-transparent outline-none flex items-center justify-center gap-2 rounded-none"
+    style={{
+      WebkitTapHighlightColor: "transparent",
+      fontFamily: "var(--font-new-1)",
+    }}
+  >
+    <div
+      className="w-full h-12 flex items-center justify-center gap-2 rounded-none"
+      style={{ background: themeColor }}
+    >
+      <span className="text-sm font-bold text-white tracking-wide leading-none">
+        Cash On Delivery
+      </span>
+      {cartTotalQty > 0 && (
+        <span className="bg-white/25 px-2 py-0.5 text-xs font-bold text-white leading-none rounded-none">
+          {cartTotalQty}
+        </span>
+      )}
+    </div>
+  </button>
 
-                {cartTotalQty > 0 && (
-                  <span className="bg-white/20 backdrop-blur-sm rounded-full px-2 py-0.5 text-xs font-bold text-white min-w-[20px] text-center">
-                    {cartTotalQty}
-                  </span>
-                )}
-              </button>
-            </div>
-
-            {/* Action Buttons - Add to Cart, Buy Now, Wishlist */}
-            <div className="flex flex-col md:flex-row gap-2.5 mt-5">
-              {/* Cash on Button */}
-              <button
-                onClick={handleBuyNowDirect}
-                className="flex-1 p-0 border-0 rounded-xl cursor-pointer bg-transparent outline-none flex items-center justify-center gap-2"
-                style={{
-                  WebkitTapHighlightColor: "transparent",
-                  fontFamily: "var(--font-new-1)",
-                }}
-              >
-                <div
-                  className="w-full flex items-center justify-center gap-2"
-                  style={{ background: themeColor, height: "48px" }}
-                >
-                  <span className="text-sm font-bold text-white tracking-wide">
-                    Cash On Delivery
-                  </span>
-                  {cartTotalQty > 0 && (
-                    <span className="bg-white/25 rounded-full px-2 py-0.5 text-xs font-bold text-white">
-                      {cartTotalQty}
-                    </span>
-                  )}
-                </div>
-              </button>
-
-              {/* Buy Now Button - Gold/Ochre */}
-              <button
-                onClick={handleBuyNowDirect}
-                className="flex-1 p-0 border-0 rounded-xl cursor-pointer bg-transparent outline-none flex items-center justify-center"
-                style={{
-                  WebkitTapHighlightColor: "transparent",
-                  fontFamily: "var(--font-new-1)",
-                }}
-              >
-                <div
-                  className="w-full flex items-center justify-center gap-2"
-                  style={{ background: "black", height: "48px" }}
-                >
-                  <UpiStack icons={upiIcons} size="sm" />
-                  <span className="text-sm font-bold text-white tracking-wide">
-                    Buy Now
-                  </span>
-                </div>
-              </button>
-            </div>
+  {/* Buy Now Button */}
+  <button
+    onClick={handleBuyNowDirect}
+    className="flex-1 h-12 p-0 border-0 cursor-pointer bg-transparent outline-none flex items-center justify-center rounded-none"
+    style={{
+      WebkitTapHighlightColor: "transparent",
+      fontFamily: "var(--font-new-1)",
+    }}
+  >
+    <div
+      className="w-full h-12 flex items-center justify-center gap-2 rounded-none"
+      style={{ background: "black" }}
+    >
+      <UpiStack icons={upiIcons} size="sm" />
+      <span className="text-sm font-bold text-white tracking-wide leading-none">
+        Buy Now
+      </span>
+    </div>
+  </button>
+  
+</div>
 
             {/* SKU and Tags */}
             <div className="flex gap-4 mt-4 flex-wrap">

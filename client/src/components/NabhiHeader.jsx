@@ -299,6 +299,7 @@ export default function NabhiHeader({ onCartOpen }) {
     { label: "Home", path: "/" },
     { label: "Contact", path: "/products/nabhi-contact-en" },
     { label: "About", path: "/products/nabhi-about-en" },
+    { label: "Blogs", path: "/products/nabhi-about-en" },
   ];
 
   const displayName =

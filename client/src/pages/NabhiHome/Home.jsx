@@ -12,6 +12,7 @@ import Ingredients from "./components/Ingredients";
 import NewsLetter from "./components/NewsLetter";
 import HeroSection from "./components/HeroSection.jsx";
 import ConcernSection from "./components/ConcernSection.jsx";
+import NewsBlogs from "./components/NewsBlogs.jsx";
 
 // HIGHLIGHT: Import your brand new extracted component 
 import MarqueeBar from "./components/MarqueeBar.jsx";
@@ -20,6 +21,8 @@ const Home = ({ lang = "en" }) => {
   return (
     <>
       <HeroSection />
+
+      <NewsBlogs/>
 
       <ConcernSection />
 

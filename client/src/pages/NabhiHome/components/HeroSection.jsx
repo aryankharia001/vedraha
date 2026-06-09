@@ -175,7 +175,7 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="relative bg-[var(--new-bg-color)]">
+    <div className="relative bg-[var(--new-bg-white-color)]">
     <section className="relative w-full overflow-hidden h-[clamp(520px,70vw,800px)]">
 
       <style>{`

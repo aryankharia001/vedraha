@@ -400,10 +400,12 @@ export default function MyOrdersEnglish() {
     new Date(d).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" });
 
   const fmtPrice = (val) => {
-    if (!val && val !== 0) return "—";
-    if (typeof val === "string" && val.startsWith("$")) return val;
-    return `$${Number(val).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-  };
+  if (!val && val !== 0) return "—";
+  if (typeof val === "string" && val.startsWith("₹")) return val;
+  
+  // Handles formatting using the Indian locale (en-IN) for correct rupee comma placement
+  return `₹${Number(val).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+};
 
   // Filter items matching layout toggle states
   const filteredOrders = orders.filter((order) => {

@@ -41,7 +41,7 @@ const socialLinks = [
   {
     label: "Facebook",
     href: "https://facebook.com/vedraha",
-    hoverBg: "#1877F2", // Official Facebook Blue
+    bg: "#1877F2", // Official Facebook Blue
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -55,7 +55,8 @@ const socialLinks = [
   {
     label: "X (Twitter)",
     href: "https://x.com/vedraha",
-    hoverBg: "#000000",
+    bg: "#000000",
+    hasStroke: true, 
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -69,7 +70,7 @@ const socialLinks = [
   {
     label: "Pinterest",
     href: "https://pinterest.com/vedraha",
-    hoverBg: "#E60023",
+    bg: "#E60023",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -83,33 +84,40 @@ const socialLinks = [
   {
     label: "Instagram",
     href: "https://instagram.com/vedraha",
-    hoverBg: "linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)",
+    bg: "linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)",
     icon: (
       <svg
         viewBox="0 0 24 24"
-        fill="currentColor"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
         style={{ width: "14px", height: "14px" }}
       >
-        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" strokeWidth="2" />
-        <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="2" />
-        <circle cx="17.5" cy="6.5" r="1" />
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
       </svg>
     ),
   },
   {
     label: "YouTube",
     href: "https://youtube.com/vedraha",
-    hoverBg: "#FF0000",
-    // We pass a function rendering the dynamic inner play button color state
-    icon: (isHovered) => (
+    bg: "#FF0000",
+    icon: (
       <svg
         viewBox="0 0 24 24"
-        fill="currentColor"
         style={{ width: "14px", height: "14px" }}
       >
-        <path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z" />
-        {/* On hover, the inner arrow cuts out cleanly into the brand red color */}
-        <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill={isHovered ? "#FF0000" : "var(--color-black)"} />
+        {/* Outer body is now cleanly locked to full white */}
+        <path 
+          d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z" 
+          fill="#FFFFFF"
+        />
+        {/* Inner arrow cuts out directly into the deep background red color (#FF0000) */}
+        <polygon 
+          points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" 
+          fill="#FF0000" 
+        />
       </svg>
     ),
   },
@@ -134,34 +142,28 @@ const Logo = () => (
 );
 
 // ─── SOCIAL BUTTON ────────────────────────────────────────────────────────────
-const SocialBtn = ({ label, href, icon, hoverBg }) => {
-  const [hovered, setHovered] = React.useState(false);
+const SocialBtn = ({ label, href, icon, bg, hasStroke }) => {
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       style={{
         width: "32px",
         height: "32px",
-        borderRadius: "var(--radius-pill)",
+        borderRadius: "50%", // Restored completely rounded style
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        border: hovered ? `1px solid transparent` : "1px solid var(--color-placeholder)",
-        color: hovered ? "#FFFFFF" : "var(--color-muted)",
-        background: hovered ? hoverBg : "transparent",
-        transition: "var(--transition-base)",
-        transform: hovered ? "scale(1.1)" : "scale(1)",
+        border: hasStroke ? "1px solid rgba(255, 255, 255, 0.4)" : "1px solid transparent", // Adds subtle border specifically to X icon
+        color: "#FFFFFF",
+        background: bg,
         textDecoration: "none",
         flexShrink: 0,
       }}
     >
-      {/* If icon is a function, evaluate it with the hover state, otherwise parse directly */}
-      {typeof icon === "function" ? icon(hovered) : icon}
+      {icon}
     </a>
   );
 };
@@ -197,7 +199,7 @@ export default function Footer() {
         width: "100%",
         backgroundColor: "var(--new-bg-white-color)",
         fontFamily: "var(--font-body)",
-        padding: "0 1.5rem 1.5rem",
+        padding: "0 20px 1.5rem",
       }}
     >
       <div className="px-[1rem]"
@@ -205,7 +207,7 @@ export default function Footer() {
           maxWidth: "1240px",
           margin: "0 auto",
           backgroundColor: "var(--color-black)",
-          borderRadius: "var(--radius-2xl)",
+          borderRadius: "0px",
           border: "1px solid var(--color-placeholder)",
           overflow: "hidden",
         }}
@@ -284,7 +286,7 @@ export default function Footer() {
 
           {/* Contact Section */}
           <div
-            className="lg:mb-0" //add this mb-20
+            className="lg:mb-0"
             style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
           >
             <h4
@@ -331,8 +333,7 @@ export default function Footer() {
               fontSize: "0.8125rem",
               margin: 0,
               fontFamily: "var(--font-body)",
-              textAlign:"center",
-              // flexShrink: 0,
+              textAlign: "center",
             }}
           >
             Copyright © 2026{" "}
