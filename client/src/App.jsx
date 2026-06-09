@@ -1,15 +1,10 @@
-// src/App.jsx  (updated)
-// ─────────────────────────────────────────────────────────────────────────────
-// Changes from original:
-//  1. Import CartProvider + useCart + CartDrawer
-//  2. Wrap AppContent with <CartProvider>
-//  3. Mount ONE global <CartDrawer> inside AppContent
-//  4. Pass openCart / cartTotalQty into every header
-// ─────────────────────────────────────────────────────────────────────────────
-
+// src/App.jsx  (updated with Global Lenis Smooth Scroll)
 import React, { lazy, Suspense, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { initTrackingCookies } from './utils/trackingCookies'
+
+// ── 1. Import the React wrapper from the package ──────────────────────────────
+import { ReactLenis } from 'lenis/react'
 
 // ── Cart (global) ─────────────────────────────────────────────────────────────
 import { CartProvider, useCart } from './components/CartContext'
@@ -106,14 +101,10 @@ export const backendurl = import.meta.env.VITE_BACKEND_URL;
 
 import ScrollToTop from './components/ScrollToTop.jsx';
 
-// ─────────────────────────────────────────────────────────────────────────────
-// AppContent – consumes CartContext
-// ─────────────────────────────────────────────────────────────────────────────
 function AppContent() {
   const location = useLocation();
   const path = location.pathname;
 
-  // Pull cart controls from context
   const {
     cartItems,
     cartOpen,
@@ -124,9 +115,7 @@ function AppContent() {
     removeItem,
   } = useCart();
 
-  // ── Load Shiprocket checkout SDK once for the whole app ─────────────────────
   useEffect(() => {
-    // Avoid injecting twice
     if (document.getElementById('shiprocket-checkout-script')) return;
 
     const link = document.createElement('link');
@@ -149,7 +138,6 @@ function AppContent() {
     });
   }, []);
 
-  // ── Header selector ─────────────────────────────────────────────────────────
   const renderGlobalHeader = () => {
     const commonProps = { onCartOpen: openCart, cartCount: cartTotalQty };
 
@@ -165,7 +153,6 @@ function AppContent() {
     return <NabhiHeader {...commonProps} />;
   };
 
-  // ── Footer selector ──────────────────────────────────────────────────────────
   const renderGlobalFooter = () => {
     if (path === "/hn" || path === "/hn/" || path.includes("-hn") || path.includes("-hindi") || path === "/products-hn" || path === "/success-hn")
       return <FooterHindi />;
@@ -180,7 +167,6 @@ function AppContent() {
   };
 
   const openShiprocketGateway = async (clickEvent, checkoutItems) => {
-    // Wait up to 5s for the Shiprocket SDK to initialise before giving up
     if (!window.HeadlessCheckout?.addToCart) {
       let waited = 0;
       await new Promise((resolve) => {
@@ -197,56 +183,78 @@ function AppContent() {
       alert("Checkout is loading. Please try again in a moment.");
       return;
     }
-      try {
-        const paramsObject = Object.fromEntries(
-          new URLSearchParams(window.location.search).entries(),
-        );
-        const queryString = new URLSearchParams(paramsObject).toString();
-        const response = await axios.post(
-          `${backendurl}/api/ad/generate_shiprocket_token`,
-          {
-            items: checkoutItems.map((i) => ({
-              variant_id: i.variantId,
-              quantity: i.quantity,
-            })),
-            redirect_url: `${window.location.origin}/success-en${queryString ? `?${queryString}` : ""}`,
-            paramsObject,
-          },
-          { headers: { "Content-Type": "application/json" } },
-        );
-        const token = response.data?.result?.token;
-        if (!token) throw new Error("No token");
-        window.HeadlessCheckout.addToCart(clickEvent, token, {
-          fallbackUrl: `${window.location.origin}/payment-failure`,
-        });
-      } catch (err) {
-        console.error(err);
-        alert("Failed to open checkout. Please try again.");
-      } 
-    };
+    try {
+      const paramsObject = Object.fromEntries(
+        new URLSearchParams(window.location.search).entries(),
+      );
+      const queryString = new URLSearchParams(paramsObject).toString();
+      const response = await axios.post(
+        `${backendurl}/api/ad/generate_shiprocket_token`,
+        {
+          items: checkoutItems.map((i) => ({
+            variant_id: i.variantId,
+            quantity: i.quantity,
+          })),
+          redirect_url: `${window.location.origin}/success-en${queryString ? `?${queryString}` : ""}`,
+          paramsObject,
+        },
+        { headers: { "Content-Type": "application/json" } },
+      );
+      const token = response.data?.result?.token;
+      if (!token) throw new Error("No token");
+      window.HeadlessCheckout.addToCart(clickEvent, token, {
+        fallbackUrl: `${window.location.origin}/payment-failure`,
+      });
+    } catch (err) {
+      console.error(err);
+      alert("Failed to open checkout. Please try again.");
+    } 
+  };
 
-  // ── Checkout handler for cart drawer ─────────────────────────────────────────
-  // Reuse whatever checkout logic your ProductPage uses (Shiprocket, Razorpay, etc.)
-  // For now we fire the same openShiprocketGateway pattern. Adjust as needed.
   const handleCartBuyNow = (e) => {
-    // Normalize the event exactly like handleBuyNowDirect does in ProductPage:
-    // synthetic React event → use .nativeEvent; plain MouseEvent → use as-is;
-    // undefined/null (e.g. called programmatically) → synthesize a new click event.
-    const clickEvent =
-      e?.nativeEvent ?? e ?? new MouseEvent("click", { bubbles: true });
-
+    const clickEvent = e?.nativeEvent ?? e ?? new MouseEvent("click", { bubbles: true });
     openShiprocketGateway(clickEvent, cartItems);
   };
 
-  return (
-    <>
-      {/* ── Global header (receives cart open + count) ── */}
-      {renderGlobalHeader()}
+  // ── 2. Add your precise configuration options here ───────────────────────
+  const lenisOptions = {
+    duration: 1.5,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+    direction: 'vertical',
+    gestureDirection: 'vertical',
+    smooth: true,
+    mouseMultiplier: 1,
+    smoothTouch: false, // Turn off on mobile viewports for clean native touch speed
+    touchMultiplier: 2,
+    infinite: false,
+  };
 
+  return (
+    // ── 3. Wrap everything safely inside the ReactLenis shell ─────────────────
+    <ReactLenis root options={lenisOptions}>
+      {/* ── 4. Inject structural layout CSS fixes for Lenis core stability ── */}
+      <style>{`
+        html.lenis, html.lenis body {
+          height: auto;
+        }
+        .lenis.lenis-smooth {
+          scroll-behavior: auto !important;
+        }
+        .lenis.lenis-smooth [data-lenis-prevent] {
+          overscroll-behavior: contain;
+        }
+        .lenis.lenis-stopped {
+          overflow: hidden;
+        }
+        .lenis.lenis-smooth iframe {
+          pointer-events: none;
+        }
+      `}</style>
+
+      {renderGlobalHeader()}
 
       <ScrollToTop/>
 
-      {/* ── ONE global CartDrawer for the whole app ── */}
       <Suspense fallback={null}>
         <CartDrawer
           isOpen={cartOpen}
@@ -265,19 +273,19 @@ function AppContent() {
         <Route path="/refund-policy"  element={<RefundPolicy />} />
 
         {/* ── Hindi ────────────────────────────────────────────────────── */}
-        <Route path="/hn"                              element={<HomeHindi />} />
-        <Route path="/products-hn"                     element={<ExclusiveProductCatalogHindi />} />
-        <Route path="/products/nabhi-joint-hn"         element={<NabhiJointPage />} />
-        <Route path="/products/nabhi-eye-hn"           element={<NabhiEyePage />} />
-        <Route path="/products/nabhi-hair-hn"          element={<NabhiHairPage />} />
-        <Route path="/products/nabhi-sleep-hn"         element={<NabhiSleepPage />} />
-        <Route path="/products/nabhi-shilajit-hn"      element={<NabhiShilajitPage />} />
-        <Route path="/products/nabhi-menstrual-hn"     element={<NabhiMenstrualPage />} />
-        <Route path="/products/nabhi-amrit-hn"         element={<NabhiAmritPage />} />
-        <Route path="/products/about-hn"               element={<NabhiAboutHindi />} />
-        <Route path="/products/contact-hn"             element={<NabhiContactHindi />} />
-        <Route path="/success-hn"                      element={<ExcSuccessPageHindi />} />
-        <Route path="/my-orders-hn"                    element={<MyOrders />} />
+        <Route path="/hn"                               element={<HomeHindi />} />
+        <Route path="/products-hn"                      element={<ExclusiveProductCatalogHindi />} />
+        <Route path="/products/nabhi-joint-hn"          element={<NabhiJointPage />} />
+        <Route path="/products/nabhi-eye-hn"            element={<NabhiEyePage />} />
+        <Route path="/products/nabhi-hair-hn"           element={<NabhiHairPage />} />
+        <Route path="/products/nabhi-sleep-hn"          element={<NabhiSleepPage />} />
+        <Route path="/products/nabhi-shilajit-hn"       element={<NabhiShilajitPage />} />
+        <Route path="/products/nabhi-menstrual-hn"      element={<NabhiMenstrualPage />} />
+        <Route path="/products/nabhi-amrit-hn"          element={<NabhiAmritPage />} />
+        <Route path="/products/about-hn"                element={<NabhiAboutHindi />} />
+        <Route path="/products/contact-hn"              element={<NabhiContactHindi />} />
+        <Route path="/success-hn"                       element={<ExcSuccessPageHindi />} />
+        <Route path="/my-orders-hn"                     element={<MyOrders />} />
 
         {/* ── English ──────────────────────────────────────────────────── */}
         <Route path="/products"                        element={<ExclusiveProductCatalog />} />
@@ -293,23 +301,14 @@ function AppContent() {
         <Route path="/products/nabhi-amrit-en"         element={<NabhiAmritPageEng />} />
         <Route path="/products/nabhi-about-en"         element={<AboutEnglish />} />
         <Route path="/products/nabhi-contact-en"       element={<NabhiContactEng />} />
-        <Route path="/success-en"                      element={<ExcSuccessPage />} />
-        <Route path="/my-orders-en"                    element={<MyOrdersEnglish />} />
+        <Route path="/success-en"                       element={<ExcSuccessPage />} />
+        <Route path="/my-orders-en"                     element={<MyOrdersEnglish />} />
         <Route path="/order-en/:orderId"                    element={<OrderDetailsEnglish />} />
         <Route path="/admin"                    element={<CreateExclusiveProduct />} />
         <Route path="/admin/contact-messages"   element={<AdminContactMessages />} />
-        <Route
-          path="/admin/collections"
-          element={<CollectionManagementPage />}
-        />
-        <Route
-          path="/admin/product-list"
-          element={<ProductListPage />}
-        />
-        <Route
-          path="/admin/product/create"
-          element={<ProductFormPage />}
-        />
+        <Route path="/admin/collections" element={<CollectionManagementPage />} />
+        <Route path="/admin/product-list" element={<ProductListPage />} />
+        <Route path="/admin/product/create" element={<ProductFormPage />} />
 
         {/* ── Telugu ───────────────────────────────────────────────────── */}
         <Route path="/tlg"                             element={<HomeTelugu />} />
@@ -343,7 +342,7 @@ function AppContent() {
       </Routes>
 
       {renderGlobalFooter()}
-    </>
+    </ReactLenis>
   );
 }
 
@@ -353,11 +352,9 @@ import AdminListPage from './pages/admin/AdminListPage'
 import CollectionManagementPage from './pages/admin/CollectionManagementPage'
 import Dashboard from './components/Admin/Dashboard'
 
-// ─────────────────────────────────────────────────────────────────────────────
 function App() {
   return (
     <BrowserRouter>
-      {/* Providers wrap everything — one shared cart for the whole app */}
       <CollectionProvider>
         <ProductProvider>
           <CartProvider>

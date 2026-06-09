@@ -207,7 +207,7 @@ export default function Footer() {
           maxWidth: "1240px",
           margin: "0 auto",
           backgroundColor: "var(--color-black)",
-          borderRadius: "0px",
+          borderRadius: "10px",
           border: "1px solid var(--color-placeholder)",
           overflow: "hidden",
         }}
