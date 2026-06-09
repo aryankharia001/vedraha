@@ -251,6 +251,15 @@ export default function CartDrawer({ onBuyNow }) {
       .finally(() => setLoadingRec(false));
   }, [isOpen, cartItems]);
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 480);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <>
       {isOpen && (
@@ -264,7 +273,8 @@ export default function CartDrawer({ onBuyNow }) {
         style={{
           position: "fixed",
           top: "15px",
-          right: "15px",
+          right: isMobile ? "auto" : "15px",
+          left: isMobile ? "50%" : "auto",
           width: 420,
           maxWidth: "95vw",
           height: "96%",
@@ -273,7 +283,9 @@ export default function CartDrawer({ onBuyNow }) {
           display: "flex",
           flexDirection: "column",
           boxShadow: "-4px 0 40px rgba(0,0,0,0.14)",
-          transform: isOpen ? "translateX(0)" : "translateX(500px)",
+          transform: isOpen 
+            ? (isMobile ? "translateX(-50%)" : "translateX(0)") 
+            : (isMobile ? "translateY(110vh) translateX(-50%)" : "translateX(500px)"),
           transition: "transform 0.4s cubic-bezier(0.2,1,1,1)",
           fontFamily: "var(--font-new-1)",
           overflow: "hidden",

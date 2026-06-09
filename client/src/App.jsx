@@ -104,6 +104,8 @@ import ProductListPage from './pages/admin/ProductListPage.jsx'
 import AboutEnglish from './pages/NabhiEnglish/AboutEnglish'
 export const backendurl = import.meta.env.VITE_BACKEND_URL;
 
+import ScrollToTop from './components/ScrollToTop.jsx';
+
 // ─────────────────────────────────────────────────────────────────────────────
 // AppContent – consumes CartContext
 // ─────────────────────────────────────────────────────────────────────────────
@@ -240,6 +242,9 @@ function AppContent() {
     <>
       {/* ── Global header (receives cart open + count) ── */}
       {renderGlobalHeader()}
+
+
+      <ScrollToTop/>
 
       {/* ── ONE global CartDrawer for the whole app ── */}
       <Suspense fallback={null}>

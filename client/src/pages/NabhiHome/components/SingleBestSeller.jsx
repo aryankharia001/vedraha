@@ -1,5 +1,6 @@
 import React from "react";
 import bgImg from "../../../../public/best-seller/best-seller.png";
+import { Link } from "react-router-dom";
 
 const benefits = [
   {
@@ -96,6 +97,7 @@ const benefits = [
 
 export default function SingleBestSeller({
   imageAlt = "Traditional Ayurvedic Nabhi oil application for digestion wellness",
+  shopUrl = "/products/nabhi-amrit-en", // Default fallback URL added for cleaner config
 }) {
   return (
     <section className="w-full bg-[var(--new-bg-white-color)] py-10 md:py-14">
@@ -111,7 +113,6 @@ export default function SingleBestSeller({
         </div>
 
         {/* ── Content Container ── */}
-        {/* On mobile: standard column ordering applies. On desktop (md): original order overrides are enforced. */}
         <div
           className="flex flex-col justify-center gap-5 py-2 md:py-6"
           style={{ fontFamily: "var(--font-new-1)", color: "var(--new-para-text)" }}
@@ -145,9 +146,8 @@ export default function SingleBestSeller({
           </div>
 
           {/* 2. Price + CTA Block */}
-          {/* Order 2 on mobile (above benefits), but switches back to Order 4 on desktop layout views */}
           <div className="flex flex-col gap-5 order-2 md:order-4 mt-2 md:mt-0">
-            {/* Desktop Only Divider: Shows only when layout drops down to the bottom position */}
+            {/* Desktop Only Divider */}
             <div className="hidden md:block h-px w-full bg-[color-mix(in_srgb,var(--new-neutral-color)_30%,transparent)] mb-2" />
             
             <div className="flex flex-wrap items-center gap-5">
@@ -163,12 +163,13 @@ export default function SingleBestSeller({
                 </span>
               </div>
 
-              <button
-                type="button"
-                className="h-[46px] w-full sm:w-auto rounded-[8px] bg-[var(--new-primary-color)] px-7 text-[13px] font-extrabold uppercase tracking-[0.05em] text-[var(--new-bg-white-color)] transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-[var(--new-purple-color)] focus:ring-offset-2 focus:ring-offset-[var(--new-bg-color)]"
+              {/* Converted Button into Link Component */}
+              <Link
+                to={shopUrl}
+                className="inline-flex h-[46px] w-full sm:w-auto items-center justify-center rounded-[8px] bg-[var(--new-primary-color)] px-7 text-[13px] font-extrabold uppercase tracking-[0.05em] text-[var(--new-bg-white-color)] transition hover:brightness-110 decoration-none focus:outline-none focus:ring-2 focus:ring-[var(--new-purple-color)] focus:ring-offset-2 focus:ring-offset-[var(--new-bg-color)]"
               >
                 Shop Now
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -176,7 +177,6 @@ export default function SingleBestSeller({
           <div className="block md:hidden h-px w-full bg-[color-mix(in_srgb,var(--new-neutral-color)_30%,transparent)] order-3" />
 
           {/* 3. Benefits Grid Container */}
-          {/* Order 4 on mobile (pushed to bottom), but returns to Order 2 on desktop views */}
           <div className="order-4 md:order-2">
             <div className="grid grid-cols-2 gap-x-5 gap-y-7 sm:grid-cols-4 mt-1">
               {benefits.map((benefit) => (
@@ -201,7 +201,7 @@ export default function SingleBestSeller({
             </div>
           </div>
 
-          {/* 4. Desktop Only Central Space Divider (Hidden when items swap positions on mobile layout) */}
+          {/* 4. Desktop Only Central Space Divider */}
           <div className="hidden md:block lg:hidden h-px w-full bg-[color-mix(in_srgb,var(--new-neutral-color)_30%,transparent)] order-3" />
 
         </div>

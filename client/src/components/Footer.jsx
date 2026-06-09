@@ -192,7 +192,7 @@ const FooterLink = ({ label, href }) => {
 // ─── MAIN FOOTER ──────────────────────────────────────────────────────────────
 export default function Footer() {
   return (
-    <footer
+    <footer 
       style={{
         width: "100%",
         backgroundColor: "var(--new-bg-white-color)",
@@ -200,7 +200,7 @@ export default function Footer() {
         padding: "0 1.5rem 1.5rem",
       }}
     >
-      <div
+      <div className="px-[1rem]"
         style={{
           maxWidth: "1240px",
           margin: "0 auto",
@@ -211,11 +211,10 @@ export default function Footer() {
         }}
       >
         <div
-          className="gap-[2rem] md:gap-[2.5rem]"
+          className="gap-[2rem] md:gap-[2.5rem] md:px-[2.5rem] py-[2.5rem]"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(155px, 1fr))",
-            padding: "2.5rem 2.5rem",
             position: "relative",
           }}
         >
@@ -285,7 +284,7 @@ export default function Footer() {
 
           {/* Contact Section */}
           <div
-            className="mb-20 lg:mb-0"
+            className="lg:mb-0" //add this mb-20
             style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
           >
             <h4
@@ -316,7 +315,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Section */}
-        <div
+        <div className=""
           style={{
             display: "flex",
             flexWrap: "wrap",
@@ -332,7 +331,8 @@ export default function Footer() {
               fontSize: "0.8125rem",
               margin: 0,
               fontFamily: "var(--font-body)",
-              flexShrink: 0,
+              textAlign:"center",
+              // flexShrink: 0,
             }}
           >
             Copyright © 2026{" "}

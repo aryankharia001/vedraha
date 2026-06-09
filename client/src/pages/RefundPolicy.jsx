@@ -1,130 +1,16 @@
-const style = `
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+/**
+ * PolicyPage.jsx — Refund & Cancellation Policy
+ *
+ * Fully Tailwind, matching MyOrdersEnglish exactly:
+ * - font-[var(--font-new-1)] body  ·  var(--font-new-2) display / headings
+ * - var(--color-black), var(--new-purple-color), var(--new-bg-white-color) from index.css
+ * - #21124c primary text  ·  #aaa4b8 muted  ·  #f2eafa purple-tint surface
+ * - bg-white border border-[#aaa4b8]/30 rounded-xl shadow-xs cards
+ * - <style> only for @keyframes — everything else Tailwind
+ * - All content unchanged
+ */
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --bg:         #ffffff;
-    --surface:    #f6f9f7;
-    --border:     #d8e6de;
-    --green:      #2d6a4f;
-    --green-lt:   #e8f5ee;
-    --gold:       #b8912a;
-    --gold-lt:    #fdf6e3;
-    --text:       #1a2e24;
-    --muted:      #6b8076;
-    --yes:        #1e7a45;
-    --yes-bg:     #edf7f1;
-    --no:         #c0392b;
-    --no-bg:      #fdf0ee;
-    --maybe:      #a07000;
-    --maybe-bg:   #fdf6e3;
-  }
-
-  body { background: var(--bg); font-family: 'Inter', sans-serif; color: var(--text); }
-
-  .page { max-width: 780px; margin: 0 auto; padding: 48px 24px 80px; }
-
-  /* Header */
-  .header { margin-bottom: 48px; padding-bottom: 24px; border-bottom: 2px solid var(--green); }
-  .header-label {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--green); margin-bottom: 12px;
-  }
-  .header h1 { font-size: 28px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
-  .header-meta { font-size: 13px; color: var(--muted); }
-
-  /* Summary cards */
-  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 48px; }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 20px; }
-  .card-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--green); margin-bottom: 6px; }
-  .card-body { font-size: 13px; color: var(--muted); line-height: 1.6; }
-
-  /* TOC */
-  .toc { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 24px; margin-bottom: 48px; }
-  .toc-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 16px; }
-  .toc-list { list-style: none; columns: 2; gap: 0; }
-  .toc-item { display: flex; align-items: baseline; gap: 8px; padding: 5px 0; cursor: pointer; }
-  .toc-item:hover .toc-t { color: var(--green); }
-  .toc-n { font-size: 11px; font-weight: 600; color: var(--border); min-width: 20px; }
-  .toc-t { font-size: 13px; color: var(--text); }
-
-  /* Sections */
-  .sec { margin-bottom: 48px; scroll-margin-top: 24px; }
-  .sec-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-  .sec-num { font-size: 11px; font-weight: 600; color: var(--bg); background: var(--green); border-radius: 4px; padding: 2px 8px; }
-  .sec-title { font-size: 18px; font-weight: 600; color: var(--text); }
-
-  .divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
-
-  /* Body */
-  .body p { font-size: 15px; line-height: 1.8; color: var(--muted); margin-bottom: 14px; }
-  .body strong { color: var(--text); font-weight: 500; }
-
-  /* Callout */
-  .callout { background: var(--green-lt); border-left: 3px solid var(--green); border-radius: 0 4px 4px 0; padding: 14px 18px; margin: 18px 0; font-size: 14px; color: var(--green); line-height: 1.7; }
-
-  /* List */
-  .plist { list-style: none; margin: 14px 0 18px; }
-  .plist li { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--muted); line-height: 1.7; }
-  .plist li:last-child { border-bottom: none; }
-  .li-dot { color: var(--gold); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
-
-  /* Badges */
-  .badge { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
-  .b-yes  { background: var(--yes-bg);   color: var(--yes); }
-  .b-no   { background: var(--no-bg);    color: var(--no); }
-  .b-part { background: var(--maybe-bg); color: var(--maybe); }
-
-  /* Table */
-  .tbl-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 6px; margin: 16px 0; }
-  .tbl { width: 100%; border-collapse: collapse; font-size: 14px; }
-  .tbl th { background: var(--surface); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); }
-  .tbl td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--muted); line-height: 1.5; }
-  .tbl tr:last-child td { border-bottom: none; }
-  .tbl tbody tr:hover td { background: var(--surface); }
-  .td-s { color: var(--text); font-weight: 500; }
-
-  /* Timeline */
-  .tl { border-left: 2px solid var(--border); padding-left: 20px; margin: 16px 0; }
-  .tl-item { position: relative; margin-bottom: 20px; }
-  .tl-item::before { content: ''; position: absolute; left: -26px; top: 5px; width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
-  .tl-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--green); margin-bottom: 4px; }
-  .tl-body { font-size: 14px; color: var(--muted); line-height: 1.7; }
-
-  /* Steps */
-  .steps { margin: 16px 0; }
-  .step { display: flex; gap: 16px; margin-bottom: 20px; }
-  .step-n { font-size: 13px; font-weight: 700; color: var(--green); background: var(--green-lt); border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
-  .step-t { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-  .step-b { font-size: 14px; color: var(--muted); line-height: 1.7; }
-
-  /* Processing */
-  .proc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 16px 0; }
-  .proc-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 16px; text-align: center; }
-  .pc-m { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 6px; }
-  .pc-t { font-size: 18px; font-weight: 600; color: var(--green); }
-
-  /* Contact */
-  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 16px 0; }
-  .contact-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 20px; }
-  .cc-lbl { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 8px; }
-  .cc-val { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 6px; }
-  .cc-note { font-size: 13px; color: var(--muted); line-height: 1.6; }
-
-  /* Footer */
-  .footer { border-top: 1px solid var(--border); padding-top: 32px; margin-top: 48px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-  .footer-brand { font-size: 14px; font-weight: 600; color: var(--text); }
-  .footer-sub { font-size: 12px; color: var(--muted); }
-  .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
-  .footer-links a { font-size: 13px; color: var(--muted); text-decoration: none; }
-  .footer-links a:hover { color: var(--green); }
-
-  @media (max-width: 540px) {
-    .toc-list { columns: 1; }
-    .footer { flex-direction: column; align-items: flex-start; }
-  }
-`;
+// ── Data ──────────────────────────────────────────────────────────────────────
 
 const scenarios = [
   { scenario: "We cannot deliver your session",             status: "yes",  label: "Full Refund",    notes: "Within 3–5 business days, no deductions" },
@@ -138,288 +24,467 @@ const scenarios = [
 ];
 
 const toc = [
-  "Understanding Token Payments", "When You Are Eligible for a Refund", "When Refunds Are Not Issued",
-  "Refund Scenarios at a Glance", "Cancellation Policy", "Rescheduling a Session",
-  "How to Request a Refund", "Refund Processing Time", "Payment Disputes",
-  "Changes to This Policy", "Contact Us",
+  "Understanding Token Payments",
+  "When You Are Eligible for a Refund",
+  "When Refunds Are Not Issued",
+  "Refund Scenarios at a Glance",
+  "Cancellation Policy",
+  "Rescheduling a Session",
+  "How to Request a Refund",
+  "Refund Processing Time",
+  "Payment Disputes",
+  "Changes to This Policy",
+  "Contact Us",
 ];
 
-const Badge = ({ status, label }) => {
-  const cls = status === "yes" ? "badge b-yes" : status === "no" ? "badge b-no" : "badge b-part";
-  const icon = status === "yes" ? "✓" : status === "no" ? "✗" : "~";
-  return <span className={cls}>{icon} {label}</span>;
-};
+// ── Sub-components ────────────────────────────────────────────────────────────
 
-const SH = ({ num, title }) => (
-  <div className="sec-head">
-    <span className="sec-num">{num}</span>
-    <h2 className="sec-title">{title}</h2>
-  </div>
-);
+/** Badge — matches STATUS_META pill style in MyOrdersEnglish */
+function Badge({ status, label }) {
+  const styles = {
+    yes:  "bg-[var(--color-black)]/10 text-[var(--color-black)] border-[var(--color-black)]/20",
+    no:   "bg-[#a81313]/10 text-[#a81313] border-[#a81313]/20",
+    part: "bg-[#df8804]/10 text-[#df8804] border-[#df8804]/20",
+  };
+  const icon = status === "yes" ? "✓" : status === "no" ? "✗" : "~";
+  return (
+    <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 text-[11px] font-bold rounded-md border whitespace-nowrap font-[var(--font-new-1)] ${styles[status]}`}>
+      {icon} {label}
+    </span>
+  );
+}
+
+/** Section heading — number pill + Times/font-new-2 title */
+function SH({ num, title }) {
+  return (
+    <div className="flex items-center gap-2.5 mb-5">
+      <span className="text-[11px] font-bold text-white bg-[var(--color-black)] rounded-md px-2 py-0.5 tracking-wide font-[var(--font-new-1)]">
+        {num}
+      </span>
+      <h2
+        className="text-[19px] font-medium text-[#21124c] tracking-tight"
+        style={{ fontFamily: "var(--font-new-2)" }}
+      >
+        {title}
+      </h2>
+    </div>
+  );
+}
+
+/** Callout block — #f2eafa bg with left border, mirrors MyOrders accent */
+function Callout({ children }) {
+  return (
+    <div className="bg-[#f2eafa] border-l-[3px] border-[var(--color-black)] rounded-r-lg px-4 py-3.5 my-4 text-[13.5px] text-[var(--new-purple-color)] leading-relaxed font-medium font-[var(--font-new-1)]">
+      {children}
+    </div>
+  );
+}
+
+/** Bullet list — separator lines matching MyOrders card rows */
+function PList({ items }) {
+  return (
+    <ul className="my-3.5 mb-4">
+      {items.map((item, i) => (
+        <li
+          key={i}
+          className={`flex gap-2.5 py-2.5 text-[13.5px] text-[#6b6080] leading-relaxed font-[var(--font-new-1)] ${
+            i < items.length - 1 ? "border-b border-[#aaa4b8]/20" : ""
+          }`}
+        >
+          <span className="text-[#aaa4b8] text-sm flex-shrink-0 mt-0.5">·</span>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** Animated wrapper — identical to MyOrdersEnglish AnimatedSection */
+function AnimatedSection({ children, delay = 0, className = "" }) {
+  return (
+    <div
+      className={`animate-fade-in-up ${className}`}
+      style={{ animationDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  );
+}
+
+/** Thin section divider */
+function Divider() {
+  return <div className="border-t border-[#aaa4b8]/25 mb-10" />;
+}
+
+// ── Main Component ────────────────────────────────────────────────────────────
 
 export default function PolicyPage() {
-  const scrollTo = id => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <>
-      <style>{style}</style>
-      <div className="page">
+    <div className="min-h-screen bg-[var(--new-bg-white-color)] pb-24 text-[#21124c] font-[var(--font-new-1)] antialiased px-[1rem]">
 
-        {/* Header */}
-        <header className="header">
-          <div className="header-label">Vedraha · Legal</div>
-          <h1>Refund &amp; Cancellation Policy</h1>
-          <div className="header-meta">Effective: 1 January 2026 &nbsp;·&nbsp; Last Updated: 1 January 2026</div>
-        </header>
+      {/* Only keyframes live here — no other CSS */}
+      <style>{`
+        body { background: var(--new-bg-white-color); }
+        @keyframes fade-in-up {
+          from { opacity: 0; transform: translateY(12px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          25%       { transform: translateX(-4px); }
+          75%       { transform: translateX(4px); }
+        }
+        .animate-fade-in-up { animation: fade-in-up 0.4s cubic-bezier(0.16,1,0.3,1) forwards; opacity: 0; }
+        .animate-shake       { animation: shake 0.4s ease-in-out; }
+      `}</style>
 
-        {/* Summary Cards */}
-        <div className="cards">
-          {[
-            { title: "Service Unfulfilled",  body: "Full refund within 3–5 days if we can't deliver your session." },
-            { title: "Cancellation by You",  body: "48+ hours before session may qualify for a refund." },
-            { title: "Token Payments",       body: "Tokens are credited against the full session cost, not charged separately." },
-          ].map((c, i) => (
-            <div className="card" key={i}>
-              <div className="card-title">{c.title}</div>
-              <div className="card-body">{c.body}</div>
+      <div className="w-full max-w-[1260px] mx-auto px-4 sm:px-6 pt-12 mt-12">
+
+        {/* ══ HEADER — same border-b pb-4 mb-6 pattern as MyOrdersEnglish ══ */}
+        <AnimatedSection delay={0}>
+          <div className="flex items-start justify-between border-b border-[#aaa4b8]/40 pb-4 mb-6">
+            <div>
+              <p className="text-[11px] font-bold text-[#aaa4b8] tracking-widest uppercase mb-1 font-[var(--font-new-1)]">
+                | Vedraha · Legal
+              </p>
+              <h1 className="text-3xl font-medium text-[#21124c] tracking-tight font-[var(--font-new-1)]">
+                Refund &amp;{" "}
+                <span className="italic" style={{ fontFamily: "var(--font-new-2)" }}>Cancellation</span>
+                {" "}Policy
+              </h1>
+              <p className="text-xs text-[#aaa4b8] mt-1.5 font-[var(--font-new-1)]">
+                Effective: 1 January 2026 &nbsp;·&nbsp; Last Updated: 1 January 2026
+              </p>
             </div>
-          ))}
-        </div>
+          </div>
+        </AnimatedSection>
 
-        {/* TOC */}
-        <div className="toc">
-          <div className="toc-title">Table of Contents</div>
-          <ul className="toc-list">
-            {toc.map((item, i) => (
-              <li key={i} className="toc-item" onClick={() => scrollTo(`s${i + 1}`)}>
-                <span className="toc-n">{String(i + 1).padStart(2, "0")}</span>
-                <span className="toc-t">{item}</span>
-              </li>
+        {/* ══ SUMMARY CARDS ══ */}
+        <AnimatedSection delay={50}>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+            {[
+              { title: "Service Unfulfilled", body: "Full refund within 3–5 days if we can't deliver your session." },
+              { title: "Cancellation by You", body: "48+ hours before session may qualify for a refund." },
+              { title: "Token Payments",      body: "Tokens are credited against the full session cost, not charged separately." },
+            ].map((c, i) => (
+              <div key={i} className="bg-white border border-[#aaa4b8]/30 rounded-xl px-5 py-4 shadow-xs">
+                <p className="text-[10.5px] font-bold text-[#aaa4b8] tracking-widest uppercase mb-2 font-[var(--font-new-1)]">
+                  {c.title}
+                </p>
+                <p className="text-[13px] text-[#21124c] leading-relaxed font-[var(--font-new-1)]">{c.body}</p>
+              </div>
             ))}
-          </ul>
-        </div>
-
-        {/* S01 */}
-        <section className="sec" id="s1">
-          <SH num={1} title="Understanding Token Payments" />
-          <div className="body">
-            <p>When you book a session, you pay a token amount to confirm your booking. Here is what you need to know:</p>
-            <ul className="plist">
-              {["The token is not a standalone charge — it is a deposit credited toward the total session cost.",
-                "It reserves your slot and allows us to begin preparing your personalized blueprint.",
-                "You will not be charged the token in addition to the session fee.",
-                "Any remaining balance is collected before or at the time of your session."]
-                .map((t, i) => <li key={i}><span className="li-dot">·</span><span>{t}</span></li>)}
-            </ul>
-            <div className="callout">Think of the token as a booking deposit — it confirms your place and ensures we dedicate time to your reading.</div>
           </div>
-        </section>
-        <hr className="divider" />
+        </AnimatedSection>
 
-        {/* S02 */}
-        <section className="sec" id="s2">
-          <SH num={2} title="When You Are Eligible for a Refund" />
-          <div className="body">
-            <p>We issue refunds promptly in the following circumstances:</p>
-            <ul className="plist">
-              {[
-                { t: "We cannot fulfil your session:", b: "You will receive a full refund. No questions asked." },
-                { t: "Duplicate payment:", b: "The duplicate amount will be refunded in full." },
-                { t: "Cancellation 48+ hours before session:", b: "Token refunded minus 2–3% Razorpay gateway fees." },
-                { t: "Technical payment failure:", b: "If your payment failed but was debited, we will investigate and refund in full." },
-              ].map((x, i) => <li key={i}><span className="li-dot">·</span><span><strong>{x.t}</strong> {x.b}</span></li>)}
-            </ul>
-            <p>Refunds are always returned to the original payment method.</p>
-          </div>
-        </section>
-        <hr className="divider" />
-
-        {/* S03 */}
-        <section className="sec" id="s3">
-          <SH num={3} title="When Refunds Are Not Issued" />
-          <div className="body">
-            <ul className="plist">
-              {[
-                { t: "After reading delivered:", b: "Once your blueprint has been shared, the payment is non-refundable." },
-                { t: "After 1:1 session conducted:", b: "Once a consultation has taken place, in full or in part, no refund is issued." },
-                { t: "Change of mind post-delivery:", b: "Disagreement with insights does not qualify for a refund." },
-                { t: "Cancellation within 48 hours:", b: "Preparation time has already been committed." },
-                { t: "No-show:", b: "If you miss your session without notice, the token is forfeited." },
-                { t: "Partial use:", b: "If you disengage mid-session, no partial refund is issued." },
-              ].map((x, i) => <li key={i}><span className="li-dot">·</span><span><strong>{x.t}</strong> {x.b}</span></li>)}
-            </ul>
-            <div className="callout">Please ensure you are ready and committed before booking.</div>
-          </div>
-        </section>
-        <hr className="divider" />
-
-        {/* S04 */}
-        <section className="sec" id="s4">
-          <SH num={4} title="Refund Scenarios at a Glance" />
-          <div className="tbl-wrap">
-            <table className="tbl">
-              <thead>
-                <tr><th>Scenario</th><th>Status</th><th>Notes</th></tr>
-              </thead>
-              <tbody>
-                {scenarios.map((r, i) => (
-                  <tr key={i}>
-                    <td className="td-s">{r.scenario}</td>
-                    <td><Badge status={r.status} label={r.label} /></td>
-                    <td>{r.notes}</td>
-                  </tr>
+        {/* ══ TABLE OF CONTENTS — bg-white card with #fafafa header strip ══ */}
+        <AnimatedSection delay={100}>
+          <div className="bg-white border border-[#aaa4b8]/30 rounded-xl overflow-hidden shadow-xs mb-10">
+            <div className="flex items-center gap-2 px-6 py-3.5 bg-[#fafafa] border-b border-[#aaa4b8]/20">
+              <span className="text-[10.5px] font-bold text-[#aaa4b8] tracking-widest uppercase font-[var(--font-new-1)]">
+                Table of Contents
+              </span>
+            </div>
+            <div className="px-6 py-5">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
+                {toc.map((item, i) => (
+                  <li
+                    key={i}
+                    onClick={() => scrollTo(`s${i + 1}`)}
+                    className="flex items-baseline gap-2.5 py-[5px] cursor-pointer group"
+                  >
+                    <span className="text-[11px] font-bold text-[#aaa4b8]/50 min-w-[22px] font-[var(--font-new-1)]">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="text-[13px] text-[#21124c] group-hover:text-[var(--new-purple-color)] transition-colors duration-150 font-[var(--font-new-1)]">
+                      {item}
+                    </span>
+                  </li>
                 ))}
-              </tbody>
-            </table>
+              </ul>
+            </div>
           </div>
-        </section>
-        <hr className="divider" />
+        </AnimatedSection>
 
-        {/* S05 */}
-        <section className="sec" id="s5">
-          <SH num={5} title="Cancellation Policy" />
-          <div className="body">
-            <p>The refund you receive depends on when you cancel relative to your session:</p>
-            <div className="tl">
+        {/* ══ S01 ══ */}
+        <AnimatedSection delay={140}>
+          <section className="mb-10" id="s1">
+            <SH num={1} title="Understanding Token Payments" />
+            <p className="text-[14px] text-[#6b6080] leading-[1.85] mb-3 font-[var(--font-new-1)]">
+              When you book a session, you pay a token amount to confirm your booking. Here is what you need to know:
+            </p>
+            <PList items={[
+              "The token is not a standalone charge — it is a deposit credited toward the total session cost.",
+              "It reserves your slot and allows us to begin preparing your personalized blueprint.",
+              "You will not be charged the token in addition to the session fee.",
+              "Any remaining balance is collected before or at the time of your session.",
+            ]} />
+            <Callout>Think of the token as a booking deposit — it confirms your place and ensures we dedicate time to your reading.</Callout>
+          </section>
+        </AnimatedSection>
+        <Divider />
+
+        {/* ══ S02 ══ */}
+        <AnimatedSection delay={160}>
+          <section className="mb-10" id="s2">
+            <SH num={2} title="When You Are Eligible for a Refund" />
+            <p className="text-[14px] text-[#6b6080] leading-[1.85] mb-3 font-[var(--font-new-1)]">
+              We issue refunds promptly in the following circumstances:
+            </p>
+            <PList items={[
+              <><strong className="text-[#21124c] font-semibold">We cannot fulfil your session:</strong> You will receive a full refund. No questions asked.</>,
+              <><strong className="text-[#21124c] font-semibold">Duplicate payment:</strong> The duplicate amount will be refunded in full.</>,
+              <><strong className="text-[#21124c] font-semibold">Cancellation 48+ hours before session:</strong> Token refunded minus 2–3% Razorpay gateway fees.</>,
+              <><strong className="text-[#21124c] font-semibold">Technical payment failure:</strong> If your payment failed but was debited, we will investigate and refund in full.</>,
+            ]} />
+            <p className="text-[14px] text-[#6b6080] leading-[1.85] font-[var(--font-new-1)]">
+              Refunds are always returned to the original payment method.
+            </p>
+          </section>
+        </AnimatedSection>
+        <Divider />
+
+        {/* ══ S03 ══ */}
+        <AnimatedSection delay={180}>
+          <section className="mb-10" id="s3">
+            <SH num={3} title="When Refunds Are Not Issued" />
+            <PList items={[
+              <><strong className="text-[#21124c] font-semibold">After reading delivered:</strong> Once your blueprint has been shared, the payment is non-refundable.</>,
+              <><strong className="text-[#21124c] font-semibold">After 1:1 session conducted:</strong> Once a consultation has taken place, in full or in part, no refund is issued.</>,
+              <><strong className="text-[#21124c] font-semibold">Change of mind post-delivery:</strong> Disagreement with insights does not qualify for a refund.</>,
+              <><strong className="text-[#21124c] font-semibold">Cancellation within 48 hours:</strong> Preparation time has already been committed.</>,
+              <><strong className="text-[#21124c] font-semibold">No-show:</strong> If you miss your session without notice, the token is forfeited.</>,
+              <><strong className="text-[#21124c] font-semibold">Partial use:</strong> If you disengage mid-session, no partial refund is issued.</>,
+            ]} />
+            <Callout>Please ensure you are ready and committed before booking.</Callout>
+          </section>
+        </AnimatedSection>
+        <Divider />
+
+        {/* ══ S04 — Table ══ */}
+        <AnimatedSection delay={200}>
+          <section className="mb-10" id="s4">
+            <SH num={4} title="Refund Scenarios at a Glance" />
+            <div className="overflow-x-auto border border-[#aaa4b8]/30 rounded-xl shadow-xs">
+              <table className="w-full border-collapse text-[13.5px]">
+                <thead>
+                  <tr>
+                    {["Scenario", "Status", "Notes"].map((h) => (
+                      <th
+                        key={h}
+                        className="bg-[#fafafa] text-[10.5px] font-bold text-[#aaa4b8] tracking-widest uppercase px-5 py-3 text-left border-b border-[#aaa4b8]/20 font-[var(--font-new-1)]"
+                      >
+                        {h}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {scenarios.map((r, i) => (
+                    <tr key={i} className="hover:bg-[#fafafa] transition-colors duration-100">
+                      <td className={`px-5 py-3 text-[#21124c] font-semibold text-[13px] font-[var(--font-new-1)] ${i < scenarios.length - 1 ? "border-b border-[#aaa4b8]/15" : ""}`}>
+                        {r.scenario}
+                      </td>
+                      <td className={`px-5 py-3 ${i < scenarios.length - 1 ? "border-b border-[#aaa4b8]/15" : ""}`}>
+                        <Badge status={r.status} label={r.label} />
+                      </td>
+                      <td className={`px-5 py-3 text-[#6b6080] text-[13px] leading-relaxed font-[var(--font-new-1)] ${i < scenarios.length - 1 ? "border-b border-[#aaa4b8]/15" : ""}`}>
+                        {r.notes}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </AnimatedSection>
+        <Divider />
+
+        {/* ══ S05 — Timeline ══ */}
+        <AnimatedSection delay={210}>
+          <section className="mb-10" id="s5">
+            <SH num={5} title="Cancellation Policy" />
+            <p className="text-[14px] text-[#6b6080] leading-[1.85] mb-5 font-[var(--font-new-1)]">
+              The refund you receive depends on when you cancel relative to your session:
+            </p>
+            <div className="border-l-2 border-[#aaa4b8]/30 pl-5 space-y-5">
               {[
-                { l: "48+ hours before session",       b: "Token refunded minus 2–3% gateway fee. Contact us via email or WhatsApp." },
-                { l: "24–48 hours before session",     b: "Assessed case by case. No guarantee of refund; we may offer reschedule credit." },
-                { l: "Less than 24 hours before",      b: "No refund. Preparation is complete. Reschedule may be available." },
-                { l: "After reading is delivered",     b: "No refund. Service has been fully rendered." },
+                { l: "48+ hours before session",   b: "Token refunded minus 2–3% gateway fee. Contact us via email or WhatsApp." },
+                { l: "24–48 hours before session", b: "Assessed case by case. No guarantee of refund; we may offer reschedule credit." },
+                { l: "Less than 24 hours before",  b: "No refund. Preparation is complete. Reschedule may be available." },
+                { l: "After reading is delivered", b: "No refund. Service has been fully rendered." },
               ].map((x, i) => (
-                <div className="tl-item" key={i}>
-                  <div className="tl-label">{x.l}</div>
-                  <div className="tl-body">{x.b}</div>
+                <div key={i} className="relative">
+                  {/* Timeline dot — same style as OrderDetailEnglish stepper */}
+                  <div className="absolute -left-[25px] top-[5px] w-2 h-2 rounded-full bg-[var(--color-black)] border-2 border-[#f2eafa] ring-2 ring-[var(--color-black)]" />
+                  <p className="text-[11.5px] font-bold text-[var(--new-purple-color)] uppercase tracking-widest mb-1 font-[var(--font-new-1)]">
+                    {x.l}
+                  </p>
+                  <p className="text-[13.5px] text-[#6b6080] leading-relaxed font-[var(--font-new-1)]">{x.b}</p>
                 </div>
               ))}
             </div>
-          </div>
-        </section>
-        <hr className="divider" />
+          </section>
+        </AnimatedSection>
+        <Divider />
 
-        {/* S06 */}
-        <section className="sec" id="s6">
-          <SH num={6} title="Rescheduling a Session" />
-          <div className="body">
-            <ul className="plist">
-              {["Requests made 24+ hours before your session are typically accommodated without penalty.",
-                "Requests within 24 hours are handled case by case and cannot be guaranteed.",
-                "Each booking gets one free reschedule. Further requests may require a rebooking fee.",
-                "Rescheduling is not available after your reading has been delivered."]
-                .map((t, i) => <li key={i}><span className="li-dot">·</span><span>{t}</span></li>)}
-            </ul>
-            <div className="callout">Please reach out as early as possible via WhatsApp or email.</div>
-          </div>
-        </section>
-        <hr className="divider" />
+        {/* ══ S06 ══ */}
+        <AnimatedSection delay={220}>
+          <section className="mb-10" id="s6">
+            <SH num={6} title="Rescheduling a Session" />
+            <PList items={[
+              "Requests made 24+ hours before your session are typically accommodated without penalty.",
+              "Requests within 24 hours are handled case by case and cannot be guaranteed.",
+              "Each booking gets one free reschedule. Further requests may require a rebooking fee.",
+              "Rescheduling is not available after your reading has been delivered.",
+            ]} />
+            <Callout>Please reach out as early as possible via WhatsApp or email.</Callout>
+          </section>
+        </AnimatedSection>
+        <Divider />
 
-        {/* S07 */}
-        <section className="sec" id="s7">
-          <SH num={7} title="How to Request a Refund" />
-          <div className="body">
-            <div className="steps">
+        {/* ══ S07 — Steps ══ */}
+        <AnimatedSection delay={230}>
+          <section className="mb-10" id="s7">
+            <SH num={7} title="How to Request a Refund" />
+            <div className="space-y-5 mt-1">
               {[
-                { t: "Contact us within 7 days",        b: "Requests made after 7 days may not be processed." },
-                { t: "Provide booking details",          b: "Include your name, email, Razorpay payment reference ID, and reason." },
-                { t: "We review and respond",            b: "Acknowledged within 2 business days; decision within 5 business days." },
-                { t: "Refund processed if approved",     b: "Initiated immediately; reflects in your account within 3–7 business days." },
+                { t: "Contact us within 7 days",    b: "Requests made after 7 days may not be processed." },
+                { t: "Provide booking details",      b: "Include your name, email, Razorpay payment reference ID, and reason." },
+                { t: "We review and respond",        b: "Acknowledged within 2 business days; decision within 5 business days." },
+                { t: "Refund processed if approved", b: "Initiated immediately; reflects in your account within 3–7 business days." },
               ].map((x, i) => (
-                <div className="step" key={i}>
-                  <div className="step-n">{i + 1}</div>
+                <div key={i} className="flex gap-4">
+                  {/* Step number — matches EditProfilePanel step style */}
+                  <div className="w-7 h-7 rounded-full bg-[#f2eafa] border border-[var(--color-black)]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="text-[12px] font-bold text-[var(--color-black)] font-[var(--font-new-1)]">{i + 1}</span>
+                  </div>
                   <div>
-                    <div className="step-t">{x.t}</div>
-                    <div className="step-b">{x.b}</div>
+                    <p className="text-[13.5px] font-semibold text-[#21124c] mb-1 font-[var(--font-new-1)]">{x.t}</p>
+                    <p className="text-[13.5px] text-[#6b6080] leading-relaxed font-[var(--font-new-1)]">{x.b}</p>
                   </div>
                 </div>
               ))}
             </div>
-          </div>
-        </section>
-        <hr className="divider" />
+          </section>
+        </AnimatedSection>
+        <Divider />
 
-        {/* S08 */}
-        <section className="sec" id="s8">
-          <SH num={8} title="Refund Processing Time" />
-          <div className="body">
-            <div className="proc-grid">
+        {/* ══ S08 — Processing time mini-cards ══ */}
+        <AnimatedSection delay={240}>
+          <section className="mb-10" id="s8">
+            <SH num={8} title="Refund Processing Time" />
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
               {[
                 { m: "UPI",              t: "1–3 days" },
                 { m: "Debit / Credit",   t: "5–7 days" },
                 { m: "Net Banking",      t: "3–5 days" },
                 { m: "Wallets",          t: "1–3 days" },
               ].map((x, i) => (
-                <div className="proc-card" key={i}>
-                  <div className="pc-m">{x.m}</div>
-                  <div className="pc-t">{x.t}</div>
+                <div key={i} className="bg-white border border-[#aaa4b8]/30 rounded-xl px-4 py-4 text-center shadow-xs">
+                  <p className="text-[10.5px] font-bold text-[#aaa4b8] tracking-widest uppercase mb-2 font-[var(--font-new-1)]">
+                    {x.m}
+                  </p>
+                  <p
+                    className="text-[18px] font-medium text-[var(--color-black)]"
+                    style={{ fontFamily: "var(--font-new-2)" }}
+                  >
+                    {x.t}
+                  </p>
                 </div>
               ))}
             </div>
-            <p>These timelines are set by Razorpay and your bank. If your refund hasn't appeared after 10 business days, contact us and we'll follow up.</p>
-            <div className="callout">Refunds are always returned to the original payment method only.</div>
-          </div>
-        </section>
-        <hr className="divider" />
+            <p className="text-[14px] text-[#6b6080] leading-[1.85] font-[var(--font-new-1)]">
+              These timelines are set by Razorpay and your bank. If your refund hasn't appeared after 10 business days, contact us and we'll follow up.
+            </p>
+            <Callout>Refunds are always returned to the original payment method only.</Callout>
+          </section>
+        </AnimatedSection>
+        <Divider />
 
-        {/* S09 */}
-        <section className="sec" id="s9">
-          <SH num={9} title="Payment Disputes" />
-          <div className="body">
-            <p>Please contact us before raising a chargeback. Most issues are resolved quickly and directly.</p>
-            <ul className="plist">
-              {["We will respond to any chargeback with full evidence of service delivery and policy.",
-                "Unjustified chargebacks may result in future bookings being declined.",
-                "We cooperate fully with Razorpay and the relevant financial institution."]
-                .map((t, i) => <li key={i}><span className="li-dot">·</span><span>{t}</span></li>)}
-            </ul>
-            <div className="callout">Our goal is always a fair resolution. Please reach out to us first.</div>
-          </div>
-        </section>
-        <hr className="divider" />
+        {/* ══ S09 ══ */}
+        <AnimatedSection delay={250}>
+          <section className="mb-10" id="s9">
+            <SH num={9} title="Payment Disputes" />
+            <p className="text-[14px] text-[#6b6080] leading-[1.85] mb-3 font-[var(--font-new-1)]">
+              Please contact us before raising a chargeback. Most issues are resolved quickly and directly.
+            </p>
+            <PList items={[
+              "We will respond to any chargeback with full evidence of service delivery and policy.",
+              "Unjustified chargebacks may result in future bookings being declined.",
+              "We cooperate fully with Razorpay and the relevant financial institution.",
+            ]} />
+            <Callout>Our goal is always a fair resolution. Please reach out to us first.</Callout>
+          </section>
+        </AnimatedSection>
+        <Divider />
 
-        {/* S10 */}
-        <section className="sec" id="s10">
-          <SH num={10} title="Changes to This Policy" />
-          <div className="body">
-            <p>We may update this policy at any time. Changes take effect immediately upon posting. For bookings made before an update, the policy at time of booking applies.</p>
-          </div>
-        </section>
-        <hr className="divider" />
+        {/* ══ S10 ══ */}
+        <AnimatedSection delay={260}>
+          <section className="mb-10" id="s10">
+            <SH num={10} title="Changes to This Policy" />
+            <p className="text-[14px] text-[#6b6080] leading-[1.85] font-[var(--font-new-1)]">
+              We may update this policy at any time. Changes take effect immediately upon posting. For bookings made before an update, the policy at time of booking applies.
+            </p>
+          </section>
+        </AnimatedSection>
+        <Divider />
 
-        {/* S11 */}
-        <section className="sec" id="s11">
-          <SH num={11} title="Contact Us" />
-          <div className="body">
-            <p>For refund requests, cancellations, or questions, reach out directly. We respond to all refund messages within 2 business days.</p>
-            <div className="contact-grid">
-              <div className="contact-card">
-                <div className="cc-lbl">✉ Email</div>
-                <div className="cc-val">support@vedraha.com</div>
-                <div className="cc-note">Best for refund requests — include your payment reference ID</div>
-              </div>
-              <div className="contact-card">
-                <div className="cc-lbl">💬 WhatsApp</div>
-                <div className="cc-val">+91 XXXXX XXXXX</div>
-                <div className="cc-note">Best for quick queries and rescheduling</div>
-              </div>
+        {/* ══ S11 — Contact ══ */}
+        <AnimatedSection delay={270}>
+          <section className="mb-10" id="s11">
+            <SH num={11} title="Contact Us" />
+            <p className="text-[14px] text-[#6b6080] leading-[1.85] mb-5 font-[var(--font-new-1)]">
+              For refund requests, cancellations, or questions, reach out directly. We respond to all refund messages within 2 business days.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                { lbl: "✉ Email",   val: "support@vedraha.com", note: "Best for refund requests — include your payment reference ID" },
+                { lbl: "💬 WhatsApp", val: "+91 XXXXX XXXXX",    note: "Best for quick queries and rescheduling" },
+              ].map((c, i) => (
+                <div key={i} className="bg-white border border-[#aaa4b8]/30 rounded-xl px-5 py-5 shadow-xs">
+                  <p className="text-[10.5px] font-bold text-[#aaa4b8] tracking-widest uppercase mb-2.5 font-[var(--font-new-1)]">
+                    {c.lbl}
+                  </p>
+                  <p className="text-[14px] font-semibold text-[#21124c] mb-1.5 font-[var(--font-new-1)]">{c.val}</p>
+                  <p className="text-[12.5px] text-[#6b6080] leading-relaxed font-[var(--font-new-1)]">{c.note}</p>
+                </div>
+              ))}
             </div>
-          </div>
-        </section>
+          </section>
+        </AnimatedSection>
 
-        {/* Footer */}
-        <footer className="footer">
-          <div>
-            <div className="footer-brand">Vedraha</div>
-            <div className="footer-sub">Numerology &amp; Manifestation</div>
-          </div>
-          <div className="footer-links">
-            <a href="#">Main Site</a>
-            <a href="#">VSL Page</a>
-            <a href="#">Thank You</a>
-            <a href="#">Privacy Policy</a>
-          </div>
-        </footer>
+        {/* ══ FOOTER — mirrors MyOrdersEnglish border-b / justify-between pattern ══ */}
+        <AnimatedSection delay={300}>
+          <footer className="border-t border-[#aaa4b8]/30 pt-7 mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 flex-wrap">
+            <div>
+              <p
+                className="text-[14px] font-medium text-[#21124c]"
+                style={{ fontFamily: "var(--font-new-2)" }}
+              >
+                Vedraha
+              </p>
+              <p className="text-[12px] text-[#aaa4b8] mt-0.5 font-[var(--font-new-1)]">
+                Numerology &amp; Manifestation
+              </p>
+            </div>
+            <div className="flex gap-5 flex-wrap">
+              {["Main Site", "VSL Page", "Thank You", "Privacy Policy"].map((l) => (
+                <a
+                  key={l}
+                  href="#"
+                  className="text-[13px] text-[#aaa4b8] hover:text-[var(--new-purple-color)] transition-colors duration-150 font-[var(--font-new-1)]"
+                >
+                  {l}
+                </a>
+              ))}
+            </div>
+          </footer>
+        </AnimatedSection>
 
       </div>
-    </>
+    </div>
   );
 }

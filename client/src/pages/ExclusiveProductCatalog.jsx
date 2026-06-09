@@ -104,16 +104,14 @@ function ProductCard({ product, redirectUrl }) {
     <div className="pcard" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} onClick={() => navigate(redirectUrl)}>
       <div className="pcard__img-wrap">
         {discountPct > 0 && <span className="pcard__badge">{discountPct}% off</span>}
-        {/* <div className={`pcard__actions${hovered ? " visible" : ""}`}>
-          <button className="pcard__action-btn" onClick={(e) => e.stopPropagation()} title="Wishlist">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          </button>
-          <button className="pcard__action-btn" onClick={(e) => e.stopPropagation()} title="Quick view">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-          </button>
-        </div> */}
-        <img src={product.image} alt={product.name} className="pcard__img"
-          onError={(e) => { e.target.style.display = "none"; e.target.parentElement.insertAdjacentHTML("beforeend", `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#f5f0e8;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#c8b99a" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`); }}
+        <img 
+          src={product.image} 
+          alt={product.name} 
+          className="pcard__img"
+          onError={(e) => { 
+            e.target.style.display = "none"; 
+            e.target.parentElement.insertAdjacentHTML("beforeend", `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#f5f0e8;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#c8b99a" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`); 
+          }}
         />
       </div>
       <div className="pcard__body">
@@ -389,7 +387,7 @@ export default function ExclusiveProductCatalog() {
       <style>{`
         *,*::before,*::after{box-sizing:border-box}
 
-        body{background-color:var(--new-bg-white-color);}
+        body{background-color:var(--new-bg-color);}
 
         .exclusive-catalog{
           font-family:var(--font-new-1);
@@ -413,7 +411,7 @@ export default function ExclusiveProductCatalog() {
           background:var(--new-bg-white-color);
         }
 
-        /* ── TOPBAR: not sticky by default ── */
+        /* ── TOPBAR ── */
         .catalog-topbar{
           display:grid;
           grid-template-columns:230px minmax(0,1fr) auto;
@@ -433,10 +431,8 @@ export default function ExclusiveProductCatalog() {
           transition:box-shadow 0.25s ease;
         }
 
-        /* ── TOPBAR: sticky only when catalog shell hits 100px from viewport top ── */
         .catalog-shell.is-sticky{
           position:sticky;
-          // top:${CATALOG_STICKY_OFFSET}px;
           box-shadow:0 2px 0 0 #f0f0f0;
         }
 
@@ -457,9 +453,7 @@ export default function ExclusiveProductCatalog() {
           flex-shrink:0;
           padding:0 20px 28px 0;
           position:sticky;
-          // top:${CATALOG_STICKY_OFFSET + SIDEBAR_TOP}px;
           align-self:flex-start;
-          // max-height:calc(100vh - ${CATALOG_STICKY_OFFSET + SIDEBAR_TOP}px - 24px);
           overflow-y:auto;
           overscroll-behavior:contain;
           -webkit-overflow-scrolling:touch;
@@ -498,7 +492,6 @@ export default function ExclusiveProductCatalog() {
           flex:1;
           min-width:0;
           padding-bottom:44px;
-          // scroll-margin-top:${SIDEBAR_TOP + 8}px;
         }
 
         .active-filter-row{
@@ -524,12 +517,23 @@ export default function ExclusiveProductCatalog() {
         .sort-option.active:hover{background:#e6f4ed}
         .sort-option__check{width:16px;height:16px;border-radius:50%;background:var(--new-purple-color);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 
-        .pcard-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+        /* ── CHANGED: Enforces exactly 2 columns on wide widths ── */
+        .pcard-grid{
+          display:grid;
+          grid-template-columns:repeat(2, minmax(0, 1fr));
+          gap:20px;
+        }
+
         .pcard{background:#fff;border-radius:14px;overflow:hidden;cursor:pointer;transition:box-shadow .22s,transform .22s;display:flex;flex-direction:column;border:1px solid #ececec;box-shadow:0 2px 8px rgba(0,0,0,.04)}
         .pcard:hover{box-shadow:0 12px 36px rgba(0,0,0,.13);transform:translateY(-3px)}
+        
+        /* ── CHANGED: Retains exact 1:1 image frame aspect ratio ── */
         .pcard__img-wrap{position:relative;width:100%;aspect-ratio:1/1;background:#f5f0e8;overflow:hidden}
+        
+        /* ── CHANGED: object-fit: cover prevents image stretching ── */
         .pcard__img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .38s}
         .pcard:hover .pcard__img{transform:scale(1.05)}
+        
         .pcard__badge{position:absolute;top:12px;left:12px;z-index:3;background:var(--new-purple-color);color:#fff;font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px}
         .pcard__actions{position:absolute;top:10px;right:10px;z-index:4;display:flex;flex-direction:column;gap:7px;opacity:0;transform:translateX(8px);transition:opacity .22s,transform .22s;pointer-events:none}
         .pcard__actions.visible{opacity:1;transform:translateX(0);pointer-events:auto}
@@ -579,6 +583,7 @@ export default function ExclusiveProductCatalog() {
           .catalog-topbar{grid-template-columns:1fr auto;gap:14px}
           .catalog-topbar__filter-title{display:none}
           .pcat-sidebar{width:210px;padding-right:14px}
+          /* Keep two columns down through tablet sizes */
           .pcard-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
         }
 
@@ -598,7 +603,7 @@ export default function ExclusiveProductCatalog() {
           .catalog-topbar__filter-title{display:none}
           .catalog-body{display:block;padding-top:20px}
           .catalog-body > .pcat-sidebar{display:none}
-          .catalog-products{padding-right:0;padding-bottom:28px;scroll-margin-top:${SIDEBAR_TOP_M + 8}px}
+          .catalog-products{padding-right:0;padding-bottom:28px;}
           .filter-mobile-btn{display:flex}
           .pcard-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
         }
@@ -623,6 +628,7 @@ export default function ExclusiveProductCatalog() {
           .pcard__action-btn{width:29px;height:29px}
         }
 
+        /* ── Collapses into a clean 1-column list on ultra-small screens ── */
         @media(max-width:380px){.pcard-grid{grid-template-columns:1fr}}
       `}</style>
 

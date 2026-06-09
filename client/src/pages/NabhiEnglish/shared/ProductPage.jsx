@@ -678,7 +678,7 @@ export default function ProductPage({ config, relatedProducts = [] }) {
             {/* Product Name */}
             <h1
               className="text-2xl md:text-3xl font-medium m-0 mb-2.5 leading-tight tracking-tight text-gray-800"
-              style={{ fontFamily: "var(--font-new-1)" }}
+              style={{ fontFamily: "var(--font-new-1)"}}
             >
               Navel Oil for{" "}
               <span
@@ -840,29 +840,29 @@ export default function ProductPage({ config, relatedProducts = [] }) {
               {/* Add To Cart Button */}
               <button
                 onClick={handleAddToCart}
-                className="flex-1 p-0 border-0 rounded-xl cursor-pointer bg-transparent outline-none flex items-center justify-start gap-2"
+                className="w-full md:w-max min-w-[160px] h-11 px-6 cursor-pointer outline-none flex items-center justify-center gap-2 border transition-all active:scale-[0.98]"
                 style={{
                   WebkitTapHighlightColor: "transparent",
                   fontFamily: "var(--font-new-1)",
+                  background: themeColor,
+                  borderColor: themeColor,
                 }}
               >
-                <div
-                  className="w-fit flex items-center justify-center gap-2 px-6 h-10"
-                  style={{
-                    background: themeColor,
-                    outline: `1px solid ${themeColor}`,
-                  }}
-                >
-                  <ShoppingBag size={18} color="#ffffff" />
-                  <span className="text-sm font-bold text-white tracking-wide">
-                    Add To Cart
+                <ShoppingBag
+                  size={18}
+                  color="#ffffff"
+                  className="flex-shrink-0"
+                />
+
+                <span className="text-sm font-bold text-white tracking-wide whitespace-nowrap">
+                  Add To Cart
+                </span>
+
+                {cartTotalQty > 0 && (
+                  <span className="bg-white/20 backdrop-blur-sm rounded-full px-2 py-0.5 text-xs font-bold text-white min-w-[20px] text-center">
+                    {cartTotalQty}
                   </span>
-                  {cartTotalQty > 0 && (
-                    <span className="bg-white/25 rounded-full px-2 py-0.5 text-xs font-bold text-white">
-                      {cartTotalQty}
-                    </span>
-                  )}
-                </div>
+                )}
               </button>
             </div>
 

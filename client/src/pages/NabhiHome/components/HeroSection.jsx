@@ -23,7 +23,6 @@ const slides = [
       text:            "var(--color-white)",
       headlineAccent:  "var(--color)",
       divider:         "var(--color)",
-      /* Light semi-transparent accents over dark image backdrops */
       badgeBg:         "rgba(168, 19, 19, 0.747)",
       badgeBorder:     "var(--color)",
       pillBg:          "rgba(168, 19, 19, 0.747)",
@@ -46,8 +45,7 @@ const slides = [
       text:            "var(--color-white)",
       headlineAccent:  "var(--new-bg-color)",
       divider:         "var(--new-bg-color)",
-      /* Light tint elements to stand out against purple deep settings */
-      badgeBg:         "rgba(242, 234, 250, 0.15)", // Tilted using --new-bg-color
+      badgeBg:         "rgba(242, 234, 250, 0.15)",
       badgeBorder:     "rgba(242, 234, 250, 0.30)",
       pillBg:          "rgba(242, 234, 250, 0.10)",
       pillBorder:      "rgba(242, 234, 250, 0.22)",
@@ -69,8 +67,7 @@ const slides = [
       text:            "var(--color-black)",
       headlineAccent:  "var(--new-accent-color)",
       divider:         "var(--new-accent-color)",
-      /* Dark tint settings using black theme variables */
-      badgeBg:         "rgba(33, 18, 76, 0.06)", // Subtle tint of --new-heading-text
+      badgeBg:         "rgba(33, 18, 76, 0.06)",
       badgeBorder:     "rgba(33, 18, 76, 0.15)",
       pillBg:          "rgba(33, 18, 76, 0.04)",
       pillBorder:      "rgba(33, 18, 76, 0.12)",
@@ -92,8 +89,7 @@ const slides = [
       text:            "var(--new-heading-text)",
       headlineAccent:  "#2b66a0",
       divider:         "#2b66a0",
-      /* Custom deep ocean blue theme transparency properties */
-      badgeBg:         "rgba(43, 102, 160, 0.08)", // Tinted using #2b66a0
+      badgeBg:         "rgba(43, 102, 160, 0.08)",
       badgeBorder:     "rgba(43, 102, 160, 0.22)",
       pillBg:          "rgba(43, 102, 160, 0.05)",
       pillBorder:      "rgba(43, 102, 160, 0.15)",
@@ -115,7 +111,6 @@ const slides = [
       text:            "var(--color-black)",
       headlineAccent:  "#2b66a0",
       divider:         "#2b66a0",
-      /* Clean, scannable deep corporate blue accent contrasts */
       badgeBg:         "rgba(43, 102, 160, 0.08)",
       badgeBorder:     "rgba(43, 102, 160, 0.22)",
       pillBg:          "rgba(43, 102, 160, 0.05)",
@@ -172,6 +167,13 @@ const HeroSection = () => {
   const { colors } = slides[activeSlide];
   const slide      = slides[activeSlide];
 
+  // Shared conditional CSS styles for arrows to inherit pill states cleanly
+  const arrowBtnStyle = {
+    backgroundColor: colors.pillBg,
+    borderColor: colors.pillBorder,
+    color: colors.text,
+  };
+
   return (
     <div className="relative bg-[var(--new-bg-color)]">
     <section className="relative w-full overflow-hidden h-[clamp(520px,70vw,800px)]">
@@ -188,7 +190,7 @@ const HeroSection = () => {
         .anim-badge { animation: heroBadgePop 0.5s cubic-bezier(0.34,1.56,0.64,1) both; }
         .anim-1 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.08s; }
         .anim-2 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.18s; }
-        .anim-3 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.18s; } /* Slipped down with text */
+        .anim-3 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.18s; }
         .anim-4 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.28s; }
         .anim-5 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.38s; }
         .anim-6 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.48s; }
@@ -221,7 +223,7 @@ const HeroSection = () => {
         style={{ color: colors.text }}
       >
         <div className="w-full max-w-[1240px] mx-auto px-6 md:px-10 lg:px-12">
-          <div className="max-w-[540px] flex flex-col">
+          <div className="max-w-[300px] md:max-w-[540px] flex flex-col">
 
             {/* Badge */}
             <div className="anim-badge pointer-events-auto inline-flex mb-4 sm:mb-5">
@@ -238,12 +240,11 @@ const HeroSection = () => {
               </span>
             </div>
 
-            {/* Headline Group with Multi-Font Separation */}
+            {/* Headline Group */}
             <h1
               className="leading-[1.1] tracking-tight mb-3"
               style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.8rem)" }}
             >
-              {/* Part 1: Primary Heading Font */}
               <span 
                 className="block font-bold anim-1"
                 style={{ 
@@ -254,13 +255,12 @@ const HeroSection = () => {
                 {slide.headline[0]}
               </span>
               
-              {/* Part 2: Accent Elegant/Italic Font Style */}
               <em 
                 className="block font-medium italic not-implemented anim-2"
                 style={{ 
                   fontFamily: "var(--font-new-2)",
                   color: slide.headlineAccentLine === 1 ? colors.headlineAccent : colors.text,
-                  fontSize: "1.05em" // Slightly boosted to balance out display weight differences typical of italic scripts
+                  fontSize: "1.05em"
                 }}
               >
                 {slide.headline[1]}
@@ -325,12 +325,13 @@ const HeroSection = () => {
       </div>
 
       {/* ── Dots + Arrows ── */}
-      <div className="absolute bottom-20 inset-x-0 max-w-[1240px] mx-auto px-6 md:px-10 flex items-center gap-3 pointer-events-auto">
+      <div className="absolute bottom-15 md:bottom-20 inset-x-0 max-w-[1240px] mx-auto px-6 md:px-10 flex items-center gap-3 pointer-events-auto">
         <button
           type="button"
           onClick={prev}
           aria-label="Previous slide"
-          className="grid place-items-center w-9 h-9 rounded-full border border-white/50 bg-white/10 backdrop-blur-sm text-white text-lg leading-none transition-all duration-200 hover:bg-white/25 hover:border-white/80"
+          className="grid place-items-center w-9 h-9 rounded-full border backdrop-blur-md text-lg leading-none transition-all duration-200 hover:brightness-125 hover:scale-105"
+          style={arrowBtnStyle}
         >
           ‹
         </button>
@@ -355,7 +356,8 @@ const HeroSection = () => {
           type="button"
           onClick={next}
           aria-label="Next slide"
-          className="grid place-items-center w-9 h-9 rounded-full border border-white/50 bg-white/10 backdrop-blur-sm text-white text-lg leading-none transition-all duration-200 hover:bg-white/25 hover:border-white/80"
+          className="grid place-items-center w-9 h-9 rounded-full border backdrop-blur-md text-lg leading-none transition-all duration-200 hover:brightness-125 hover:scale-105"
+          style={arrowBtnStyle}
         >
           ›
         </button>
