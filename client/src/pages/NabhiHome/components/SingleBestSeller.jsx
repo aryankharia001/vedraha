@@ -166,7 +166,7 @@ export default function SingleBestSeller({
               {/* Converted Button into Link Component */}
               <Link
                 to={shopUrl}
-                className="inline-flex h-[46px] w-full sm:w-auto items-center justify-center rounded-[8px] bg-[var(--new-primary-color)] px-7 text-[13px] font-extrabold uppercase tracking-[0.05em] text-[var(--new-bg-white-color)] transition hover:brightness-110 decoration-none focus:outline-none focus:ring-2 focus:ring-[var(--new-purple-color)] focus:ring-offset-2 focus:ring-offset-[var(--new-bg-color)]"
+                className="inline-flex h-[46px] w-full sm:w-auto items-center justify-center rounded-[8px] bg-[var(--new-purple-color)] px-7 text-[13px] font-extrabold uppercase tracking-[0.05em] text-[var(--new-bg-white-color)] transition hover:brightness-110 decoration-none focus:outline-none focus:ring-2 focus:ring-[var(--new-purple-color)] focus:ring-offset-2 focus:ring-offset-[var(--new-bg-color)]"
               >
                 Shop Now
               </Link>

@@ -108,7 +108,7 @@ export default function NewsBlogs() {
                   {/* Category Badge tucked in bottom-left */}
                   <span
                     className="absolute bottom-0 left-0 text-white text-xs font-medium px-4 py-1.5 rounded-tr-xl z-10"
-                    style={{ backgroundColor: "var(--new-primary-color)" }}
+                    style={{ backgroundColor: "var(--new-purple-color)" }}
                   >
                     {pickCategory(post)}
                   </span>
@@ -156,9 +156,9 @@ export default function NewsBlogs() {
             <button
               type="button"
               onClick={() => navigate("/blogs-en")}
-              className="px-7 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 hover:opacity-90"
+              className="px-7 py-2.5 rounded text-sm font-semibold transition-all duration-200 hover:opacity-90"
               style={{
-                backgroundColor: "var(--new-primary-color, #35105f)",
+                backgroundColor: "var(--new-purple-color, #35105f)",
                 color: "var(--color-white, #ffffff)",
                 letterSpacing: "0.04em",
               }}

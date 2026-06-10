@@ -149,7 +149,7 @@ const BestSellers = ({
 
   // Fallback tokens mapped cleanly
   const highlightTextColor = themeColor || "var(--new-purple-color)";
-  const primaryButtonColor = themeColor || "var(--new-primary-color)";
+  const primaryButtonColor = themeColor || "var(--new-purple-color)";
   
   // HIGHLIGHT: If bgMode is exactly "white", it uses the white variable, otherwise it defaults to standard bg color
   const sectionBgColor = bgMode === "white" ? "var(--new-bg-white-color)" : "var(--new-bg-color)";

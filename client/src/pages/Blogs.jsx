@@ -1,12 +1,5 @@
 /**
  * Blogs.jsx — Public Blog Listing Page
- *
- * Reads from backend GET /api/blogs and renders blog cards.
- * - font-[var(--font-new-1)] body  ·  var(--font-new-2) display / headings
- * - Same design language as NewsBlogs section on the home page
- * - Supports category filter, pagination, and search
- * - Clicking a card navigates to /blogs/:id
- * - Falls back to dummy data when backend is empty/unavailable
  */
 
 import React, { useEffect, useMemo, useState } from "react";
@@ -38,6 +31,21 @@ const pickImage = (blog) =>
   blog?.mainPicture?.secureUrl ||
   "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=600";
 
+const SkeletonCard = () => (
+  <div 
+    className="flex flex-col rounded-2xl overflow-hidden animate-pulse bg-white"
+    style={{ boxShadow: "0 4px 20px rgba(0,0,0,0.05)" }}
+  >
+    <div className="aspect-[16/10] w-full bg-gray-200" />
+    <div className="p-5 flex flex-col flex-1 gap-3">
+      <div className="h-3 w-1/3 bg-gray-200 rounded" />
+      <div className="h-5 w-3/4 bg-gray-200 rounded" />
+      <div className="h-4 w-full bg-gray-200 rounded" />
+      <div className="h-3 w-1/4 bg-gray-200 rounded mt-auto" />
+    </div>
+  </div>
+);
+
 export default function Blogs() {
   const navigate = useNavigate();
 
@@ -49,10 +57,30 @@ export default function Blogs() {
   const [error, setError] = useState("");
   const [usingDummy, setUsingDummy] = useState(false);
 
-  const [activeCategory, setActiveCategory] = useState("All");
+  // Multi-Selection Tracking Lists
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
+  
   const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState(""); 
 
-  // Fetch blogs whenever filters or page change
+  // Collapse Accordion Panel states
+  const [showCategories, setShowCategories] = useState(true);
+  const [showTags, setShowTags] = useState(false);
+
+  // Static immutable reference collections
+  const [staticCategories, setStaticCategories] = useState([]);
+  const [staticTags, setStaticTags] = useState([]);
+  const [hasStoredFilters, setHasStoredFilters] = useState(false);
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 400);
+    return () => clearTimeout(delayDebounceFn);
+  }, [search]);
+
+  // Fetch hook
   useEffect(() => {
     let cancelled = false;
     const fetchBlogs = async () => {
@@ -60,7 +88,10 @@ export default function Blogs() {
         setLoading(true);
         setError("");
         const params = { page, limit: PAGE_LIMIT, published: "true" };
-        if (activeCategory !== "All") params.category = activeCategory;
+        
+        if (selectedCategories.length > 0) {
+          params.category = selectedCategories[0];
+        }
 
         const res = await axios.get(`${backendurl}/api/blogs`, { params });
         if (cancelled) return;
@@ -73,7 +104,6 @@ export default function Blogs() {
           setPages(data.pages || 1);
           setUsingDummy(false);
         } else {
-          // Fall back to dummy data
           setBlogs(DUMMY_BLOGS);
           setTotal(DUMMY_BLOGS.length);
           setPages(1);
@@ -82,7 +112,6 @@ export default function Blogs() {
       } catch (err) {
         if (!cancelled) {
           console.error("Failed to load blogs:", err);
-          // On error fall back to dummy data
           setBlogs(DUMMY_BLOGS);
           setTotal(DUMMY_BLOGS.length);
           setPages(1);
@@ -96,33 +125,68 @@ export default function Blogs() {
     return () => {
       cancelled = true;
     };
-  }, [page, activeCategory]);
+  }, [page, selectedCategories]);
 
-  // Derive the unique category list from the current blog set + a fallback
-  const categories = useMemo(() => {
-    const set = new Set();
-    blogs.forEach((b) => (b.categories || []).forEach((c) => set.add(c)));
-    const list = Array.from(set).sort();
-    return ["All", ...list];
-  }, [blogs]);
+  // Read state setup
+  useEffect(() => {
+    if (blogs.length > 0 && !hasStoredFilters) {
+      const catSet = new Set();
+      const tagSet = new Set();
 
-  // Client-side search filter (server doesn't expose a search param)
+      blogs.forEach((b) => {
+        (b.categories || []).forEach((c) => catSet.add(c));
+        (b.tags || []).forEach((t) => tagSet.add(t));
+      });
+
+      setStaticCategories(Array.from(catSet).sort());
+      setStaticTags(Array.from(tagSet).sort());
+      setHasStoredFilters(true);
+    }
+  }, [blogs, hasStoredFilters]);
+
+  const handleCategoryToggle = (category) => {
+    setPage(1);
+    setSelectedCategories((prev) =>
+      prev.includes(category) ? prev.filter((c) => c !== category) : [...prev, category]
+    );
+  };
+
+  const handleTagToggle = (tag) => {
+    setSelectedTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+    );
+  };
+
   const filtered = useMemo(() => {
-    if (!search.trim()) return blogs;
-    const q = search.toLowerCase();
-    return blogs.filter(
+    let output = blogs;
+
+    if (selectedCategories.length > 0) {
+      output = output.filter((b) =>
+        (b.categories || []).some((c) => selectedCategories.includes(c))
+      );
+    }
+
+    if (selectedTags.length > 0) {
+      output = output.filter((b) =>
+        (b.tags || []).some((t) => selectedTags.includes(t))
+      );
+    }
+
+    if (!debouncedSearch.trim()) return output;
+    const q = debouncedSearch.toLowerCase();
+    return output.filter(
       (b) =>
         b.title?.toLowerCase().includes(q) ||
         b.creator?.toLowerCase().includes(q) ||
         (b.tags || []).some((t) => t.toLowerCase().includes(q))
     );
-  }, [blogs, search]);
+  }, [blogs, selectedCategories, selectedTags, debouncedSearch]);
 
   return (
     <div
       className="min-h-screen pt-28 pb-20 px-4 sm:px-6 lg:px-8"
       style={{
-        backgroundColor: "var(--new-bg-color, #f2eafa)",
+        backgroundColor: "var(--new-bg-white-color, #f2eafa)",
         fontFamily: "var(--font-new-1)",
       }}
     >
@@ -136,10 +200,11 @@ export default function Blogs() {
         <div className="flex flex-col lg:flex-row gap-8 mb-10">
           {/* Blog grid (LEFT) */}
           <div className="flex-1 min-w-0 order-2 lg:order-1">
-            {/* Loading / Error / Empty states */}
             {loading && (
-              <div className="py-20 text-center text-sm" style={{ color: "var(--new-para-text, #b3b3b3)" }}>
-                Loading blogs…
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {Array.from({ length: 4 }).map((_, idx) => (
+                  <SkeletonCard key={idx} />
+                ))}
               </div>
             )}
 
@@ -155,7 +220,6 @@ export default function Blogs() {
               </div>
             )}
 
-            {/* Blog grid: 2 columns on desktop, 1 column on mobile */}
             {!loading && !error && filtered.length > 0 && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {filtered.map((blog) => (
@@ -167,14 +231,7 @@ export default function Blogs() {
                       backgroundColor: "var(--color-white, #ffffff)",
                       boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
                     }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.boxShadow = "0 4px 25px rgba(0,0,0,0.10)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.05)";
-                    }}
                   >
-                    {/* Image */}
                     <div className="relative aspect-[16/10] w-full overflow-hidden">
                       <img
                         src={pickImage(blog)}
@@ -184,13 +241,12 @@ export default function Blogs() {
                       />
                       <span
                         className="absolute bottom-0 left-0 text-white text-xs font-medium px-4 py-1.5 rounded-tr-xl z-10"
-                        style={{ backgroundColor: "var(--new-primary-color, #35105f)" }}
+                        style={{ backgroundColor: "var(--new-purple-color)" }}
                       >
                         {pickCategory(blog)}
                       </span>
                     </div>
 
-                    {/* Content */}
                     <div className="p-5 flex flex-col flex-1">
                       <div
                         className="flex items-center gap-2 text-xs mb-2.5 font-medium"
@@ -199,13 +255,13 @@ export default function Blogs() {
                         <span>{blog.creator || "Vedraha Wellness"}</span>
                         <span
                           className="w-1.5 h-1.5 rounded-full inline-block"
-                          style={{ backgroundColor: "var(--new-accent-color, #df8804)" }}
+                          style={{ backgroundColor: "var(--new-purple-color)" }}
                         />
                         <span>{formatDate(blog.createdAt)}</span>
                       </div>
 
                       <h3
-                        className="text-lg font-bold leading-snug mb-2 line-clamp-2 transition-opacity"
+                        className="text-lg font-bold leading-snug mb-2 line-clamp-2"
                         style={{ color: "var(--color-black, #000000)" }}
                       >
                         {blog.title}
@@ -221,8 +277,8 @@ export default function Blogs() {
                       )}
 
                       <span
-                        className="text-sm font-bold underline underline-offset-4 mt-auto w-fit transition-opacity hover:opacity-80"
-                        style={{ color: "var(--new-purple-color, #5d27aa)" }}
+                        className="text-sm font-bold underline underline-offset-4 mt-auto w-fit"
+                        style={{ color: "var(--new-purple-color)" }}
                       >
                         Read More
                       </span>
@@ -233,108 +289,197 @@ export default function Blogs() {
             )}
           </div>
 
-          {/* Filter sidebar (RIGHT) */}
+          {/* ─── SIDEBAR FILTER ────────────────────────────────────────────── */}
           <aside className="w-full lg:w-72 lg:flex-shrink-0 order-1 lg:order-2">
             <div
-              className="rounded-2xl p-5 lg:sticky lg:top-28"
+              className="rounded-2xl p-6 lg:sticky lg:top-28 flex flex-col gap-6 bg-white transition-all duration-300"
               style={{
-                backgroundColor: "var(--color-white, #ffffff)",
-                boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
-                border: "1px solid rgba(0,0,0,0.06)",
+                boxShadow: "0 10px 30px rgba(0,0,0,0.04)",
+                border: "1px solid rgba(0,0,0,0.05)",
               }}
             >
-              <h3
-                className="text-sm font-bold uppercase tracking-wider mb-3"
-                style={{
-                  color: "var(--new-heading-text, #21124c)",
-                  fontFamily: "var(--font-new-1)",
-                }}
-              >
-                Filter
-              </h3>
-
-              {/* Search input */}
-              <div
-                className="flex items-center gap-2 px-3 py-2 rounded-full bg-white mb-4 w-full"
-                style={{ border: "1px solid rgba(0,0,0,0.08)" }}
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  style={{ color: "var(--new-para-text, #b3b3b3)" }}
+              {/* Search Element Block */}
+              <div>
+                <h3
+                  className="text-sm font-bold uppercase tracking-wider mb-2.5"
+                  style={{ color: "var(--new-heading-text, #21124c)" }}
                 >
-                  <circle cx="11" cy="11" r="7" />
-                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                </svg>
-                <input
-                  type="text"
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search blogs, tags…"
-                  className="bg-transparent outline-none text-sm w-full"
-                  style={{
-                    fontFamily: "var(--font-new-1)",
-                    color: "var(--new-heading-text, #21124c)",
-                  }}
-                />
+                  Search Content
+                </h3>
+
+                <div
+                  className="flex items-center gap-2 px-3.5 py-2.5 rounded-full bg-white w-full border transition-all duration-300 focus-within:ring-2 focus-within:ring-[rgba(93,39,170,0.2)] focus-within:border-purple-400"
+                  style={{ borderColor: "rgba(0,0,0,0.08)" }}
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{ color: "var(--new-purple-color)" }}
+                  >
+                    <circle cx="11" cy="11" r="7" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                  <input
+                    type="text"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="Search blogs…"
+                    className="bg-transparent outline-none focus:outline-none text-sm w-full font-medium"
+                    style={{ color: "var(--new-heading-text, #21124c)" }}
+                  />
+                </div>
               </div>
 
-              <p
-                className="text-[11px] font-bold uppercase tracking-wider mb-3"
-                style={{ color: "var(--new-para-text, #aaa4b8)" }}
-              >
-                Categories
-              </p>
+              {/* Categories Section with Accordion Smooth Transition */}
+              <div className="flex flex-col">
+                <button
+                  type="button"
+                  onClick={() => setShowCategories(!showCategories)}
+                  className="flex items-center justify-between w-full text-[11px] font-bold uppercase tracking-wider mb-2.5 border-b pb-1 border-gray-100 group select-none text-left cursor-pointer"
+                  style={{ color: "var(--new-para-text, #aaa4b8)" }}
+                >
+                  <span>Categories</span>
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className={`transition-transform duration-300 transform ${showCategories ? "rotate-180" : "rotate-0"}`}
+                    style={{ color: "var(--new-purple-color)" }}
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </button>
 
-              {/* Category pills (vertical) */}
-              <div className="flex flex-col gap-2">
-                {categories.map((cat) => {
-                  const isActive = activeCategory === cat;
-                  return (
-                    <button
-                      key={cat}
-                      type="button"
-                      onClick={() => {
-                        setActiveCategory(cat);
-                        setPage(1);
-                      }}
-                      className="px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 text-left"
-                      style={{
-                        backgroundColor: isActive
-                          ? "var(--new-primary-color, #35105f)"
-                          : "var(--new-bg-color, #f2eafa)",
-                        color: isActive
-                          ? "var(--color-white, #ffffff)"
-                          : "var(--new-heading-text, #21124c)",
-                        border: isActive
-                          ? "1px solid var(--new-primary-color, #35105f)"
-                          : "1px solid rgba(0,0,0,0.06)",
-                        letterSpacing: "0.04em",
-                      }}
-                    >
-                      {cat}
-                    </button>
-                  );
-                })}
+                <div className={`grid transition-all duration-300 ease-in-out ${showCategories ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0 overflow-hidden"}`}>
+                  <div className="overflow-hidden">
+                    <div className="flex flex-wrap gap-2 pt-1 pb-2">
+                      {/* "All" Categories Button */}
+                      <button
+                        type="button"
+                        onClick={() => setSelectedCategories([])}
+                        className="px-3 py-1.5 rounded text-xs font-semibold transition-all duration-150 text-left flex items-center select-none hover:opacity-90 cursor-pointer"
+                        style={{
+                          backgroundColor: selectedCategories.length === 0 ? "var(--new-purple-color)" : "var(--new-bg-color, #f2eafa)",
+                          color: selectedCategories.length === 0 ? "#ffffff" : "var(--new-heading-text, #21124c)",
+                          border: selectedCategories.length === 0 ? "1px solid var(--new-purple-color)" : "1px solid rgba(0,0,0,0.04)"
+                        }}
+                      >
+                        All
+                      </button>
+
+                      {staticCategories.map((cat) => {
+                        const isActive = selectedCategories.includes(cat);
+                        return (
+                          <button
+                            key={cat}
+                            type="button"
+                            onClick={() => handleCategoryToggle(cat)}
+                            className="px-3 py-1.5 rounded text-xs font-semibold transition-all duration-150 text-left flex items-center gap-1.5 select-none hover:opacity-90 cursor-pointer"
+                            style={{
+                              backgroundColor: isActive ? "var(--new-purple-color)" : "var(--new-bg-color, #f2eafa)",
+                              color: isActive ? "#ffffff" : "var(--new-heading-text, #21124c)",
+                              border: isActive ? "1px solid var(--new-purple-color)" : "1px solid rgba(0,0,0,0.04)"
+                            }}
+                          >
+                            <span>{cat}</span>
+                            {isActive && <span className="text-[10px] font-bold">✕</span>}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
               </div>
+
+              {/* Tags Section with Accordion Smooth Transition */}
+              <div className="flex flex-col">
+                <button
+                  type="button"
+                  onClick={() => setShowTags(!showTags)}
+                  className="flex items-center justify-between w-full text-[11px] font-bold uppercase tracking-wider mb-2.5 border-b pb-1 border-gray-100 group select-none text-left cursor-pointer"
+                  style={{ color: "var(--new-para-text, #aaa4b8)" }}
+                >
+                  <span>Tags</span>
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className={`transition-transform duration-300 transform ${showTags ? "rotate-180" : "rotate-0"}`}
+                    style={{ color: "var(--new-purple-color)" }}
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </button>
+
+                <div className={`grid transition-all duration-300 ease-in-out ${showTags ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0 overflow-hidden"}`}>
+                  <div className="overflow-hidden">
+                    <div className="flex flex-wrap gap-2 pt-1 pb-1">
+                      {/* "All" Tags Button */}
+                      <button
+                        type="button"
+                        onClick={() => setSelectedTags([])}
+                        className="px-2.5 py-1.5 rounded text-xs font-semibold transition-all duration-150 flex items-center select-none hover:opacity-90 cursor-pointer"
+                        style={{
+                          backgroundColor: selectedTags.length === 0 ? "var(--new-purple-color)" : "rgba(0,0,0,0.02)",
+                          color: selectedTags.length === 0 ? "#ffffff" : "var(--new-purple-color)",
+                          border: selectedTags.length === 0 ? "1px solid var(--new-purple-color)" : "1px solid rgba(93,39,170,0.15)"
+                        }}
+                      >
+                        All
+                      </button>
+
+                      {staticTags.map((tag) => {
+                        const isActive = selectedTags.includes(tag);
+                        return (
+                          <button
+                            key={tag}
+                            type="button"
+                            onClick={() => handleTagToggle(tag)}
+                            className="px-2.5 py-1.5 rounded text-xs font-semibold transition-all duration-150 flex items-center gap-1.5 select-none hover:opacity-90 cursor-pointer"
+                            style={{
+                              backgroundColor: isActive ? "var(--new-purple-color)" : "rgba(0,0,0,0.02)",
+                              color: isActive ? "#ffffff" : "var(--new-purple-color)",
+                              border: isActive ? "1px solid var(--new-purple-color)" : "1px solid rgba(93,39,170,0.15)"
+                            }}
+                          >
+                            <span>#{tag}</span>
+                            {isActive && <span className="text-[10px] font-bold">✕</span>}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </aside>
         </div>
 
-        {/* Pagination */}
+        {/* Pagination Controls */}
         {!loading && !error && pages > 1 && (
           <div className="flex items-center justify-center gap-2 mt-12">
             <button
               type="button"
               disabled={page === 1}
               onClick={() => setPage((p) => Math.max(1, p - 1))}
-              className="px-4 py-2 rounded-md text-xs font-semibold transition disabled:opacity-40"
+              className="px-4 py-2 rounded-md text-xs font-semibold transition disabled:opacity-40 cursor-pointer"
               style={{
                 backgroundColor: "var(--color-white, #ffffff)",
                 color: "var(--new-heading-text, #21124c)",
@@ -353,7 +498,7 @@ export default function Blogs() {
               type="button"
               disabled={page === pages}
               onClick={() => setPage((p) => Math.min(pages, p + 1))}
-              className="px-4 py-2 rounded-md text-xs font-semibold transition disabled:opacity-40"
+              className="px-4 py-2 rounded-md text-xs font-semibold transition disabled:opacity-40 cursor-pointer"
               style={{
                 backgroundColor: "var(--color-white, #ffffff)",
                 color: "var(--new-heading-text, #21124c)",
@@ -365,7 +510,7 @@ export default function Blogs() {
           </div>
         )}
 
-        {/* Total count */}
+        {/* Total count status block */}
         {!loading && !error && total > 0 && (
           <p
             className="text-center mt-6 text-xs"
