@@ -133,168 +133,199 @@ export default function Blogs() {
           headingHighlight="News & Blogs"
         />
 
-        {/* Search + Category Filter Bar */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-10">
-          {/* Category pills */}
-          <div className="flex flex-wrap items-center gap-2">
-            {categories.map((cat) => {
-              const isActive = activeCategory === cat;
-              return (
-                <button
-                  key={cat}
-                  type="button"
-                  onClick={() => {
-                    setActiveCategory(cat);
-                    setPage(1);
-                  }}
-                  className="px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200"
-                  style={{
-                    backgroundColor: isActive
-                      ? "var(--new-primary-color, #35105f)"
-                      : "var(--color-white, #ffffff)",
-                    color: isActive
-                      ? "var(--color-white, #ffffff)"
-                      : "var(--new-heading-text, #21124c)",
-                    border: isActive
-                      ? "1px solid var(--new-primary-color, #35105f)"
-                      : "1px solid rgba(0,0,0,0.08)",
-                    letterSpacing: "0.04em",
-                  }}
-                >
-                  {cat}
-                </button>
-              );
-            })}
+        <div className="flex flex-col lg:flex-row gap-8 mb-10">
+          {/* Blog grid (LEFT) */}
+          <div className="flex-1 min-w-0 order-2 lg:order-1">
+            {/* Loading / Error / Empty states */}
+            {loading && (
+              <div className="py-20 text-center text-sm" style={{ color: "var(--new-para-text, #b3b3b3)" }}>
+                Loading blogs…
+              </div>
+            )}
+
+            {!loading && error && (
+              <div className="py-20 text-center text-sm" style={{ color: "#a81313" }}>
+                {error}
+              </div>
+            )}
+
+            {!loading && !error && filtered.length === 0 && (
+              <div className="py-20 text-center text-sm" style={{ color: "var(--new-para-text, #b3b3b3)" }}>
+                No blogs found. {search && `No results for “${search}”.`}
+              </div>
+            )}
+
+            {/* Blog grid: 2 columns on desktop, 1 column on mobile */}
+            {!loading && !error && filtered.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {filtered.map((blog) => (
+                  <article
+                    key={blog._id}
+                    onClick={() => navigate(`/blogs/${blog._id}`)}
+                    className="group flex flex-col rounded-2xl overflow-hidden cursor-pointer transition-all duration-300"
+                    style={{
+                      backgroundColor: "var(--color-white, #ffffff)",
+                      boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.boxShadow = "0 4px 25px rgba(0,0,0,0.10)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.05)";
+                    }}
+                  >
+                    {/* Image */}
+                    <div className="relative aspect-[16/10] w-full overflow-hidden">
+                      <img
+                        src={pickImage(blog)}
+                        alt={blog.title}
+                        className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      <span
+                        className="absolute bottom-0 left-0 text-white text-xs font-medium px-4 py-1.5 rounded-tr-xl z-10"
+                        style={{ backgroundColor: "var(--new-primary-color, #35105f)" }}
+                      >
+                        {pickCategory(blog)}
+                      </span>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-5 flex flex-col flex-1">
+                      <div
+                        className="flex items-center gap-2 text-xs mb-2.5 font-medium"
+                        style={{ color: "var(--new-para-text, #b3b3b3)" }}
+                      >
+                        <span>{blog.creator || "Vedraha Wellness"}</span>
+                        <span
+                          className="w-1.5 h-1.5 rounded-full inline-block"
+                          style={{ backgroundColor: "var(--new-accent-color, #df8804)" }}
+                        />
+                        <span>{formatDate(blog.createdAt)}</span>
+                      </div>
+
+                      <h3
+                        className="text-lg font-bold leading-snug mb-2 line-clamp-2 transition-opacity"
+                        style={{ color: "var(--color-black, #000000)" }}
+                      >
+                        {blog.title}
+                      </h3>
+
+                      {blog.excerpt && (
+                        <p
+                          className="text-sm leading-relaxed mb-4 line-clamp-3"
+                          style={{ color: "var(--new-para-text, #6b6080)" }}
+                        >
+                          {blog.excerpt}
+                        </p>
+                      )}
+
+                      <span
+                        className="text-sm font-bold underline underline-offset-4 mt-auto w-fit transition-opacity hover:opacity-80"
+                        style={{ color: "var(--new-purple-color, #5d27aa)" }}
+                      >
+                        Read More
+                      </span>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            )}
           </div>
 
-          {/* Search input */}
-          <div
-            className="flex items-center gap-2 px-3 py-2 rounded-full bg-white w-full md:w-72"
-            style={{ border: "1px solid rgba(0,0,0,0.08)" }}
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              style={{ color: "var(--new-para-text, #b3b3b3)" }}
-            >
-              <circle cx="11" cy="11" r="7" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search blogs, tags…"
-              className="bg-transparent outline-none text-sm w-full"
+          {/* Filter sidebar (RIGHT) */}
+          <aside className="w-full lg:w-72 lg:flex-shrink-0 order-1 lg:order-2">
+            <div
+              className="rounded-2xl p-5 lg:sticky lg:top-28"
               style={{
-                fontFamily: "var(--font-new-1)",
-                color: "var(--new-heading-text, #21124c)",
+                backgroundColor: "var(--color-white, #ffffff)",
+                boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
+                border: "1px solid rgba(0,0,0,0.06)",
               }}
-            />
-          </div>
-        </div>
-
-        {/* Loading / Error / Empty states */}
-        {loading && (
-          <div className="py-20 text-center text-sm" style={{ color: "var(--new-para-text, #b3b3b3)" }}>
-            Loading blogs…
-          </div>
-        )}
-
-        {!loading && error && (
-          <div className="py-20 text-center text-sm" style={{ color: "#a81313" }}>
-            {error}
-          </div>
-        )}
-
-        {!loading && !error && filtered.length === 0 && (
-          <div className="py-20 text-center text-sm" style={{ color: "var(--new-para-text, #b3b3b3)" }}>
-            No blogs found. {search && `No results for “${search}”.`}
-          </div>
-        )}
-
-        {/* Blog grid */}
-        {!loading && !error && filtered.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            {filtered.map((blog) => (
-              <article
-                key={blog._id}
-                onClick={() => navigate(`/blogs/${blog._id}`)}
-                className="group flex flex-col rounded-2xl overflow-hidden cursor-pointer transition-all duration-300"
+            >
+              <h3
+                className="text-sm font-bold uppercase tracking-wider mb-3"
                 style={{
-                  backgroundColor: "var(--color-white, #ffffff)",
-                  boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = "0 4px 25px rgba(0,0,0,0.10)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.05)";
+                  color: "var(--new-heading-text, #21124c)",
+                  fontFamily: "var(--font-new-1)",
                 }}
               >
-                {/* Image */}
-                <div className="relative aspect-[16/10] w-full overflow-hidden">
-                  <img
-                    src={pickImage(blog)}
-                    alt={blog.title}
-                    className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <span
-                    className="absolute bottom-0 left-0 text-white text-xs font-medium px-4 py-1.5 rounded-tr-xl z-10"
-                    style={{ backgroundColor: "var(--new-primary-color, #35105f)" }}
-                  >
-                    {pickCategory(blog)}
-                  </span>
-                </div>
+                Filter
+              </h3>
 
-                {/* Content */}
-                <div className="p-5 flex flex-col flex-1">
-                  <div
-                    className="flex items-center gap-2 text-xs mb-2.5 font-medium"
-                    style={{ color: "var(--new-para-text, #b3b3b3)" }}
-                  >
-                    <span>{blog.creator || "Vedraha Wellness"}</span>
-                    <span
-                      className="w-1.5 h-1.5 rounded-full inline-block"
-                      style={{ backgroundColor: "var(--new-accent-color, #df8804)" }}
-                    />
-                    <span>{formatDate(blog.createdAt)}</span>
-                  </div>
+              {/* Search input */}
+              <div
+                className="flex items-center gap-2 px-3 py-2 rounded-full bg-white mb-4 w-full"
+                style={{ border: "1px solid rgba(0,0,0,0.08)" }}
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{ color: "var(--new-para-text, #b3b3b3)" }}
+                >
+                  <circle cx="11" cy="11" r="7" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <input
+                  type="text"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Search blogs, tags…"
+                  className="bg-transparent outline-none text-sm w-full"
+                  style={{
+                    fontFamily: "var(--font-new-1)",
+                    color: "var(--new-heading-text, #21124c)",
+                  }}
+                />
+              </div>
 
-                  <h3
-                    className="text-lg font-bold leading-snug mb-2 line-clamp-2 transition-opacity"
-                    style={{ color: "var(--color-black, #000000)" }}
-                  >
-                    {blog.title}
-                  </h3>
+              <p
+                className="text-[11px] font-bold uppercase tracking-wider mb-3"
+                style={{ color: "var(--new-para-text, #aaa4b8)" }}
+              >
+                Categories
+              </p>
 
-                  {blog.excerpt && (
-                    <p
-                      className="text-sm leading-relaxed mb-4 line-clamp-3"
-                      style={{ color: "var(--new-para-text, #6b6080)" }}
+              {/* Category pills (vertical) */}
+              <div className="flex flex-col gap-2">
+                {categories.map((cat) => {
+                  const isActive = activeCategory === cat;
+                  return (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => {
+                        setActiveCategory(cat);
+                        setPage(1);
+                      }}
+                      className="px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 text-left"
+                      style={{
+                        backgroundColor: isActive
+                          ? "var(--new-primary-color, #35105f)"
+                          : "var(--new-bg-color, #f2eafa)",
+                        color: isActive
+                          ? "var(--color-white, #ffffff)"
+                          : "var(--new-heading-text, #21124c)",
+                        border: isActive
+                          ? "1px solid var(--new-primary-color, #35105f)"
+                          : "1px solid rgba(0,0,0,0.06)",
+                        letterSpacing: "0.04em",
+                      }}
                     >
-                      {blog.excerpt}
-                    </p>
-                  )}
-
-                  <span
-                    className="text-sm font-bold underline underline-offset-4 mt-auto w-fit transition-opacity hover:opacity-80"
-                    style={{ color: "var(--new-purple-color, #5d27aa)" }}
-                  >
-                    Read More
-                  </span>
-                </div>
-              </article>
-            ))}
-          </div>
-        )}
+                      {cat}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </aside>
+        </div>
 
         {/* Pagination */}
         {!loading && !error && pages > 1 && (

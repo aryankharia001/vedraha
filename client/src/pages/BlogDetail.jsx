@@ -332,9 +332,9 @@ export default function BlogDetail() {
           </div>
         )}
 
-        {/* Related blogs */}
+        {/* Related blogs - displayed after blog detail section */}
         {related.length > 0 && (
-          <div className="mt-14">
+          <div className="mt-16">
             <h2
               className="text-2xl font-semibold mb-6"
               style={{
@@ -342,7 +342,7 @@ export default function BlogDetail() {
                 fontFamily: "var(--font-new-2, 'Times New Roman')",
               }}
             >
-              Related{" "}
+              More{" "}
               <span
                 className="italic"
                 style={{ color: "var(--new-purple-color, #5d27aa)" }}
@@ -350,7 +350,8 @@ export default function BlogDetail() {
                 Blogs
               </span>
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+            {/* Related blogs: 2 columns on desktop, 1 column on mobile */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {related.map((rb) => (
                 <article
                   key={rb._id}
@@ -360,7 +361,14 @@ export default function BlogDetail() {
                     backgroundColor: "var(--color-white, #ffffff)",
                     boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
                   }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = "0 4px 25px rgba(0,0,0,0.10)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.05)";
+                  }}
                 >
+                  {/* Image */}
                   <div className="relative aspect-[16/10] w-full overflow-hidden">
                     <img
                       src={
@@ -372,25 +380,45 @@ export default function BlogDetail() {
                       className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />
-                  </div>
-                  <div className="p-4 flex flex-col flex-1">
                     <span
-                      className="text-[11px] font-semibold mb-1"
-                      style={{ color: "var(--new-purple-color, #5d27aa)" }}
+                      className="absolute bottom-0 left-0 text-white text-xs font-medium px-4 py-1.5 rounded-tr-xl z-10"
+                      style={{ backgroundColor: "var(--new-primary-color, #35105f)" }}
                     >
                       {pickCategory(rb)}
                     </span>
+                  </div>
+                  {/* Content */}
+                  <div className="p-5 flex flex-col flex-1">
+                    <div
+                      className="flex items-center gap-2 text-xs mb-2.5 font-medium"
+                      style={{ color: "var(--new-para-text, #b3b3b3)" }}
+                    >
+                      <span>{rb.creator || "Vedraha Wellness"}</span>
+                      <span
+                        className="w-1.5 h-1.5 rounded-full inline-block"
+                        style={{ backgroundColor: "var(--new-accent-color, #df8804)" }}
+                      />
+                      <span>{formatDate(rb.createdAt)}</span>
+                    </div>
                     <h3
-                      className="text-sm font-bold leading-snug mb-2 line-clamp-2"
-                      style={{ color: "var(--new-heading-text, #21124c)" }}
+                      className="text-lg font-bold leading-snug mb-2 line-clamp-2 transition-opacity"
+                      style={{ color: "var(--color-black, #000000)" }}
                     >
                       {rb.title}
                     </h3>
+                    {rb.excerpt && (
+                      <p
+                        className="text-sm leading-relaxed mb-4 line-clamp-2"
+                        style={{ color: "var(--new-para-text, #6b6080)" }}
+                      >
+                        {rb.excerpt}
+                      </p>
+                    )}
                     <span
-                      className="text-[11px] font-medium"
-                      style={{ color: "var(--new-para-text, #b3b3b3)" }}
+                      className="text-sm font-bold underline underline-offset-4 mt-auto w-fit transition-opacity hover:opacity-80"
+                      style={{ color: "var(--new-purple-color, #5d27aa)" }}
                     >
-                      {formatDate(rb.createdAt)}
+                      Read More
                     </span>
                   </div>
                 </article>
