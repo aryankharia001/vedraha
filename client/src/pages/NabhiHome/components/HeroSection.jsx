@@ -14,15 +14,15 @@ const slides = [
   {
     image: banner1,
     badge: "Joint & Pain Relief",
-    headline: ["Move Freely.", "Live Fully."],
+    headline: ["Move Freely,", "Live Fully."],
     headlineAccentLine: 1,
     subtext:
       "Powerful herbal blend that penetrates deep to soothe sore joints, relieve muscle tension, and restore natural mobility.",
     features: ["Eases Joint Pain", "Reduces Inflammation", "Restores Mobility"],
     cta: { label: "Explore Now", href: "/products/nabhi-joint-en" },
     colors: {
-      text:            "var(--color-black)",
-      headlineAccent:  "var(--color)",
+      text:            "var(--color-white)",
+      headlineAccent:  "var(--color-white)",
       divider:         "var(--color)",
       badgeBg:         "var(--color-2)",
       badgeBorder:     "var(--color)",
@@ -36,7 +36,7 @@ const slides = [
   {
     image: banner2,
     badge: "Sleep & Stress Relief",
-    headline: ["Sleep Better.", "Wake Refreshed."],
+    headline: ["Sleep Better,", "Wake Refreshed."],
     headlineAccentLine: 1,
     subtext:
       "Ancient Ayurvedic Nabhi Oil — applied at the navel to calm the mind, ease anxiety & promote deep, restorative sleep.",
@@ -44,7 +44,7 @@ const slides = [
     cta: { label: "Shop Now", href: "/products/nabhi-sleep-en" },
     colors: {
       text:            "var(--color-white)",
-      headlineAccent:  "var(--new-bg-color)",
+      headlineAccent:  "var(--color-white)",
       divider:         "var(--new-bg-color)",
       badgeBg:         "rgba(242, 234, 250, 0.15)",
       badgeBorder:     "rgba(242, 234, 250, 0.30)",
@@ -65,8 +65,8 @@ const slides = [
     features: ["Improves Digestion", "Reduces Bloating", "Balances Gut Flora"],
     cta: { label: "Discover Now", href: "/products/nabhi-amrit-en" },
     colors: {
-      text:            "var(--color-black)",
-      headlineAccent:  "var(--new-accent-color)",
+      text:            "var(--color-white)",
+      headlineAccent:  "var(--color-white)",
       divider:         "var(--new-accent-color)",
       badgeBg:         "rgba(33, 18, 76, 0.06)",
       badgeBorder:     "rgba(33, 18, 76, 0.15)",
@@ -80,15 +80,15 @@ const slides = [
   {
     image: banner4,
     badge: "Vision & Eyecare Care",
-    headline: ["Clear Vision.", "Bright Eyes."],
+    headline: ["Clear Vision,", "Bright Eyes."],
     headlineAccentLine: 1,
     subtext:
       "Time-tested Ayurvedic formulation applied through the navel to soothe dry eyes, reduce strain, and nourish optical nerves naturally.",
     features: ["Soothes Eye Strain", "Reduces Dryness", "Nourishes From Within"],
     cta: { label: "Nourish Eyes", href: "/products/nabhi-eye-en" },
     colors: {
-      text:            "var(--new-heading-text)",
-      headlineAccent:  "#2b66a0",
+      text:            "var(--color-white)",
+      headlineAccent:  "var(--color-white)",
       divider:         "#2b66a0",
       badgeBg:         "rgba(43, 102, 160, 0.08)",
       badgeBorder:     "rgba(43, 102, 160, 0.22)",
@@ -102,15 +102,15 @@ const slides = [
   {
   image: banner5,
   badge: "Complete Wellness Bundle",
-  headline: ["Total Harmony.", "One Routine."],
+  headline: ["Total Harmony,", "One Routine."],
   headlineAccentLine: 1,
   subtext:
     "Premium navel oil collection designed to balance your digestion, sleep, joint health, and energy pathways simultaneously.",
   features: ["All 6 Specialist Formulas", "Full-Body Rejuvenation", "100% Pure & Ayurvedic"],
   cta: { label: "Shop The Complete Kit", href: "/products" },
   colors: {
-    text:            "var(--color-black)",
-    headlineAccent:  "#2b66a0",
+    text:            "var(--color-white)",
+    headlineAccent:  "var(--color-white)",
     divider:         "#2b66a0",
     badgeBg:         "rgba(43, 102, 160, 0.08)",
     badgeBorder:     "rgba(43, 102, 160, 0.22)",
@@ -206,7 +206,7 @@ const HeroSection = () => {
               <img
                 src={s.image}
                 alt={`Slide ${i + 1}`}
-                className="absolute inset-0 w-full h-full object-cover object-top"
+                className="absolute inset-0 w-full h-full object-cover object-center"
                 loading={i === 0 ? "eager" : "lazy"}
               />
             </div>

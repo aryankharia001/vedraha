@@ -1,6 +1,6 @@
 import React from "react";
 import SectionHeader from "./SectionHeader";
-import bgImg from "../../../../public/ingredients/ingredients-bg.png";
+import bgImg from "../../../../public/ingredients/ingredients-bg.jpg";
 import ingredient1 from "../../../../public/ingredients/ingredient1.png";
 import ingredient2 from "../../../../public/ingredients/ingredient2.png";
 import ingredient3 from "../../../../public/ingredients/ingredient3.png";

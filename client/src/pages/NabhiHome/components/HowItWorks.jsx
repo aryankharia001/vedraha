@@ -1,10 +1,10 @@
 import React from "react";
 import SectionHeader from "./SectionHeader";
-import step1 from "../../../../public/how-it-works/step-1.png";
-import step2 from "../../../../public/how-it-works/step-2.png";
-import step3 from "../../../../public/how-it-works/step-3.png";
-import step4 from "../../../../public/how-it-works/step-4.png";
-import step5 from "../../../../public/how-it-works/step-5.png";
+import step1 from "../../../../public/how-it-works/step-1.jpg";
+import step2 from "../../../../public/how-it-works/step-2.jpg";
+import step3 from "../../../../public/how-it-works/step-3.jpg";
+import step4 from "../../../../public/how-it-works/step-4.jpg";
+import step5 from "../../../../public/how-it-works/step-5.jpg";
 
 // ═══════════════════════════════════════════════════════════════
 //  DATA CONFIGURATION
