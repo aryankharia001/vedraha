@@ -2,13 +2,18 @@
 // Admin page for managing blogs - create, edit, list, delete
 
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { backendurl } from '../../App';
 
 const BlogManagementPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  // editId is only set when we have a real MongoDB id (edit route)
+  // On /admin/blogs/create the word "create" may be caught as id — ignore it
+  const editId = id && id !== 'create' ? id : null;
+  const location = useLocation();
+  const showForm = !!editId || location.pathname.includes('/create');
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -30,12 +35,15 @@ const BlogManagementPage = () => {
   const token = localStorage.getItem('adminToken');
 
   useEffect(() => {
-    if (id) {
-      fetchBlog(id);
-    } else {
+    if (editId) {
+      fetchBlog(editId);
+    } else if (!showForm) {
       fetchBlogs();
+    } else {
+      // create mode — nothing to fetch, just clear loading
+      setLoading(false);
     }
-  }, [id]);
+  }, [editId, showForm]);
 
   const fetchBlogs = async () => {
     try {
@@ -92,10 +100,10 @@ const BlogManagementPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!token) {
-      alert('Please login as admin');
-      return;
-    }
+    // if (!token) {
+    //   alert('Please login as admin');
+    //   return;
+    // }
 
     try {
       setSaving(true);
@@ -114,8 +122,8 @@ const BlogManagementPage = () => {
 
       const config = { headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' } };
 
-      if (id) {
-        await axios.put(`${backendurl}/api/blogs/${id}`, formData, config);
+      if (editId) {
+        await axios.put(`${backendurl}/api/blogs/${editId}`, formData, config);
         alert('Blog updated successfully');
       } else {
         await axios.post(`${backendurl}/api/blogs`, formData, config);
@@ -144,7 +152,7 @@ const BlogManagementPage = () => {
   };
 
   // List view
-  if (!id) {
+  if (!showForm) {
     return (
       <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
@@ -222,7 +230,7 @@ const BlogManagementPage = () => {
         ← Back to Blogs
       </button>
 
-      <h2>{id ? 'Edit Blog' : 'Create New Blog'}</h2>
+      <h2>{editId ? 'Edit Blog' : 'Create New Blog'}</h2>
 
       {loading ? (
         <p>Loading...</p>
@@ -384,7 +392,7 @@ const BlogManagementPage = () => {
               cursor: saving ? 'not-allowed' : 'pointer',
             }}
           >
-            {saving ? 'Saving...' : id ? 'Update Blog' : 'Create Blog'}
+            {saving ? 'Saving...' : editId ? 'Update Blog' : 'Create Blog'}
           </button>
         </form>
       )}

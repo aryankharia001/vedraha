@@ -311,6 +311,7 @@ function AppContent() {
         <Route path="/admin/product/create" element={<ProductFormPage />} />
         <Route path="/blogs-en" element={<Blogs />} />
         <Route path="/admin/blogs" element={<BlogManagementPage />} />
+        <Route path="/admin/blogs/create" element={<BlogManagementPage />} />
 
         {/* ── Telugu ───────────────────────────────────────────────────── */}
         <Route path="/tlg"                             element={<HomeTelugu />} />
