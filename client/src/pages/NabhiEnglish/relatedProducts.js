@@ -1,7 +1,7 @@
-import product1 from "../../../public/product-4.png";
-import product2 from "../../../public/product-2.png";
-import product3 from "../../../public/product-1.png";
-import product4 from "../../../public/product-5.png";
+import product1 from "../../../public/product-4.jpg";
+import product2 from "../../../public/product-2.jpg";
+import product3 from "../../../public/product-1.jpg";
+import product4 from "../../../public/product-5.jpg";
 
 export const relatedProducts = [
   {

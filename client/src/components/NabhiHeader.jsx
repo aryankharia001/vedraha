@@ -25,14 +25,14 @@ import {
 import { useNavigate } from "react-router-dom";
 import { backendurl } from "../App";
 import { useCart } from "../components/CartContext";
-import loginImg from "../../public/best-seller/best-seller.png";
+import loginImg from "../../public/best-seller/best-seller.jpg";
 
-import product1 from "../../public/product-1.png";
-import product2 from "../../public/product-2.png";
-import product3 from "../../public/product-3.png";
-import product4 from "../../public/product-4.png";
-import product5 from "../../public/product-5.png";
-import product6 from "../../public/product-6.png";
+import product1 from "../../public/product-1.jpg";
+import product2 from "../../public/product-2.jpg";
+import product3 from "../../public/product-3.jpg";
+import product4 from "../../public/product-4.jpg";
+import product5 from "../../public/product-5.jpg";
+import product6 from "../../public/product-6.jpg";
 
 // ── Product sub-pages shown in the Catalog dropdown ──────────────────────────
 export const CATALOG_LINKS = [

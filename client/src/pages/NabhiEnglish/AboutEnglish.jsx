@@ -92,7 +92,7 @@ export default function AboutEnglish() {
               <div>
                 <div className="grid grid-cols-2 gap-3 mb-3.5">
                   <ImagePlaceholder src="/product-2-about.png" alt="Hair Care Oil" height={105} />
-                  <ImagePlaceholder src="/product-3.png" alt="Joint Relief Oil" height={105} />
+                  <ImagePlaceholder src="/product-4-about.png" alt="Joint Relief Oil" height={105} />
                   <div className="col-span-2">
                     <ImagePlaceholder src="/product-4-about.png" alt="Vision & Eyecare Oil" height={105} />
                   </div>

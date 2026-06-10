@@ -310,6 +310,7 @@ function AppContent() {
         <Route path="/admin/product-list" element={<ProductListPage />} />
         <Route path="/admin/product/create" element={<ProductFormPage />} />
         <Route path="/blogs-en" element={<Blogs />} />
+        <Route path="/blogs/:id" element={<BlogDetail />} />
         <Route path="/admin/blogs" element={<BlogManagementPage />} />
 
         {/* ── Telugu ───────────────────────────────────────────────────── */}
@@ -354,6 +355,7 @@ import AdminListPage from './pages/admin/AdminListPage'
 import CollectionManagementPage from './pages/admin/CollectionManagementPage'
 import Dashboard from './components/Admin/Dashboard'
 import Blogs from './pages/Blogs.jsx'
+import BlogDetail from './pages/BlogDetail.jsx'
 import BlogManagementPage from './pages/admin/BlogManagementPage.jsx'
 
 function App() {

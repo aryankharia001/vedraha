@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import newsletterbg from "../../../../public/newsletter-bg.png";
+import newsletterbg from "../../../../public/newsletter-bg.jpg";
 
 export default function NewsLetter() {
   const [email, setEmail] = useState("");

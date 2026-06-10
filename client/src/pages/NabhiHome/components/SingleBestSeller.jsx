@@ -1,5 +1,5 @@
 import React from "react";
-import bgImg from "../../../../public/best-seller/best-seller.png";
+import bgImg from "../../../../public/best-seller/best-seller.jpg";
 import { Link } from "react-router-dom";
 
 const benefits = [
