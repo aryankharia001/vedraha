@@ -34,6 +34,22 @@ const pickImage = (blog) =>
   blog?.thumbnail?.secureUrl ||
   "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=1200";
 
+// Estimate reading time in minutes from subheadings + excerpt
+const getReadingTime = (blog) => {
+  if (!blog) return null;
+  const parts = [];
+  if (blog.excerpt) parts.push(blog.excerpt);
+  if (Array.isArray(blog.subheadings)) {
+    blog.subheadings.forEach((sh) => {
+      if (sh?.heading) parts.push(sh.heading);
+      if (sh?.content) parts.push(sh.content);
+    });
+  }
+  const words = parts.join(" ").trim().split(/\s+/).filter(Boolean).length;
+  if (!words) return null;
+  return Math.max(1, Math.ceil(words / 200));
+};
+
 export default function BlogDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -120,6 +136,39 @@ export default function BlogDetail() {
       cancelled = true;
     };
   }, [id]);
+
+  // SEO: inject <title> + meta description + keywords when a blog is loaded
+  useEffect(() => {
+    if (!blog) return;
+
+    const seoTitle =
+      blog.seo?.metaTitle?.trim() || `${blog.title} | Vedraha Wellness`;
+    const seoDescription =
+      blog.seo?.metaDescription?.trim() || blog.excerpt || "";
+    const seoKeywords = (blog.seo?.keywords || []).join(", ");
+
+    const previousTitle = document.title;
+    document.title = seoTitle;
+
+    const setMeta = (selector, attr, value) => {
+      if (!value) return;
+      let el = document.head.querySelector(selector);
+      if (!el) {
+        el = document.createElement("meta");
+        const [attrName, attrVal] = selector.replace(/[\[\]"]/g, "").split("=");
+        el.setAttribute(attrName, attrVal);
+        document.head.appendChild(el);
+      }
+      el.setAttribute(attr, value);
+    };
+
+    setMeta('meta[name="description"]', "content", seoDescription);
+    setMeta('meta[name="keywords"]', "content", seoKeywords);
+
+    return () => {
+      document.title = previousTitle;
+    };
+  }, [blog]);
 
   if (loading) {
     return (
@@ -235,6 +284,15 @@ export default function BlogDetail() {
             style={{ backgroundColor: "var(--new-accent-color, #df8804)" }}
           />
           <span>{formatDate(blog.createdAt)}</span>
+          {blog.updatedAt && blog.updatedAt !== blog.createdAt && (
+            <>
+              <span
+                className="w-1.5 h-1.5 rounded-full inline-block"
+                style={{ backgroundColor: "var(--new-accent-color, #df8804)" }}
+              />
+              <span title="Last updated">Updated {formatDate(blog.updatedAt)}</span>
+            </>
+          )}
           {blog.isPublished === false && (
             <>
               <span
@@ -248,6 +306,19 @@ export default function BlogDetail() {
               </span>
             </>
           )}
+          {(() => {
+            const minutes = getReadingTime(blog);
+            if (!minutes) return null;
+            return (
+              <>
+                <span
+                  className="w-1.5 h-1.5 rounded-full inline-block"
+                  style={{ backgroundColor: "var(--new-accent-color, #df8804)" }}
+                />
+                <span>{minutes} min read</span>
+              </>
+            );
+          })()}
         </div>
 
         {/* Main picture */}
@@ -327,6 +398,31 @@ export default function BlogDetail() {
                 }}
               >
                 #{tag}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* SEO Keywords (from blog.seo.keywords) */}
+        {Array.isArray(blog.seo?.keywords) && blog.seo.keywords.length > 0 && (
+          <div className="mt-4 flex flex-wrap items-center gap-2">
+            <span
+              className="text-[11px] font-bold uppercase tracking-wider"
+              style={{ color: "var(--new-para-text, #aaa4b8)" }}
+            >
+              Topics:
+            </span>
+            {blog.seo.keywords.map((kw) => (
+              <span
+                key={kw}
+                className="text-[10px] font-medium px-2.5 py-0.5 rounded-md"
+                style={{
+                  backgroundColor: "var(--new-bg-color, #f2eafa)",
+                  color: "var(--new-purple-color, #5d27aa)",
+                  border: "1px solid rgba(93,39,170,0.12)",
+                }}
+              >
+                {kw}
               </span>
             ))}
           </div>

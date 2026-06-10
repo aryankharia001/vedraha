@@ -33,6 +33,13 @@ export const DUMMY_BLOGS = [
       "Discover how the ancient practice of Nabhi Chikitsa — navel oiling — works through the body's central healing point to restore balance, digestion and vitality.",
     isPublished: true,
     createdAt: "2025-01-22T10:00:00.000Z",
+    updatedAt: "2025-01-23T10:00:00.000Z",
+    seo: {
+      metaTitle: "Nabhi Therapy: Ancient Healing from Your Core | Vedraha",
+      metaDescription:
+        "Learn the science behind Nabhi Chikitsa — how navel oiling restores digestion, balance, and vitality through your body's central energy point.",
+      keywords: ["nabhi therapy", "navel oiling", "ayurveda", "wellness", "nabhi chikitsa"],
+    },
     subheadings: [
       {
         _id: "sub-1-1",
@@ -74,6 +81,13 @@ export const DUMMY_BLOGS = [
       "A simple 2-minute nightly ritual that Ayurvedic practitioners swear by — and modern dermatologists are now beginning to recommend.",
     isPublished: true,
     createdAt: "2025-01-21T10:00:00.000Z",
+    updatedAt: "2025-01-22T10:00:00.000Z",
+    seo: {
+      metaTitle: "Belly Button Oiling for Skin & Digestion | Vedraha Wellness",
+      metaDescription:
+        "A 2-minute nightly navel oiling ritual that supports skin glow, calmer digestion, and deeper sleep — rooted in classical Ayurveda.",
+      keywords: ["belly button oiling", "nabhi oiling", "skincare", "digestion", "ayurveda"],
+    },
     subheadings: [
       {
         _id: "sub-2-1",
@@ -115,6 +129,13 @@ export const DUMMY_BLOGS = [
       "Modern life pulls us out of balance. Here's how a daily navel practice can gently bring you back — no matter your dominant dosha.",
     isPublished: true,
     createdAt: "2025-01-20T10:00:00.000Z",
+    updatedAt: "2025-01-21T10:00:00.000Z",
+    seo: {
+      metaTitle: "Balancing Doshas with Nabhi Oils | Vedraha Ayurveda",
+      metaDescription:
+        "Understand how a daily navel practice addresses Vata, Pitta, and Kapha imbalances at their energetic root — the manipura chakra.",
+      keywords: ["doshas", "vata", "pitta", "kapha", "ayurveda", "balance", "nabhi oils"],
+    },
     subheadings: [
       {
         _id: "sub-3-1",
@@ -156,6 +177,13 @@ export const DUMMY_BLOGS = [
       "They may look similar in the bottle, but a traditional nabhi oil and a simple coconut oil work in very different ways. Here's how to choose.",
     isPublished: true,
     createdAt: "2025-01-18T10:00:00.000Z",
+    updatedAt: "2025-01-19T10:00:00.000Z",
+    seo: {
+      metaTitle: "Nabhi Oil vs Coconut Oil: What's the Difference? | Vedraha",
+      metaDescription:
+        "Compare traditional nabhi oils with plain coconut oil — learn which works better for skin, digestion, and daily Ayurvedic practice.",
+      keywords: ["nabhi oil", "coconut oil", "herbal oils", "ingredients", "ayurveda"],
+    },
     subheadings: [
       {
         _id: "sub-4-1",
@@ -191,6 +219,13 @@ export const DUMMY_BLOGS = [
       "Tired, bloated, breaking out, can't sleep? Your body may be quietly asking for a return to the basics. Here's what to look for.",
     isPublished: true,
     createdAt: "2025-01-15T10:00:00.000Z",
+    updatedAt: "2025-01-16T10:00:00.000Z",
+    seo: {
+      metaTitle: "5 Signs You Need Nabhi Therapy Reset | Vedraha Wellness",
+      metaDescription:
+        "Fatigue, bloating, skin issues, restless mind, or hormonal shifts — these are your body's signals for a navel reset.",
+      keywords: ["nabhi reset", "signs", "wellness", "self-care", "ayurveda", "healing"],
+    },
     subheadings: [
       {
         _id: "sub-5-1",
@@ -244,6 +279,13 @@ export const DUMMY_BLOGS = [
       "Ayurveda says it takes 21 days to form a habit and 40 days to master it. Here's a week-by-week guide to what to expect when you start a daily nabhi practice.",
     isPublished: true,
     createdAt: "2025-01-10T10:00:00.000Z",
+    updatedAt: "2025-01-12T10:00:00.000Z",
+    seo: {
+      metaTitle: "21-Day Nabhi Challenge: Week-by-Week Guide | Vedraha",
+      metaDescription:
+        "A week-by-week walkthrough of starting a daily nabhi oiling practice — what to expect at day 7, 14, and 21.",
+      keywords: ["21 day challenge", "nabhi ritual", "habit", "ayurveda", "lifestyle"],
+    },
     subheadings: [
       {
         _id: "sub-6-1",

@@ -1,18 +1,29 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import UspBar from "./UspBar";
+
+// Desktop standard banners (1920x1080)
 import banner1 from "../../../../public/hero-img/banner-1.png";
 import banner2 from "../../../../public/hero-img/banner-2.png";
 import banner3 from "../../../../public/hero-img/banner-3.png";
 import banner4 from "../../../../public/hero-img/banner-4.png";
 import banner5 from "../../../../public/hero-img/banner-5.png";
 
+// Mobile-optimized banners (1080x1350 recommended)
+// Replace these template imports with your actual mobile assets paths
+import banner1Mobile from "../../../../public/hero-img/banner-1-mobile.png";
+import banner2Mobile from "../../../../public/hero-img/banner-2-mobile.png";
+import banner3Mobile from "../../../../public/hero-img/banner-3-mobile.png";
+import banner4Mobile from "../../../../public/hero-img/banner-4-mobile.png";
+import banner5Mobile from "../../../../public/hero-img/banner-5-mobile.png";
+
 // ─────────────────────────────────────────────────────────────
 //  SLIDE CONFIGURATION
 // ─────────────────────────────────────────────────────────────
 const slides = [
   {
-    image: banner1,
+    imageDesktop: banner1,
+    imageMobile: banner1Mobile,
     badge: "Joint & Pain Relief",
     headline: ["Move Freely,", "Live Fully."],
     headlineAccentLine: 1,
@@ -25,7 +36,7 @@ const slides = [
       headlineAccent:  "var(--color-white)",
       divider:         "var(--color)",
       badgeBg:         "var(--color-2)",
-      badgeBorder:     "var(--color)",
+      badgeBorder:     "rgba(168, 19, 19, 0.45)", // Manually set premium tinted border
       pillBg:          "var(--color-2)",
       pillBorder:      "rgba(168, 19, 19, 0.404)",
       ctaBg:           "var(--color)",
@@ -34,7 +45,8 @@ const slides = [
     },
   },
   {
-    image: banner2,
+    imageDesktop: banner2,
+    imageMobile: banner2Mobile,
     badge: "Sleep & Stress Relief",
     headline: ["Sleep Better,", "Wake Refreshed."],
     headlineAccentLine: 1,
@@ -56,7 +68,8 @@ const slides = [
     },
   },
   {
-    image: banner3,
+    imageDesktop: banner3,
+    imageMobile: banner3Mobile,
     badge: "Digestion & Detox Wellness",
     headline: ["Happy Gut,", "Happier You."],
     headlineAccentLine: 1,
@@ -78,7 +91,8 @@ const slides = [
     },
   },
   {
-    image: banner4,
+    imageDesktop: banner4,
+    imageMobile: banner4Mobile,
     badge: "Vision & Eyecare Care",
     headline: ["Clear Vision,", "Bright Eyes."],
     headlineAccentLine: 1,
@@ -100,27 +114,28 @@ const slides = [
     },
   },
   {
-  image: banner5,
-  badge: "Complete Wellness Bundle",
-  headline: ["Total Harmony,", "One Routine."],
-  headlineAccentLine: 1,
-  subtext:
-    "Premium navel oil collection designed to balance your digestion, sleep, joint health, and energy pathways simultaneously.",
-  features: ["All 6 Specialist Formulas", "Full-Body Rejuvenation", "100% Pure & Ayurvedic"],
-  cta: { label: "Shop The Complete Kit", href: "/products" },
-  colors: {
-    text:            "var(--color-white)",
-    headlineAccent:  "var(--color-white)",
-    divider:         "#2b66a0",
-    badgeBg:         "rgba(43, 102, 160, 0.08)",
-    badgeBorder:     "rgba(43, 102, 160, 0.22)",
-    pillBg:          "rgba(43, 102, 160, 0.05)",
-    pillBorder:      "rgba(43, 102, 160, 0.15)",
-    ctaBg:           "#2b66a0",
-    ctaText:         "#ffffff",
-    overlay:         "linear-gradient(to right,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.25) 45%,transparent 70%)",
+    imageDesktop: banner5, // Replace with your hair care desktop banner asset
+    imageMobile: banner5Mobile, // Replace with your hair care mobile banner asset
+    badge: "Hair & Scalp Care",
+    headline: ["Nourish Roots,", "Revitalize Hair."],
+    headlineAccentLine: 1,
+    subtext:
+      "Deeply penetrating Ayurvedic Nabhi oil formulated to stimulate hair follicles from the core, reduce hair fall, and promote thick, lustrous growth.",
+    features: ["Controls Hair Fall", "Stimulates New Growth", "Nourishes From Roots"],
+    cta: { label: "Shop Hair Oil", href: "/products/nabhi-hair-en" },
+    colors: {
+      text:            "var(--color-white)",
+      headlineAccent:  "var(--color-white)",
+      divider:         "#2d5a27", // Elegant gold accent line for hair wellness
+      badgeBg:         "rgba(212, 175, 55, 0.08)",
+      badgeBorder:     "rgba(212, 175, 55, 0.22)",
+      pillBg:          "rgba(212, 175, 55, 0.05)",
+      pillBorder:      "rgba(212, 175, 55, 0.15)",
+      ctaBg:           "#2d5a27", // Rich golden-amber tone for the CTA button
+      ctaText:         "#ffffff",
+      overlay:         "linear-gradient(to right,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.25) 45%,transparent 70%)",
+    },
   },
-},
 ];
 
 // ── Feature icons ─────────────────────────────────────────────
@@ -196,19 +211,24 @@ const HeroSection = () => {
           .anim-6 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.48s; }
         `}</style>
 
-        {/* ── Image strip ── */}
+        {/* ── Image strip with Responsive Picture Tag ── */}
         <div
           className="flex h-full will-change-transform transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.18,1)]"
           style={{ transform: `translateX(-${activeSlide * 100}%)` }}
         >
           {slides.map((s, i) => (
             <div key={i} className="relative min-w-full w-full h-full shrink-0">
-              <img
-                src={s.image}
-                alt={`Slide ${i + 1}`}
-                className="absolute inset-0 w-full h-full object-cover object-center"
-                loading={i === 0 ? "eager" : "lazy"}
-              />
+              <picture>
+                {/* When device width is under 768px (Mobile), swap to imageMobile source */}
+                <source media="(max-width: 767px)" srcSet={s.imageMobile} />
+                {/* Fallback & Desktop standard default source */}
+                <img
+                  src={s.imageDesktop}
+                  alt={`Slide ${i + 1}`}
+                  className="absolute inset-0 w-full h-full object-cover object-center"
+                  loading={i === 0 ? "eager" : "lazy"}
+                />
+              </picture>
             </div>
           ))}
         </div>
