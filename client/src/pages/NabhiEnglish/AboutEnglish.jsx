@@ -32,7 +32,7 @@ export default function AboutEnglish() {
   return (
     <>
       <style>{inlineStyles}</style>
-      <div className="vd-bg-root vd-font-serif min-h-screen text-[#1a1230] px-6 pt-[100px] pb-6">
+      <div className="vd-bg-root vd-font-serif min-h-screen text-[var(--color-black)] px-6 pt-[100px] pb-6">
         {/* Maximum inner canvas constraint restored to 1060px */}
         <div className="max-w-[1240px] mx-auto flex flex-col gap-4">
 
@@ -59,7 +59,7 @@ export default function AboutEnglish() {
                     "Nightly Navel Application",
                     "Nabhi Chikitsa Rooted",
                   ].map((item) => (
-                    <div key={item} className="text-[14px] text-[#4a3d6a] flex items-center gap-2.5 font-medium">
+                    <div key={item} className="text-[14px] text-[var(--new-para-text)] flex items-center gap-2.5 font-medium">
                       <span className="w-1.5 h-1.5 vd-bg-purple rounded-full flex-shrink-0" />
                       {item}
                     </div>
@@ -78,7 +78,7 @@ export default function AboutEnglish() {
               {/* Center Column — Featured product showcase */}
               <div>
                 <ImagePlaceholder src="/product-1-about.png" alt="Deep Sleep Nabhi Oil" height={230} />
-                <div className="bg-[#1a1230] rounded-xl p-[14px_18px] mt-3 flex items-center justify-between">
+                <div className="bg-[var(--color-black)] rounded-xl p-[14px_18px] mt-3 flex items-center justify-between">
                   <span className="text-[12px] text-[#e9e3f5] font-medium vd-font-serif">
                     Navel Therapy — Ancient &amp; Proven
                   </span>
@@ -97,7 +97,7 @@ export default function AboutEnglish() {
                     <ImagePlaceholder src="/product-4-about.png" alt="Vision & Eyecare Oil" height={105} />
                   </div>
                 </div>
-                <p className="text-[13px] text-[#9c8fc0]">
+                <p className="text-[13px] text-[var(--new-para-text)]">
                   Real results from customers healing through the navel, naturally.
                 </p>
               </div>
@@ -114,10 +114,10 @@ export default function AboutEnglish() {
                 { num: "4.8", label: "average rating" },
               ].map(({ num, label }) => (
                 <div key={label}>
-                  <div className="vd-font-serif text-[42px] font-bold text-[#1a1230] mountaineer-line-height-1">
+                  <div className="vd-font-serif text-[42px] font-bold text-[var(--color-black)] mountaineer-line-height-1">
                     {num}
                   </div>
-                  <div className="text-[12px] text-[#9c8fc0] mt-1.5 uppercase tracking-wider">
+                  <div className="text-[12px] text-[var(--new-para-text)] mt-1.5 uppercase tracking-wider">
                     {label}
                   </div>
                 </div>
@@ -134,7 +134,7 @@ export default function AboutEnglish() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mt-4">
               {/* Left Column */}
               <div>
-                <h2 className="vd-font-serif text-[40px] md:text-[44px] font-medium text-[#1a1230] leading-tight">
+                <h2 className="vd-font-serif text-[40px] md:text-[44px] font-medium text-[var(--color-black)] leading-tight">
                   Why customers choose <span className="vd-font-sans italic vd-text-purple font-medium">Vedraha</span>
                 </h2>
                 <p className="text-[15px] text-black leading-relaxed my-5">
@@ -154,7 +154,7 @@ export default function AboutEnglish() {
                 </div>
 
                 <div>
-                  <h3 className="vd-font-serif text-[22px] font-semibold text-[#1a1230] mb-2">
+                  <h3 className="vd-font-serif text-[22px] font-semibold text-[var(--color-black)] mb-2">
                     Local Herbal Expertise
                   </h3>
                   <p className="text-[15px] text-black leading-relaxed">
@@ -166,13 +166,13 @@ export default function AboutEnglish() {
 
               {/* Right Column */}
               <div className="md:mt-1.5">
-                <p className="vd-font-serif text-[18px] text-[#4a3d6a] italic text-right mb-8">
+                <p className="vd-font-serif text-[18px] text-[var(--new-para-text)] italic text-right mb-8">
                   "Every bottle we make is built on trust, purity, and the
                   age-old tradition of navel healing."
                 </p>
 
                 <div className="mb-7">
-                  <h3 className="vd-font-serif text-[22px] font-semibold text-[#1a1230] mb-2">
+                  <h3 className="vd-font-serif text-[22px] font-semibold text-[var(--color-black)] mb-2">
                     Certified Ayurvedic Formulas
                   </h3>
                   <p className="text-[15px] text-black leading-relaxed">
@@ -182,7 +182,7 @@ export default function AboutEnglish() {
                 </div>
 
                 <div className="mb-8">
-                  <h3 className="vd-font-serif text-[22px] font-semibold text-[#1a1230] mb-2">
+                  <h3 className="vd-font-serif text-[22px] font-semibold text-[var(--color-black)] mb-2">
                     Community &amp; Wellness
                   </h3>
                   <div className="flex my-3.5 pl-2">
@@ -194,7 +194,7 @@ export default function AboutEnglish() {
                     ].map(({ initials, bg }) => (
                       <div
                         key={initials}
-                        className="w-9 h-9 rounded-full border-2 border-white flex items-center justify-center text-[11px] font-bold text-[#4a3d6a] -ml-2.5 first:ml-0"
+                        className="w-9 h-9 rounded-full border-2 border-white flex items-center justify-center text-[11px] font-bold text-[var(--new-para-text)] -ml-2.5 first:ml-0"
                         style={{ background: bg }}
                       >
                         {initials}
@@ -210,10 +210,10 @@ export default function AboutEnglish() {
                 {/* Action-Oriented Cards Segment */}
                 <div className="bg-[#e9e3f5] rounded-2xl p-7 relative min-h-[160px] flex items-center justify-center text-center">
                   <div>
-                    <div className="text-[12px] text-[#9c8fc0] mb-2 uppercase tracking-wider">
+                    <div className="text-[12px] text-[var(--new-para-text)] mb-2 uppercase tracking-wider">
                       Our Product Collection
                     </div>
-                    <div className="vd-font-serif text-[16px] font-semibold text-[#1a1230] mb-3.5">
+                    <div className="vd-font-serif text-[16px] font-semibold text-[var(--color-black)] mb-3.5">
                       Explore all 6+ Nabhi oils for your wellness journey
                     </div>
                     <div className="flex gap-1.5 justify-center mt-2">

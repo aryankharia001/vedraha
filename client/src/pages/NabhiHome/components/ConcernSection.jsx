@@ -162,7 +162,7 @@ export default function ConcernSection() {
 
                     {/* Label */}
                     <span
-                      className="text-center text-[12px] sm:text-[13px] font-bold leading-tight transition-colors duration-200 break-words max-w-full text-[var(--new-heading-text)] group-hover:text-white"
+                      className="text-center text-[12px] sm:text-[13px] font-bold leading-tight transition-colors duration-200 break-words max-w-full text-[var(--color-black)] group-hover:text-white"
                       style={{ fontFamily: "var(--font-new-1)" }}
                     >
                       {item.label}

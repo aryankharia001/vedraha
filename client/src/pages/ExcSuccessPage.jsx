@@ -293,7 +293,7 @@ export default function ExcSuccessPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--new-bg-white-color)] text-[#21124c] py-20 px-4 sm:px-6 selection:bg-[#f2eafa]" style={{ fontFamily: "var(--font-new-1)" }}>
+    <div className="min-h-screen bg-[var(--new-bg-white-color)] text-[var(--color-black)] py-20 px-4 sm:px-6 selection:bg-[#f2eafa]" style={{ fontFamily: "var(--font-new-1)" }}>
       <style>{`
         @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
         .animate-layout { animation: fadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
@@ -304,10 +304,10 @@ export default function ExcSuccessPage() {
         
         {/* ── Top Header Section ── */}
         <div className="flex flex-col items-center text-center pb-8">
-          <div className="w-12 h-12 rounded-full bg-[#5d27aa]/10 flex items-center justify-center text-[#5d27aa] mb-4">
+          <div className="w-12 h-12 rounded-full bg-[var(--new-purple-color)]/10 flex items-center justify-center text-[var(--new-purple-color)] mb-4">
             <FaCheckCircle size={26} />
           </div>
-          <h1 className="text-2xl font-normal tracking-tight text-[#21124c] mb-1">Thank you</h1>
+          <h1 className="text-2xl font-normal tracking-tight text-[var(--color-black)] mb-1">Thank you</h1>
           <p className="text-xl font-medium text-[var(--color-black)] mb-2">Your order has been received</p>
           <p className="text-xs text-[#aaa4b8] max-w-sm">You will receive an email/SMS notification with updates regarding your delivery details.</p>
         </div>
@@ -318,15 +318,15 @@ export default function ExcSuccessPage() {
           <div className="space-y-2.5 text-xs">
             <div className="flex justify-between items-center text-[#aaa4b8]">
               <span>Order number:</span>
-              <span className="font-semibold text-[#21124c]">{orderId}</span>
+              <span className="font-semibold text-[var(--color-black)]">{orderId}</span>
             </div>
             <div className="flex justify-between items-center text-[#aaa4b8]">
               <span>Date:</span>
-              <span className="font-medium text-[#21124c]">{formattedDate}</span>
+              <span className="font-medium text-[var(--color-black)]">{formattedDate}</span>
             </div>
             <div className="flex justify-between items-center text-[#aaa4b8] pb-2.5 border-b border-dashed border-[#aaa4b8]/20">
               <span>Payment method:</span>
-              <span className="font-medium text-[#21124c]">{payment}</span>
+              <span className="font-medium text-[var(--color-black)]">{payment}</span>
             </div>
             
             {/* Breakdowns */}
@@ -334,7 +334,7 @@ export default function ExcSuccessPage() {
               {order?.subtotal > 0 && (
                 <div className="flex justify-between items-center text-[#aaa4b8]">
                   <span>Subtotal:</span>
-                  <span className="font-medium text-[#21124c]">₹{Number(order.subtotal).toFixed(2)}</span>
+                  <span className="font-medium text-[var(--color-black)]">₹{Number(order.subtotal).toFixed(2)}</span>
                 </div>
               )}
               {order?.couponDiscount > 0 && (
@@ -342,7 +342,7 @@ export default function ExcSuccessPage() {
                   <span className="flex items-center gap-1">
                     Discount 
                     {order.couponCodes?.length > 0 && (
-                      <span className="bg-[#f2eafa] text-[#5d27aa] text-[9px] px-1 py-0.5 rounded border border-[#5d27aa]/20">
+                      <span className="bg-[#f2eafa] text-[var(--color-black)] text-[9px] px-1 py-0.5 rounded border border-[var(--color-black)]/20">
                         {order.couponCodes.join(", ")}
                       </span>
                     )}
@@ -352,9 +352,9 @@ export default function ExcSuccessPage() {
               )}
               <div className="flex justify-between items-center text-[#aaa4b8]">
                 <span>Shipping cost:</span>
-                <span className="font-medium text-[#21124c]">{order?.shippingCharges > 0 ? `₹${order.shippingCharges}` : "FREE"}</span>
+                <span className="font-medium text-[var(--color-black)]">{order?.shippingCharges > 0 ? `₹${order.shippingCharges}` : "FREE"}</span>
               </div>
-              <div className="flex justify-between items-center pt-2 text-sm font-bold text-[#21124c]">
+              <div className="flex justify-between items-center pt-2 text-sm font-bold text-[var(--color-black)]">
                 <span>Total:</span>
                 <span className="text-sm text-[var(--color-black)] font-bold">{price}</span>
               </div>
@@ -370,9 +370,9 @@ export default function ExcSuccessPage() {
               order.items.map((item, idx) => (
                 <div key={idx} className="flex justify-between items-start text-xs pb-3 border-b border-[#aaa4b8]/15 last:border-0 last:pb-0">
                   <div>
-                    <p className="font-bold text-[#21124c]">{item.name || "Nabhi Amrit Product"}</p>
+                    <p className="font-bold text-[var(--color-black)]">{item.name || "Nabhi Amrit Product"}</p>
                     <p className="text-[11px] text-[#aaa4b8] mt-0.5">Qty: {item.quantity || 1} {item.variant_id ? `· (${item.variant_id})` : ""}</p>
-                    <p className="text-[11px] text-[#5d27aa] font-medium mt-1 flex items-center gap-1"><FaLeaf size={8}/> Authentic Ayurvedic Package</p>
+                    <p className="text-[11px] text-[var(--color-black)] font-medium mt-1 flex items-center gap-1"><FaLeaf size={8}/> Authentic Ayurvedic Package</p>
                   </div>
                   <span className="font-bold text-[var(--color-black)]">₹{Number(item.price || priceNum).toFixed(2)}</span>
                 </div>
@@ -380,9 +380,9 @@ export default function ExcSuccessPage() {
             ) : (
               <div className="flex justify-between items-start text-xs">
                 <div>
-                  <p className="font-bold text-[#21124c]">Nabhi Amrit — {product}</p>
+                  <p className="font-bold text-[var(--color-black)]">Nabhi Amrit — {product}</p>
                   <p className="text-[11px] text-[#aaa4b8] mt-0.5">Qty: {order?.qty || 1}</p>
-                  <p className="text-[11px] text-[#5d27aa] font-medium mt-1 flex items-center gap-1"><FaLeaf size={8}/> 100% Ayurvedic Oil Package</p>
+                  <p className="text-[11px] text-[var(--color-black)] font-medium mt-1 flex items-center gap-1"><FaLeaf size={8}/> 100% Ayurvedic Oil Package</p>
                 </div>
                 <span className="font-bold text-[var(--color-black)]">{price}</span>
               </div>
@@ -398,7 +398,7 @@ export default function ExcSuccessPage() {
             <div className="space-y-3">
               <div>
                 <p className="text-[11px] font-bold text-[#aaa4b8] uppercase tracking-wider mb-1">Contact</p>
-                <p className="text-[#21124c] font-medium break-all">{email}</p>
+                <p className="text-[var(--color-black)] font-medium break-all">{email}</p>
                 <p className="text-[#aaa4b8] text-[11px] mt-0.5">{phone}</p>
               </div>
               {isCOD && (
@@ -412,10 +412,10 @@ export default function ExcSuccessPage() {
             {/* Column 2: Billing / Delivery address */}
             <div>
               <p className="text-[11px] font-bold text-[#aaa4b8] uppercase tracking-wider mb-1">Billing & Delivery address</p>
-              <div className="text-[#21124c] font-medium leading-relaxed">
+              <div className="text-[var(--color-black)] font-medium leading-relaxed">
                 <p className="text-[var(--color-black)] font-bold">{name}</p>
                 <p className="text-[#aaa4b8] mt-1 text-[11px]">{fullAddress || "—"}</p>
-                <span className="inline-flex bg-[#5d27aa]/10 text-[#5d27aa] text-[10px] font-bold px-2 py-0.5 rounded border border-[#5d27aa]/20 mt-2.5">
+                <span className="inline-flex bg-[var(--color-black)]/10 text-[var(--color-black)] text-[10px] font-bold px-2 py-0.5 rounded border border-[var(--color-black)]/20 mt-2.5">
                   Expected: {edd !== "5–7 business days" ? edd : "5-7 days"}
                 </span>
               </div>
@@ -427,7 +427,7 @@ export default function ExcSuccessPage() {
         <div className="pt-6 border-t border-[#aaa4b8]/30 flex flex-col sm:flex-row gap-3">
           <button
             onClick={() => navigate("/my-orders-en")}
-            className="flex-1 border border-[#aaa4b8]/30 bg-white text-[#21124c] rounded-lg py-3 text-xs font-bold hover:bg-[#fafafa] active:scale-[0.99] transition-all flex items-center justify-center gap-2 shadow-xs"
+            className="flex-1 border border-[#aaa4b8]/30 bg-white text-[var(--color-black)] rounded-lg py-3 text-xs font-bold hover:bg-[#fafafa] active:scale-[0.99] transition-all flex items-center justify-center gap-2 shadow-xs"
           >
             <FaBoxOpen size={12} />
             View My Orders

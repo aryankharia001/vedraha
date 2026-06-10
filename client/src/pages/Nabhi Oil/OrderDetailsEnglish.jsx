@@ -4,7 +4,7 @@
  *
  * Restyled to match MyOrdersEnglish design system:
  * - Font: Open Sans body, Times New Roman headings
- * - Colors: #21124c text, #aaa4b8 muted, var(--color-black) / #5d27aa accent
+ * - Colors: var(--color-black) text, #aaa4b8 muted, var(--color-black) / #5d27aa accent
  * - Cards: bg-white border-[#aaa4b8]/30 rounded-xl
  * - Badges: colored bg-*/
 /*10 pills matching STATUS_META / PAY_META from reference
@@ -104,7 +104,7 @@ function InfoRow({ label, labelIcon, value, valueClassName = "", last = false })
         {labelIcon && <span className="opacity-70">{labelIcon}</span>}
         {label}
       </span>
-      <span className={`font-semibold text-[#21124c] text-right leading-relaxed ${valueClassName}`}>
+      <span className={`font-semibold text-[var(--color-black)] text-right leading-relaxed ${valueClassName}`}>
         {value}
       </span>
     </div>
@@ -264,14 +264,14 @@ export default function OrderDetailEnglish() {
         <div className="w-full max-w-[1060px] mx-auto px-4 sm:px-6 pt-12 mt-12">
           <button
             onClick={() => navigate("/my-orders-en")}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-[#aaa4b8]/40 text-[#21124c] rounded-md text-sm font-medium shadow-xs hover:bg-[#fafafa] transition-all duration-200 mb-8 cursor-pointer"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-[#aaa4b8]/40 text-[var(--color-black)] rounded-md text-sm font-medium shadow-xs hover:bg-[#fafafa] transition-all duration-200 mb-8 cursor-pointer"
           >
             <ArrowLeft size={14} className="text-[var(--color-black)]" /> Back to My Orders
           </button>
           <AnimatedSection delay={100}>
             <div className="flex flex-col items-center justify-center py-24 px-4 bg-white rounded-xl border border-[#aaa4b8]/30 text-center">
               <span className="text-5xl mb-4">🔍</span>
-              <h2 className="text-xl font-medium text-[#21124c] mb-2 font-[var(--font-new-2)]">Order Not Found</h2>
+              <h2 className="text-xl font-medium text-[var(--color-black)] mb-2 font-[var(--font-new-2)]">Order Not Found</h2>
               <p className="text-sm text-[#aaa4b8] max-w-xs">
                 {error || "We couldn't find this order."}
               </p>
@@ -338,15 +338,15 @@ export default function OrderDetailEnglish() {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => navigate("/my-orders-en")}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-[#aaa4b8]/40 text-[#21124c] rounded-md text-sm font-medium shadow-xs hover:bg-[#fafafa] transition-all duration-200 cursor-pointer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-[#aaa4b8]/40 text-[var(--color-black)] rounded-md text-sm font-medium shadow-xs hover:bg-[#fafafa] transition-all duration-200 cursor-pointer"
               >
                 <ArrowLeft size={14} className="text-[var(--color-black)]" />
                 <span>My Orders</span>
               </button>
               <span className="text-[#aaa4b8] text-sm">/</span>
-              <h1 className="text-2xl sm:text-3xl font-medium text-[#21124c] tracking-tight font-[var(--font-new-2)]"
+              <h1 className="text-2xl sm:text-3xl font-medium text-[var(--color-black)] tracking-tight font-[var(--font-new-2)]"
                 style={{ fontFamily: "var(--font-new-1)" }}>
-                Order <span className="italic" style={{ fontFamily: "var(--font-new-2)" }}>Details</span>
+                Order <span className="italic" style={{ fontFamily: "var(--font-new-2)",color:"var(--new-primary-color)" }}>Details</span>
               </h1>
             </div>
 
@@ -362,10 +362,10 @@ export default function OrderDetailEnglish() {
         <AnimatedSection delay={50}>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-1 text-[13px] text-[#aaa4b8] mb-8">
             <span>
-              Order <span className="font-bold text-[#21124c]">#{order.orderId}</span>
+              Order <span className="font-bold text-[var(--color-black)]">#{order.orderId}</span>
             </span>
             <span>·</span>
-            <span>Placed on <span className="font-medium text-[#21124c]">{fmtDate(order.createdAt)}</span></span>
+            <span>Placed on <span className="font-medium text-[var(--color-black)]">{fmtDate(order.createdAt)}</span></span>
           </div>
         </AnimatedSection>
 
@@ -378,7 +378,7 @@ export default function OrderDetailEnglish() {
             {/* Product */}
             <SectionCard header="Product" icon={<Package size={11} />} delay={80}>
               <div className="px-6 py-5">
-                <h3 className="text-[17px] font-semibold text-[#21124c] leading-snug mb-3 font-[var(--font-new-2)]">
+                <h3 className="text-[17px] font-semibold text-[var(--color-black)] leading-snug mb-3 font-[var(--font-new-2)]">
                   {productName}
                 </h3>
                 {/* Image */}
@@ -467,7 +467,7 @@ export default function OrderDetailEnglish() {
               <InfoRow
                 label="Shipping Cost"
                 value={
-                  <span className={shippingCost === 0 ? "text-[var(--color-black)] font-bold" : "text-[#21124c] font-semibold"}>
+                  <span className={shippingCost === 0 ? "text-[var(--color-black)] font-bold" : "text-[var(--color-black)] font-semibold"}>
                     {shippingCost === 0 ? "FREE" : fmtPrice(shippingCost)}
                   </span>
                 }
@@ -502,7 +502,7 @@ export default function OrderDetailEnglish() {
               )}
               {/* Total row */}
               <div className="flex items-center justify-between px-6 py-4 bg-[#f2eafa] border-t-2 border-[var(--color-black)]/20">
-                <span className="text-sm font-bold text-[#21124c] font-[var(--font-new-1)]">Order Total</span>
+                <span className="text-sm font-bold text-[var(--color-black)] font-[var(--font-new-1)]">Order Total</span>
                 <span className="text-xl font-bold text-[var(--color-black)] font-[var(--font-new-2)]">
                   {fmtPrice(totalAmt)}
                 </span>
@@ -563,7 +563,7 @@ export default function OrderDetailEnglish() {
                           <div className={`pb-5 flex-1 ${isLast ? "pb-0" : ""}`}>
                             <div className="flex items-center gap-2">
                               <p className={`text-[13px] font-semibold transition-colors duration-200 ${
-                                isDone ? "text-[#21124c]" : "text-[#aaa4b8]"
+                                isDone ? "text-[var(--color-black)]" : "text-[#aaa4b8]"
                               } ${isCurrent ? "font-bold" : ""}`}>
                                 {meta.label}
                               </p>
@@ -593,7 +593,7 @@ export default function OrderDetailEnglish() {
           <p className="text-center mt-8 text-[#aaa4b8] text-xs leading-relaxed">
             <BadgeCheck size={12} className="inline mr-1 text-[var(--color-black)] align-middle" />
             Need help? Contact us with your Order ID:{" "}
-            <strong className="text-[#21124c]">#{order.orderId}</strong>
+            <strong className="text-[var(--color-black)]">#{order.orderId}</strong>
           </p>
         </AnimatedSection>
 

@@ -258,7 +258,7 @@ export default function TestimonialCarousel() {
           onClick={() => handleNavClick(handleNext)}
           className="relative lg:absolute lg:right-4 xl:right-12 lg:top-1/2 lg:-translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all duration-200 shadow-md hover:scale-105 hover:brightness-105 active:scale-95 z-20"
           style={{
-            backgroundColor: "var(--color-primary, #184b24)",
+            backgroundColor: "var(--new-color-primary, #184b24)",
             color: "#ffffff",
           }}
           aria-label="Next Testimonial"

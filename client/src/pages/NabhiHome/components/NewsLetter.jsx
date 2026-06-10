@@ -69,7 +69,7 @@ export default function NewsLetter() {
             />
             <button
               type="submit"
-              className="flex items-center justify-center gap-2 shrink-0 bg-[var(--new-purple-color)] px-7 py-4 text-[14px] font-extrabold uppercase tracking-widest text-white transition-all duration-300 hover:bg-[#1a083a] active:scale-[0.98] sm:py-0 sm:self-stretch"
+              className="flex items-center justify-center gap-2 shrink-0 bg-[var(--new-purple-color)] px-7 py-4 text-[14px] font-extrabold uppercase tracking-widest text-white transition-all duration-300 hover:bg-[var(--new-purple-color)] active:scale-[0.98] sm:py-0 sm:self-stretch"
               style={{ fontFamily: "var(--font-new-1)" }}
             >
               <span>Subscribe</span>

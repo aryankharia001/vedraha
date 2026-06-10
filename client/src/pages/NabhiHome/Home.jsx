@@ -22,7 +22,7 @@ const Home = ({ lang = "en" }) => {
     <>
       <HeroSection />
 
-      <NewsBlogs/>
+      
 
       <ConcernSection />
 
@@ -38,6 +38,8 @@ const Home = ({ lang = "en" }) => {
       <Ingredients />
 
       <TestimonialCarousel />
+
+      <NewsBlogs/>
 
       <FAQSection />
 

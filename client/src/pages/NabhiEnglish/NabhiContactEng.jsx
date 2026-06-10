@@ -64,6 +64,7 @@ export default function NabhiContactEng() {
     } catch {
       setServerError("Network error. Please check your connection and try again.");
     } finally {
+      loading(false);
       setLoading(false);
     }
   };
@@ -82,35 +83,35 @@ export default function NabhiContactEng() {
   const inputErrBorder = { borderColor: "var(--color)" };
 
   return (
-    <div style={{ fontFamily: "var(--font-new-1)" }}>
+    <div style={{ fontFamily: "var(--font-new-1)" }} className="px-4 sm:px-6">
 
       {/* ══════════════════════ CONTACT SECTION ══════════════════════ */}
       <section
-        className="max-w-[1240px] mx-auto mt-22 px-6 py-16 rounded-3xl"
+        className="max-w-[1240px] mx-auto mt-12 md:mt-22 px-4 sm:px-8 py-10 md:py-16 rounded-2xl md:rounded-3xl"
         style={{ background: "var(--new-bg-color)" }}
       >
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl mb-3">
-          <span
-            style={{
-              fontFamily: "var(--font-new-1)",
-              color: "var(--new-heading-text)",
-            }}
-          >
-            Contact
-          </span>{" "}
-          <em
-            style={{
-              fontFamily: "var(--font-new-2)",
-              fontStyle: "italic",
-              color: "var(--new-purple-color)",
-            }}
-          >
-            Us
-          </em>
-        </h1>
-          <p className="text-sm max-w-md mx-auto" style={{ color: "var(--new-neutral-color)" }}>
+        <div className="text-center mb-10 md:mb-12">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl mb-3">
+            <span
+              style={{
+                fontFamily: "var(--font-new-1)",
+                color: "var(--color-black)",
+              }}
+            >
+              Contact
+            </span>{" "}
+            <em
+              style={{
+                fontFamily: "var(--font-new-2)",
+                fontStyle: "italic",
+                color: "var(--new-purple-color)",
+              }}
+            >
+              Us
+            </em>
+          </h1>
+          <p className="text-xs sm:text-sm max-w-md mx-auto leading-relaxed" style={{ color: "var(--new-neutral-color)" }}>
             We're here to help. Whether you have questions, feedback, or need support, our team is ready to assist you.
           </p>
         </div>
@@ -119,38 +120,44 @@ export default function NabhiContactEng() {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.3fr] gap-10 items-start">
 
           {/* ── LEFT: info ── */}
-          <div>
+          <div className="text-center lg:text-left">
             <h2
-              className="text-4xl md:text-5xl leading-tight mb-8"
-              style={{ fontFamily: "var(--font-new-1)", color: "var(--new-heading-text)" }}
+              className="text-3xl sm:text-4xl md:text-5xl leading-tight mb-6 md:mb-8"
+              style={{ fontFamily: "var(--font-new-1)", color: "var(--color-black)" }}
             >
-              Get in <em style={{ fontStyle: "italic", color: "var(--new-purple-color)",fontFamily: "var(--font-new-2)" }}>touch</em>
+              Get in <em style={{ fontStyle: "italic", color: "var(--new-purple-color)", fontFamily: "var(--font-new-2)" }}>touch</em>
             </h2>
 
-            <div className="space-y-6">
+            <div className="space-y-5 md:space-y-6">
               {[
                 { label: "Email",   val: brand.email },
                 { label: "Phone",   val: brand.phone },
                 { label: "Address", val: "Home With Care\nVedraha" },
               ].map(({ label, val }) => (
                 <div key={label}>
-                  <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "var(--new-neutral-color)" }}>{label}</p>
-                  <p className="font-semibold text-base whitespace-pre-line" style={{ color: "var(--new-para-text)" }}>{val}</p>
+                  <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "var(--new-neutral-color)" }}>{label}</p>
+                  <p className="font-semibold text-sm sm:text-base whitespace-pre-line" style={{ color: "var(--new-para-text)" }}>{val}</p>
                 </div>
               ))}
             </div>
 
             {/* Follow Us */}
-            <div className="mt-10">
-              <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "var(--new-neutral-color)" }}>Follow Us</p>
+            <div className="mt-8 md:mt-10 flex flex-col items-center lg:items-start">
+              <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "var(--new-neutral-color)" }}>Follow Us</p>
               <div className="flex items-center gap-3">
                 {/* YouTube */}
                 <a href="#" aria-label="YouTube" className="w-9 h-9 rounded-full flex items-center justify-center transition-all hover:scale-110"
                   style={{ background: "var(--new-bg-white-color)", border: "1px solid var(--new-neutral-color)" }}>
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
-                    <path d="M22.54 6.42A2.78 2.78 0 0 0 20.6 4.47C18.88 4 12 4 12 4s-6.88 0-8.6.47A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.4 19.53C5.12 20 12 20 12 20s6.88 0 8.6-.47a2.78 2.78 0 0 0 1.94-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" fill="var(--new-primary-color)"/>
-                    <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/>
-                  </svg>
+  <path
+    d="M22.54 6.42A2.78 2.78 0 0 0 20.6 4.47C18.88 4 12 4 12 4s-6.88 0-8.6.47A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.4 19.53C5.12 20 12 20 12 20s6.88 0 8.6-.47a2.78 2.78 0 0 0 1.94-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"
+    fill="var(--new-primary-color)"
+  />
+  <polygon
+    points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"
+    fill="white"
+  />
+</svg>
                 </a>
                 {/* Instagram */}
                 <a href="#" aria-label="Instagram" className="w-9 h-9 rounded-full flex items-center justify-center transition-all hover:scale-110"
@@ -182,7 +189,7 @@ export default function NabhiContactEng() {
 
           {/* ── RIGHT: FORM with glassmorphism bg ── */}
           <div
-            className="rounded-3xl p-7 md:p-9"
+            className="rounded-2xl md:rounded-3xl p-5 sm:p-7 md:p-9 w-full"
             style={{
               background: "linear-gradient(135deg, rgba(248, 243, 255, 0.98) 0%, rgb(245, 245, 245) 100%)",
               border: "1.5px solid rgba(93,39,170,0.13)",
@@ -203,17 +210,17 @@ export default function NabhiContactEng() {
                 <p className="text-sm" style={{ color: "var(--new-neutral-color)" }}>We'll get back to you as soon as possible.</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
 
                 {/* Category dropdown */}
                 <div>
-                  <label className="block text-xs font-semibold mb-1.5 uppercase tracking-wide"
+                  <label className="block text-[10px] sm:text-xs font-semibold mb-1.5 uppercase tracking-wide"
                     style={{ color: "var(--new-neutral-color)" }}>How can we help?</label>
                   <div className="relative">
                     <select
                       value={form.category}
                       onChange={(e) => handleChange("category", e.target.value)}
-                      className="w-full appearance-none rounded-full px-5 py-3 text-sm outline-none transition-all cursor-pointer"
+                      className="w-full appearance-none rounded-full px-4 sm:px-5 py-2.5 sm:py-3 text-sm outline-none transition-all cursor-pointer"
                       style={{
                         ...inputBase,
                         ...(errors.category ? inputErrBorder : {}),
@@ -242,27 +249,27 @@ export default function NabhiContactEng() {
                 {/* Name + Email */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold mb-1.5 uppercase tracking-wide"
+                    <label className="block text-[10px] sm:text-xs font-semibold mb-1.5 uppercase tracking-wide"
                       style={{ color: "var(--new-neutral-color)" }}>Your Name</label>
                     <input
                       type="text"
                       placeholder="Your name"
                       value={form.name}
                       onChange={(e) => handleChange("name", e.target.value)}
-                      className="w-full rounded-full px-5 py-3 text-sm outline-none transition-all"
+                      className="w-full rounded-full px-4 sm:px-5 py-2.5 sm:py-3 text-sm outline-none transition-all"
                       style={{ ...inputBase, ...(errors.name ? inputErrBorder : {}) }}
                     />
                     {errors.name && <p className="text-xs mt-1" style={{ color: "var(--color)" }}>{errors.name}</p>}
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold mb-1.5 uppercase tracking-wide"
+                    <label className="block text-[10px] sm:text-xs font-semibold mb-1.5 uppercase tracking-wide"
                       style={{ color: "var(--new-neutral-color)" }}>Email</label>
                     <input
                       type="email"
                       placeholder="Your email address"
                       value={form.email}
                       onChange={(e) => handleChange("email", e.target.value)}
-                      className="w-full rounded-full px-5 py-3 text-sm outline-none transition-all"
+                      className="w-full rounded-full px-4 sm:px-5 py-2.5 sm:py-3 text-sm outline-none transition-all"
                       style={{ ...inputBase, ...(errors.email ? inputErrBorder : {}) }}
                     />
                     {errors.email && <p className="text-xs mt-1" style={{ color: "var(--color)" }}>{errors.email}</p>}
@@ -271,14 +278,14 @@ export default function NabhiContactEng() {
 
                 {/* Message */}
                 <div>
-                  <label className="block text-xs font-semibold mb-1.5 uppercase tracking-wide"
+                  <label className="block text-[10px] sm:text-xs font-semibold mb-1.5 uppercase tracking-wide"
                     style={{ color: "var(--new-neutral-color)" }}>Message</label>
                   <textarea
-                    rows={5}
+                    rows={4}
                     placeholder="Write something..."
                     value={form.message}
                     onChange={(e) => handleChange("message", e.target.value)}
-                    className="w-full rounded-2xl px-5 py-4 text-sm outline-none resize-none transition-all"
+                    className="w-full rounded-xl sm:rounded-2xl px-4 sm:px-5 py-3 sm:py-4 text-sm outline-none resize-none transition-all"
                     style={{ ...inputBase, ...(errors.message ? inputErrBorder : {}) }}
                   />
                   {errors.message && <p className="text-xs mt-1" style={{ color: "var(--color)" }}>{errors.message}</p>}
@@ -295,10 +302,10 @@ export default function NabhiContactEng() {
                   className="w-full relative overflow-hidden rounded-full text-white font-semibold text-sm tracking-wider transition-all"
                   style={{
                     fontFamily: "var(--font-new-1)",
-                    padding:    "14px 28px",
+                    padding:    "12px 24px",
                     background: loading
                       ? "var(--new-neutral-color)"
-                      : "linear-gradient(135deg, var(--new-primary-color) 0%, var(--new-purple-color) 60%, #7c3aed 100%)",
+                      : "linear-gradient(135deg, var(--new-primary-color) 0%, var(--new-purple-color) 60%, var(--new-primary-color) 100%)",
                     boxShadow: loading
                       ? "none"
                       : "0 6px 24px rgba(53,16,95,0.35), 0 1px 0 rgba(255,255,255,0.12) inset",
@@ -347,7 +354,7 @@ export default function NabhiContactEng() {
 
       {/* ══════════════════════ CTA BANNER SECTION ══════════════════════ */}
       <section
-        className="max-w-[1240px] mx-auto mt-8 mb-16 rounded-3xl overflow-hidden relative"
+        className="max-w-[1240px] mx-auto mt-8 mb-16 rounded-2xl md:rounded-3xl overflow-hidden relative"
         style={{ background: "var(--new-primary-color)", minHeight: "260px" }}
       >
         <div className="absolute inset-0 pointer-events-none"
@@ -355,20 +362,20 @@ export default function NabhiContactEng() {
         <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full pointer-events-none" style={{ background: "rgba(255,255,255,0.05)" }}/>
         <div className="absolute -bottom-16 right-32 w-48 h-48 rounded-full pointer-events-none" style={{ background: "rgba(255,255,255,0.04)" }}/>
 
-        <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8 px-10 py-14">
+        <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8 px-6 sm:px-10 py-10 md:py-14 text-center lg:text-left">
           <div className="max-w-lg">
-            <h2 className="text-3xl md:text-4xl leading-tight mb-4 text-white" style={{ fontFamily: "var(--font-new-2)" }}>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl leading-tight mb-4 text-white" style={{ fontFamily: "var(--font-new-2)" }}>
               Ready to Experience <br />
               <em style={{ fontStyle: "italic", color: "var(--new-accent-color)" }}>Holistic Wellness</em> at Home?
             </h2>
-            <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
+            <p className="text-xs sm:text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
               Explore our trusted Ayurvedic care services. Start your wellness journey with Home With Care · Vedraha today!
             </p>
           </div>
 
-          <div className="flex flex-col items-center gap-5 shrink-0">
+          <div className="flex flex-col sm:flex-row lg:flex-col items-center gap-5 shrink-0 w-full sm:w-auto justify-center">
             {/* Decorative card */}
-            <div className="w-64 rounded-2xl p-5 relative overflow-hidden"
+            <div className="w-64 rounded-2xl p-5 relative overflow-hidden text-left"
               style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.18)", backdropFilter: "blur(8px)" }}>
               <div className="flex items-center justify-between mb-6">
                 <div>
@@ -390,9 +397,9 @@ export default function NabhiContactEng() {
               <p className="text-xs tracking-widest text-white opacity-50">WELLNESS · CARE</p>
             </div>
 
-            <a href="#" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm transition-all hover:scale-105"
+            <a href="#" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-sm transition-all hover:scale-105 w-full sm:w-auto"
               style={{ background: "var(--new-bg-white-color)", color: "var(--new-primary-color)", fontFamily: "var(--font-new-1)", boxShadow: "0 4px 20px rgba(0,0,0,0.18)" }}>
-              Book a Consultation
+              <span>Book a Consultation</span>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
               </svg>

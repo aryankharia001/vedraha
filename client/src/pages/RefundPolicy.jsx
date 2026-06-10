@@ -4,7 +4,7 @@
  * Fully Tailwind, matching MyOrdersEnglish exactly:
  * - font-[var(--font-new-1)] body  ·  var(--font-new-2) display / headings
  * - var(--color-black), var(--new-purple-color), var(--new-bg-white-color) from index.css
- * - #21124c primary text  ·  #aaa4b8 muted  ·  #f2eafa purple-tint surface
+ * - var(--color-black) primary text  ·  #aaa4b8 muted  ·  #f2eafa purple-tint surface
  * - bg-white border border-[#aaa4b8]/30 rounded-xl shadow-xs cards
  * - <style> only for @keyframes — everything else Tailwind
  * - All content unchanged
@@ -62,7 +62,7 @@ function SH({ num, title }) {
         {num}
       </span>
       <h2
-        className="text-[19px] font-medium text-[#21124c] tracking-tight"
+        className="text-[19px] font-medium text-[var(--color-black)] tracking-tight"
         style={{ fontFamily: "var(--font-new-2)" }}
       >
         {title}
@@ -87,7 +87,7 @@ function PList({ items }) {
       {items.map((item, i) => (
         <li
           key={i}
-          className={`flex gap-2.5 py-2.5 text-[13.5px] text-[#6b6080] leading-relaxed font-[var(--font-new-1)] ${
+          className={`flex gap-2.5 py-2.5 text-[13.5px] text-[var(--new-para-text)] leading-relaxed font-[var(--font-new-1)] ${
             i < items.length - 1 ? "border-b border-[#aaa4b8]/20" : ""
           }`}
         >
@@ -122,7 +122,7 @@ export default function PolicyPage() {
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <div className="min-h-screen bg-[var(--new-bg-white-color)] pb-24 text-[#21124c] font-[var(--font-new-1)] antialiased px-[1rem]">
+    <div className="min-h-screen bg-[var(--new-bg-white-color)] pb-24 text-[var(--color-black)] font-[var(--font-new-1)] antialiased px-[1rem]">
 
       {/* Only keyframes live here — no other CSS */}
       <style>{`
@@ -149,9 +149,9 @@ export default function PolicyPage() {
               <p className="text-[11px] font-bold text-[#aaa4b8] tracking-widest uppercase mb-1 font-[var(--font-new-1)]">
                 | Vedraha · Legal
               </p>
-              <h1 className="text-3xl font-medium text-[#21124c] tracking-tight font-[var(--font-new-1)]">
+              <h1 className="text-3xl font-medium text-[var(--color-black)] tracking-tight font-[var(--font-new-1)]">
                 Refund &amp;{" "}
-                <span className="italic" style={{ fontFamily: "var(--font-new-2)" }}>Cancellation</span>
+                <span className="italic" style={{ fontFamily: "var(--font-new-2)",color:"var(--new-purple-color)" }}>Cancellation</span>
                 {" "}Policy
               </h1>
               <p className="text-xs text-[#aaa4b8] mt-1.5 font-[var(--font-new-1)]">
@@ -173,7 +173,7 @@ export default function PolicyPage() {
                 <p className="text-[10.5px] font-bold text-[#aaa4b8] tracking-widest uppercase mb-2 font-[var(--font-new-1)]">
                   {c.title}
                 </p>
-                <p className="text-[13px] text-[#21124c] leading-relaxed font-[var(--font-new-1)]">{c.body}</p>
+                <p className="text-[13px] text-[var(--color-black)] leading-relaxed font-[var(--font-new-1)]">{c.body}</p>
               </div>
             ))}
           </div>
@@ -198,7 +198,7 @@ export default function PolicyPage() {
                     <span className="text-[11px] font-bold text-[#aaa4b8]/50 min-w-[22px] font-[var(--font-new-1)]">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="text-[13px] text-[#21124c] group-hover:text-[var(--new-purple-color)] transition-colors duration-150 font-[var(--font-new-1)]">
+                    <span className="text-[13px] text-[var(--color-black)] group-hover:text-[var(--new-purple-color)] transition-colors duration-150 font-[var(--font-new-1)]">
                       {item}
                     </span>
                   </li>
@@ -212,7 +212,7 @@ export default function PolicyPage() {
         <AnimatedSection delay={140}>
           <section className="mb-10" id="s1">
             <SH num={1} title="Understanding Token Payments" />
-            <p className="text-[14px] text-[#6b6080] leading-[1.85] mb-3 font-[var(--font-new-1)]">
+            <p className="text-[14px] text-[var(--new-para-text)] leading-[1.85] mb-3 font-[var(--font-new-1)]">
               When you book a session, you pay a token amount to confirm your booking. Here is what you need to know:
             </p>
             <PList items={[
@@ -230,16 +230,16 @@ export default function PolicyPage() {
         <AnimatedSection delay={160}>
           <section className="mb-10" id="s2">
             <SH num={2} title="When You Are Eligible for a Refund" />
-            <p className="text-[14px] text-[#6b6080] leading-[1.85] mb-3 font-[var(--font-new-1)]">
+            <p className="text-[14px] text-[var(--new-para-text)] leading-[1.85] mb-3 font-[var(--font-new-1)]">
               We issue refunds promptly in the following circumstances:
             </p>
             <PList items={[
-              <><strong className="text-[#21124c] font-semibold">We cannot fulfil your session:</strong> You will receive a full refund. No questions asked.</>,
-              <><strong className="text-[#21124c] font-semibold">Duplicate payment:</strong> The duplicate amount will be refunded in full.</>,
-              <><strong className="text-[#21124c] font-semibold">Cancellation 48+ hours before session:</strong> Token refunded minus 2–3% Razorpay gateway fees.</>,
-              <><strong className="text-[#21124c] font-semibold">Technical payment failure:</strong> If your payment failed but was debited, we will investigate and refund in full.</>,
+              <><strong className="text-[var(--color-black)] font-semibold">We cannot fulfil your session:</strong> You will receive a full refund. No questions asked.</>,
+              <><strong className="text-[var(--color-black)] font-semibold">Duplicate payment:</strong> The duplicate amount will be refunded in full.</>,
+              <><strong className="text-[var(--color-black)] font-semibold">Cancellation 48+ hours before session:</strong> Token refunded minus 2–3% Razorpay gateway fees.</>,
+              <><strong className="text-[var(--color-black)] font-semibold">Technical payment failure:</strong> If your payment failed but was debited, we will investigate and refund in full.</>,
             ]} />
-            <p className="text-[14px] text-[#6b6080] leading-[1.85] font-[var(--font-new-1)]">
+            <p className="text-[14px] text-[var(--new-para-text)] leading-[1.85] font-[var(--font-new-1)]">
               Refunds are always returned to the original payment method.
             </p>
           </section>
@@ -251,12 +251,12 @@ export default function PolicyPage() {
           <section className="mb-10" id="s3">
             <SH num={3} title="When Refunds Are Not Issued" />
             <PList items={[
-              <><strong className="text-[#21124c] font-semibold">After reading delivered:</strong> Once your blueprint has been shared, the payment is non-refundable.</>,
-              <><strong className="text-[#21124c] font-semibold">After 1:1 session conducted:</strong> Once a consultation has taken place, in full or in part, no refund is issued.</>,
-              <><strong className="text-[#21124c] font-semibold">Change of mind post-delivery:</strong> Disagreement with insights does not qualify for a refund.</>,
-              <><strong className="text-[#21124c] font-semibold">Cancellation within 48 hours:</strong> Preparation time has already been committed.</>,
-              <><strong className="text-[#21124c] font-semibold">No-show:</strong> If you miss your session without notice, the token is forfeited.</>,
-              <><strong className="text-[#21124c] font-semibold">Partial use:</strong> If you disengage mid-session, no partial refund is issued.</>,
+              <><strong className="text-[var(--color-black)] font-semibold">After reading delivered:</strong> Once your blueprint has been shared, the payment is non-refundable.</>,
+              <><strong className="text-[var(--color-black)] font-semibold">After 1:1 session conducted:</strong> Once a consultation has taken place, in full or in part, no refund is issued.</>,
+              <><strong className="text-[var(--color-black)] font-semibold">Change of mind post-delivery:</strong> Disagreement with insights does not qualify for a refund.</>,
+              <><strong className="text-[var(--color-black)] font-semibold">Cancellation within 48 hours:</strong> Preparation time has already been committed.</>,
+              <><strong className="text-[var(--color-black)] font-semibold">No-show:</strong> If you miss your session without notice, the token is forfeited.</>,
+              <><strong className="text-[var(--color-black)] font-semibold">Partial use:</strong> If you disengage mid-session, no partial refund is issued.</>,
             ]} />
             <Callout>Please ensure you are ready and committed before booking.</Callout>
           </section>
@@ -284,13 +284,13 @@ export default function PolicyPage() {
                 <tbody>
                   {scenarios.map((r, i) => (
                     <tr key={i} className="hover:bg-[#fafafa] transition-colors duration-100">
-                      <td className={`px-5 py-3 text-[#21124c] font-semibold text-[13px] font-[var(--font-new-1)] ${i < scenarios.length - 1 ? "border-b border-[#aaa4b8]/15" : ""}`}>
+                      <td className={`px-5 py-3 text-[var(--color-black)] font-semibold text-[13px] font-[var(--font-new-1)] ${i < scenarios.length - 1 ? "border-b border-[#aaa4b8]/15" : ""}`}>
                         {r.scenario}
                       </td>
                       <td className={`px-5 py-3 ${i < scenarios.length - 1 ? "border-b border-[#aaa4b8]/15" : ""}`}>
                         <Badge status={r.status} label={r.label} />
                       </td>
-                      <td className={`px-5 py-3 text-[#6b6080] text-[13px] leading-relaxed font-[var(--font-new-1)] ${i < scenarios.length - 1 ? "border-b border-[#aaa4b8]/15" : ""}`}>
+                      <td className={`px-5 py-3 text-[var(--new-para-text)] text-[13px] leading-relaxed font-[var(--font-new-1)] ${i < scenarios.length - 1 ? "border-b border-[#aaa4b8]/15" : ""}`}>
                         {r.notes}
                       </td>
                     </tr>
@@ -306,7 +306,7 @@ export default function PolicyPage() {
         <AnimatedSection delay={210}>
           <section className="mb-10" id="s5">
             <SH num={5} title="Cancellation Policy" />
-            <p className="text-[14px] text-[#6b6080] leading-[1.85] mb-5 font-[var(--font-new-1)]">
+            <p className="text-[14px] text-[var(--new-para-text)] leading-[1.85] mb-5 font-[var(--font-new-1)]">
               The refund you receive depends on when you cancel relative to your session:
             </p>
             <div className="border-l-2 border-[#aaa4b8]/30 pl-5 space-y-5">
@@ -322,7 +322,7 @@ export default function PolicyPage() {
                   <p className="text-[11.5px] font-bold text-[var(--new-purple-color)] uppercase tracking-widest mb-1 font-[var(--font-new-1)]">
                     {x.l}
                   </p>
-                  <p className="text-[13.5px] text-[#6b6080] leading-relaxed font-[var(--font-new-1)]">{x.b}</p>
+                  <p className="text-[13.5px] text-[var(--new-para-text)] leading-relaxed font-[var(--font-new-1)]">{x.b}</p>
                 </div>
               ))}
             </div>
@@ -362,8 +362,8 @@ export default function PolicyPage() {
                     <span className="text-[12px] font-bold text-[var(--color-black)] font-[var(--font-new-1)]">{i + 1}</span>
                   </div>
                   <div>
-                    <p className="text-[13.5px] font-semibold text-[#21124c] mb-1 font-[var(--font-new-1)]">{x.t}</p>
-                    <p className="text-[13.5px] text-[#6b6080] leading-relaxed font-[var(--font-new-1)]">{x.b}</p>
+                    <p className="text-[13.5px] font-semibold text-[var(--color-black)] mb-1 font-[var(--font-new-1)]">{x.t}</p>
+                    <p className="text-[13.5px] text-[var(--new-para-text)] leading-relaxed font-[var(--font-new-1)]">{x.b}</p>
                   </div>
                 </div>
               ))}
@@ -396,7 +396,7 @@ export default function PolicyPage() {
                 </div>
               ))}
             </div>
-            <p className="text-[14px] text-[#6b6080] leading-[1.85] font-[var(--font-new-1)]">
+            <p className="text-[14px] text-[var(--new-para-text)] leading-[1.85] font-[var(--font-new-1)]">
               These timelines are set by Razorpay and your bank. If your refund hasn't appeared after 10 business days, contact us and we'll follow up.
             </p>
             <Callout>Refunds are always returned to the original payment method only.</Callout>
@@ -408,7 +408,7 @@ export default function PolicyPage() {
         <AnimatedSection delay={250}>
           <section className="mb-10" id="s9">
             <SH num={9} title="Payment Disputes" />
-            <p className="text-[14px] text-[#6b6080] leading-[1.85] mb-3 font-[var(--font-new-1)]">
+            <p className="text-[14px] text-[var(--new-para-text)] leading-[1.85] mb-3 font-[var(--font-new-1)]">
               Please contact us before raising a chargeback. Most issues are resolved quickly and directly.
             </p>
             <PList items={[
@@ -425,7 +425,7 @@ export default function PolicyPage() {
         <AnimatedSection delay={260}>
           <section className="mb-10" id="s10">
             <SH num={10} title="Changes to This Policy" />
-            <p className="text-[14px] text-[#6b6080] leading-[1.85] font-[var(--font-new-1)]">
+            <p className="text-[14px] text-[var(--new-para-text)] leading-[1.85] font-[var(--font-new-1)]">
               We may update this policy at any time. Changes take effect immediately upon posting. For bookings made before an update, the policy at time of booking applies.
             </p>
           </section>
@@ -436,7 +436,7 @@ export default function PolicyPage() {
         <AnimatedSection delay={270}>
           <section className="mb-10" id="s11">
             <SH num={11} title="Contact Us" />
-            <p className="text-[14px] text-[#6b6080] leading-[1.85] mb-5 font-[var(--font-new-1)]">
+            <p className="text-[14px] text-[var(--new-para-text)] leading-[1.85] mb-5 font-[var(--font-new-1)]">
               For refund requests, cancellations, or questions, reach out directly. We respond to all refund messages within 2 business days.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -448,8 +448,8 @@ export default function PolicyPage() {
                   <p className="text-[10.5px] font-bold text-[#aaa4b8] tracking-widest uppercase mb-2.5 font-[var(--font-new-1)]">
                     {c.lbl}
                   </p>
-                  <p className="text-[14px] font-semibold text-[#21124c] mb-1.5 font-[var(--font-new-1)]">{c.val}</p>
-                  <p className="text-[12.5px] text-[#6b6080] leading-relaxed font-[var(--font-new-1)]">{c.note}</p>
+                  <p className="text-[14px] font-semibold text-[var(--color-black)] mb-1.5 font-[var(--font-new-1)]">{c.val}</p>
+                  <p className="text-[12.5px] text-[var(--new-para-text)] leading-relaxed font-[var(--font-new-1)]">{c.note}</p>
                 </div>
               ))}
             </div>
@@ -461,7 +461,7 @@ export default function PolicyPage() {
           <footer className="border-t border-[#aaa4b8]/30 pt-7 mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 flex-wrap">
             <div>
               <p
-                className="text-[14px] font-medium text-[#21124c]"
+                className="text-[14px] font-medium text-[var(--color-black)]"
                 style={{ fontFamily: "var(--font-new-2)" }}
               >
                 Vedraha

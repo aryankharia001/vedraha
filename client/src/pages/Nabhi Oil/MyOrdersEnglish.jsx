@@ -37,8 +37,8 @@ const saveLocalOrders = (orders) => { try { localStorage.setItem("exc_my_orders"
 const STATUS_META = {
   pending:    { label: "Pending",    color: "text-[#df8804]", bg: "bg-[#df8804]/10", border: "border-[#df8804]/20", icon: <Clock size={12} /> },
   confirmed:  { label: "Confirmed",  color: "text-[var(--color-black)]", bg: "bg-[var(--color-black)]/10", border: "border-[var(--color-black)]/20", icon: <CheckCircle size={12} /> },
-  processing: { label: "Processing", color: "text-[#5d27aa]", bg: "bg-[#5d27aa]/10", border: "border-[#5d27aa]/20", icon: <Package size={12} /> },
-  shipped:    { label: "Shipped",    color: "text-[#5d27aa]", bg: "bg-[#5d27aa]/10", border: "border-[#5d27aa]/20", icon: <Truck size={12} /> },
+  processing: { label: "Processing", color: "text-[var(--new-purple-color)]", bg: "bg-[var(--new-purple-color)]/10", border: "border-[var(--new-purple-color)]/20", icon: <Package size={12} /> },
+  shipped:    { label: "Shipped",    color: "text-[var(--new-purple-color)]", bg: "bg-[var(--new-purple-color)]/10", border: "border-[var(--new-purple-color)]/20", icon: <Truck size={12} /> },
   delivered:  { label: "Delivered",  color: "text-[var(--color-black)]", bg: "bg-[var(--color-black)]/10", border: "border-[var(--color-black)]/20", icon: <BadgeCheck size={12} /> },
   cancelled:  { label: "Cancelled",  color: "text-[#a81313]", bg: "bg-[#a81313]/10", border: "border-[#a81313]/20", icon: <XCircle size={12} /> },
 };
@@ -126,7 +126,7 @@ function EditProfilePanel({ user, token, onUpdated }) {
   };
 
   const inputBase =
-    "w-full px-4 py-3 text-sm border border-[#aaa4b8]/40 rounded-xl bg-[#fafafa] text-[#21124c] outline-none transition-all duration-300 focus:bg-white focus:border-[var(--color-black)] focus:ring-2 focus:ring-[var(--color-black)]/25 font-[var(--font-new-1)]";
+    "w-full px-4 py-3 text-sm border border-[#aaa4b8]/40 rounded-xl bg-[#fafafa] text-[var(--color-black)] outline-none transition-all duration-300 focus:bg-white focus:border-[var(--color-black)] focus:ring-2 focus:ring-[var(--color-black)]/25 font-[var(--font-new-1)]";
 
   return (
     <div className="bg-[#fafafa] border border-[#aaa4b8]/30 rounded-2xl overflow-hidden shadow-xs mb-8 max-w-[1060px] mx-auto">
@@ -139,7 +139,7 @@ function EditProfilePanel({ user, token, onUpdated }) {
             <User size={18} className="text-white" />
           </div>
           <div>
-            <p className="text-sm font-bold text-[#21124c] font-[var(--font-new-1)]">Edit Profile</p>
+            <p className="text-sm font-bold text-[var(--color-black)] font-[var(--font-new-1)]">Edit Profile</p>
             <p className="text-xs text-[#aaa4b8] font-normal">{user?.name || user?.email}</p>
           </div>
         </div>
@@ -236,7 +236,7 @@ function EditProfilePanel({ user, token, onUpdated }) {
           <button
             onClick={handleSave}
             disabled={saving}
-            className="mt-6 inline-flex items-center gap-2.5 px-8 py-3.5 bg-[var(--color-black)] text-white text-sm font-bold rounded-full shadow-md shadow-[var(--color-black)]/20 hover:bg-[#5d27aa] transition-all duration-300 disabled:opacity-60 cursor-pointer"
+            className="mt-6 inline-flex items-center gap-2.5 px-8 py-3.5 bg-[var(--color-black)] text-white text-sm font-bold rounded-full shadow-md shadow-[var(--color-black)]/20 hover:bg-[var(--new-purple-color)] transition-all duration-300 disabled:opacity-60 cursor-pointer"
           >
             {saving ? <Loader2 size={16} className="animate-spin" /> : <CheckCheck size={16} />}
             {saving ? "Saving…" : "Save Changes"}
@@ -458,14 +458,14 @@ export default function MyOrdersEnglish() {
         {/* ── Reference Title Bar Area ── */}
         <AnimatedSection delay={0}>
           <div className="flex items-center justify-between border-b border-[#aaa4b8]/40 pb-4 mb-6">
-            <h1 className="text-3xl font-medium text-[#21124c] tracking-tight"
-            style={{fontFamily:"var(--font-new-1)"}}>Your <span className="italic" style={{fontFamily:"var(--font-new-2)"}}>Orders</span></h1>
+            <h1 className="text-3xl font-medium text-[var(--color-black)] tracking-tight"
+            style={{fontFamily:"var(--font-new-1)"}}>Your <span className="italic" style={{fontFamily:"var(--font-new-2)",color:"var(--new-purple-color)"}}>Orders</span></h1>
             
             <div className="flex items-center gap-3">
               {/* Cart Button */}
               <button
                 onClick={() => setCartOpen(true)}
-                className="relative inline-flex items-center gap-2 px-4 py-2 bg-white border border-[#aaa4b8]/40 text-[#21124c] rounded-md text-sm font-medium shadow-xs hover:bg-[#fafafa] transition-all duration-200 cursor-pointer"
+                className="relative inline-flex items-center gap-2 px-4 py-2 bg-white border border-[#aaa4b8]/40 text-[var(--color-black)] rounded-md text-sm font-medium shadow-xs hover:bg-[#fafafa] transition-all duration-200 cursor-pointer"
               >
                 <ShoppingCart size={16} className="text-[var(--color-black)]" />
                 <span>Cart</span>
@@ -481,7 +481,7 @@ export default function MyOrdersEnglish() {
                 <button
                   onClick={handleRefresh}
                   disabled={refreshing}
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-[#aaa4b8]/40 text-[#21124c] rounded-md text-sm font-medium shadow-xs hover:bg-[#fafafa] cursor-pointer"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-[#aaa4b8]/40 text-[var(--color-black)] rounded-md text-sm font-medium shadow-xs hover:bg-[#fafafa] cursor-pointer"
                 >
                   <RefreshCw size={14} className={refreshing ? "animate-spin text-[var(--color-black)]" : "text-[var(--color-black)]"} />
                   <span>{refreshing ? "Refreshing…" : "Sync Status"}</span>
@@ -494,7 +494,7 @@ export default function MyOrdersEnglish() {
         {/* ── Reference Layout Secondary Filter Controls Navigation ── */}
         <AnimatedSection delay={50}>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-[#aaa4b8]/30 pb-3 mb-6 text-sm">
-            <div className="flex items-center gap-6 text-[#21124c]/80">
+            <div className="flex items-center gap-6 text-[var(--color-black)]/80">
               <button 
                 onClick={() => setActiveTab("all")} 
                 className={`pb-3 relative font-medium transition-colors cursor-pointer ${activeTab === "all" ? "text-[var(--color-black)] border-b-2 border-[var(--color-black)]" : "hover:text-[var(--color-black)]"}`}
@@ -519,7 +519,7 @@ export default function MyOrdersEnglish() {
               <select 
                 value={timeFilter} 
                 onChange={(e) => setTimeFilter(e.target.value)}
-                className="bg-white border border-[#aaa4b8]/50 text-[#21124c] text-xs rounded-md block w-full p-2 outline-none focus:border-[var(--color-black)] cursor-pointer"
+                className="bg-white border border-[#aaa4b8]/50 text-[var(--color-black)] text-xs rounded-md block w-full p-2 outline-none focus:border-[var(--color-black)] cursor-pointer"
               >
                 <option value="3months">Past 3 Months</option>
                 <option value="6months">Past 6 Months</option>
@@ -550,9 +550,9 @@ export default function MyOrdersEnglish() {
             <AnimatedSection delay={150}>
               <div className="flex flex-col items-center justify-center py-24 px-4 bg-white rounded-xl border border-[#aaa4b8]/30 text-center">
                 <Package size={44} className="text-[#aaa4b8] mb-4" />
-                <h2 className="text-xl font-medium text-[#21124c] mb-1 font-[var(--font-new-2)]">No orders found</h2>
+                <h2 className="text-xl font-medium text-[var(--color-black)] mb-1 font-[var(--font-new-2)]">No orders found</h2>
                 <p className="text-sm text-[#aaa4b8] max-w-xs mb-6">No historical transaction records match this display criteria.</p>
-                <button onClick={() => navigate("/products")} className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--color-black)] text-white text-sm font-medium rounded-md hover:bg-[#5d27aa] cursor-pointer">
+                <button onClick={() => navigate("/products")} className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--color-black)] text-white text-sm font-medium rounded-md hover:bg-[var(--new-purple-color)] cursor-pointer">
                   Browse Store <ArrowRight size={15} />
                 </button>
               </div>
@@ -583,23 +583,23 @@ export default function MyOrdersEnglish() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-6 py-4 bg-[#fafafa] border-b border-[#aaa4b8]/30 text-[13px]">
                   <div>
                     <p className="text-[#aaa4b8] text-xs font-normal mb-0.5">Order Date :</p>
-                    <p className="font-medium text-[#21124c]">{fmtDate(order.createdAt || new Date())}</p>
+                    <p className="font-medium text-[var(--color-black)]">{fmtDate(order.createdAt || new Date())}</p>
                   </div>
                   <div>
                     <p className="text-[#aaa4b8] text-xs font-normal mb-0.5">Total Amount :</p>
-                    <p className="font-semibold text-[#21124c]">{fmtPrice(totalAmt)}</p>
+                    <p className="font-semibold text-[var(--color-black)]">{fmtPrice(totalAmt)}</p>
                   </div>
                   <div>
                     <p className="text-[#aaa4b8] text-xs font-normal mb-0.5">Ship To :</p>
                     <p className="font-medium text-[var(--color-black)] truncate max-w-[180px]">{shippingLocation}</p>
                   </div>
                   <div className="col-span-2 md:col-span-1 flex flex-col items-start md:items-end justify-center ml-0 md:ml-auto">
-                    <p className="text-[#21124c] font-normal mb-1.5 text-xs md:text-sm">
+                    <p className="text-[var(--color-black)] font-normal mb-1.5 text-xs md:text-sm">
                       Order : <span className="font-bold">#{order.orderId}</span>
                     </p>
                     <button 
                       onClick={() => navigate(`/order-en/${order.orderId}`)}
-                      className="px-3 py-1 bg-[var(--new-purple-color)] text-white text-xs font-medium rounded-xs hover:bg-[#5d27aa] cursor-pointer"
+                      className="px-3 py-1 bg-[var(--new-purple-color)] text-white text-xs font-medium rounded-xs hover:bg-[var(--new-purple-color)] cursor-pointer"
                     >
                       View Order
                     </button>
@@ -626,7 +626,7 @@ export default function MyOrdersEnglish() {
 
                     {/* Metadata Parameter Rows mapping standard items accurately */}
                     <div className="flex-1 min-w-0">
-                      <h4 className="text-sm font-semibold text-[#21124c] leading-snug mb-1">
+                      <h4 className="text-sm font-semibold text-[var(--color-black)] leading-snug mb-1">
                         {productName}
                       </h4>
                       <p className="text-xs text-[#aaa4b8] mb-3">
@@ -636,7 +636,7 @@ export default function MyOrdersEnglish() {
                       <div className="flex items-center gap-3 text-xs font-medium text-[var(--color-black)]">
                         <button 
                           onClick={() => navigate(`/order-en/${order.orderId}`)} 
-                          className="flex items-center gap-1 hover:text-[#5d27aa] cursor-pointer"
+                          className="flex items-center gap-1 hover:text-[var(--new-purple-color)] cursor-pointer"
                         >
                           <Eye size={13} /> View Product
                         </button>

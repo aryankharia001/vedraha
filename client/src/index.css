@@ -5,19 +5,20 @@
    Nabhi Design System — Enhanced with Depth & Modern Typography
    ═══════════════════════════════════════════════════════════════ */
 :root {
-  --new-primary-color: #35105f;
+  --new-primary-color: #046307;
 
   /* --new-header-bg:#35105f1a; */
   --new-header-bg: rgba(255, 255, 255, 0.664);
 
-  --new-bg-color: #f2eafa;
-  --new-bg-white-color: #fafafa;
+  /* --new-bg-color: #f2eafa; */
+  --new-bg-color: white;
+  --new-bg-white-color: white;
 
   --color: #a81313;
   --color-2: rgba(168, 19, 19, 0.26);
 
   /* text heading */
-  --new-heading-text: #21124c;
+  --new-heading-text: #046307;
   --new-para-text: #b3b3b3;
 
   /* accent color */
@@ -27,7 +28,8 @@
   --new-neutral-color: #aaa4b8;
 
   /* section header accent color */
-  --new-purple-color: #5d27aa;
+  /* --new-purple-color: #5d27aa; */
+  --new-purple-color: #046307;
   --color-black: black;
 
   /* fonts */

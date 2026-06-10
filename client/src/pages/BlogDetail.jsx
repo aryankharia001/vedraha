@@ -20,8 +20,8 @@ const formatDate = (iso) => {
 
 const pickCategory = (blog) =>
   Array.isArray(blog?.categories) && blog.categories.length
-    ? blog.categories[0]
-    : "Wellness";
+    ? blog.categories
+    : ["Wellness"]; // Returns array to render multiple badges if needed, defaults to array
 
 const pickImage = (blog) =>
   blog?.mainPicture?.secureUrl ||
@@ -210,7 +210,6 @@ export default function BlogDetail() {
         fontFamily: "var(--font-new-1)",
       }}
     >
-      {/* Maximum global content width matched perfectly to the footer's 1240px structure */}
       <div className="w-full mx-auto" style={{ maxWidth: "1240px" }}>
         
         {/* Back link */}
@@ -222,183 +221,177 @@ export default function BlogDetail() {
           ← Back to all blogs
         </Link> */}
 
-        {/* Category badge */}
-        <div className="mb-5">
-          <span
-            className="inline-block text-white text-[10px] font-bold px-3 py-1.5 rounded-sm uppercase tracking-widest"
-            style={{
-              backgroundColor: "var(--new-purple-color)",
-            }}
-          >
-            {pickCategory(blog)}
-          </span>
-        </div>
-
-        {/* Title */}
-        <h1
-          className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight mb-5"
-          style={{ color: "var(--color-black)" }}
-        >
-          {blog.title}
-        </h1>
-
-        {/* Meta Information Container */}
-        <div
-          className="flex flex-wrap items-center gap-3 text-xs font-semibold pb-5 mb-8"
-          style={{
-            color: "var(--new-para-text)",
-            borderBottom: "1px solid rgba(0,0,0,0.06)",
-          }}
-        >
-          <span>{blog.creator || "Vedraha Wellness"}</span>
-          <span className="w-1 h-1 rounded-full inline-block bg-current opacity-40" />
-          <span>{formatDate(blog.createdAt)}</span>
+        {/* Core Split Layout From Reference Image */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
-          {blog.updatedAt && blog.updatedAt !== blog.createdAt && (
-            <>
-              <span className="w-1 h-1 rounded-full inline-block bg-current opacity-40" />
-              <span title="Last updated">Updated {formatDate(blog.updatedAt)}</span>
-            </>
-          )}
-          
-          {blog.isPublished === false && (
-            <>
-              <span className="w-1 h-1 rounded-full inline-block bg-current opacity-40" />
-              <span style={{ color: "var(--new-purple-color)" }}>Draft</span>
-            </>
-          )}
-          
-          {(() => {
-            const minutes = getReadingTime(blog);
-            if (!minutes) return null;
-            return (
-              <>
-                <span className="w-1 h-1 rounded-full inline-block bg-current opacity-40" />
-                <span>{minutes} min read</span>
-              </>
-            );
-          })()}
-        </div>
+          {/* Left Column: Title, Feature Image, Content (Spans 8 cols) */}
+          <div className="lg:col-span-8 order-1">
+            
+            {/* Title - Clean, elegant, dark text */}
+            <h1
+              className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight mb-8"
+              style={{ color: "var(--color-black)" }}
+            >
+              {blog.title}
+            </h1>
 
-        {/* Main picture — expands up to the full 1240px framework spacing bounds */}
-        {pickImage(blog) && (
-          <div className="rounded-xl overflow-hidden mb-10 shadow-sm w-full">
-            <img
-              src={pickImage(blog)}
-              alt={blog.title}
-              className="w-full h-auto object-cover max-h-[580px]"
-              loading="lazy"
-            />
+            {/* Main picture — Beautifully rounded clean box */}
+            {pickImage(blog) && (
+              <div className="rounded-2xl overflow-hidden mb-10 w-full bg-gray-50">
+                <img
+                  src={pickImage(blog)}
+                  alt={blog.title}
+                  className="w-full h-auto object-cover max-h-[520px]"
+                  loading="lazy"
+                />
+              </div>
+            )}
+
+            {/* Excerpt */}
+            {blog.excerpt && (
+              <p
+                className="text-base md:text-lg leading-relaxed mb-8 text-gray-600 font-normal"
+                style={{ color: "var(--new-para-text)" }}
+              >
+                {blog.excerpt}
+              </p>
+            )}
+
+            {/* Subheadings / Body Content Blocks */}
+            {Array.isArray(blog.subheadings) && blog.subheadings.length > 0 ? (
+              <div className="space-y-10 mb-14">
+                {blog.subheadings.map((sh, idx) => (
+                  <section key={sh._id || idx} className="space-y-3">
+                    <h2
+                      className="text-xl md:text-2xl font-bold tracking-tight"
+                      style={{ color: "var(--color-black)" }}
+                    >
+                      {idx + 1}. {sh.heading}
+                    </h2>
+                    <div
+                      className="text-sm md:text-base leading-[1.8] whitespace-pre-line font-normal opacity-90"
+                      style={{ color: "var(--new-para-text)" }}
+                    >
+                      {sh.content}
+                    </div>
+                  </section>
+                ))}
+              </div>
+            ) : (
+              <p
+                className="text-sm leading-relaxed mb-14"
+                style={{ color: "var(--new-para-text)" }}
+              >
+                This blog post has no content yet. Check back soon!
+              </p>
+            )}
           </div>
-        )}
 
-        {/* Excerpt */}
-        {blog.excerpt && (
-          <p
-            className="text-lg md:text-xl leading-relaxed mb-10 font-medium italic border-l-2 pl-4 py-1"
-            style={{ 
-              color: "var(--new-para-text)",
-              borderColor: "var(--new-purple-color)"
-            }}
-          >
-            {blog.excerpt}
-          </p>
-        )}
+          {/* Right Column: Sidebar Meta Information (Spans 4 cols) */}
+          <div className="lg:col-span-4 order-2 lg:sticky lg:top-28 space-y-8 lg:pl-4">
+            
+            {/* Category Section */}
+            <div>
+              <h4 className="text-[11px] font-semibold tracking-wider text-gray-400 uppercase mb-2.5">
+                Category
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {pickCategory(blog).map((cat, index) => (
+                  <span
+                    key={index}
+                    className="inline-block text-[11px] font-medium px-3 py-1 rounded-md bg-gray-100 text-gray-700"
+                  >
+                    {cat}
+                  </span>
+                ))}
+              </div>
+            </div>
 
-        {/* Subheadings / Body Content Blocks */}
-        {Array.isArray(blog.subheadings) && blog.subheadings.length > 0 ? (
-          <div className="space-y-10 mb-14">
-            {blog.subheadings.map((sh, idx) => (
-              <section key={sh._id || idx}>
-                <h2
-                  className="text-2xl md:text-3xl font-bold tracking-tight mb-4"
-                  style={{ color: "var(--color-black)" }}
-                >
-                  {sh.heading}
-                </h2>
-                <div
-                  className="text-sm md:text-base leading-[1.85] whitespace-pre-line font-normal"
-                  style={{ color: "var(--new-para-text)" }}
-                >
-                  {sh.content}
+            {/* Written By Section */}
+            <div>
+              <h4 className="text-[11px] font-semibold tracking-wider text-gray-400 uppercase mb-3">
+                Written by
+              </h4>
+              <div className="flex items-center gap-3">
+                {/* Fallback Initial/Avatar circle to match the look */}
+                <div className="w-11 h-11 rounded-full bg-gray-200 overflow-hidden flex items-center justify-center font-bold text-gray-600 text-sm border border-gray-100">
+                  {blog.creator ? blog.creator.charAt(0) : "V"}
                 </div>
-              </section>
-            ))}
-          </div>
-        ) : (
-          <p
-            className="text-sm leading-relaxed mb-14"
-            style={{ color: "var(--new-para-text)" }}
-          >
-            This blog post has no content yet. Check back soon!
-          </p>
-        )}
+                <div>
+                  <h5 className="text-sm font-semibold text-gray-900 leading-tight">
+                    {blog.creator || "Vedraha Wellness"}
+                  </h5>
+                  <p className="text-[11px] text-gray-400 font-medium mt-0.5">
+                    {formatDate(blog.createdAt)} 
+                    {(() => {
+                      const minutes = getReadingTime(blog);
+                      if (!minutes) return null;
+                      return ` • ${minutes} min read`;
+                    })()}
+                  </p>
+                </div>
+              </div>
+            </div>
 
-        {/* Tags Section */}
-        {Array.isArray(blog.tags) && blog.tags.length > 0 && (
-          <div
-            className="mt-12 pt-6 flex flex-wrap items-center gap-2"
-            style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}
-          >
-            <span
-              className="text-[11px] font-bold uppercase tracking-wider mr-1"
-              style={{ color: "var(--new-para-text)" }}
-            >
-              Tags:
-            </span>
-            {blog.tags.map((tag) => (
-              <span
-                key={tag}
-                className="text-[11px] font-bold px-3 py-1 rounded-sm border transition-colors duration-200"
-                style={{
-                  backgroundColor: "transparent",
-                  color: "var(--new-purple-color)",
-                  borderColor: "rgba(93,39,170,0.2)",
-                }}
-              >
-                #{tag}
-              </span>
-            ))}
-          </div>
-        )}
+            {/* Post Metadata details */}
+            <div className="pt-4 border-t border-gray-100 space-y-2 text-[11px] font-medium text-gray-400">
+              {blog.updatedAt && blog.updatedAt !== blog.createdAt && (
+                <p>Last updated: <span className="text-gray-600">{formatDate(blog.updatedAt)}</span></p>
+              )}
+              {blog.isPublished === false && (
+                <p>Status: <span style={{ color: "var(--new-purple-color)" }}>Draft Mode</span></p>
+              )}
+            </div>
 
-        {/* SEO Keywords */}
-        {Array.isArray(blog.seo?.keywords) && blog.seo.keywords.length > 0 && (
-          <div className="mt-4 flex flex-wrap items-center gap-2">
-            <span
-              className="text-[11px] font-bold uppercase tracking-wider mr-1"
-              style={{ color: "var(--new-para-text)" }}
-            >
-              Topics:
-            </span>
-            {blog.seo.keywords.map((kw) => (
-              <span
-                key={kw}
-                className="text-[10px] font-semibold px-2.5 py-0.5 rounded-sm border"
-                style={{
-                  backgroundColor: "rgba(93,39,170,0.03)",
-                  color: "var(--new-purple-color)",
-                  borderColor: "rgba(93,39,170,0.1)",
-                }}
-              >
-                {kw}
-              </span>
-            ))}
+            {/* Tags Section */}
+            {Array.isArray(blog.tags) && blog.tags.length > 0 && (
+              <div className="pt-4 border-t border-gray-100">
+                <h4 className="text-[11px] font-semibold tracking-wider text-gray-400 uppercase mb-2.5">
+                  Tags
+                </h4>
+                <div className="flex flex-wrap gap-1.5">
+                  {blog.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-[11px] font-medium px-2.5 py-0.5 rounded text-gray-500 bg-gray-50 hover:bg-gray-100 cursor-pointer transition-colors"
+                    >
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* SEO Keywords */}
+            {Array.isArray(blog.seo?.keywords) && blog.seo.keywords.length > 0 && (
+              <div className="pt-4 border-t border-gray-100">
+                <h4 className="text-[11px] font-semibold tracking-wider text-gray-400 uppercase mb-2.5">
+                  Topics
+                </h4>
+                <div className="flex flex-wrap gap-1.5">
+                  {blog.seo.keywords.map((kw) => (
+                    <span
+                      key={kw}
+                      className="text-[10px] font-medium px-2 py-0.5 rounded border border-gray-100 text-gray-400"
+                    >
+                      {kw}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
-        )}
+        </div>
 
         {/* Related blogs stack */}
         {related.length > 0 && (
-          <div className="mt-24 border-t pt-14" style={{ borderColor: "rgba(0,0,0,0.06)" }}>
+          <div className="mt-28 border-t pt-14" style={{ borderColor: "rgba(0,0,0,0.06)" }}>
             <h2
-              className="text-2xl font-extrabold tracking-tight mb-8"
+              className="text-2xl font-bold tracking-tight mb-8"
               style={{ color: "var(--color-black)" }}
             >
-              More{" "}
-              <span style={{ color: "var(--new-purple-color)",fontFamily:"var(--font-new-2)" }}>
-                Blogs
-              </span>
-            </h2>
+              Latest insights and trends
+            </h2> 
 
             {/* Grid layout matching footer spacing columns */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-[2rem] md:gap-[2.5rem]">
@@ -408,7 +401,7 @@ export default function BlogDetail() {
                   onClick={() => navigate(`/blogs/${rb._id}`)}
                   className="group flex flex-col cursor-pointer transition-all duration-300"
                 >
-                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg shadow-sm">
+                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl shadow-sm bg-gray-50">
                     <img
                       src={
                         rb.thumbnail?.secureUrl ||
@@ -416,21 +409,19 @@ export default function BlogDetail() {
                         "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=600"
                       }
                       alt={rb.title}
-                      className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-102"
+                      className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                       loading="lazy"
                     />
                     <span
-                      className="absolute bottom-0 left-0 text-white text-[10px] font-bold px-3 py-1 rounded-tr-md z-10 uppercase tracking-wider"
-                      style={{ backgroundColor: "var(--new-purple-color)" }}
+                      className="absolute bottom-3 left-3 text-[10px] font-medium px-2.5 py-1 rounded bg-white text-gray-800 z-10 shadow-sm"
                     >
-                      {pickCategory(rb)}
+                      {Array.isArray(rb.categories) && rb.categories.length ? rb.categories[0] : "Wellness"}
                     </span>
                   </div>
 
                   <div className="pt-4 flex flex-col flex-1">
                     <div
-                      className="flex items-center gap-2 text-xs mb-2 font-semibold"
-                      style={{ color: "var(--new-para-text)" }}
+                      className="flex items-center gap-2 text-[11px] mb-2 font-medium text-gray-400"
                     >
                       <span>{rb.creator || "Vedraha Wellness"}</span>
                       <span className="w-1 h-1 rounded-full inline-block bg-current opacity-40" />
@@ -438,24 +429,21 @@ export default function BlogDetail() {
                     </div>
 
                     <h3
-                      className="text-base font-bold leading-snug mb-2 line-clamp-2 transition-colors group-hover:text-[var(--new-purple-color)]"
-                      style={{ color: "var(--color-black)" }}
+                      className="text-base font-bold leading-snug mb-2 line-clamp-2 text-gray-900 group-hover:text-purple-700 transition-colors"
                     >
                       {rb.title}
                     </h3>
 
                     {rb.excerpt && (
                       <p
-                        className="text-xs leading-relaxed mb-4 line-clamp-2 font-normal"
-                        style={{ color: "var(--new-para-text)" }}
+                        className="text-xs leading-relaxed mb-4 line-clamp-2 font-normal text-gray-500"
                       >
                         {rb.excerpt}
                       </p>
                     )}
 
                     <span
-                      className="text-xs font-bold mt-auto w-fit transition-opacity duration-200 group-hover:opacity-70"
-                      style={{ color: "var(--new-purple-color)" }}
+                      className="text-xs font-semibold mt-auto w-fit text-gray-400 group-hover:text-gray-900 transition-colors"
                     >
                       Read Article →
                     </span>
