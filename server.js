@@ -13,6 +13,7 @@ import contactRoutes from './routes/ContactRoutes.js'
 import fileUpload from 'express-fileupload'    
 import productRoutes from './routes/productRoutes.js'
 import collectionRoutes from './routes/collectionRoutes.js'
+import blogRoutes from './routes/blogRoutes.js'
 
 dotenv.config()
 
@@ -23,6 +24,7 @@ connectDB()
 app.use(cors({
   origin: [
     'http://localhost:5173',
+    'http://localhost:5174',
     'https://yourdomain.com'
   ],
   credentials: true
@@ -45,6 +47,7 @@ app.use('/api/reviews', reviewRoutes)
 app.use('/api/contact', contactRoutes)
 app.use('/api/products', productRoutes)
 app.use('/api/collections', collectionRoutes);
+app.use('/api/blogs', blogRoutes);
 
 // FRONTEND SERVING
 
