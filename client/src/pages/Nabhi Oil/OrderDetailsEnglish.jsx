@@ -10,7 +10,7 @@
 /*10 pills matching STATUS_META / PAY_META from reference
  * - Animations: fade-in-up, same timing
  * - All functionality preserved
- */
+ * */
 
 import React, { useState, useEffect, Suspense } from "react";
 import { useParams, useNavigate } from "react-router-dom";
@@ -33,12 +33,12 @@ function getLocalOrders() {
 
 // ── Status meta — matched to MyOrdersEnglish scheme ───────────────────────
 const STATUS_META = {
-  pending:    { label: "Pending",    color: "text-[#df8804]",              bg: "bg-[#df8804]/10",              border: "border-[#df8804]/20",              icon: <Clock      size={12} /> },
+  pending:    { label: "Pending",    color: "text-[#df8804]",              bg: "bg-[#df8804]/10",              border: "border-[#df8804]/20",              icon: <Clock       size={12} /> },
   confirmed:  { label: "Confirmed",  color: "text-[var(--color-black)]",   bg: "bg-[var(--color-black)]/10",   border: "border-[var(--color-black)]/20",   icon: <CheckCircle size={12} /> },
-  processing: { label: "Processing", color: "text-[#5d27aa]",              bg: "bg-[#5d27aa]/10",              border: "border-[#5d27aa]/20",              icon: <Package    size={12} /> },
-  shipped:    { label: "Shipped",    color: "text-[#5d27aa]",              bg: "bg-[#5d27aa]/10",              border: "border-[#5d27aa]/20",              icon: <Truck      size={12} /> },
+  processing: { label: "Processing", color: "text-[#5d27aa]",              bg: "bg-[#5d27aa]/10",              border: "border-[#5d27aa]/20",              icon: <Package     size={12} /> },
+  shipped:    { label: "Shipped",    color: "text-[#5d27aa]",              bg: "bg-[#5d27aa]/10",              border: "border-[#5d27aa]/20",              icon: <Truck       size={12} /> },
   delivered:  { label: "Delivered",  color: "text-[var(--color-black)]",   bg: "bg-[var(--color-black)]/10",   border: "border-[var(--color-black)]/20",   icon: <BadgeCheck size={12} /> },
-  cancelled:  { label: "Cancelled",  color: "text-[#a81313]",              bg: "bg-[#a81313]/10",              border: "border-[#a81313]/20",              icon: <XCircle    size={12} /> },
+  cancelled:  { label: "Cancelled",  color: "text-[#a81313]",              bg: "bg-[#a81313]/10",              border: "border-[#a81313]/20",              icon: <XCircle     size={12} /> },
 };
 
 const PAY_META = {
@@ -236,8 +236,8 @@ export default function OrderDetailEnglish() {
 
   const fmtPrice = (val) => {
     if (!val && val !== 0) return "—";
-    if (typeof val === "string" && val.startsWith("$")) return val;
-    return `$${Number(val).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    if (typeof val === "string" && val.startsWith("₹")) return val;
+    return `₹${Number(val).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   };
 
   // ── Loading state ──
@@ -264,7 +264,7 @@ export default function OrderDetailEnglish() {
         <div className="w-full max-w-[1060px] mx-auto px-4 sm:px-6 pt-12 mt-12">
           <button
             onClick={() => navigate("/my-orders-en")}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-[#aaa4b8]/40 text-[#21124c] rounded-md text-sm font-medium shadow-xs hover:bg-[#fafafa] transition-all duration-200 mb-8"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-[#aaa4b8]/40 text-[#21124c] rounded-md text-sm font-medium shadow-xs hover:bg-[#fafafa] transition-all duration-200 mb-8 cursor-pointer"
           >
             <ArrowLeft size={14} className="text-[var(--color-black)]" /> Back to My Orders
           </button>
@@ -306,6 +306,7 @@ export default function OrderDetailEnglish() {
     <div className="min-h-screen bg-[var(--new-bg-white-color)] pb-24 text-black font-[var(--font-new-1)] antialiased">
 
       {/* ── Animations ── */}
+      {/* eslint-disable-next-line react/no-unknown-property */}
       <style>{`
         body { background: var(--new-bg-white-color); }
         @keyframes fade-in-up {
@@ -337,15 +338,15 @@ export default function OrderDetailEnglish() {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => navigate("/my-orders-en")}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-[#aaa4b8]/40 text-[#21124c] rounded-md text-sm font-medium shadow-xs hover:bg-[#fafafa] transition-all duration-200"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-[#aaa4b8]/40 text-[#21124c] rounded-md text-sm font-medium shadow-xs hover:bg-[#fafafa] transition-all duration-200 cursor-pointer"
               >
                 <ArrowLeft size={14} className="text-[var(--color-black)]" />
                 <span>My Orders</span>
               </button>
               <span className="text-[#aaa4b8] text-sm">/</span>
               <h1 className="text-2xl sm:text-3xl font-medium text-[#21124c] tracking-tight font-[var(--font-new-2)]"
-              style={{fontFamily:"var(--font-new-1)"}}>
-                Order <span className="italic" style={{fontFamily:"var(--font-new-2)"}}>Details</span>
+                style={{ fontFamily: "var(--font-new-1)" }}>
+                Order <span className="italic" style={{ fontFamily: "var(--font-new-2)" }}>Details</span>
               </h1>
             </div>
 
@@ -505,7 +506,7 @@ export default function OrderDetailEnglish() {
                 <span className="text-xl font-bold text-[var(--color-black)] font-[var(--font-new-2)]">
                   {fmtPrice(totalAmt)}
                 </span>
-              </div>  
+              </div>
             </SectionCard>
 
             {/* Order Progress Stepper */}

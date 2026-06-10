@@ -5,52 +5,52 @@ const testimonialsData = [
   {
     id: 1,
     name: "Priya Sharma",
-    role: "Khush Grahak",
-    title: "Maine Apni Skin Ke Liye Sabse Acha Cheez Use Ki!",
+    role: "Verified Kharidaar",
+    title: "Sleeplessness Aur Insomnia Ka Best Ayurvedic Ilaj!",
     rating: 5,
     avatar:
       "https://img.magnific.com/free-photo/indian-man-smiling-mockup-psd-cheerful-expression-closeup-portra_53876-143269.jpg?semt=ais_hybrid&w=740&q=80",
-    text: "Yeh product use karne ke baad meri skin ekdum chamakne lagi. Pehle bahut problems thi — dryness, dullness — sab kuch theek ho gaya. Main bilkul satisfied hoon aur apni saari saheli ko recommend kar rahi hoon!",
+    text: "Nabhi-Sleep oil use karne ke baad se mujhe sachi mein bohot gehri aur sukoon ki neend aane lagi hai. Pehle stress aur anxiety ki wajah se raat bhar karwatein badalti rehti thi. Nabhi par sirf thodi si boondein lagane se dimaag ekdum calm ho jata hai!",
   },
   {
     id: 2,
     name: "Ananya Iyer",
-    role: "Verified Kharidaar",
-    title: "Sirf 2 Hafte Mein Zabardast Farq!",
+    role: "Khush Grahak",
+    title: "Sirf 2 Hafte Mein Bloating Aur Indigestion Se Rahat!",
     rating: 5,
     avatar:
       "https://images.unsplash.com/photo-1534339480783-6816b68be29c?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aW5kaWFuJTIwZmFjZXxlbnwwfHwwfHx8MA%3D%3D",
-    text: "Sach mein agar koi natural aur effective solution chahiye toh yeh products try karein. Meri skin ab kaafi soft aur nourished lagti hai. Price bhi bahut reasonable hai quality ke hisaab se. Bahut khushi hui!",
+    text: "Nabhi Amrit oil ne mere gut health ko bilkul badal diya hai. Khaana khane ke baad jo pet me bhari-pan aur gas hoti thi, woh ab puri tarah gayab ho chuki hai. Yeh traditional Ayurvedic nabhi therapy sach me jadd se kaam karti hai.",
   },
   {
     id: 3,
     name: "Deepika Nair",
-    role: "Skincare Premi",
-    title: "Meri Skin Itni Bright Kabhi Nahi Thi!",
+    role: "Regular User",
+    title: "Joint Pain Aur Stiffness Ke Liye Sabse Effective!",
     rating: 5,
     avatar:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnan-77r3i_euBCnMLg-4hZb3AzDIciB1VDw&s",
-    text: "Ayurvedic ingredients ka combination really kaam karta hai. Mujhe darr tha ki koi reaction hoga — lekin ekdum safe aur soothing raha. Roz raat lagati hoon aur subah skin bilkul fresh dikhti hai. Thank you!",
+    text: "Mummy ke ghutno me dard rehta tha aur chalne me stiffness hoti thi. Nabhi Joint care oil jab se unhone lagana shuru kiya hai, unhe mobility me bohot improvement mila hai. Natural hai, safe hai aur bina kisi side effect ke asar dikhata hai.",
   },
   {
     id: 4,
     name: "Kavitha Menon",
-    role: "Niyamit Grahak",
-    title: "Gentle Formula Jo Actually Kaam Karta Hai",
+    role: "Ayurveda Premi",
+    title: "Screen-Time Se Hone Wali Eye Strain Bilkul Khatam!",
     rating: 5,
     avatar:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK6icTXOAlDbgO4uSi8SGVRM1FNBPRutnboQ&s",
-    text: "Meri sensitive skin ke liye yeh bilkul perfect hai. Koi irritation nahi, koi chemicals ka feel nahi — bas pure goodness. Nabhi therapy concept ne mujhe pehle ajeeb laga, par results dekh ke main convert ho gayi hoon!",
+    text: "Lene se pehle mujhe ajeeb laga ki nabhi me oil dalne se aakhon ko kya fayda hoga, par Nabhi Eye oil ke results dekh kar main hairan hoon! Laptop par 9 ghante kaam karne ke baad bhi ab aakhon me jalan ya dryness nahi hoti.",
   },
   {
     id: 5,
     name: "Sunita Rao",
-    role: "Roz Use Kaarne Wali",
-    title: "Meri Daily Routine Ka Ek Zaroori Hissa!",
+    role: "Niyamit Grahak",
+    title: "Complete Kit Meri Family Ki Daily Routine Ka Hissa!",
     rating: 5,
     avatar:
       "https://st2.depositphotos.com/23255830/46761/i/450/depositphotos_467614314-stock-photo-young-asian-indian-boy-looking.jpg",
-    text: "Packaging se leke product quality tak — sab kuch top-notch hai. Delivery bhi bahut fast thi. Ek baar use kiya toh repeat order karna hi tha. Mere pati bhi pooch rahe hain ki meri skin itni achhi kyun lag rahi hai!",
+    text: "Maine Complete Wellness Bundle mangwaya tha. Mere pati Shilajit oil use karte hain energy ke liye, main sleep formula, aur mummy joints ke liye. Ek hi kit se puri family ki overall health improve ho gayi hai. Sachi me total health harmony!",
   },
 ];
 

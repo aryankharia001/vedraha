@@ -132,7 +132,7 @@ function EditProfilePanel({ user, token, onUpdated }) {
     <div className="bg-[#fafafa] border border-[#aaa4b8]/30 rounded-2xl overflow-hidden shadow-xs mb-8 max-w-[1060px] mx-auto">
       <button
         onClick={() => setOpen((p) => !p)}
-        className="w-full flex items-center justify-between px-6 py-5 bg-gradient-to-r from-[#f2eafa]/30 to-white border-b border-[#aaa4b8]/20 hover:from-[#f2eafa]/50 transition-all duration-300 text-left group"
+        className="w-full flex items-center justify-between px-6 py-5 bg-gradient-to-r from-[#f2eafa]/30 to-white border-b border-[#aaa4b8]/20 hover:from-[#f2eafa]/50 transition-all duration-300 text-left group cursor-pointer"
       >
         <div className="flex items-center gap-4">
           <div className="w-11 h-11 rounded-xl bg-[var(--color-black)] flex items-center justify-center shadow-md shadow-[var(--color-black)]/20 group-hover:scale-105 transition-transform duration-300">
@@ -178,7 +178,7 @@ function EditProfilePanel({ user, token, onUpdated }) {
                   placeholder="Required to change password" value={currentPass}
                   onChange={(e) => { setCurrentPass(e.target.value); clearMsg(); }} />
                 <button type="button" onClick={() => setShowCur((p) => !p)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#aaa4b8] hover:text-[var(--color-black)] transition-colors duration-200">
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#aaa4b8] hover:text-[var(--color-black)] transition-colors duration-200 cursor-pointer">
                   {showCur ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
               </div>
@@ -191,7 +191,7 @@ function EditProfilePanel({ user, token, onUpdated }) {
                   placeholder="Min. 6 characters" value={newPass}
                   onChange={(e) => { setNewPass(e.target.value); clearMsg(); }} />
                 <button type="button" onClick={() => setShowNew((p) => !p)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#aaa4b8] hover:text-[var(--color-black)] transition-colors duration-200">
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#aaa4b8] hover:text-[var(--color-black)] transition-colors duration-200 cursor-pointer">
                   {showNew ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
               </div>
@@ -213,7 +213,7 @@ function EditProfilePanel({ user, token, onUpdated }) {
                   onKeyDown={(e) => e.key === "Enter" && handleSave()}
                 />
                 <button type="button" onClick={() => setShowCon((p) => !p)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#aaa4b8] hover:text-[var(--color-black)] transition-colors duration-200">
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#aaa4b8] hover:text-[var(--color-black)] transition-colors duration-200 cursor-pointer">
                   {showCon ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
               </div>
@@ -236,7 +236,7 @@ function EditProfilePanel({ user, token, onUpdated }) {
           <button
             onClick={handleSave}
             disabled={saving}
-            className="mt-6 inline-flex items-center gap-2.5 px-8 py-3.5 bg-[var(--color-black)] text-white text-sm font-bold rounded-full shadow-md shadow-[var(--color-black)]/20 hover:bg-[#5d27aa] transition-all duration-300 disabled:opacity-60"
+            className="mt-6 inline-flex items-center gap-2.5 px-8 py-3.5 bg-[var(--color-black)] text-white text-sm font-bold rounded-full shadow-md shadow-[var(--color-black)]/20 hover:bg-[#5d27aa] transition-all duration-300 disabled:opacity-60 cursor-pointer"
           >
             {saving ? <Loader2 size={16} className="animate-spin" /> : <CheckCheck size={16} />}
             {saving ? "Saving…" : "Save Changes"}
@@ -400,12 +400,10 @@ export default function MyOrdersEnglish() {
     new Date(d).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" });
 
   const fmtPrice = (val) => {
-  if (!val && val !== 0) return "—";
-  if (typeof val === "string" && val.startsWith("₹")) return val;
-  
-  // Handles formatting using the Indian locale (en-IN) for correct rupee comma placement
-  return `₹${Number(val).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-};
+    if (!val && val !== 0) return "—";
+    if (typeof val === "string" && val.startsWith("₹")) return val;
+    return `₹${Number(val).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  };
 
   // Filter items matching layout toggle states
   const filteredOrders = orders.filter((order) => {
@@ -467,7 +465,7 @@ export default function MyOrdersEnglish() {
               {/* Cart Button */}
               <button
                 onClick={() => setCartOpen(true)}
-                className="relative inline-flex items-center gap-2 px-4 py-2 bg-white border border-[#aaa4b8]/40 text-[#21124c] rounded-md text-sm font-medium shadow-xs hover:bg-[#fafafa] transition-all duration-200"
+                className="relative inline-flex items-center gap-2 px-4 py-2 bg-white border border-[#aaa4b8]/40 text-[#21124c] rounded-md text-sm font-medium shadow-xs hover:bg-[#fafafa] transition-all duration-200 cursor-pointer"
               >
                 <ShoppingCart size={16} className="text-[var(--color-black)]" />
                 <span>Cart</span>
@@ -483,7 +481,7 @@ export default function MyOrdersEnglish() {
                 <button
                   onClick={handleRefresh}
                   disabled={refreshing}
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-[#aaa4b8]/40 text-[#21124c] rounded-md text-sm font-medium shadow-xs hover:bg-[#fafafa]"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-[#aaa4b8]/40 text-[#21124c] rounded-md text-sm font-medium shadow-xs hover:bg-[#fafafa] cursor-pointer"
                 >
                   <RefreshCw size={14} className={refreshing ? "animate-spin text-[var(--color-black)]" : "text-[var(--color-black)]"} />
                   <span>{refreshing ? "Refreshing…" : "Sync Status"}</span>
@@ -499,19 +497,19 @@ export default function MyOrdersEnglish() {
             <div className="flex items-center gap-6 text-[#21124c]/80">
               <button 
                 onClick={() => setActiveTab("all")} 
-                className={`pb-3 relative font-medium transition-colors ${activeTab === "all" ? "text-[var(--color-black)] border-b-2 border-[var(--color-black)]" : "hover:text-[var(--color-black)]"}`}
+                className={`pb-3 relative font-medium transition-colors cursor-pointer ${activeTab === "all" ? "text-[var(--color-black)] border-b-2 border-[var(--color-black)]" : "hover:text-[var(--color-black)]"}`}
               >
                 Orders
               </button>
               <button 
                 onClick={() => setActiveTab("not-shipped")} 
-                className={`pb-3 relative font-medium transition-colors ${activeTab === "not-shipped" ? "text-[var(--color-black)] border-b-2 border-[var(--color-black)]" : "hover:text-[var(--color-black)]"}`}
+                className={`pb-3 relative font-medium transition-colors cursor-pointer ${activeTab === "not-shipped" ? "text-[var(--color-black)] border-b-2 border-[var(--color-black)]" : "hover:text-[var(--color-black)]"}`}
               >
                 Not Yet Shipped
               </button>
               <button 
                 onClick={() => setActiveTab("cancelled")} 
-                className={`pb-3 relative font-medium transition-colors ${activeTab === "cancelled" ? "text-[var(--color-black)] border-b-2 border-[var(--color-black)]" : "hover:text-[var(--color-black)]"}`}
+                className={`pb-3 relative font-medium transition-colors cursor-pointer ${activeTab === "cancelled" ? "text-[var(--color-black)] border-b-2 border-[var(--color-black)]" : "hover:text-[var(--color-black)]"}`}
               >
                 Cancelled Orders
               </button>
@@ -521,7 +519,7 @@ export default function MyOrdersEnglish() {
               <select 
                 value={timeFilter} 
                 onChange={(e) => setTimeFilter(e.target.value)}
-                className="bg-white border border-[#aaa4b8]/50 text-[#21124c] text-xs rounded-md block w-full p-2 outline-none focus:border-[var(--color-black)]"
+                className="bg-white border border-[#aaa4b8]/50 text-[#21124c] text-xs rounded-md block w-full p-2 outline-none focus:border-[var(--color-black)] cursor-pointer"
               >
                 <option value="3months">Past 3 Months</option>
                 <option value="6months">Past 6 Months</option>
@@ -554,7 +552,7 @@ export default function MyOrdersEnglish() {
                 <Package size={44} className="text-[#aaa4b8] mb-4" />
                 <h2 className="text-xl font-medium text-[#21124c] mb-1 font-[var(--font-new-2)]">No orders found</h2>
                 <p className="text-sm text-[#aaa4b8] max-w-xs mb-6">No historical transaction records match this display criteria.</p>
-                <button onClick={() => navigate("/products")} className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--color-black)] text-white text-sm font-medium rounded-md hover:bg-[#5d27aa]">
+                <button onClick={() => navigate("/products")} className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--color-black)] text-white text-sm font-medium rounded-md hover:bg-[#5d27aa] cursor-pointer">
                   Browse Store <ArrowRight size={15} />
                 </button>
               </div>
@@ -571,7 +569,6 @@ export default function MyOrdersEnglish() {
 
             const totalAmt = order.totalPrice || order.product?.basePrice || order.product?.price || 0;
             
-            // Standard placement structure mapping matching parameters from state metadata safely
             const shippingLocation = order.shippingAddress?.city 
               ? `${order.shippingAddress.city}, India` 
               : "Rajkot, Gujarat, India";
@@ -602,7 +599,7 @@ export default function MyOrdersEnglish() {
                     </p>
                     <button 
                       onClick={() => navigate(`/order-en/${order.orderId}`)}
-                      className="px-3 py-1 bg-[var(--new-purple-color)] text-white text-xs font-medium rounded-xs hover:bg-[#5d27aa]"
+                      className="px-3 py-1 bg-[var(--new-purple-color)] text-white text-xs font-medium rounded-xs hover:bg-[#5d27aa] cursor-pointer"
                     >
                       View Order
                     </button>
@@ -639,7 +636,7 @@ export default function MyOrdersEnglish() {
                       <div className="flex items-center gap-3 text-xs font-medium text-[var(--color-black)]">
                         <button 
                           onClick={() => navigate(`/order-en/${order.orderId}`)} 
-                          className="flex items-center gap-1 hover:text-[#5d27aa]"
+                          className="flex items-center gap-1 hover:text-[#5d27aa] cursor-pointer"
                         >
                           <Eye size={13} /> View Product
                         </button>

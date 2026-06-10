@@ -334,7 +334,7 @@ export default function NabhiHeader({ onCartOpen }) {
     { label: "Home", path: "/" },
     { label: "Contact", path: "/products/nabhi-contact-en" },
     { label: "About", path: "/products/nabhi-about-en" },
-    { label: "Blogs", path: "/products/nabhi-about-en" },
+    { label: "Blogs", path: "/blogs-en" },
   ];
 
   const displayName =
@@ -586,12 +586,12 @@ export default function NabhiHeader({ onCartOpen }) {
         .nh-modal-right-sub { font-size: 13px; color: #aaa; margin-bottom: 22px; line-height: 1.5; text-align: center; }
 
         .nh-tabs { display: flex; gap: 0; margin-bottom: 22px; border-bottom: 1.5px solid #efefef; }
-        .nh-tab { flex: 1; padding: 9px 0; background: none; border: none; font-size: 12px; font-weight: 700; letter-spacing: .1em; color: #bbb; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1.5px; transition: color .18s, border-color .18s; font-family: 'DM Sans', sans-serif; }
+        .nh-tab { flex: 1; padding: 9px 0; background: none; border: none; font-size: 12px; font-weight: 700; letter-spacing: .1em; color: #bbb; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1.5px; transition: color .18s, border-color .18s; font-family: var(--font-new-1); }
         .nh-tab.active { color: var(--new-purple-color); border-bottom-color: var(--new-purple-color); }
 
         .nh-field { margin-bottom: 16px; }
         .nh-label { display: block; font-size: 12px; font-weight: 600; color: #444; margin-bottom: 7px; }
-        .nh-input { width: 100%; padding: 11px 14px; border: 1.5px solid #e8e8e8; border-radius: 10px; font-size: 14px; font-family: 'DM Sans', sans-serif; color: #1a1a1a; outline: none; background: #fff; transition: border-color .18s, box-shadow .18s; }
+        .nh-input { width: 100%; padding: 11px 14px; border: 1.5px solid #e8e8e8; border-radius: 10px; font-size: 14px; font-family: var(--font-new-1); color: #1a1a1a; outline: none; background: #fff; transition: border-color .18s, box-shadow .18s; }
         .nh-input:focus { border-color: var(--new-purple-color); box-shadow: 0 0 0 3px rgba(45,90,39,.10); }
         .nh-input.error { border-color: #e53e3e; }
         .nh-input-wrap { position: relative; }
@@ -605,7 +605,7 @@ export default function NabhiHeader({ onCartOpen }) {
         .nh-submit-btn {
           width: 100%; padding: 13px; background: var(--new-primary-color); color: #fff;
           border: none; border-radius: 10px; font-size: 14px; font-weight: 700;
-          font-family: 'DM Sans', sans-serif; cursor: pointer;
+          font-family: var(--font-new-1); cursor: pointer;
           display: flex; align-items: center; justify-content: center; gap: 8px;
           margin-bottom: 14px; transition: background .18s, transform .15s; letter-spacing: .03em;
         }
@@ -621,14 +621,14 @@ export default function NabhiHeader({ onCartOpen }) {
         .nh-google-btn-placeholder {
           width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
           padding: 11px 14px; border: 1.5px solid #e8e8e8; border-radius: 10px;
-          background: #fff; color: #888; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500;
+          background: #fff; color: #888; font-family: var(--font-new-1); font-size: 14px; font-weight: 500;
         }
 
         .nh-divider { display: flex; align-items: center; gap: 12px; font-size: 12px; color: #ccc; margin-bottom: 16px; }
         .nh-divider::before, .nh-divider::after { content: ''; flex: 1; height: 1px; background: #efefef; }
 
         .nh-switch-row { font-size: 12px; color: #999; text-align: center; }
-        .nh-switch-row button { background: none; border: none; color: var(--new-purple-color); font-size: 12px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; padding: 0; }
+        .nh-switch-row button { background: none; border: none; color: var(--new-purple-color); font-size: 12px; font-weight: 700; cursor: pointer; font-family: var(--font-new-1); padding: 0; }
 
         .nh-spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: nhSpin .7s linear infinite; }
         @keyframes nhSpin { to { transform: rotate(360deg); } }
@@ -640,7 +640,7 @@ export default function NabhiHeader({ onCartOpen }) {
         .nh-success-icon { width: 60px; height: 60px; background: linear-gradient(135deg,#e8f5e2,#d0edcb); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
         .nh-success-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 700; color: #1a3d1e; margin-bottom: 8px; }
         .nh-success-sub { font-size: 13px; color: #6a8a62; line-height: 1.6; margin-bottom: 26px; }
-        .nh-success-close-btn { padding: 12px 32px; background: var(--new-purple-color); color: #fff; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background .18s; }
+        .nh-success-close-btn { padding: 12px 32px; background: var(--new-purple-color); color: #fff; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: var(--font-new-1); transition: background .18s; }
         .nh-success-close-btn:hover { background: #1f6030; }
 
         /* ── User dropdown ───────────────────────────────────────────────── */

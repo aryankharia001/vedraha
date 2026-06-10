@@ -309,6 +309,7 @@ function AppContent() {
         <Route path="/admin/collections" element={<CollectionManagementPage />} />
         <Route path="/admin/product-list" element={<ProductListPage />} />
         <Route path="/admin/product/create" element={<ProductFormPage />} />
+        <Route path="/blogs-en" element={<Blogs />} />
 
         {/* ── Telugu ───────────────────────────────────────────────────── */}
         <Route path="/tlg"                             element={<HomeTelugu />} />
@@ -351,6 +352,7 @@ import { CollectionProvider } from './context/CollectionContext';
 import AdminListPage from './pages/admin/AdminListPage'
 import CollectionManagementPage from './pages/admin/CollectionManagementPage'
 import Dashboard from './components/Admin/Dashboard'
+import Blogs from './pages/Blogs.jsx'
 
 function App() {
   return (

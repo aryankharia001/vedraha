@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import UspBar from "./UspBar";
 import banner1 from "../../../../public/hero-img/banner-1.png";
 import banner2 from "../../../../public/hero-img/banner-2.png";
@@ -18,7 +19,7 @@ const slides = [
     subtext:
       "Powerful herbal blend that penetrates deep to soothe sore joints, relieve muscle tension, and restore natural mobility.",
     features: ["Eases Joint Pain", "Reduces Inflammation", "Restores Mobility"],
-    cta: { label: "Explore Now", href: "/products/pain-nabhi-oil" },
+    cta: { label: "Explore Now", href: "/products/nabhi-joint-en" },
     colors: {
       text:            "var(--color-black)",
       headlineAccent:  "var(--color)",
@@ -40,7 +41,7 @@ const slides = [
     subtext:
       "Ancient Ayurvedic Nabhi Oil — applied at the navel to calm the mind, ease anxiety & promote deep, restorative sleep.",
     features: ["Promotes Deep Sleep", "Relieves Stress & Anxiety", "Calms Mind & Body"],
-    cta: { label: "Shop Now", href: "/products/sleep-nabhi-oil" },
+    cta: { label: "Shop Now", href: "/products/nabhi-sleep-en" },
     colors: {
       text:            "var(--color-white)",
       headlineAccent:  "var(--new-bg-color)",
@@ -62,7 +63,7 @@ const slides = [
     subtext:
       "Revive your digestive fire with our traditional Nabhi therapy oil — targeting the root of gut health through the navel chakra.",
     features: ["Improves Digestion", "Reduces Bloating", "Balances Gut Flora"],
-    cta: { label: "Discover Now", href: "/products/gut-nabhi-oil" },
+    cta: { label: "Discover Now", href: "/products/nabhi-amrit-en" },
     colors: {
       text:            "var(--color-black)",
       headlineAccent:  "var(--new-accent-color)",
@@ -84,7 +85,7 @@ const slides = [
     subtext:
       "Time-tested Ayurvedic formulation applied through the navel to soothe dry eyes, reduce strain, and nourish optical nerves naturally.",
     features: ["Soothes Eye Strain", "Reduces Dryness", "Nourishes From Within"],
-    cta: { label: "Nourish Eyes", href: "/products/eyecare-nabhi-oil" },
+    cta: { label: "Nourish Eyes", href: "/products/nabhi-eye-en" },
     colors: {
       text:            "var(--new-heading-text)",
       headlineAccent:  "#2b66a0",
@@ -99,27 +100,27 @@ const slides = [
     },
   },
   {
-    image: banner5,
-    badge: "Immunity & Vitality",
-    headline: ["Strengthen Within.", "Thrive Every Day."],
-    headlineAccentLine: 1,
-    subtext:
-      "A powerful Ayurvedic immunity booster — applied at the navel to fortify your body's natural defence and energy systems.",
-    features: ["Boosts Immunity", "Increases Energy", "Holistic Wellness"],
-    cta: { label: "Build Immunity", href: "/products/immunity-nabhi-oil" },
-    colors: {
-      text:            "var(--color-black)",
-      headlineAccent:  "#2b66a0",
-      divider:         "#2b66a0",
-      badgeBg:         "rgba(43, 102, 160, 0.08)",
-      badgeBorder:     "rgba(43, 102, 160, 0.22)",
-      pillBg:          "rgba(43, 102, 160, 0.05)",
-      pillBorder:      "rgba(43, 102, 160, 0.15)",
-      ctaBg:           "#2b66a0",
-      ctaText:         "#ffffff",
-      overlay:         "linear-gradient(to right,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.25) 45%,transparent 70%)",
-    },
+  image: banner5,
+  badge: "Complete Wellness Bundle",
+  headline: ["Total Harmony.", "One Routine."],
+  headlineAccentLine: 1,
+  subtext:
+    "Premium navel oil collection designed to balance your digestion, sleep, joint health, and energy pathways simultaneously.",
+  features: ["All 6 Specialist Formulas", "Full-Body Rejuvenation", "100% Pure & Ayurvedic"],
+  cta: { label: "Shop The Complete Kit", href: "/products" },
+  colors: {
+    text:            "var(--color-black)",
+    headlineAccent:  "#2b66a0",
+    divider:         "#2b66a0",
+    badgeBg:         "rgba(43, 102, 160, 0.08)",
+    badgeBorder:     "rgba(43, 102, 160, 0.22)",
+    pillBg:          "rgba(43, 102, 160, 0.05)",
+    pillBorder:      "rgba(43, 102, 160, 0.15)",
+    ctaBg:           "#2b66a0",
+    ctaText:         "#ffffff",
+    overlay:         "linear-gradient(to right,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.25) 45%,transparent 70%)",
   },
+},
 ];
 
 // ── Feature icons ─────────────────────────────────────────────
@@ -167,7 +168,6 @@ const HeroSection = () => {
   const { colors } = slides[activeSlide];
   const slide      = slides[activeSlide];
 
-  // Shared conditional CSS styles for arrows to inherit pill states cleanly
   const arrowBtnStyle = {
     backgroundColor: colors.pillBg,
     borderColor: colors.pillBorder,
@@ -176,193 +176,193 @@ const HeroSection = () => {
 
   return (
     <div className="relative bg-[var(--new-bg-white-color)]">
-    <section className="relative w-full overflow-hidden h-[clamp(520px,70vw,800px)]">
+      <section className="relative w-full overflow-hidden h-[clamp(520px,70vw,800px)]">
 
-      <style>{`
-        @keyframes heroFadeUp {
-          from { opacity:0; transform:translateY(20px); }
-          to   { opacity:1; transform:translateY(0);    }
-        }
-        @keyframes heroBadgePop {
-          from { opacity:0; transform:scale(0.88) translateY(8px); }
-          to   { opacity:1; transform:scale(1) translateY(0);      }
-        }
-        .anim-badge { animation: heroBadgePop 0.5s cubic-bezier(0.34,1.56,0.64,1) both; }
-        .anim-1 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.08s; }
-        .anim-2 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.18s; }
-        .anim-3 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.18s; }
-        .anim-4 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.28s; }
-        .anim-5 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.38s; }
-        .anim-6 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.48s; }
-      `}</style>
+        <style>{`
+          @keyframes heroFadeUp {
+            from { opacity:0; transform:translateY(20px); }
+            to   { opacity:1; transform:translateY(0);    }
+          }
+          @keyframes heroBadgePop {
+            from { opacity:0; transform:scale(0.88) translateY(8px); }
+            to   { opacity:1; transform:scale(1) translateY(0);      }
+          }
+          .anim-badge { animation: heroBadgePop 0.5s cubic-bezier(0.34,1.56,0.64,1) both; }
+          .anim-1 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.08s; }
+          .anim-2 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.18s; }
+          .anim-3 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.18s; }
+          .anim-4 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.28s; }
+          .anim-5 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.38s; }
+          .anim-6 { animation: heroFadeUp 0.55s ease both; animation-delay: 0.48s; }
+        `}</style>
 
-      {/* ── Image strip ── */}
-      <div
-        className="flex h-full will-change-transform transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.18,1)]"
-        style={{ transform: `translateX(-${activeSlide * 100}%)` }}
-      >
-        {slides.map((s, i) => (
-          <div key={i} className="relative min-w-full w-full h-full shrink-0">
-            <img
-              src={s.image}
-              alt={`Slide ${i + 1}`}
-              className="absolute inset-0 w-full h-full object-cover object-top"
-              loading={i === 0 ? "eager" : "lazy"}
-            />
-          </div>
-        ))}
-      </div>
-
-      {/* ── Gradient scrim ── */}
-      <div className="absolute inset-0 pointer-events-none" />
-
-      {/* ── Text content ── */}
-      <div
-        key={animKey}
-        className="absolute inset-0 flex items-center pointer-events-none"
-        style={{ color: colors.text }}
-      >
-        <div className="w-full max-w-[1240px] mx-auto px-6 md:px-10 lg:px-12">
-          <div className="max-w-[300px] md:max-w-[540px] flex flex-col">
-
-            {/* Badge */}
-            <div className="anim-badge pointer-events-auto inline-flex mb-4 sm:mb-5">
-              <span
-                className="text-[0.62rem] font-bold tracking-[0.18em] uppercase px-3 py-1.5 rounded-sm backdrop-blur-md"
-                style={{
-                  color:       colors.text,
-                  background:  colors.badgeBg,
-                  border:      `1px solid ${colors.badgeBorder}`,
-                  fontFamily:  "var(--font-new-1)",
-                }}
-              >
-                ✦&nbsp;&nbsp;{slide.badge}
-              </span>
-            </div>
-
-            {/* Headline Group */}
-            <h1
-              className="leading-[1.1] tracking-tight mb-3"
-              style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.8rem)" }}
-            >
-              <span 
-                className="block font-bold anim-1"
-                style={{ 
-                  fontFamily: "var(--font-new-1)",
-                  color: slide.headlineAccentLine === 0 ? colors.headlineAccent : colors.text
-                }}
-              >
-                {slide.headline[0]}
-              </span>
-              
-              <em 
-                className="block font-medium italic not-implemented anim-2"
-                style={{ 
-                  fontFamily: "var(--font-new-2)",
-                  color: slide.headlineAccentLine === 1 ? colors.headlineAccent : colors.text,
-                  fontSize: "1.05em"
-                }}
-              >
-                {slide.headline[1]}
-              </em>
-            </h1>
-
-            {/* Divider */}
-            <div
-              className="anim-3 mb-4 h-0.5 w-12 rounded-full"
-              style={{ background: colors.divider }}
-            />
-
-            {/* Subtext */}
-            <p
-              className="anim-4 leading-relaxed opacity-90 mb-5 max-w-[400px] text-sm sm:text-[0.9rem]"
-              style={{
-                color:      colors.text,
-                fontFamily: "var(--font-new-1)",
-              }}
-            >
-              {slide.subtext}
-            </p>
-
-            {/* Feature pills */}
-            <div
-              className="anim-5 hidden sm:flex flex-wrap gap-2 mb-6 pointer-events-auto"
-              style={{ color: colors.text }}
-            >
-              {slide.features.map((feat, fi) => (
-                <span
-                  key={fi}
-                  className="flex items-center gap-1.5 text-[0.7rem] font-semibold tracking-wide px-2.5 py-1.5 rounded-full whitespace-nowrap backdrop-blur-md"
-                  style={{
-                    background: colors.pillBg,
-                    border:     `1px solid ${colors.pillBorder}`,
-                    fontFamily: "var(--font-new-1)",
-                  }}
-                >
-                  {featureIcons[fi % featureIcons.length]}
-                  {feat}
-                </span>
-              ))}
-            </div>
-
-            {/* CTA */}
-            <div className="anim-6 pointer-events-auto">
-              <a
-                href={slide.cta.href}
-                className="inline-block text-[0.78rem] font-bold uppercase tracking-widest px-7 py-3 rounded-sm transition-all duration-200 hover:brightness-110 hover:-translate-y-0.5"
-                style={{
-                  background:  colors.ctaBg,
-                  color:       colors.ctaText,
-                  fontFamily:  "var(--font-new-1)",
-                }}
-              >
-                {slide.cta.label} →
-              </a>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      {/* ── Dots + Arrows ── */}
-      <div className="absolute bottom-15 md:bottom-20 inset-x-0 max-w-[1240px] mx-auto px-6 md:px-10 flex items-center gap-3 pointer-events-auto">
-        <button
-          type="button"
-          onClick={prev}
-          aria-label="Previous slide"
-          className="grid place-items-center w-9 h-9 rounded-full border backdrop-blur-md text-lg leading-none transition-all duration-200 hover:brightness-125 hover:scale-105"
-          style={arrowBtnStyle}
+        {/* ── Image strip ── */}
+        <div
+          className="flex h-full will-change-transform transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.18,1)]"
+          style={{ transform: `translateX(-${activeSlide * 100}%)` }}
         >
-          ‹
-        </button>
-
-        <div className="flex items-center gap-1.5">
-          {slides.map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={() => goTo(i)}
-              aria-label={`Go to slide ${i + 1}`}
-              className="h-2 rounded-full transition-all duration-300"
-              style={{
-                width:      i === activeSlide ? "24px" : "8px",
-                background: i === activeSlide ? colors.divider : "rgba(255,255,255,0.4)",
-              }}
-            />
+          {slides.map((s, i) => (
+            <div key={i} className="relative min-w-full w-full h-full shrink-0">
+              <img
+                src={s.image}
+                alt={`Slide ${i + 1}`}
+                className="absolute inset-0 w-full h-full object-cover object-top"
+                loading={i === 0 ? "eager" : "lazy"}
+              />
+            </div>
           ))}
         </div>
 
-        <button
-          type="button"
-          onClick={next}
-          aria-label="Next slide"
-          className="grid place-items-center w-9 h-9 rounded-full border backdrop-blur-md text-lg leading-none transition-all duration-200 hover:brightness-125 hover:scale-105"
-          style={arrowBtnStyle}
+        {/* ── Gradient scrim ── */}
+        <div className="absolute inset-0 pointer-events-none" />
+
+        {/* ── Text content ── */}
+        <div
+          key={animKey}
+          className="absolute inset-0 flex items-center pointer-events-none"
+          style={{ color: colors.text }}
         >
-          ›
-        </button>
-      </div>
-    </section>
+          <div className="w-full max-w-[1240px] mx-auto px-6 md:px-10 lg:px-12">
+            <div className="max-w-[300px] md:max-w-[540px] flex flex-col">
+
+              {/* Badge */}
+              <div className="anim-badge pointer-events-auto inline-flex mb-4 sm:mb-5">
+                <span
+                  className="text-[0.62rem] font-bold tracking-[0.18em] uppercase px-3 py-1.5 rounded-sm backdrop-blur-md"
+                  style={{
+                    color:       colors.text,
+                    background:  colors.badgeBg,
+                    border:      `1px solid ${colors.badgeBorder}`,
+                    fontFamily:  "var(--font-new-1)",
+                  }}
+                >
+                  ✦&nbsp;&nbsp;{slide.badge}
+                </span>
+              </div>
+
+              {/* Headline Group */}
+              <h1
+                className="leading-[1.1] tracking-tight mb-3"
+                style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.8rem)" }}
+              >
+                <span 
+                  className="block font-bold anim-1"
+                  style={{ 
+                    fontFamily: "var(--font-new-1)",
+                    color: slide.headlineAccentLine === 0 ? colors.headlineAccent : colors.text
+                  }}
+                >
+                  {slide.headline[0]}
+                </span>
+                
+                <em 
+                  className="block font-medium italic not-implemented anim-2"
+                  style={{ 
+                    fontFamily: "var(--font-new-2)",
+                    color: slide.headlineAccentLine === 1 ? colors.headlineAccent : colors.text,
+                    fontSize: "1.05em"
+                  }}
+                >
+                  {slide.headline[1]}
+                </em>
+              </h1>
+
+              {/* Divider */}
+              <div
+                className="anim-3 mb-4 h-0.5 w-12 rounded-full"
+                style={{ background: colors.divider }}
+              />
+
+              {/* Subtext */}
+              <p
+                className="anim-4 leading-relaxed opacity-90 mb-5 max-w-[400px] text-sm sm:text-[0.9rem]"
+                style={{
+                  color:      colors.text,
+                  fontFamily: "var(--font-new-1)",
+                }}
+              >
+                {slide.subtext}
+              </p>
+
+              {/* Feature pills */}
+              <div
+                className="anim-5 hidden sm:flex flex-wrap gap-2 mb-6 pointer-events-auto"
+                style={{ color: colors.text }}
+              >
+                {slide.features.map((feat, fi) => (
+                  <span
+                    key={fi}
+                    className="flex items-center gap-1.5 text-[0.7rem] font-semibold tracking-wide px-2.5 py-1.5 rounded-full whitespace-nowrap backdrop-blur-md"
+                    style={{
+                      background: colors.pillBg,
+                      border:     `1px solid ${colors.pillBorder}`,
+                      fontFamily: "var(--font-new-1)",
+                    }}
+                  >
+                    {featureIcons[fi % featureIcons.length]}
+                    {feat}
+                  </span>
+                ))}
+              </div>
+
+              {/* CTA Link Refactored */}
+              <div className="anim-6 pointer-events-auto">
+                <Link
+                  to={slide.cta.href}
+                  className="inline-block text-[0.78rem] font-bold uppercase tracking-widest px-7 py-3 rounded-sm transition-all duration-200 hover:brightness-110 hover:-translate-y-0.5 decoration-transparent"
+                  style={{
+                    background:  colors.ctaBg,
+                    color:       colors.ctaText,
+                    fontFamily:  "var(--font-new-1)",
+                  }}
+                >
+                  {slide.cta.label} →
+                </Link>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        {/* ── Dots + Arrows ── */}
+        <div className="absolute bottom-15 md:bottom-20 inset-x-0 max-w-[1240px] mx-auto px-6 md:px-10 flex items-center gap-3 pointer-events-auto">
+          <button
+            type="button"
+            onClick={prev}
+            aria-label="Previous slide"
+            className="grid place-items-center w-9 h-9 rounded-full border backdrop-blur-md text-lg leading-none transition-all duration-200 hover:brightness-125 hover:scale-105"
+            style={arrowBtnStyle}
+          >
+            ‹
+          </button>
+
+          <div className="flex items-center gap-1.5">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => goTo(i)}
+                aria-label={`Go to slide ${i + 1}`}
+                className="h-2 rounded-full transition-all duration-300"
+                style={{
+                  width:      i === activeSlide ? "24px" : "8px",
+                  background: i === activeSlide ? colors.divider : "rgba(255,255,255,0.4)",
+                }}
+              />
+            ))}
+          </div>
+
+          <button
+            type="button"
+            onClick={next}
+            aria-label="Next slide"
+            className="grid place-items-center w-9 h-9 rounded-full border backdrop-blur-md text-lg leading-none transition-all duration-200 hover:brightness-125 hover:scale-105"
+            style={arrowBtnStyle}
+          >
+            ›
+          </button>
+        </div>
+      </section>
 
       <UspBar />
     </div>

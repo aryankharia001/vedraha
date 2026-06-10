@@ -7,11 +7,10 @@ import {
 } from "react-icons/fa";
 import { TbTruckDelivery } from "react-icons/tb";
 import { MdVerified } from "react-icons/md";
-import { HiSparkles } from "react-icons/hi";
 import { backendurl } from "../App";
 
 // ─── Config ───────────────────────────────────────────────────────────────────
-const SR_COMPANY_ID = 543644; // 👈 replace with your integer company ID
+const SR_COMPANY_ID = 543644;
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 function getFiredPixelOrders() {
@@ -64,21 +63,15 @@ function saveOrderToMyOrders(orderData) {
   } catch (e) { console.error("saveOrderToMyOrders:", e); }
 }
 
-// ─── Shiprocket Order Webhook ─────────────────────────────────────────────────
 async function fireShiprocketOrder(order) {
   if (!order?.orderId) return;
-
   const fired = getSRFiredOrders();
-  if (fired.has(`sr_${order.orderId}`)) {
-    console.log("Shiprocket order already fired for:", order.orderId);
-    return;
-  }
+  if (fired.has(`sr_${order.orderId}`)) return;
 
   const isCOD    = /cod|cash/i.test(String(order.payment || ""));
   const priceNum = order.priceNum ?? Number(String(order.price || "0").replace(/[^\d.]/g, ""));
   const now      = order.createdAt || new Date().toISOString();
 
-  // Build line_items — fall back to single product if no items array
   const lineItems = order.items?.length
     ? order.items.map((item, idx) => ({
         sku:                item.sku || item.variant_id || String(idx + 1),
@@ -116,7 +109,6 @@ async function fireShiprocketOrder(order) {
     orderId:                 String(order.orderId),
     order_number:            String(order.orderId),
     customer_id:             order.phone || String(order.orderId),
-    // Shiprocket order API wants phone WITHOUT country code
     phone:                   String(order.phone || "").replace(/^\+91/, "").replace(/^91/, ""),
     fullName:                order.name || "",
     email:                   order.email || "",
@@ -140,7 +132,7 @@ async function fireShiprocketOrder(order) {
     coupons:                 order.couponCodes?.length ? order.couponCodes : [],
     line_items:              lineItems,
     userId:                  order.phone || String(order.orderId),
-    source:                  "web",          // MUST always be "web"
+    source:                  "web",
     payment_method:          isCOD ? "cod" : "prepaid",
     address_line1:           order.address || "",
     address_line2:           "",
@@ -154,34 +146,20 @@ async function fireShiprocketOrder(order) {
   };
 
   try {
-    // After (proxied through your backend):
     const { data } = await axios.post(
-      `${backendurl}/api/ad/shiprocket/create-order`,  // your backend
+      `${backendurl}/api/ad/shiprocket/create-order`,
       payload,
       { headers: { "Content-Type": "application/json" } }
     );
-    console.log("✅ Shiprocket order created:", data);
     markSRFired(`sr_${order.orderId}`);
   } catch (err) {
-    // Don't disrupt UX — just log
     console.error("❌ Shiprocket order webhook failed:", err?.response?.data || err.message);
   }
 }
 
-// ─── Skeleton block ───────────────────────────────────────────────────────────
 function Skel({ className = "" }) {
   return (
-    <div className={`animate-pulse rounded-lg bg-gradient-to-r from-green-100 via-green-50 to-green-100 ${className}`} />
-  );
-}
-
-// ─── Reusable summary row ─────────────────────────────────────────────────────
-function Row({ label, value, last = false }) {
-  return (
-    <div className={`flex justify-between items-center px-5 py-3 gap-4 ${!last ? "border-b border-[#f0ece2]" : ""}`}>
-      <span className="text-[13px] text-[#888] font-medium whitespace-nowrap">{label}</span>
-      <span className="text-[13px] text-[#1a1a1a] font-semibold text-right">{value}</span>
-    </div>
+    <div className={`animate-pulse rounded-lg bg-gradient-to-r from-[#f2eafa] via-[#fafafa] to-[#f2eafa] ${className}`} />
   );
 }
 
@@ -198,16 +176,10 @@ export default function ExcSuccessPage() {
   const [loading,    setLoading]    = useState(!!oid);
   const [fetchError, setFetchError] = useState("");
 
-  
   useEffect(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth", // optional
-      });
-    }, []);
-    
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
-  // ── Fetch order ────────────────────────────────────────────────────────────
   useEffect(() => {
     if (!oid) {
       try {
@@ -271,55 +243,19 @@ export default function ExcSuccessPage() {
         setLoading(false);
       }
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [oid]);
 
-  // ── Fire Shiprocket order webhook — once, after order loads ───────────────
   useEffect(() => {
     if (!order?.orderId || srFiredRef.current) return;
     srFiredRef.current = true;
     fireShiprocketOrder(order);
   }, [order]);
 
-  // ── Fire Facebook CAPI Purchase event ─────────────────────────────────────
-  // useEffect(() => {
-  //   if (!order?.orderId) return;
-  //   const fired = getFiredPixelOrders();
-  //   if (fired.has(`pixel_${order.orderId}`)) return;
-
-  //   const numericValue =
-  //     order?.priceNum ??
-  //     (order?.price ? Number(String(order.price).replace(/[^\d.]/g, "")) : 0);
-
-  //   const contents = order.items?.length
-  //     ? order.items.map((item) => ({
-  //         id:         String(item.variant_id || item.id || ""),
-  //         quantity:   item.quantity || 1,
-  //         item_price: item.price ?? item.item_price ?? 0,
-  //         title:      item.name || item.title || "",
-  //       }))
-  //     : [{ id: String(order.label || order.orderId), quantity: 1, item_price: numericValue, title: "Nabhi Amrit" }];
-
-  //   sendEvent({
-  //     eventName:  "Purchase",
-  //     phone:      order.phone !== "—" ? order.phone : undefined,
-  //     name:       order.name  !== "—" ? order.name  : undefined,
-  //     customData: {
-  //       currency:  "INR",
-  //       value:     numericValue,
-  //       num_items: contents.reduce((s, c) => s + c.quantity, 0),
-  //       contents,
-  //     },
-  //   });
-
-  //   markPixelFired(`pixel_${order.orderId}`);
-  // }, [order]);
-
-  // ── Derived display values ─────────────────────────────────────────────────
+  // Derived Values
   const orderId     = order?.orderId ?? "—";
   const name        = order?.name || "Valued Customer";
-  const firstName   = name.split(" ")[0];
   const phone       = order?.phone || "—";
+  const email       = order?.email || "—";
   const address     = order?.address || "—";
   const city        = order?.city || "";
   const state       = order?.state || "";
@@ -330,258 +266,183 @@ export default function ExcSuccessPage() {
   const edd         = order?.edd || "5–7 business days";
   const isCOD       = /cod|cash/i.test(payment);
   const fullAddress = [address, city, state, pincode].filter(Boolean).join(", ");
-  const eddLabel    = edd !== "5–7 business days" ? `Delivery by ${edd}` : "Delivery in 5–7 business days";
+  const formattedDate = order?.createdAt ? new Date(order.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
-  // ── Loading skeleton ───────────────────────────────────────────────────────
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#f8f6f0] via-[#edf4ea] to-[#f1ede1]"
-        style={{ fontFamily: "'DM Sans', sans-serif" }}>
-        {/* <NabhiHeader /> */}
-        <div className="max-w-[560px] mx-auto px-4 pt-12 pb-20 flex flex-col items-center gap-6">
-          <Skel className="w-20 h-20 rounded-full" />
-          <Skel className="w-48 h-5" />
-          <Skel className="w-64 h-4" />
-          {[1, 2, 3].map(i => (
-            <div key={i} className="w-full bg-white rounded-2xl border border-[#e5e0d4] p-5 flex flex-col gap-3 shadow-sm">
-              <Skel className="w-2/5 h-4" />
-              <Skel className="w-3/4 h-4" />
-              <Skel className="w-1/2 h-4" />
-            </div>
-          ))}
+      <div className="min-h-screen bg-[var(--new-bg-white-color)] flex items-center justify-center p-6">
+        <div className="max-w-[580px] w-full flex flex-col items-center gap-6">
+          <Skel className="w-12 h-12 rounded-full" />
+          <Skel className="w-48 h-6" />
+          <Skel className="w-full h-40 rounded-xl" />
         </div>
       </div>
     );
   }
 
-  // ── Error state ────────────────────────────────────────────────────────────
   if (fetchError) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#f8f6f0] via-[#edf4ea] to-[#f1ede1]"
-        style={{ fontFamily: "'DM Sans', sans-serif" }}>
-        {/* <NabhiHeader /> */}
-        <div className="max-w-[560px] mx-auto px-4 flex flex-col items-center pt-24 gap-4 text-center">
-          <span className="text-5xl">⚠️</span>
-          <p className="text-red-600 font-semibold text-sm">{fetchError}</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="px-6 py-3 bg-gradient-to-br from-[#2d5a27] to-[#3d7534] text-white rounded-xl font-bold text-sm hover:opacity-90 transition-opacity"
-          >
-            Try Again
-          </button>
+      <div className="min-h-screen bg-[var(--new-bg-white-color)] flex items-center justify-center p-6">
+        <div className="max-w-[400px] text-center flex flex-col items-center gap-4">
+          <span className="text-4xl">⚠️</span>
+          <p className="text-[#a81313] font-semibold text-sm">{fetchError}</p>
+          <button onClick={() => window.location.reload()} className="px-5 py-2.5 bg-[var(--color-black)] text-white rounded-lg text-sm font-bold">Try Again</button>
         </div>
       </div>
     );
   }
 
-  // ── Main render ────────────────────────────────────────────────────────────
   return (
-    <div
-      className="min-h-screen bg-gradient-to-br from-[#f8f6f0] via-[#edf4ea] to-[#f1ede1]"
-      style={{ fontFamily: "'DM Sans', sans-serif" }}
-    >
-      {/* Inject Google Fonts + keyframe animations */}
+    <div className="min-h-screen bg-[var(--new-bg-white-color)] text-[#21124c] py-20 px-4 sm:px-6 selection:bg-[#f2eafa]" style={{ fontFamily: "var(--font-new-1)" }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700;800&display=swap');
-        @keyframes fadeUp  { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
-        @keyframes popIn   { 0%{opacity:0;transform:scale(.5)} 70%{transform:scale(1.08)} 100%{opacity:1;transform:scale(1)} }
-        @keyframes ripple  { 0%{transform:scale(.8);opacity:.6} 100%{transform:scale(2.6);opacity:0} }
-        @keyframes shimmer { 0%{background-position:-200% center} 100%{background-position:200% center} }
-        .anim-hero    { opacity:0; animation: fadeUp .6s ease .05s forwards; }
-        .anim-card-1  { opacity:0; animation: fadeUp .55s ease .16s forwards; }
-        .anim-card-2  { opacity:0; animation: fadeUp .55s ease .26s forwards; }
-        .anim-card-3  { opacity:0; animation: fadeUp .55s ease .30s forwards; }
-        .anim-card-4  { opacity:0; animation: fadeUp .55s ease .34s forwards; }
-        .anim-btn-1   { opacity:0; animation: fadeUp .55s ease .40s forwards; }
-        .anim-btn-2   { opacity:0; animation: fadeUp .55s ease .46s forwards; }
-        .anim-popin   { animation: popIn .65s cubic-bezier(.34,1.56,.64,1) .15s both; }
-        .ripple-ring  { animation: ripple 2.4s ease-out infinite; }
-        .ripple-ring:nth-child(2){ animation-delay:.6s; }
-        .ripple-ring:nth-child(3){ animation-delay:1.2s; }
-        .shimmer-btn  { background-size:200% auto; animation: shimmer 2.4s linear infinite; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-layout { animation: fadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
       `}</style>
 
-      {/* <NabhiHeader /> */}
-
-      <div className="max-w-[560px] mx-auto px-4 sm:px-6 pb-20 pt-20">
-
-        {/* ── Hero ── */}
-        <div className="anim-hero text-center pt-10 pb-6">
-          {/* Ripple + check */}
-          <div className="relative inline-flex items-center justify-center mb-5">
-            <div className="ripple-ring absolute w-20 h-20 rounded-full border-2 border-green-800/20" />
-            <div className="ripple-ring absolute w-20 h-20 rounded-full border-2 border-green-800/20" />
-            <div className="ripple-ring absolute w-20 h-20 rounded-full border-2 border-green-800/20" />
-            <div className="anim-popin relative z-10 w-[88px] h-[88px] rounded-full bg-gradient-to-br from-[#2d5a27] to-[#4a8c40] flex items-center justify-center shadow-[0_16px_48px_rgba(45,90,39,0.32),0_4px_12px_rgba(45,90,39,0.2)]">
-              <FaCheckCircle size={38} color="#fff" />
-            </div>
+      {/* Main Structural Wrapper Container */}
+      <div className="max-w-[1240px] mx-auto animate-layout">
+        
+        {/* ── Top Header Section ── */}
+        <div className="flex flex-col items-center text-center pb-8">
+          <div className="w-12 h-12 rounded-full bg-[#5d27aa]/10 flex items-center justify-center text-[#5d27aa] mb-4">
+            <FaCheckCircle size={26} />
           </div>
-
-          <h1
-            className="text-[clamp(1.75rem,5vw,2.1rem)] font-bold text-[#1a1a1a] leading-tight mb-2"
-            style={{ fontFamily: "'Cormorant Garamond', serif" }}
-          >
-            Order Confirmed!
-          </h1>
-          <p className="text-[clamp(0.875rem,2.5vw,0.9375rem)] text-[#555] leading-[1.75] max-w-[320px] mx-auto mb-3">
-            Thank you, <strong className="text-[#2d5a27]">{firstName}</strong>!{" "}
-            Your Nabhi Amrit is on its way.{" "}
-            <strong>{eddLabel}</strong>
-          </p>
-
-          <span className="inline-flex items-center gap-1.5 bg-green-800/10 border border-green-800/[0.18] rounded-full px-4 py-1.5 text-[0.8125rem] font-bold text-[#2d5a27] tracking-[0.03em]">
-            <HiSparkles size={12} />
-            Order #{orderId}
-          </span>
+          <h1 className="text-2xl font-normal tracking-tight text-[#21124c] mb-1">Thank you</h1>
+          <p className="text-xl font-medium text-[var(--color-black)] mb-2">Your order has been received</p>
+          <p className="text-xs text-[#aaa4b8] max-w-sm">You will receive an email/SMS notification with updates regarding your delivery details.</p>
         </div>
 
-        {/* ── Order Summary ── */}
-        <div className="anim-card-1 bg-white rounded-[20px] border border-[#e5e0d4] overflow-hidden mb-3 shadow-[0_2px_16px_rgba(0,0,0,0.05)]">
-          <div className="flex items-center gap-2.5 px-5 py-3.5 bg-gradient-to-r from-[#2d5a27] to-[#3d7534]">
-            <FaBoxOpen size={15} color="rgba(255,255,255,0.9)" />
-            <h2
-              className="text-[1.0625rem] font-bold text-white m-0"
-              style={{ fontFamily: "'Cormorant Garamond', serif" }}
-            >
-              Order Summary
-            </h2>
-          </div>
-
-          {/* Product */}
-          <div className="flex items-start justify-between gap-4 px-5 py-4 border-b border-[#f0ece2]">
-            <div>
-              <p className="text-[15px] font-bold text-[#1a1a1a] mb-1">Nabhi Amrit — {product}</p>
-              <span className="inline-flex items-center gap-1 text-[12px] font-semibold text-[#2d5a27]">
-                <FaLeaf size={10} /> 100% Ayurvedic Oil
-              </span>
+        {/* ── Order Details Panel ── */}
+        <div className="bg-white border border-[#aaa4b8]/30 rounded-xl shadow-[0_3px_14px_rgba(0,0,0,0.02)] p-6 my-6">
+          <h2 className="text-sm font-bold text-[var(--color-black)] mb-4">Order details</h2>
+          <div className="space-y-2.5 text-xs">
+            <div className="flex justify-between items-center text-[#aaa4b8]">
+              <span>Order number:</span>
+              <span className="font-semibold text-[#21124c]">{orderId}</span>
             </div>
-            <span className="text-[1.125rem] font-extrabold text-[#2d5a27] whitespace-nowrap">{price}</span>
-          </div>
-
-          {/* Subtotal */}
-          {order?._raw && order.subtotal > 0 && (
-            <Row label="Subtotal" value={`₹${Number(order.subtotal).toFixed(2)}`} />
-          )}
-
-          {/* Coupon */}
-          {order?._raw && order.couponDiscount > 0 && (
-            <div className="flex justify-between items-center px-5 py-3 border-b border-[#f0ece2] gap-4">
-              <span className="text-[13px] text-[#888] font-medium flex items-center gap-2 flex-wrap">
-                Coupon Discount
-                {order.couponCodes?.length > 0 && (
-                  <span className="text-[11px] bg-green-800/10 text-[#2d5a27] px-2 py-0.5 rounded-full font-bold">
-                    {order.couponCodes.join(", ")}
+            <div className="flex justify-between items-center text-[#aaa4b8]">
+              <span>Date:</span>
+              <span className="font-medium text-[#21124c]">{formattedDate}</span>
+            </div>
+            <div className="flex justify-between items-center text-[#aaa4b8] pb-2.5 border-b border-dashed border-[#aaa4b8]/20">
+              <span>Payment method:</span>
+              <span className="font-medium text-[#21124c]">{payment}</span>
+            </div>
+            
+            {/* Breakdowns */}
+            <div className="pt-2 space-y-2">
+              {order?.subtotal > 0 && (
+                <div className="flex justify-between items-center text-[#aaa4b8]">
+                  <span>Subtotal:</span>
+                  <span className="font-medium text-[#21124c]">₹{Number(order.subtotal).toFixed(2)}</span>
+                </div>
+              )}
+              {order?.couponDiscount > 0 && (
+                <div className="flex justify-between items-center text-[#aaa4b8]">
+                  <span className="flex items-center gap-1">
+                    Discount 
+                    {order.couponCodes?.length > 0 && (
+                      <span className="bg-[#f2eafa] text-[#5d27aa] text-[9px] px-1 py-0.5 rounded border border-[#5d27aa]/20">
+                        {order.couponCodes.join(", ")}
+                      </span>
+                    )}
                   </span>
-                )}
-              </span>
-              <span className="text-[13px] font-semibold text-red-600">
-                -₹{Number(order.couponDiscount).toFixed(2)}
-              </span>
-            </div>
-          )}
-
-          <Row label="Payment" value={payment} />
-          <Row
-            label="Shipping"
-            value={order?.shippingCharges > 0 ? `₹${order.shippingCharges}` : "FREE · 5–7 business days"}
-            last
-          />
-        </div>
-
-        {/* ── Delivery Details ── */}
-        <div className="anim-card-2 bg-white rounded-[20px] border border-[#e5e0d4] overflow-hidden mb-3 shadow-[0_2px_16px_rgba(0,0,0,0.05)]">
-          <div className="flex items-center gap-2.5 px-5 py-3.5 bg-[#fafaf7] border-b border-[#f0ece2]">
-            <TbTruckDelivery size={16} color="#2d5a27" />
-            <h2
-              className="text-[1.0625rem] font-bold text-[#1a1a1a] m-0"
-              style={{ fontFamily: "'Cormorant Garamond', serif" }}
-            >
-              Delivery Details
-            </h2>
-          </div>
-          <div className="px-5 py-4 flex flex-col gap-3">
-            {[
-              { icon: <MdVerified size={14} color="#2d5a27" />,      label: "Name",             value: name },
-              { icon: <FaPhone size={12} color="#2d5a27" />,          label: "Phone",            value: phone },
-              { icon: <FaMapMarkerAlt size={12} color="#2d5a27" />,   label: "Delivery Address", value: fullAddress || "—", small: true },
-              ...(edd && edd !== "5–7 business days"
-                ? [{ icon: <TbTruckDelivery size={14} color="#2d5a27" />, label: "Expected Delivery", value: edd }]
-                : []),
-            ].map(({ icon, label, value, small }) => (
-              <div key={label} className="flex items-start gap-3.5">
-                <div className="w-[34px] h-[34px] rounded-full bg-green-800/10 flex items-center justify-center shrink-0">
-                  {icon}
+                  <span className="font-medium text-[#a81313]">-₹{Number(order.couponDiscount).toFixed(2)}</span>
                 </div>
-                <div>
-                  <p className="text-[11px] font-bold text-[#aaa] uppercase tracking-[0.08em] mb-0.5">{label}</p>
-                  <p className={`font-semibold text-[#1a1a1a] leading-snug ${small ? "text-sm" : "text-[15px]"}`}>
-                    {value}
-                  </p>
-                </div>
+              )}
+              <div className="flex justify-between items-center text-[#aaa4b8]">
+                <span>Shipping cost:</span>
+                <span className="font-medium text-[#21124c]">{order?.shippingCharges > 0 ? `₹${order.shippingCharges}` : "FREE"}</span>
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* ── COD notice ── */}
-        {isCOD && (
-          <div className="anim-card-3 mb-3 rounded-[20px] border border-amber-200 bg-amber-50 px-5 py-4 flex items-start gap-3">
-            <span className="text-xl mt-0.5">💵</span>
-            <div>
-              <p className="text-sm font-bold text-amber-800 mb-0.5">Cash on Delivery</p>
-              <p className="text-xs text-amber-700 leading-relaxed">
-                Please keep <strong>{price}</strong> ready at the time of delivery.
-              </p>
+              <div className="flex justify-between items-center pt-2 text-sm font-bold text-[#21124c]">
+                <span>Total:</span>
+                <span className="text-sm text-[var(--color-black)] font-bold">{price}</span>
+              </div>
             </div>
           </div>
-        )}
+        </div>
 
-        {/* ── What's next ── */}
-        <div className="anim-card-4 rounded-[20px] border border-green-800/[0.18] bg-gradient-to-br from-[#f0f7ee] to-[#e8f3e5] px-5 py-4 mb-3 flex items-start gap-3.5">
-          <TbTruckDelivery size={24} color="#2d5a27" className="shrink-0 mt-0.5" />
-          <div>
-            <p
-              className="text-[1.0625rem] font-bold text-[#1a1a1a] mb-1"
-              style={{ fontFamily: "'Cormorant Garamond', serif" }}
-            >
-              What happens next?
-            </p>
-            <p className="text-[13px] text-[#555] leading-[1.85]">
-              • You'll receive an SMS with tracking details<br />
-              • Packed within <strong>24 hours</strong> of order placement<br />
-              • Delivered in <strong>{edd !== "5–7 business days" ? edd : "5–7 business days"}</strong>
-            </p>
+        {/* ── Products List Section ── */}
+        <div className="py-5 border-b border-[#aaa4b8]/30">
+          <h2 className="text-sm font-bold text-[var(--color-black)] mb-3">Products</h2>
+          <div className="space-y-4">
+            {order?.items?.length ? (
+              order.items.map((item, idx) => (
+                <div key={idx} className="flex justify-between items-start text-xs pb-3 border-b border-[#aaa4b8]/15 last:border-0 last:pb-0">
+                  <div>
+                    <p className="font-bold text-[#21124c]">{item.name || "Nabhi Amrit Product"}</p>
+                    <p className="text-[11px] text-[#aaa4b8] mt-0.5">Qty: {item.quantity || 1} {item.variant_id ? `· (${item.variant_id})` : ""}</p>
+                    <p className="text-[11px] text-[#5d27aa] font-medium mt-1 flex items-center gap-1"><FaLeaf size={8}/> Authentic Ayurvedic Package</p>
+                  </div>
+                  <span className="font-bold text-[var(--color-black)]">₹{Number(item.price || priceNum).toFixed(2)}</span>
+                </div>
+              ))
+            ) : (
+              <div className="flex justify-between items-start text-xs">
+                <div>
+                  <p className="font-bold text-[#21124c]">Nabhi Amrit — {product}</p>
+                  <p className="text-[11px] text-[#aaa4b8] mt-0.5">Qty: {order?.qty || 1}</p>
+                  <p className="text-[11px] text-[#5d27aa] font-medium mt-1 flex items-center gap-1"><FaLeaf size={8}/> 100% Ayurvedic Oil Package</p>
+                </div>
+                <span className="font-bold text-[var(--color-black)]">{price}</span>
+              </div>
+            )}
           </div>
         </div>
 
-        {/* ── View My Orders ── */}
-        <div className="anim-btn-1">
+        {/* ── Customer Details Section ── */}
+        <div className="py-6">
+          <h2 className="text-sm font-bold text-[var(--color-black)] mb-4">Customer details</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-xs">
+            {/* Column 1: Contact details */}
+            <div className="space-y-3">
+              <div>
+                <p className="text-[11px] font-bold text-[#aaa4b8] uppercase tracking-wider mb-1">Contact</p>
+                <p className="text-[#21124c] font-medium break-all">{email}</p>
+                <p className="text-[#aaa4b8] text-[11px] mt-0.5">{phone}</p>
+              </div>
+              {isCOD && (
+                <div className="p-3 bg-[#df8804]/10 border border-[#df8804]/20 rounded-lg text-[#df8804] text-[11px] leading-relaxed">
+                  <span className="font-bold block mb-0.5">💵 Cash on Delivery Notice:</span>
+                  Please prepare <strong className="font-bold">{price}</strong> in cash to complete checkout handover upon logistics delivery.
+                </div>
+              )}
+            </div>
+
+            {/* Column 2: Billing / Delivery address */}
+            <div>
+              <p className="text-[11px] font-bold text-[#aaa4b8] uppercase tracking-wider mb-1">Billing & Delivery address</p>
+              <div className="text-[#21124c] font-medium leading-relaxed">
+                <p className="text-[var(--color-black)] font-bold">{name}</p>
+                <p className="text-[#aaa4b8] mt-1 text-[11px]">{fullAddress || "—"}</p>
+                <span className="inline-flex bg-[#5d27aa]/10 text-[#5d27aa] text-[10px] font-bold px-2 py-0.5 rounded border border-[#5d27aa]/20 mt-2.5">
+                  Expected: {edd !== "5–7 business days" ? edd : "5-7 days"}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Action Navigation Interface ── */}
+        <div className="pt-6 border-t border-[#aaa4b8]/30 flex flex-col sm:flex-row gap-3">
           <button
             onClick={() => navigate("/my-orders-en")}
-            className="w-full border-[1.5px] border-[#2d5a27] rounded-[16px] px-5 py-3.5 bg-white flex items-center justify-center gap-2.5 text-[15px] font-bold text-[#2d5a27] hover:bg-green-50 active:scale-[.98] transition-all mb-3"
+            className="flex-1 border border-[#aaa4b8]/30 bg-white text-[#21124c] rounded-lg py-3 text-xs font-bold hover:bg-[#fafafa] active:scale-[0.99] transition-all flex items-center justify-center gap-2 shadow-xs"
           >
-            <FaBoxOpen size={14} color="#2d5a27" />
+            <FaBoxOpen size={12} />
             View My Orders
           </button>
-        </div>
-
-        {/* ── Continue Shopping ── */}
-        <div className="anim-btn-2">
           <button
             onClick={() => navigate("/products")}
-            className="shimmer-btn w-full rounded-[16px] px-5 py-4 bg-gradient-to-r from-[#2d5a27] via-[#4a8c40] to-[#1a3d16] text-white text-base font-extrabold flex items-center justify-center gap-2.5 shadow-[0_8px_28px_rgba(45,90,39,0.32)] active:scale-[.98] transition-transform"
+            className="flex-1 bg-[var(--color-black)] hover:bg-[var(--color-black)]/90 text-white rounded-lg py-3 text-xs font-bold shadow-xs active:scale-[0.99] transition-all flex items-center justify-center gap-2"
           >
-            <FaLeaf size={13} color="#fff" />
+            <FaLeaf size={11} />
             Continue Shopping
           </button>
         </div>
 
-        {/* ── Footer ── */}
-        <div className="text-center mt-8 text-[11px] text-[#bbb] leading-[1.7] pb-4">
-          <MdVerified
-            size={11} color="#2d5a27"
-            style={{ display: "inline", marginRight: 4, verticalAlign: "middle" }}
-          />
+        {/* ── Bottom Identity Branding ── */}
+        <div className="text-center mt-12 text-[11px] text-[#aaa4b8] font-medium">
           Nabhi Amrit · 100% Ayurvedic · Dreamz Hub © 2026
         </div>
 
