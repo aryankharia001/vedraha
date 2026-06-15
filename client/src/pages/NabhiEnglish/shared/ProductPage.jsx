@@ -4,7 +4,7 @@ import React from "react";
 import { MdVerified } from "react-icons/md";
 import { FaLeaf, FaShieldAlt, FaFlask } from "react-icons/fa";
 import { TbRefresh, TbTruckDelivery } from "react-icons/tb";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag, Truck, Package } from "lucide-react";
 
 import { backendurl } from "../../../App";
 
@@ -899,47 +899,161 @@ export default function ProductPage({ config, relatedProducts = [] }) {
   
   {/* Cash on Delivery Button */}
   <button
-    onClick={handleBuyNowDirect}
-    className="flex-1 h-12 p-0 border-0 cursor-pointer bg-transparent outline-none flex items-center justify-center gap-2 rounded-none"
+  onClick={handleBuyNowDirect}
+  className="flex-1 h-12 p-0 border-0 cursor-pointer bg-transparent outline-none flex items-center justify-center rounded-none"
+  style={{
+    WebkitTapHighlightColor: "transparent",
+    fontFamily: "var(--font-new-1)",
+    minHeight: "48px",
+    maxHeight: "48px",
+  }}
+>
+  <div
+    className="w-full flex items-center justify-between rounded-none"
     style={{
-      WebkitTapHighlightColor: "transparent",
-      fontFamily: "var(--font-new-1)",
+      background: themeColor,
+      height: "48px",
+      minHeight: "48px",
+      maxHeight: "48px",
     }}
   >
+    {/* Left: COD icon + divider */}
     <div
-      className="w-full h-12 flex items-center justify-center gap-2 rounded-none"
-      style={{ background: themeColor }}
+      className="flex items-center flex-shrink-0 pl-3"
+      style={{ height: "48px" }}
     >
-      <span className="text-sm font-bold text-white tracking-wide leading-none">
-        Cash On Delivery
-      </span>
-      {cartTotalQty > 0 && (
-        <span className="bg-white/25 px-2 py-0.5 text-xs font-bold text-white leading-none rounded-none">
-          {cartTotalQty}
-        </span>
-      )}
+      <div
+        className="flex items-center justify-center flex-shrink-0"
+        style={{
+          width: "28px",
+          height: "28px",
+          borderRadius: "50%",
+          border: "1.5px solid rgba(255,255,255,0.5)",
+        }}
+      >
+        <Package size={14} color="rgba(255,255,255,0.85)" strokeWidth={1.8} />
+      </div>
+      <div
+        className="flex-shrink-0 mx-2.5"
+        style={{
+          width: "1px",
+          height: "22px",
+          background: "rgba(255,255,255,0.25)",
+        }}
+      />
     </div>
-  </button>
+
+    {/* Right: Pay amount + COD label */}
+    {(() => {
+      const price = Math.floor(Number(selectedPrice)) || 0;
+      const total = price + 99;
+      return (
+        <div className="flex flex-col items-start justify-center flex-shrink-0 pr-3">
+          <span
+            className="text-white font-bold leading-none"
+            style={{ fontSize: "13px", letterSpacing: "0.01em" }}
+          >
+            Pay ₹{total.toLocaleString("en-IN")} on Delivery
+          </span>
+          <div className="flex items-center gap-1 mt-0.5">
+            <span
+              style={{
+                fontSize: "9px",
+                color: "rgba(255,255,255,0.75)",
+                letterSpacing: "0.1em",
+                fontWeight: 700,
+              }}
+            >
+              CASH ON DELIVERY
+            </span>
+            <span
+              style={{
+                fontSize: "9px",
+                color: "rgba(255,255,255,0.4)",
+                fontWeight: 700,
+              }}
+            >
+              |
+            </span>
+            <span
+              style={{
+                fontSize: "9px",
+                color: "rgba(255,255,255,0.75)",
+                letterSpacing: "0.05em",
+                fontWeight: 600,
+              }}
+            >
+              ₹{price.toLocaleString("en-IN")} + ₹99 SHIPPING
+            </span>
+          </div>
+        </div>
+      );
+    })()}
+  </div>
+</button>
+
 
   {/* Buy Now Button */}
-  <button
-    onClick={handleBuyNowDirect}
-    className="flex-1 h-12 p-0 border-0 cursor-pointer bg-transparent outline-none flex items-center justify-center rounded-none"
+<button
+  onClick={handleBuyNowDirect}
+  className="flex-1 h-12 p-0 border-0 cursor-pointer bg-transparent outline-none flex items-center justify-center rounded-none"
+  style={{
+    WebkitTapHighlightColor: "transparent",
+    fontFamily: "var(--font-new-1)",
+    minHeight: "48px",
+    maxHeight: "48px",
+  }}
+>
+  <div
+    className="w-full flex items-center justify-center rounded-none"
     style={{
-      WebkitTapHighlightColor: "transparent",
-      fontFamily: "var(--font-new-1)",
+      background: "black",
+      height: "48px",
+      minHeight: "48px",
+      maxHeight: "48px",
     }}
   >
+    {/* Left: UPI icons + divider */}
     <div
-      className="w-full h-12 flex items-center justify-center gap-2 rounded-none"
-      style={{ background: "black" }}
+      className="flex items-center flex-shrink-0 pl-3"
+      style={{ height: "48px" }}
     >
       <UpiStack icons={upiIcons} size="sm" />
-      <span className="text-sm font-bold text-white tracking-wide leading-none">
-        Buy Now
-      </span>
+      <div
+        className="flex-shrink-0 mx-2.5"
+        style={{
+          width: "1px",
+          height: "22px",
+          background: "rgba(255,255,255,0.25)",
+        }}
+      />
     </div>
-  </button>
+
+    {/* Right: Pay amount + FREE DELIVERY */}
+    <div className="flex flex-col items-start justify-center flex-shrink-0 pr-3 gap-0.5">
+      <span
+        className="text-white font-bold leading-none"
+        style={{ fontSize: "13px", letterSpacing: "0.01em" }}
+      >
+        Pay {selectedPrice} Now
+      </span>
+      <div className="flex items-center gap-1 mt-0.5">
+        
+        <span
+          style={{
+            fontSize: "9px",
+            color: "#c8a84b",
+            letterSpacing: "0.1em",
+            fontWeight: 700,
+          }}
+        >
+          FREE DELIVERY
+        </span>
+        <Truck size={11} color="#c8a84b" strokeWidth={2.5} />
+      </div>
+    </div>
+  </div>
+</button>
   
 </div>
 
