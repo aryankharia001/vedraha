@@ -38,6 +38,7 @@ import {
 } from '../constants/userConstants';
 import { ORDER_LIST_MY_RESET } from '../constants/orderConstants';
 import { backendurl } from '../App';
+import { wigzoIdentify } from '../utils/wigzo';
 
 // Action for user login
 export const login = (email, password, remember = false) => async (dispatch) => {
@@ -66,7 +67,11 @@ export const login = (email, password, remember = false) => async (dispatch) => 
 
     localStorage.setItem('userInfo', JSON.stringify(data));
     // console.log("USER DATA : ", data)
-    
+    wigzoIdentify({
+      email: data.email,
+      fullName: data.name,
+      phone: data.phone,
+    });
 
   } catch (error) {
     dispatch({
@@ -133,7 +138,11 @@ export const register = (name, email, phone, password) => async (dispatch) => {
 
     localStorage.setItem('userInfo', JSON.stringify(data));
 
-    
+    wigzoIdentify({
+      email: data.email,
+      fullName: data.name,
+      phone: data.phone,
+    });
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,

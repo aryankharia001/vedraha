@@ -24,6 +24,7 @@ import NabhiHeader from "../../../components/NabhiHeader";
 import NabhiHeaderTamil from "../../../components/NabhiHeaderTamil";
 
 import { trackAddToCart, trackInitiateCheckout, trackViewContent } from "../../../utils/metaCapi";
+import { wigzoTrack } from "../../../utils/wigzo";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 const getCookie = (name) => {
@@ -266,6 +267,26 @@ export default function ProductPage({ config, relatedProducts = [] }) {
   const handleAddToCart = () => {
     // trackFacebookEvent("AddToCart");
     const v = variants.find((vv) => vv.id === selectedVariant);
+
+    if (typeof wigzo !== 'undefined'){
+          wigzoTrack ("addtocart", {
+            canonicalURL: window.location.href,
+            productUrl: window.location.href,
+            title: product.name,
+            firstname: "",
+            price: v?.priceNum || selectedPrice,
+            previousPrice: v?.mrp || "",
+          description: product.description || "",
+          image: product.image || "",
+          productId: product.id,
+          category: product.category || "",
+          tags: product.tags?.join(",") || "",
+          author: product.author || "",
+          language: "en",
+          quantity: quantity,
+          variant: v?.label || "",
+        });
+      }
 
     trackAddToCart(product.id, product.name, selectedPrice, quantity);
 

@@ -501,6 +501,24 @@ router.post("/api/fire-shiprocket-postback", async (req, res) => {
 
 
 
+// POST /api/shiprocket/create-order
+router.post('/shiprocket/create-order', async (req, res) => {
+  try {
+    const response = await axios.post(
+      'https://sr-engage-webhook.shiprocket.in/order/create',
+      req.body,
+      { headers: { 'Content-Type': 'application/json' } }
+    );
+    
+    res.json(response.data);
+  } catch (err) {
+    console.error('Shiprocket error:', err?.response?.data || err.message);
+    res.status(500).json({ error: 'Shiprocket webhook failed' });
+  }
+});
+
+
+
 
 // generate token
 
